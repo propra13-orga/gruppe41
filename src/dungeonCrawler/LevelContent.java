@@ -1,4 +1,4 @@
-package dungeonCrowler;
+package dungeonCrawler;
 
 public class LevelContent {
 	int content;

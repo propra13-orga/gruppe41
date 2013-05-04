@@ -1,4 +1,4 @@
-package dungeonCrowler;
+package dungeonCrawler;
 
 /**
  * A level of dungeon
