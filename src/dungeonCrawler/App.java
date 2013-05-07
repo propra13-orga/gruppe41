@@ -1,8 +1,10 @@
 package dungeonCrawler;
 
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Application that includes dungeons and main window
@@ -49,8 +51,18 @@ public class App {
 
 	public void startGame() {
 		cp.removeAll();
-		Camera camera = new Camera(); 
+		Camera camera = new Camera(); //perhaps instead of camera a JPanel containing menu bar and camera
 		cp.add(camera);
+		
+	/*	JPanel tmp = new JPanel(); // test for clipping
+		tmp.setLayout(null);
+		tmp.setSize(150, 130);
+		camera.setSize(70, 70);
+		tmp.add(camera);
+		
+		tmp.validate();
+		cp.add(tmp);*/
+		
 		cp.validate();
 	}
 }

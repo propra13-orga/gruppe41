@@ -24,7 +24,9 @@ public class Camera extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
+		// TODO activate clipping (default is OK)
+		// TODO consider if shapes are in drawing area
+		// TODO draw those components
 		super.paintComponent(g);
 		g.drawLine(0, 0, 50, 50);
 	}

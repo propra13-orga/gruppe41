@@ -1,0 +1,14 @@
+listener interface
+	processEvent
+event class
+	types: collision, near, time, moved, ...
+	GameElement (collision with, nearing, ...)
+	
+drawable interface
+	draw
+
+
+GameElements (listener, shape) (with base class):
+	wall, player, trap, items ...
+methods:
+	
