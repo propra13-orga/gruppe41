@@ -7,8 +7,10 @@ package dungeonCrawler;
  *
  */
 public class Dungeon {
+	private int width;
+	private int height;
 	LevelContent[][] grid;
-	
+
 	// constructor
 	public Dungeon(int width, int height) {
 		// === Test ===
@@ -19,5 +21,29 @@ public class Dungeon {
 			}
 		}
 		// === Test Ende===
+	}
+
+	public int getWidth() {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
+	public void setWidth(int w) {
+		this.width = w;
+	}
+
+	public void setHeight(int h) {
+		this.height = h;
+	}
+
+	public LevelContent getContent(int w, int h) {
+		return this.grid[w][h];
+	}
+
+	public void setContent(int w, int h, LevelContent c) {
+		this.grid[w][h] = c;
 	}
 }
