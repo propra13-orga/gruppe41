@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import javax.swing.JFrame;
 
 /**
@@ -19,6 +20,8 @@ public class App {
 	public Container cp;
 	public MainMenu mainmenu;
 	Camera camera;
+	int level;
+	int n = 0;
 
 	// constructor
 	public App(int level, int width, int height) {
@@ -27,18 +30,21 @@ public class App {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("Dungeon Crawler");
 		window.setLocation(50, 50);
-//		window.setSize(width*50, height*50);
-		//		window.setResizable(false);
+		//window.setSize(width*50, height*50);
+		//window.setResizable(false);
 		// set dungeon parameters
 		dungeon = new Dungeon[level];
-		dungeon[0] = new Dungeon(width, height);
-
+		for (int i=0;i<level;i++) {
+			dungeon[i] = new Dungeon(width, height);
+		}
 		cp = window.getContentPane();
 		cp.setPreferredSize(new Dimension(width*50, height*50));
 		window.pack();
 		mainmenu = new MainMenu(this);
 		cp.add(mainmenu);
 
+		this.level = level;
+		window.addKeyListener(new Listener(this, n));
 	}
 
 	// view window
@@ -52,11 +58,14 @@ public class App {
 		cp.validate();
 	}
 
-	public void startGame() {
+	public void startGame(int n) {
+		this.n = n;
 		cp.removeAll();
-		loadLevel(dungeon[0], "level0.lvl");
-		Camera camera = new Camera(dungeon[0]); //perhaps instead of camera a JPanel containing menu bar and camera
+		loadLevel(dungeon[n], "level" + n + ".lvl");
+		Camera camera = new Camera(dungeon[n]);
+		//perhaps instead of camera a JPanel containing menu bar and camera
 		cp.add(camera);
+		cp.validate();
 
 		/*	JPanel tmp = new JPanel(); // test for clipping
 		tmp.setLayout(null);
@@ -67,7 +76,6 @@ public class App {
 		tmp.validate();
 		cp.add(tmp);*/
 
-		cp.validate();
 	}
 
 	public void loadLevel(Dungeon d, String s) {
@@ -89,4 +97,5 @@ public class App {
 			e.printStackTrace();
 		}
 	}
+
 }

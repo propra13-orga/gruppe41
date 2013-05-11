@@ -36,9 +36,14 @@ public class Camera extends JPanel {
 		System.out.println(dungeon.getHeight() + " " + dungeon.getWidth());
 		for (int i=0;i<dungeon.getHeight();i++) {
 			for (int j=0;j<dungeon.getWidth();j++) {
-				System.out.println(i + "," + j + "," + dungeon.getContent(j, i).content);
-				if (dungeon.getContent(j, i).content == LevelContent.WALL) g.setColor(Color.BLUE);
-				else g.setColor(Color.RED);
+				//System.out.println(i + "," + j + "," + dungeon.getContent(j, i).getContent());
+				switch (dungeon.getContent(j, i).getContent()) {
+				case LevelContent.SPACE: g.setColor(Color.WHITE); break;
+				case LevelContent.PLAYER: g.setColor(Color.BLUE); break;
+				case LevelContent.COMPUTER: g.setColor(Color.RED); break;
+				case LevelContent.WALL: g.setColor(Color.DARK_GRAY); break;
+				default: g.setColor(Color.LIGHT_GRAY);
+				}
 				g.fillRect(j*50+1, i*50+1, 48, 48);
 			}
 		}
