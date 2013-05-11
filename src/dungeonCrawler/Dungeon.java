@@ -9,10 +9,12 @@ package dungeonCrawler;
 public class Dungeon {
 	private int width;
 	private int height;
-	LevelContent[][] grid;
+	private LevelContent[][] grid;
 
 	// constructor
 	public Dungeon(int width, int height) {
+		this.width = width;
+		this.height = height;
 		// === Test ===
 		grid = new LevelContent[width][height];
 		for (int i=0;i<width;i++) {

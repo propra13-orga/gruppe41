@@ -3,6 +3,7 @@
  */
 package dungeonCrawler;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
  */
 public class Camera extends JPanel {
 	Dungeon dungeon;
+
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,12 +32,14 @@ public class Camera extends JPanel {
 		// TODO consider if shapes are in drawing area
 		// TODO draw those components
 		super.paintComponent(g);
-		g.drawLine(0, 0, 50, 50);
 		// === Test ===
 		System.out.println(dungeon.getHeight() + " " + dungeon.getWidth());
 		for (int i=0;i<dungeon.getHeight();i++) {
 			for (int j=0;j<dungeon.getWidth();j++) {
-				g.drawRect(j*10, i*10, 9, 9);
+				System.out.println(i + "," + j + "," + dungeon.getContent(j, i).content);
+				if (dungeon.getContent(j, i).content == LevelContent.WALL) g.setColor(Color.BLUE);
+				else g.setColor(Color.RED);
+				g.fillRect(j*50+1, i*50+1, 48, 48);
 			}
 		}
 		// === Test Ende===
