@@ -22,6 +22,7 @@ public class App {
 	Camera camera;
 	int level;
 	int n = 0;
+	Listener listener = new Listener(this);
 
 	// constructor
 	public App(int level, int width, int height) {
@@ -30,6 +31,8 @@ public class App {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("Dungeon Crawler");
 		window.setLocation(50, 50);
+		window.setFocusable(true);
+		window.addKeyListener(listener);
 		//window.setSize(width*50, height*50);
 		//window.setResizable(false);
 		// set dungeon parameters
@@ -44,7 +47,6 @@ public class App {
 		cp.add(mainmenu);
 
 		this.level = level;
-		window.addKeyListener(new Listener(this, n));
 	}
 
 	// view window
@@ -55,17 +57,26 @@ public class App {
 	public void startMainMenu(){
 		cp.removeAll();
 		cp.add(mainmenu);
-		cp.validate();
+		cp.repaint();
 	}
 
 	public void startGame(int n) {
-		this.n = n;
-		cp.removeAll();
-		loadLevel(dungeon[n], "level" + n + ".lvl");
-		Camera camera = new Camera(dungeon[n]);
-		//perhaps instead of camera a JPanel containing menu bar and camera
-		cp.add(camera);
-		cp.validate();
+		if (n<level) {
+			this.n = n;
+			dungeon[n].complete = false;
+			dungeon[n].complete = false;
+			loadLevel(dungeon[n], "level" + n + ".lvl");
+			cp.removeAll();
+			Camera camera = new Camera(dungeon[n]);
+			this.camera = camera;
+			//perhaps instead of camera a JPanel containing menu bar and camera
+			cp.add(camera);
+			cp.validate();
+		}
+		else {
+			n = 0;
+			startMainMenu();
+		}
 
 		/*	JPanel tmp = new JPanel(); // test for clipping
 		tmp.setLayout(null);
@@ -87,6 +98,8 @@ public class App {
 				for (int j=0;j<d.getWidth();j++) {
 					LevelContent c = new LevelContent(reader.read()-48);
 					d.setContent(j, i, c);
+					if (c.getContent() == LevelContent.PLAYER) d.setPlayerPosition(j, i);
+					if (c.getContent() == LevelContent.EXIT) d.setExitPosition(j, i);
 				}
 				reader.read(); // reads CR
 				reader.read(); // reads LF

@@ -1,3 +1,4 @@
 README
 
-Die Rechtschreibfehler in den (Javadoc-)Kommentaren dürfen korrigiert werden :) // Eugen Tissen
+Steuerung mit wasd. // Eugen T.
+Einige Ausnahmefehler sind noch nicht behoben. // Eugen T.
