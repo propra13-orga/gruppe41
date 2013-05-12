@@ -16,7 +16,7 @@ public class Dungeon {
 	public static final int RIGHT = 1;
 	public static final int DOWN = 2;
 	public static final int LEFT = 3;
-	public boolean dead = false;
+	public static boolean dead = false;
 	public boolean complete = false;
 
 	// constructor

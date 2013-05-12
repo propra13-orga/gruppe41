@@ -41,6 +41,7 @@ public class Listener implements KeyListener {
 		}
 		else	if (app.dungeon[app.n].dead) {
 			System.out.println("Died");
+			Dungeon.dead =false;
 			app.startGame(app.n);
 		}
 	}
