@@ -3,6 +3,8 @@
  */
 package dungeonCrawler.GameElements;
 
+import java.awt.Graphics;
+
 import dungeonCrawler.GameElement;
 import dungeonCrawler.Vector2d;
 
@@ -25,7 +27,7 @@ public class Wall extends GameElement {
 	 * @see dungeonCrawler.Drawable#draw()
 	 */
 	@Override
-	public void draw() {
+	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}
