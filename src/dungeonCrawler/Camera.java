@@ -27,6 +27,11 @@ public class Camera extends JPanel {
 		// TODO Auto-generated constructor stub
 		dungeon = d;
 	}
+	
+	public void initialize(GameLogic gl){
+		this.setFocusTraversalKeysEnabled(false);
+		this.addKeyListener(gl);
+	}
 
 	// paints a grid
 	@Override
