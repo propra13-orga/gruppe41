@@ -64,7 +64,6 @@ public class App {
 		if (n<level) {
 			this.n = n;
 			dungeon[n].complete = false;
-			dungeon[n].complete = false;
 			loadLevel(dungeon[n], "level" + n + ".lvl");
 			cp.removeAll();
 			Camera camera = new Camera(dungeon[n]);

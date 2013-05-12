@@ -14,4 +14,10 @@ public class DungeonCrawler {
 		App app = new App(3, 10, 5); // number of levels, width and length of a dungeon
 		app.start();
 	}
+	
+	public static void credits() {
+
+	}	
+	
+	
 }
