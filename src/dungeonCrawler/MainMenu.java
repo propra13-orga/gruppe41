@@ -20,15 +20,16 @@ public class MainMenu extends JPanel {
 	private JButton start;
 	private JButton exit;
 	private JButton credits;
+	private JButton setting;
 	private Container parent;
 	private MainMenu menu;
 	private App app;
+	//private Settings settings;
 
 	/**
 	 * 
 	 */
 	public MainMenu(App app) {
-		// TODO Auto-generated constructor stub
 		parent = this.getParent();
 		this.app = app;
 		menu = this;
@@ -36,13 +37,17 @@ public class MainMenu extends JPanel {
 	}
 	
 	public void initialize(){
-		this.setLayout(new GridLayout(3,1));
+		this.setLayout(new GridLayout(4,1));
 		start = new JButton("Start");
+		setting = new JButton("Settings");
 		exit = new JButton("Exit");
 		credits = new JButton("Credits");
 		this.add(start);
+		this.add(setting);
 		this.add(exit);
 		this.add(credits);
+		
+		
 		
 		start.addActionListener(new ActionListener(){
 
@@ -63,6 +68,16 @@ public class MainMenu extends JPanel {
 				
 			}
 			
+		});
+		
+	
+		setting.addActionListener(new ActionListener() {
+	
+			public void actionPerformed(ActionEvent e){
+			
+			Settings settings =new Settings();
+			settings.setVisible(true);
+			}
 		});
 		
 		credits.addActionListener(new ActionListener(){
