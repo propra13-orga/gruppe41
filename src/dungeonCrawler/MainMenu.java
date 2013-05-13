@@ -37,8 +37,8 @@ public class MainMenu extends JPanel {
 	
 	public void initialize(){
 		this.setLayout(new GridLayout(3,1));
-		start = new JButton("start");
-		exit = new JButton("exit");
+		start = new JButton("Start");
+		exit = new JButton("Exit");
 		credits = new JButton("Credits");
 		this.add(start);
 		this.add(exit);
@@ -68,13 +68,13 @@ public class MainMenu extends JPanel {
 		credits.addActionListener(new ActionListener(){
 			public void credits(){
 				 
-                // Erstellung Array vom Datentyp Object, HinzufÃ¼gen der Optionen               
+                // Erstellung Array vom Datentyp Object, Hinzufügen der Optionen               
                 Object[] options = {"OK"};
  
                 int selected = JOptionPane.showOptionDialog(null,
-                                                            "Dieses Projekt ist von: \n Eugen,\n Mathias,\n Florian,\n und Dominik\n" +
-                                                            "es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n" +
-                                                            "wir wÃ¼nschen euch viel spaÃŸ beim spielen!",
+                                                            "Dieses Projekt ist von:\n Eugen,\n Mathias,\n Florian,\n und Dominik\n" +
+                                                            "Es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n" +
+                                                            "Wir wünschen euch viel Spaß beim Spielen!",
                                                             "Credits",
                                                             JOptionPane.DEFAULT_OPTION, 
                                                             JOptionPane.PLAIN_MESSAGE, 

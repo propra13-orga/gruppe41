@@ -1,5 +1,11 @@
 package dungeonCrawler;
 
+/**
+ * This class describes all of contents in a dungeon
+ * 
+ * @author Tissen
+ *
+ */
 public class LevelContent {
 	private int type;
 	String name;
@@ -18,6 +24,7 @@ public class LevelContent {
 		this.name = "";
 	}
 	
+	// another constructor
 	public LevelContent(int content, String name) {
 		this.type = content;
 		this.name = name;
