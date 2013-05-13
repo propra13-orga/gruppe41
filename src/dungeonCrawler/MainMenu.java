@@ -20,9 +20,11 @@ public class MainMenu extends JPanel {
 	private JButton start;
 	private JButton exit;
 	private JButton credits;
+	private JButton setting;
 	private Container parent;
 	private MainMenu menu;
 	private App app;
+	//private Settings settings;
 
 	/**
 	 * 
@@ -36,13 +38,17 @@ public class MainMenu extends JPanel {
 	}
 	
 	public void initialize(){
-		this.setLayout(new GridLayout(3,1));
+		this.setLayout(new GridLayout(4,1));
 		start = new JButton("start");
+		setting = new JButton("Settings");
 		exit = new JButton("exit");
 		credits = new JButton("Credits");
 		this.add(start);
+		this.add(setting);
 		this.add(exit);
 		this.add(credits);
+		
+		
 		
 		start.addActionListener(new ActionListener(){
 
@@ -65,16 +71,26 @@ public class MainMenu extends JPanel {
 			
 		});
 		
+	
+		setting.addActionListener(new ActionListener() {
+	
+			public void actionPerformed(ActionEvent e){
+			
+			Settings settings =new Settings();
+			settings.setVisible(true);
+			}
+		});
+		
 		credits.addActionListener(new ActionListener(){
 			public void credits(){
 				 
-                // Erstellung Array vom Datentyp Object, Hinzufügen der Optionen               
+                // Erstellung Array vom Datentyp Object, Hinzuf��gen der Optionen               
                 Object[] options = {"OK"};
  
                 int selected = JOptionPane.showOptionDialog(null,
                                                             "Dieses Projekt ist von: \n Eugen,\n Mathias,\n Florian,\n und Dominik\n" +
                                                             "es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n" +
-                                                            "wir wünschen euch viel spaß beim spielen!",
+                                                            "wir w��nschen euch viel spa�� beim spielen!",
                                                             "Credits",
                                                             JOptionPane.DEFAULT_OPTION, 
                                                             JOptionPane.PLAIN_MESSAGE, 
