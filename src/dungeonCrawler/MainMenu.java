@@ -80,25 +80,25 @@ public class MainMenu extends JPanel {
 			}
 		});
 		
-		credits.addActionListener(new ActionListener(){
-			public void credits(){
-				 
-                // Erstellung Array vom Datentyp Object, Hinzufügen der Optionen               
-                Object[] options = {"OK"};
- 
-                int selected = JOptionPane.showOptionDialog(null,
-                                                            "Dieses Projekt ist von:\n Eugen,\n Mathias,\n Florian,\n und Dominik\n" +
-                                                            "Es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n" +
-                                                            "Wir wünschen euch viel Spaß beim Spielen!",
-                                                            "Credits",
-                                                            JOptionPane.DEFAULT_OPTION, 
-                                                            JOptionPane.PLAIN_MESSAGE, 
-                                                            null, options, null);
-                System.out.println(selected);
- 
-                //System.exit(0);
- 
-        }
+		credits.addActionListener(new ActionListener() {
+			public void credits() {
+
+				// Erstellung Array vom Datentyp Object, Hinzufügen der Optionen
+				Object[] options = { "OK" };
+
+				int selected = JOptionPane
+						.showOptionDialog(
+								null,
+								"Dieses Projekt ist von:\n Eugen,\n Matthias,\n Florian,\n und Dominik\n"
+										+ "Es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n"
+										+ "Wir wünschen euch viel Spaß beim Spielen!",
+								"Credits", JOptionPane.DEFAULT_OPTION,
+								JOptionPane.PLAIN_MESSAGE, null, options, null);
+				//System.out.println(selected);
+
+				// System.exit(0);
+
+			}
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
