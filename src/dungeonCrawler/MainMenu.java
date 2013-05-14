@@ -44,8 +44,8 @@ public class MainMenu extends JPanel {
 		credits = new JButton("Credits");
 		this.add(start);
 		this.add(setting);
-		this.add(exit);
 		this.add(credits);
+		this.add(exit);
 		
 		
 		
