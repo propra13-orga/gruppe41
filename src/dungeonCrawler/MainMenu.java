@@ -53,7 +53,7 @@ public class MainMenu extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				app.startGame(0);
+				app.startGame();
 				
 			}
 			

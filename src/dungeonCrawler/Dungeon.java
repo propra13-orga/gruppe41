@@ -98,7 +98,7 @@ public class Dungeon {
 			else	if (grid[x][y].getContent() == LevelContent.EXIT) {
 				grid[player.x][player.y].setContent(LevelContent.SPACE);
 				setPlayerPosition(x, y);
-				complete = true;
+				this.complete = true;
 			}
 			else	if (grid[x][y].getContent() == LevelContent.COMPUTER) {
 				dead = true; // player dies, restart level

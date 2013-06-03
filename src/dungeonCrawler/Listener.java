@@ -20,7 +20,8 @@ public class Listener implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// cheat ;)
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			app.startGame(app.currentLevel+1);
+			app.currentLevel++;
+			app.startGame();
 		}
 	}
 
@@ -37,11 +38,12 @@ public class Listener implements KeyListener {
 		}
 		app.camera.repaint();
 		if (app.dungeon[app.currentLevel].complete) {
-			app.startGame(app.currentLevel+1); // start next level
+			app.currentLevel++;
+			app.startGame(); // start next level
 		}
 		else	if (app.dungeon[app.currentLevel].dead) {
 			app.dungeon[app.currentLevel].dead = false; // cast voodoo spell
-			app.startGame(app.currentLevel); // restart level
+			app.startGame(); // restart level
 		}
 	}
 }
