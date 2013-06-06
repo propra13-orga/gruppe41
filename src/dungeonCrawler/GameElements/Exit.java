@@ -8,22 +8,19 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.Vector2d;
 
 /**
- * @author Mattes
+ * @author Tissen
  *
  */
-public class Wall extends GameElement {
+public class Exit extends GameElement {
 
 	/**
 	 * @param position
 	 * @param size
 	 */
-	public Wall(Vector2d position, Vector2d size) {
-		super(position, size, "WALL", EnumSet.of(ElementType.IMMOVABLE));
+	public Exit(Vector2d position, Vector2d size) {
+		super(position, size, "EXIT", EnumSet.of(ElementType.IMMOVABLE));
 	}
 
-	/* (non-Javadoc)
-	 * @see dungeonCrawler.Drawable#draw()
-	 */
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub

@@ -3,16 +3,12 @@
  */
 package dungeonCrawler;
 
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
+import dungeonCrawler.GameElements.Wall;
 
 /**loads a level from a file.
  * look for a *.lvl file to create your own level.
@@ -24,12 +20,15 @@ public class LevelLoader {
 	Dungeon level;
 	App app;
 	boolean loaded;
+	String folder = "Levels";
+	private GameElement element;
 
 	// constructor
 	public LevelLoader(Dungeon lvl, App a) {
 		this.level = lvl;
 		this.app = a;
 		this.loaded = false;
+		this.element = new Wall(new Vector2d(), new Vector2d());
 	}
 
 	public Dungeon getNextLevel() {
@@ -43,42 +42,41 @@ public class LevelLoader {
 	}
 
 	public Dungeon getLevel() {
+		String nummer = getLevelNumber(app.currentLevel);
 		try {
-			File f = new File("level" + app.currentLevel + ".lvl");
-			FileReader reader;
-			reader = new FileReader(f);
-			for (int i=0;i<level.getHeight();i++) {
-				for (int j=0;j<level.getWidth();j++) {
-					LevelContent c = new LevelContent(reader.read()-48);
-					level.setContent(j, i, c);
-					if (c.getContent() == LevelContent.PLAYER) level.setPlayerPosition(j, i);
-					if (c.getContent() == LevelContent.EXIT) level.setExitPosition(j, i);
+			File file = new File(folder + System.getProperty(File.separator) + "level" + nummer + ".lvl");
+			BufferedReader buffer = new BufferedReader(new FileReader(file));
+			buffer = new BufferedReader(buffer);
+			String input = null;
+			while ((input = buffer.readLine()) != null) {
+				if (parse(input)) {
+					level.setContent(element);
 				}
-				reader.read(); // reads CR
-				reader.read(); // reads LF
 			}
-			reader.close();
+			buffer.close();
 			loaded = true;
 		}
 		// show an error message
 		catch (IOException e) {
-			final JDialog dialog = new JDialog(app.window, "Warning", true);
-			dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
-			dialog.setSize(250, 90);
-			dialog.setLocation(150, 100);
-			dialog.setResizable(false);
-			dialog.add(new JLabel("Dungeon konnte nicht geladen werden."));
-			JButton button = new JButton("OK");
-			button.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					dialog.dispose();
-				}
-			});
-			dialog.add(button);
-			dialog.setVisible(true);
 			loaded = false;
 		}
 		return level;
+	}
+
+	private String getLevelNumber(int currentLevel) {
+		String str;
+		try {
+			str = Integer.toString(currentLevel) + "00";
+			str = str.substring(str.length()-2);
+		} catch (Exception e) {
+			return "";
+		}
+		return str;
+	}
+
+	private boolean parse(String input) {
+		// TODO implementieren
+		return false;
 	}
 	
 }

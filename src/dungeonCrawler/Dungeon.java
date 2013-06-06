@@ -1,5 +1,7 @@
 package dungeonCrawler;
 
+import java.util.ArrayList;
+
 /**
  * A level of dungeon
  * 
@@ -20,9 +22,11 @@ public class Dungeon {
 	// player and dungeon attributes
 	public boolean dead = false;
 	public boolean complete = false;
+	private ArrayList<GameElement> elements;
 
 	// constructor
 	public Dungeon(int width, int height) {
+		this.elements = null;
 		this.width = width;
 		this.height = height;
 		grid = new LevelContent[width][height];
@@ -55,6 +59,16 @@ public class Dungeon {
 
 	public void setContent(int w, int h, LevelContent c) {
 		this.grid[w][h] = c;
+	}
+	
+	public void setContent(GameElement element) {
+		if (checkPosition(element)) {
+			this.elements.add(element);
+		}
+		else {
+			Error err = new Error("");
+			err.show();
+		}
 	}
 
 	public void setPlayerPosition(int x, int y) {
@@ -108,4 +122,10 @@ public class Dungeon {
 			// do nothing
 		}
 	}
+	
+	private boolean checkPosition(GameElement element) {
+		// TODO: prüfe, ob an der Stelle bereits ein GameElement vorhanden ist 
+		return false;
+	}
+	
 }
