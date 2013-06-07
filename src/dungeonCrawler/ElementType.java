@@ -1,6 +1,6 @@
 package dungeonCrawler;
 
-//import java.util.EnumSet;
+import java.util.EnumSet;
 
 public enum ElementType {
 	WALKABLE, 
@@ -11,10 +11,10 @@ public enum ElementType {
 	
 /*	public static final EnumSet<ElementType> ACTIVE_MOVABLE = EnumSet.of(MOVABLE, ACTIVE);
 	public static final EnumSet<ElementType> PASSIVE_MOVABLE = EnumSet.of(MOVABLE, PASSIVE);
-	
-	public final boolean isMovable(){
-		return false;//t.contains(MOVABLE);
-	}*/
+	*/
+	public static final boolean isMovable(EnumSet<ElementType> set){
+		return set.contains(MOVABLE);
+	}
 }
 
 
