@@ -7,7 +7,7 @@ public class DungeonCrawler {
 	 * 
 	 * @param args (has no function)
 	 * <p>
-	 * @author Tissen
+	 * @author Tissen/Gruppe41
 	 * 
 	 */
 	public static void main(String[] args) {

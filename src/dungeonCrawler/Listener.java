@@ -3,45 +3,46 @@ package dungeonCrawler;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- * Listener that monitors the game
- * 
- * @author Tissen
- *
- */
 public class Listener implements KeyListener {
 	App app;
 
 	public Listener(App app) {
 		this.app = app;
 	}
-	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// cheat ;)
+		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			app.startGame(app.currentLevel+1);
+			System.out.println(app.n + "->" + app.n+1);
+			app.startGame(app.n+1);
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
 		switch (e.getKeyChar()) {
-		case 'w': app.dungeon[app.currentLevel].move(Dungeon.UP); break;
-		case 'd': app.dungeon[app.currentLevel].move(Dungeon.RIGHT); break;
-		case 's': app.dungeon[app.currentLevel].move(Dungeon.DOWN); break;
-		case 'a': app.dungeon[app.currentLevel].move(Dungeon.LEFT); break;
+		case 'w': app.dungeon[app.n].move(Dungeon.UP); break;
+		case 'd': app.dungeon[app.n].move(Dungeon.RIGHT); break;
+		case 's': app.dungeon[app.n].move(Dungeon.DOWN); break;
+		case 'a': app.dungeon[app.n].move(Dungeon.LEFT); break;
 		}
+		System.out.println(e.getKeyChar());
 		app.camera.repaint();
-		if (app.dungeon[app.currentLevel].complete) {
-			app.startGame(app.currentLevel+1); // start next level
+		if (app.dungeon[app.n].complete) {
+			System.out.println("Comleted");
+			app.startGame(app.n+1);
 		}
-		else	if (app.dungeon[app.currentLevel].dead) {
-			app.dungeon[app.currentLevel].dead = false; // cast voodoo spell
-			app.startGame(app.currentLevel); // restart level
+		else	if (app.dungeon[app.n].dead) {
+			System.out.println("Died");
+			Dungeon.dead =false;
+			app.startGame(app.n);
 		}
 	}
 }
