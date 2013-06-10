@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import dungeonCrawler.GameElements.Wall;
+import dungeonCrawler.GameElements.*;
 
 /**loads a level from a file.
  * look for a *.lvl file to create your own level.
@@ -20,15 +20,17 @@ public class LevelLoader {
 	Dungeon level;
 	App app;
 	boolean loaded;
-	String folder = "Levels";
+	private String folder = "Levels";
 	private GameElement element;
+	private String splitChar;
 
 	// constructor
 	public LevelLoader(Dungeon lvl, App a) {
 		this.level = lvl;
 		this.app = a;
 		this.loaded = false;
-		this.element = new Wall(new Vector2d(), new Vector2d());
+//		this.element = new Wall(new Vector2d(), new Vector2d());
+		this.splitChar = ",";
 	}
 
 	public Dungeon getNextLevel() {
@@ -42,9 +44,14 @@ public class LevelLoader {
 	}
 
 	public Dungeon getLevel() {
-		String nummer = getLevelNumber(app.currentLevel);
+		String number = getLevelNumber(app.currentLevel);
+		String separator = File.separator;
+		if (separator.equals(null)) {
+			Error err = new Error("File separator not found");
+			err.showMe();
+		}
 		try {
-			File file = new File(folder + System.getProperty(File.separator) + "level" + nummer + ".lvl");
+			File file = new File(folder + separator + "level" + number + ".lvl");
 			BufferedReader buffer = new BufferedReader(new FileReader(file));
 			buffer = new BufferedReader(buffer);
 			String input = null;
@@ -58,6 +65,7 @@ public class LevelLoader {
 		}
 		// show an error message
 		catch (IOException e) {
+			e.printStackTrace();
 			loaded = false;
 		}
 		return level;
@@ -75,8 +83,27 @@ public class LevelLoader {
 	}
 
 	private boolean parse(String input) {
-		// TODO implementieren
-		return false;
+		try {
+			String[] param = input.split(splitChar);
+			Vector2d position = new Vector2d(Integer.parseInt(param[1]), Integer.parseInt(param[2]));
+			Vector2d size = new Vector2d(Integer.parseInt(param[3]), Integer.parseInt(param[4]));
+			switch (param[0]) {
+			case "WALL":
+				element = new Wall(position, size); break;
+			case "TRAP":
+				element = new Trap(position, size); break;
+			case "EXIT":
+				element = new Exit(position, size); break;
+			case "PLAYER":
+				element = new Player(position, size); break;
+			}
+			return true;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			Error err = new Error("Kann '" + input + "' nicht interpretieren");
+			err.showMe();
+			return false;
+		}
 	}
 	
 }

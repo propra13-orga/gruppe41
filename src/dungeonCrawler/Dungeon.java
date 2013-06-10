@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * A level of dungeon
  * 
- * @author Tissen/Gruppe41
+ * @author Tissen
  *
  */
 public class Dungeon {
@@ -26,7 +26,7 @@ public class Dungeon {
 
 	// constructor
 	public Dungeon(int width, int height) {
-		this.elements = null;
+		this.elements = new ArrayList<GameElement>();
 		this.width = width;
 		this.height = height;
 		grid = new LevelContent[width][height];
@@ -66,8 +66,8 @@ public class Dungeon {
 			this.elements.add(element);
 		}
 		else {
-			Error err = new Error("");
-			err.show();
+			Error err = new Error("Kann '" + element.toString() + "' nicht setzen: Position nicht leer");
+			err.showMe();
 		}
 	}
 
@@ -123,9 +123,12 @@ public class Dungeon {
 		}
 	}
 	
-	private boolean checkPosition(GameElement element) {
-		// TODO: prüfe, ob an der Stelle bereits ein GameElement vorhanden ist 
-		return false;
+	private boolean checkPosition(GameElement newElement) {
+		for (GameElement e: elements) {
+			if (e.collision(newElement))
+				return false;
+		}
+		return true;
 	}
 	
 }

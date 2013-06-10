@@ -20,15 +20,16 @@ public class Error extends JDialog {
 		this.message = message;
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setTitle("Meldung");
-		this.setModal(true);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-		this.setSize(250, 90);
+		this.setSize(300, 200);
+		this.setModal(true);
 		this.setLocation(150, 100);
 		this.setResizable(false);
-		this.add(new JLabel(this.message));
+		JLabel label = new JLabel("<html>" + this.message + "</html>");
+		this.add(label);
 	}
 	
-	public void show() {
+	public void showMe() {
 		this.setVisible(true);
 	}
 	
