@@ -1,6 +1,5 @@
 package dungeonCrawler;
 
-import java.awt.FlowLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
@@ -20,7 +19,6 @@ public class Error extends JDialog {
 		this.message = message;
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setTitle("Meldung");
-		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 		this.setSize(300, 200);
 		this.setModal(true);
 		this.setLocation(150, 100);

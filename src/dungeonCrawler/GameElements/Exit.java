@@ -1,5 +1,6 @@
 package dungeonCrawler.GameElements;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
 
@@ -24,7 +25,8 @@ public class Exit extends GameElement {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(position.getX(), position.getY(), size.getX(), size.getY());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 /**
  * Application that includes dungeons and main window
@@ -21,6 +22,7 @@ public class App {
 	int currentLevel = 0; // current level number
 	Listener listener = new Listener(this); // listener that monitors the game
 	LevelLoader loader;
+	Timer timer;
 
 	// constructor
 	public App(int level, int width, int height) {
@@ -28,7 +30,6 @@ public class App {
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("Dungeon Crawler");
-		window.setLocation(50, 50);
 		window.setFocusable(true);
 		window.addKeyListener(listener);
 		//window.setSize(width*50, height*50);
@@ -40,15 +41,18 @@ public class App {
 			dungeon[i] = new Dungeon(width, height);
 		}
 		cp = window.getContentPane();
-		cp.setPreferredSize(new Dimension(width*50, height*50)); // size of the game elements is now 50x50  pixels
+		cp.setPreferredSize(new Dimension(width, height)); // size of the game elements is now 50x50  pixels
 		window.pack();
+		window.setLocationRelativeTo(null);
 		mainmenu = new MainMenu(this);
 		cp.add(mainmenu);
 		loader = new LevelLoader(dungeon[0], this);
+		timer = new Timer(100, null); // null durch einen ActionListener ersetzen
 	}
 
 	// view window
 	public void start() {
+		timer.start();
 		window.setVisible(true);
 	}
 
