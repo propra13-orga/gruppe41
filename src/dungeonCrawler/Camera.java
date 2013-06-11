@@ -33,14 +33,17 @@ public class Camera extends JPanel {
 		this.addKeyListener(gl);
 	}
 
-	// paints a grid
+	// paints all components
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO activate clipping (default is OK)
 		// TODO consider if shapes are in drawing area
 		// TODO draw those components
 		super.paintComponent(g);
-		for (int i=0;i<dungeon.getHeight();i++) {
+		for (GameElement e: dungeon.getContent()) {
+			e.draw(g);
+		}
+/*		for (int i=0;i<dungeon.getHeight();i++) {
 			for (int j=0;j<dungeon.getWidth();j++) {
 				switch (dungeon.getContent(j, i).getContent()) {
 				case LevelContent.SPACE: g.setColor(Color.WHITE); break;
@@ -53,5 +56,5 @@ public class Camera extends JPanel {
 				g.fillRect(j*50+1, i*50+1, 48, 48);
 			}
 		}
-	}
+*/	}
 }

@@ -13,8 +13,8 @@ public abstract class GameElement implements Drawable {
 	
 	public EnumSet<ElementType> type;
 	private String name;
-	private Vector2d position;
-	private Vector2d size;
+	protected Vector2d position;
+	protected Vector2d size;
 	private Vector2d topRight;
 	private Vector2d bottomRight;
 	private Vector2d bottomLeft;
@@ -97,6 +97,10 @@ public abstract class GameElement implements Drawable {
 			}
 		}
 		return false;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	/* (non-Javadoc)

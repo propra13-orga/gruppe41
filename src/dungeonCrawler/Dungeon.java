@@ -53,20 +53,28 @@ public class Dungeon {
 		this.height = h;
 	}
 
-	public LevelContent getContent(int w, int h) {
-		return this.grid[w][h];
-	}
-
-	public void setContent(int w, int h, LevelContent c) {
-		this.grid[w][h] = c;
+//	public LevelContent getContent(int w, int h) {
+//		return this.grid[w][h];
+//	}
+//
+//	public void setContent(int w, int h, LevelContent c) {
+//		this.grid[w][h] = c;
+//	}
+	
+	public ArrayList<GameElement> getContent() {
+		return elements;
 	}
 	
 	public void setContent(GameElement element) {
-		if (checkPosition(element)) {
+		GameElement e = checkPosition(element);
+		if (e == null) {
 			this.elements.add(element);
 		}
 		else {
-			Error err = new Error("Kann '" + element.toString() + "' nicht setzen: Position nicht leer");
+			Error err = new Error("Kann '" + element.getName() +
+					"', Position: " + element.position.getX() + "," + element.position.getY() +
+					" Größe: " + element.size.getX() + "," + element.size.getY() +
+					" nicht setzen. (" + e.getName() + ")");
 			err.showMe();
 		}
 	}
@@ -123,12 +131,12 @@ public class Dungeon {
 		}
 	}
 	
-	private boolean checkPosition(GameElement newElement) {
+	private GameElement checkPosition(GameElement newElement) {
 		for (GameElement e: elements) {
 			if (e.collision(newElement))
-				return false;
+				return e;
 		}
-		return true;
+		return null;
 	}
 	
 }
