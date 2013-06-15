@@ -3,7 +3,6 @@
  */
 package dungeonCrawler;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ListIterator;
 
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 public class Camera extends JPanel {
 	Dungeon dungeon;
 	GameContent lvl;
+	Vector2d position = new Vector2d(0,0);
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,9 +50,10 @@ public class Camera extends JPanel {
 		// TODO consider if shapes are in drawing area
 		// TODO draw those components
 		super.paintComponent(g);
-		for (GameElement e: dungeon.getContent()) {
+	/*	for (GameElement e: dungeon.getContent()) {
 			e.draw(g);
-		}
+		}*/
+		
 /*		for (int i=0;i<dungeon.getHeight();i++) {
 			for (int j=0;j<dungeon.getWidth();j++) {
 				switch (dungeon.getContent(j, i).getContent()) {
@@ -76,5 +77,15 @@ public class Camera extends JPanel {
 		}
 		
 		
-*/	}
+*/	
+		ListIterator<GameElement> it = lvl.getIterator();
+		GameElement tmp;
+		Graphics gr;
+		while(it.hasNext()){
+			tmp = it.next();
+			gr = g.create(tmp.position.getX(), tmp.position.getY(), tmp.getSize().getX(), tmp.getSize().getY());
+			tmp.draw(gr);
+			gr.dispose();
+		}
+	}
 }
