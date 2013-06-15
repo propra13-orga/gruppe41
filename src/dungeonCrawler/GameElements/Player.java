@@ -28,5 +28,9 @@ public class Player extends GameElement {
 		g.setColor(Color.BLUE);
 		g.fillRect(position.getX(), position.getY(), size.getX(), size.getY());
 	}
+	
+	public void setPosition(Vector2d pos) {
+		this.position = pos;
+	}
 
 }

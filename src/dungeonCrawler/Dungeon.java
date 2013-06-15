@@ -2,6 +2,8 @@ package dungeonCrawler;
 
 import java.util.ArrayList;
 
+import dungeonCrawler.GameElements.Player;
+
 /**
  * A level of dungeon
  * 
@@ -12,7 +14,7 @@ public class Dungeon {
 	private int width;
 	private int height;
 	private LevelContent[][] grid; // array of game elements
-	private LevelContent player = new LevelContent(1, "Player"); // player element
+	protected GameElement player; // player element
 	private LevelContent exit = new LevelContent(4, "Exit"); // dungeon exit
 	// final static direction values
 	public static final int UP = 0;
@@ -66,9 +68,15 @@ public class Dungeon {
 	}
 	
 	public void setContent(GameElement element) {
-		GameElement e = checkPosition(element);
+		GameElement e = collisionWith(element);
 		if (e == null) {
 			this.elements.add(element);
+			if (element.getName().equalsIgnoreCase("PLAYER")) {
+				player = new Player(element.getPosition(), element.getSize());
+				setPlayerPosition(element.position);
+			}
+			if (element.getName().equalsIgnoreCase("EXIT"))
+				setExitPosition(element.position.getX(), element.position.getY());
 		}
 		else {
 			Error err = new Error("Kann '" + element.getName() +
@@ -79,10 +87,8 @@ public class Dungeon {
 		}
 	}
 
-	public void setPlayerPosition(int x, int y) {
-		this.player.x = x;
-		this.player.y = y;
-		grid[x][y].setContent(LevelContent.PLAYER);
+	private void setPlayerPosition(Vector2d pos) {
+		this.player.position = pos;
 	}
 
 	public void setExitPosition(int x, int y) {
@@ -92,46 +98,45 @@ public class Dungeon {
 	}
 
 	// move a player if possible
-	public void move(int direction) {
-		int x = 0, y = 0;
+	public void move(GameElement element, int direction) {
+		Vector2d newPosition = element.getPosition(); 
 		switch (direction) {
 		case UP:
-			x = player.x;
-			y = player.y-1;
+			newPosition.setY(element.getPosition().getY()-1);
 			break;
 		case RIGHT:
-			x = player.x+1;
-			y = player.y;
+			newPosition.setX(element.getPosition().getX()+1);
 			break;
 		case DOWN:
-			x = player.x;
-			y = player.y+1;
+			newPosition.setY(element.getPosition().getY()+1);
 			break;
 		case LEFT:
-			x = player.x-1;
-			y = player.y;
+			newPosition.setX(element.getPosition().getX()-1);
 			break;
 		}
-		try {
-			if (grid[x][y].getContent() == LevelContent.SPACE) {
-				grid[player.x][player.y].setContent(LevelContent.SPACE);
-				setPlayerPosition(x, y);
-			}
-			else	if (grid[x][y].getContent() == LevelContent.EXIT) {
-				grid[player.x][player.y].setContent(LevelContent.SPACE);
-				setPlayerPosition(x, y);
-				this.complete = true;
-			}
-			else	if (grid[x][y].getContent() == LevelContent.COMPUTER) {
-				dead = true; // player dies, restart level
-			}
-		}
-		catch (ArrayIndexOutOfBoundsException e) {
-			// do nothing
-		}
+		element.setPosition(newPosition);
+//		try {
+//			GameElement e = collisionWith(element);
+//
+//			if (grid[x][y].getContent() == LevelContent.SPACE) {
+//				grid[player.x][player.y].setContent(LevelContent.SPACE);
+//				setPlayerPosition(x, y);
+//			}
+//			else	if (grid[x][y].getContent() == LevelContent.EXIT) {
+//				grid[player.x][player.y].setContent(LevelContent.SPACE);
+//				setPlayerPosition(x, y);
+//				this.complete = true;
+//			}
+//			else	if (grid[x][y].getContent() == LevelContent.COMPUTER) {
+//				dead = true; // player dies, restart level
+//			}
+//		}
+//		catch (ArrayIndexOutOfBoundsException e) {
+//			// do nothing
+//		}
 	}
 	
-	private GameElement checkPosition(GameElement newElement) {
+	private GameElement collisionWith(GameElement newElement) {
 		for (GameElement e: elements) {
 			if (e.collision(newElement))
 				return e;

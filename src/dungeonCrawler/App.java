@@ -20,7 +20,7 @@ public class App {
 	int level; // number of level
 	int currentLevel = 0; // current level number
 //	Listener listener = new Listener(this); // listener that monitors the game
-	GameLogic gameLogic = new GameLogic();
+	GameLogic gameLogic = new GameLogic(this);
 	LevelLoader loader;
 
 	// constructor
@@ -50,7 +50,6 @@ public class App {
 
 	// view window
 	public void start() {
-		gameLogic.timer.start();
 		window.setVisible(true);
 	}
 
@@ -72,6 +71,7 @@ public class App {
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
 				cp.validate();
+				gameLogic.timer.start();
 			}
 		}
 		else {

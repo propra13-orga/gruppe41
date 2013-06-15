@@ -42,6 +42,7 @@ public abstract class GameElement implements Drawable {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = new Vector2d();
 		this.size = new Vector2d();
+		myAngles();
 		this.name = "";
 	}
 	
@@ -101,6 +102,11 @@ public abstract class GameElement implements Drawable {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public void setPosition(Vector2d pos) {
+		this.position = pos;
+		myAngles();
 	}
 
 	/* (non-Javadoc)

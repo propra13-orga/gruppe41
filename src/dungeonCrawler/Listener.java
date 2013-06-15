@@ -31,10 +31,10 @@ public class Listener implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w': app.dungeon[app.currentLevel].move(Dungeon.UP); break;
-		case 'd': app.dungeon[app.currentLevel].move(Dungeon.RIGHT); break;
-		case 's': app.dungeon[app.currentLevel].move(Dungeon.DOWN); break;
-		case 'a': app.dungeon[app.currentLevel].move(Dungeon.LEFT); break;
+		case 'w': app.dungeon[app.currentLevel].move(app.dungeon[app.currentLevel].player, Dungeon.UP); break;
+		case 'd': app.dungeon[app.currentLevel].move(app.dungeon[app.currentLevel].player, Dungeon.RIGHT); break;
+		case 's': app.dungeon[app.currentLevel].move(app.dungeon[app.currentLevel].player, Dungeon.DOWN); break;
+		case 'a': app.dungeon[app.currentLevel].move(app.dungeon[app.currentLevel].player, Dungeon.LEFT); break;
 		}
 		app.camera.repaint();
 		if (app.dungeon[app.currentLevel].complete) {
