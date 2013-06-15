@@ -15,7 +15,6 @@ import javax.swing.JPanel;
  *
  */
 public class Camera extends JPanel {
-	Dungeon dungeon;
 	GameContent level;
 	Vector2d position = new Vector2d(0,0);
 
@@ -23,13 +22,8 @@ public class Camera extends JPanel {
 
 	/**
 	 * Constructor
-	 * @param d Current dungeon
+	 * @param level Current level
 	 */
-	public Camera(Dungeon d) {
-		// TODO Auto-generated constructor stub
-		dungeon = d;
-	}
-	
 	public Camera(GameContent level) {
 		this.level = level;
 	}

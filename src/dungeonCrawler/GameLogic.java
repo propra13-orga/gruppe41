@@ -67,21 +67,21 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
-		player = app.dungeon[app.currentLevel].player;
+		player = app.gameContent.getPlayer();
 		if (keys.get(37)) {// left arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.LEFT);
+			player.move(Direction.LEFT);
 			System.out.println("LEFT");
 		}
 		if (keys.get(38)) {// up arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.UP);
+			player.move(Direction.UP);
 			System.out.println("UP");
 		}
 		if (keys.get(39)) {// right arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.RIGHT);
+			player.move(Direction.RIGHT);
 			System.out.println("RIGHT");
 		}
 		if (keys.get(40)) {// down arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.DOWN);
+			player.move(Direction.DOWN);
 			System.out.println("DOWN");
 		}
 		if (e.getActionCommand() == "Timer")

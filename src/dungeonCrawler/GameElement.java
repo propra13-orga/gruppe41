@@ -104,10 +104,31 @@ public abstract class GameElement implements Drawable {
 		return name;
 	}
 	
-	public void setPosition(Vector2d pos) {
+	private void setPosition(Vector2d pos) {
 		this.position = pos;
 		myAngles();
 	}
+	
+	public void move(Direction dir) {
+		Vector2d newPosition = this.getPosition(); 
+		switch (dir) {
+		case LEFT:
+			newPosition.setX(this.getPosition().getX()-1);
+			break;
+		case UP:
+			newPosition.setY(this.getPosition().getY()-1);
+			break;
+		case RIGHT:
+			newPosition.setX(this.getPosition().getX()+1);
+			break;
+		case DOWN:
+			newPosition.setY(this.getPosition().getY()+1);
+			break;
+		}
+		// TODO: abfragen nach Kollisionen!
+		this.setPosition(newPosition);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see dungeonCrawler.Drawable#draw()

@@ -13,7 +13,6 @@ import javax.swing.JFrame;
  */
 public class App {
 	JFrame window; // main window
-	Dungeon[] dungeon; // levels of dungeon
 	public Container cp; // content pane
 	public MainMenu mainmenu; // main menu
 	Camera camera; // camera that shows a current level
@@ -36,10 +35,6 @@ public class App {
 		window.setResizable(false);
 		// set dungeon parameters
 		this.level = level;
-		dungeon = new Dungeon[level];
-		for (int i=0;i<level;i++) {
-			dungeon[i] = new Dungeon(width, height);
-		}
 		cp = window.getContentPane();
 		cp.setPreferredSize(new Dimension(width, height)); // size of the game elements is now 50x50  pixels
 		window.pack();
