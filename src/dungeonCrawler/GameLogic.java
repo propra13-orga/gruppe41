@@ -1,17 +1,24 @@
 package dungeonCrawler;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
 
-public class GameLogic implements KeyListener {
+import javax.swing.Timer;
+
+public class GameLogic implements KeyListener, ActionListener {
 	
 	private GameContent level;
 	private BitSet keys;
+	Timer timer;
 
 	public GameLogic() {
 		// TODO Auto-generated constructor stub
+		keys = new BitSet();
 		keys.clear();
+		timer = new Timer(100, this);
 	}
 
 	@Override
@@ -50,6 +57,12 @@ public class GameLogic implements KeyListener {
 	
 	public boolean teleportElement(GameElement e, Vector2d position){
 		return false;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
+		
 	}
 
 }
