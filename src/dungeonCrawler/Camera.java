@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  */
 public class Camera extends JPanel {
 	Dungeon dungeon;
-	GameContent lvl;
+	GameContent level;
 	Vector2d position = new Vector2d(0,0);
 
 	private static final long serialVersionUID = 1L;
@@ -30,12 +30,16 @@ public class Camera extends JPanel {
 		dungeon = d;
 	}
 	
+	public Camera(GameContent level) {
+		this.level = level;
+	}
+	
 	public GameContent getLvl() {
-		return lvl;
+		return level;
 	}
 
 	public void setLvl(GameContent lvl) {
-		this.lvl = lvl;
+		this.level = lvl;
 	}
 
 	public void initialize(GameLogic gl){
@@ -78,14 +82,17 @@ public class Camera extends JPanel {
 		
 		
 */	
-		ListIterator<GameElement> it = lvl.getIterator();
-		GameElement tmp;
-		Graphics gr;
-		while(it.hasNext()){
-			tmp = it.next();
-			gr = g.create(tmp.position.getX(), tmp.position.getY(), tmp.getSize().getX(), tmp.getSize().getY());
-			tmp.draw(gr);
-			gr.dispose();
+		if (level != null) {
+			ListIterator<GameElement> it = level.getIterator();
+			GameElement tmp;
+			Graphics gr;
+			while (it.hasNext()) {
+				tmp = it.next();
+				gr = g.create(tmp.position.getX(), tmp.position.getY(), tmp
+						.getSize().getX(), tmp.getSize().getY());
+				tmp.draw(gr);
+				gr.dispose();
+			}
 		}
 	}
 }
