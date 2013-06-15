@@ -20,7 +20,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
-		timer = new Timer(100, this);
+		timer = new Timer(50, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;

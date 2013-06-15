@@ -12,8 +12,8 @@ import java.util.ListIterator;
  */
 public class GameContent {
 
-	private LinkedList<GameElement> gameElements;
-	private LinkedList<GameElement> movables;
+	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
+	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
 	/**
 	 * 
 	 */

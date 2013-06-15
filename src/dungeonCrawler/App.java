@@ -20,8 +20,9 @@ public class App {
 	int level; // number of level
 	int currentLevel = 0; // current level number
 //	Listener listener = new Listener(this); // listener that monitors the game
-	GameLogic gameLogic = new GameLogic(this);
-	LevelLoader loader;
+	protected GameLogic gameLogic = new GameLogic(this);
+	protected LevelLoader loader;
+	protected GameContent gameContent = new GameContent();
 
 	// constructor
 	public App(int level, int width, int height) {

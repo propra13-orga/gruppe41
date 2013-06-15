@@ -57,7 +57,11 @@ public class LevelLoader {
 			String input = null;
 			while ((input = buffer.readLine()) != null) {
 				if (parse(input)) {
-					level.setContent(element);
+					level.setContent(element); // alte Version, später entfernen
+					if (!app.gameContent.addGameElement(element)) {
+						Error err = new Error("Kann '" + input + "' nicht interpretieren");
+						err.showMe();
+					}
 				}
 			}
 			buffer.close();
