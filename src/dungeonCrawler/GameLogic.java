@@ -9,7 +9,7 @@ import java.util.BitSet;
 import javax.swing.Timer;
 
 public class GameLogic implements KeyListener, ActionListener {
-	
+
 	private GameContent level;
 	private BitSet keys;
 	protected Timer timer;
@@ -51,15 +51,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void setLevel(GameContent level) {
 		this.level = level;
 	}
-	
-	public boolean moveElement(GameElement e, Vector2d direction){
-		if(e.type.contains(ElementType.MOVABLE)){
-			return true;
-		}
-		else
-			return false;
-	}
-	
+
 	public boolean teleportElement(GameElement e, Vector2d position){
 		return false;
 	}
@@ -67,23 +59,26 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
-		player = app.gameContent.getPlayer();
+		player = level.getPlayer();
+		Vector2d direction = player.getPosition();
 		if (keys.get(37)) {// left arrow
-			player.move(Direction.LEFT);
+			direction = direction.addX(-2);
 			System.out.println("LEFT");
 		}
 		if (keys.get(38)) {// up arrow
-			player.move(Direction.UP);
+			direction = direction.addY(-2);
 			System.out.println("UP");
 		}
 		if (keys.get(39)) {// right arrow
-			player.move(Direction.RIGHT);
+			direction = direction.addX(2);
 			System.out.println("RIGHT");
 		}
 		if (keys.get(40)) {// down arrow
-			player.move(Direction.DOWN);
+			direction = direction.addY(2);
 			System.out.println("DOWN");
 		}
+		if(!keys.isEmpty()) player.moveElement(direction);
+
 		if (e.getActionCommand() == "Timer")
 			app.camera.repaint();
 	}

@@ -10,7 +10,7 @@ import java.util.EnumSet;
  *
  */
 public abstract class GameElement implements Drawable {
-	
+
 	public EnumSet<ElementType> type;
 	private String name;
 	protected Vector2d position;
@@ -45,21 +45,21 @@ public abstract class GameElement implements Drawable {
 		myAngles();
 		this.name = "";
 	}
-	
+
 	private void myAngles() {
 		topRight = new Vector2d(position.getX()+size.getX()-1, position.getY());
 		bottomRight = new Vector2d(position.getX()+size.getX()-1, position.getY()+size.getY()-1);
 		bottomLeft = new Vector2d(position.getX(), position.getY()+size.getY()-1);
 	}
-	
+
 	public Vector2d getPosition() {
 		return position;
 	}
-	
+
 	public Vector2d getSize() {
 		return size;
 	}
-	
+
 	private Vector2d getTopLeft() {
 		return position;
 	}
@@ -79,7 +79,7 @@ public abstract class GameElement implements Drawable {
 		bottomLeft.setY(position.getY()+size.getY()-1);
 		return bottomLeft;
 	}
-	
+
 	public boolean collision(GameElement element) {
 		if ((this.getTopLeft().getX()<=element.getTopLeft().getX()) && (this.getTopRight().getX()>=element.getTopLeft().getX())) {
 			if ((this.getTopLeft().getY()<=element.getTopLeft().getY()) && (this.getBottomLeft().getY()>=element.getTopLeft().getY())) {
@@ -99,16 +99,16 @@ public abstract class GameElement implements Drawable {
 		}
 		return false;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
-	private void setPosition(Vector2d pos) {
+
+	public void setPosition(Vector2d pos) {
 		this.position = pos;
 		myAngles();
 	}
-	
+
 	public void move(Direction dir) {
 		Vector2d newPosition = this.getPosition(); 
 		switch (dir) {
@@ -127,6 +127,15 @@ public abstract class GameElement implements Drawable {
 		}
 		// TODO: abfragen nach Kollisionen!
 		this.setPosition(newPosition);
+	}
+
+	public boolean moveElement(Vector2d direction){
+		if(this.type.contains(ElementType.MOVABLE)){
+			this.setPosition(direction);
+			return true;
+		}
+		else
+			return false;
 	}
 
 

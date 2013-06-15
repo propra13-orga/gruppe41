@@ -6,6 +6,8 @@ package dungeonCrawler;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import dungeonCrawler.GameElements.Player;
+
 /**
  * @author Mattes
  *
@@ -20,10 +22,6 @@ public class GameContent {
 	 */
 	public GameContent() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public GameElement getPlayer() {
-		return player;
 	}
 
 	public boolean addGameElement(GameElement e){
@@ -43,6 +41,10 @@ public class GameContent {
 			player = e;
 		if(e.type.contains(ElementType.MOVABLE))
 			ret &= this.movables.add(e);
+		if(e instanceof Player){
+			this.player = e;
+		}
+		System.out.println(gameElements.size());
 		return this.gameElements.add(e) && ret;
 	}
 
@@ -60,6 +62,14 @@ public class GameContent {
 				return e;
 		}
 		return null;
+	}
+	
+	public GameElement getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(GameElement player) {
+		this.player = player;
 	}
 
 }
