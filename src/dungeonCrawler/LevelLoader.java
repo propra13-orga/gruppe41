@@ -17,7 +17,7 @@ import dungeonCrawler.GameElements.*;
  *
  */
 public class LevelLoader {
-	Dungeon level;
+	GameContent level;
 	App app;
 	boolean loaded;
 	private String folder = "Levels";
@@ -25,7 +25,7 @@ public class LevelLoader {
 	private String splitChar;
 
 	// constructor
-	public LevelLoader(Dungeon lvl, App a) {
+	public LevelLoader(GameContent lvl, App a) {
 		this.level = lvl;
 		this.app = a;
 		this.loaded = false;
@@ -33,17 +33,17 @@ public class LevelLoader {
 		this.splitChar = ",";
 	}
 
-	public Dungeon getNextLevel() {
-		if (app.currentLevel<app.level-1) app.currentLevel++;
-		return getLevel();
-	}
+//	public Dungeon getNextLevel() {
+//		if (app.currentLevel<app.level-1) app.currentLevel++;
+//		return getLevel();
+//	}
+//
+//	public Dungeon getPreviousLevel() {
+//		if (app.currentLevel > 0) app.currentLevel--;
+//		return getLevel();
+//	}
 
-	public Dungeon getPreviousLevel() {
-		if (app.currentLevel > 0) app.currentLevel--;
-		return getLevel();
-	}
-
-	public Dungeon getLevel() {
+	public GameContent getLevel() {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
 		if (separator.equals(null)) {
@@ -57,8 +57,8 @@ public class LevelLoader {
 			String input = null;
 			while ((input = buffer.readLine()) != null) {
 				if (parse(input)) {
-					level.setContent(element); // alte Version, später entfernen
-					if (!app.gameContent.addGameElement(element)) {
+//					level.setContent(element); // alte Version, später entfernen
+					if (!level.addGameElement(element)) {
 						Error err = new Error("Kann '" + input + "' nicht interpretieren");
 						err.showMe();
 					}
@@ -100,6 +100,8 @@ public class LevelLoader {
 				element = new Exit(position, size); break;
 			case "PLAYER":
 				element = new Player(position, size); break;
+			case "NPC":
+				element = new NPC(position, size); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

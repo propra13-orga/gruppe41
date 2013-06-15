@@ -22,7 +22,7 @@ public class App {
 //	Listener listener = new Listener(this); // listener that monitors the game
 	protected GameLogic gameLogic = new GameLogic(this);
 	protected LevelLoader loader;
-	protected GameContent gameContent = new GameContent();
+	protected GameContent gameContent;
 
 	// constructor
 	public App(int level, int width, int height) {
@@ -46,7 +46,8 @@ public class App {
 		window.setLocationRelativeTo(null);
 		mainmenu = new MainMenu(this);
 		cp.add(mainmenu);
-		loader = new LevelLoader(dungeon[0], this);
+		gameContent = new GameContent();
+		loader = new LevelLoader(gameContent, this);
 	}
 
 	// view window
@@ -63,11 +64,11 @@ public class App {
 	// starts a new level
 	public void startGame() {
 		if (currentLevel<level) {
-			dungeon[currentLevel].complete = false;
-			dungeon[currentLevel] = loader.getLevel();
+//			dungeon[currentLevel].complete = false;
+			gameContent = loader.getLevel();
 			if (loader.loaded) {
 				cp.removeAll();
-				Camera camera = new Camera(dungeon[currentLevel]);
+				Camera camera = new Camera(gameContent);
 				this.camera = camera;
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
