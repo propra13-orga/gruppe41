@@ -5,6 +5,7 @@ package dungeonCrawler;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ListIterator;
 
 import javax.swing.JPanel;
 
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
  */
 public class Camera extends JPanel {
 	Dungeon dungeon;
+	GameContent lvl;
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +30,14 @@ public class Camera extends JPanel {
 		dungeon = d;
 	}
 	
+	public GameContent getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(GameContent lvl) {
+		this.lvl = lvl;
+	}
+
 	public void initialize(GameLogic gl){
 		this.setFocusTraversalKeysEnabled(false);
 		this.addKeyListener(gl);
@@ -56,5 +66,15 @@ public class Camera extends JPanel {
 				g.fillRect(j*50+1, i*50+1, 48, 48);
 			}
 		}
+		
+		Vector2d position = new Vector2d(0,0);
+		ListIterator<GameElement> it = lvl.getIterator();
+		GameElement tmp;
+		while(it.hasNext()){
+			tmp = it.next();
+			tmp.draw(g, position.add(tmp.getPosition()));
+		}
+		
+		
 */	}
 }

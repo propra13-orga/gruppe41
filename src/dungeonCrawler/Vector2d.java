@@ -13,6 +13,9 @@ public class Vector2d {
 		x = 0;
 		y = 0;
 	}
+	public Vector2d add(Vector2d a){
+		return new Vector2d(a.getX() + this.x, a.getY() + this.y);
+	}
 	public static Vector2d add(Vector2d a, Vector2d b){
 		return new Vector2d(a.getX() + b.getX(), a.getY() + b.getY());
 	}
