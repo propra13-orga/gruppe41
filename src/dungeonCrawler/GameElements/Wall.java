@@ -29,7 +29,7 @@ public class Wall extends GameElement {
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(position.getX(), position.getY(), size.getX(), size.getY());
+		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 
 }

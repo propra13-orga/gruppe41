@@ -54,6 +54,9 @@ public class GameLogic implements KeyListener, ActionListener {
 	
 	public boolean moveElement(GameElement e, Vector2d direction){
 		if(e.type.contains(ElementType.MOVABLE)){
+			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
+			e.setPosition(e.position.add(new Vector2d(0, direction.getY())));
+			e.setPosition(direction.add(e.position));
 			return true;
 		}
 		else
@@ -67,23 +70,30 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
-		player = app.dungeon[app.currentLevel].player;
+		player = level.getPlayer();
+		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(37)) {// left arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.LEFT);
+			direction = direction.addX(-2);
+//			app.dungeon[app.currentLevel].move(player, Dungeon.LEFT);
 			System.out.println("LEFT");
 		}
 		if (keys.get(38)) {// up arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.UP);
+			direction = direction.addY(-2);
+//			app.dungeon[app.currentLevel].move(player, Dungeon.UP);
 			System.out.println("UP");
 		}
 		if (keys.get(39)) {// right arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.RIGHT);
+			direction = direction.addX(2);
+//			app.dungeon[app.currentLevel].move(player, Dungeon.RIGHT);
 			System.out.println("RIGHT");
 		}
 		if (keys.get(40)) {// down arrow
-			app.dungeon[app.currentLevel].move(player, Dungeon.DOWN);
+			direction = direction.addY(2);
+//			app.dungeon[app.currentLevel].move(player, Dungeon.DOWN);
 			System.out.println("DOWN");
 		}
+		if(!keys.isEmpty()) moveElement(player, direction);
+		
 		if (e.getActionCommand() == "Timer")
 			app.camera.repaint();
 	}

@@ -26,7 +26,7 @@ public class Player extends GameElement {
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(Color.BLUE);
-		g.fillRect(position.getX(), position.getY(), size.getX(), size.getY());
+		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 	
 	public void setPosition(Vector2d pos) {

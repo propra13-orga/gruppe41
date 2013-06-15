@@ -69,6 +69,7 @@ public class App {
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);
+				gameLogic.setLevel(gameContent);
 				this.camera = camera;
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
