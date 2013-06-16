@@ -25,7 +25,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
-		timer = new Timer(50, this);
+		timer = new Timer(10, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
@@ -107,19 +107,19 @@ public class GameLogic implements KeyListener, ActionListener {
 		Vector2d position = player.getPosition();
 		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(37)) {// left arrow
-			direction = direction.addX(-5);
+			direction = direction.addX(-1);
 			System.out.println("LEFT");
 		}
 		if (keys.get(38)) {// up arrow
-			direction = direction.addY(-5);
+			direction = direction.addY(-1);
 			System.out.println("UP");
 		}
 		if (keys.get(39)) {// right arrow
-			direction = direction.addX(5);
+			direction = direction.addX(1);
 			System.out.println("RIGHT");
 		}
 		if (keys.get(40)) {// down arrow
-			direction = direction.addY(5);
+			direction = direction.addY(1);
 			System.out.println("DOWN");
 		}
 		if (keys.get(27)) { // ESC

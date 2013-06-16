@@ -100,6 +100,9 @@ public class LevelLoader {
 				element = new WarpPoint(position, size);
 				((WarpPoint)element).setTarget(new Vector2d(Integer.parseInt(param[5]), Integer.parseInt(param[6])));
 				break;
+			case "HEALTHPOT":
+				element = new Healthpot(position, size);
+				break;				
 			}
 			return true;
 		} catch (NumberFormatException e) {
