@@ -58,12 +58,10 @@ public class GameLogic implements KeyListener, ActionListener {
 	
 	public boolean moveElement(GameElement e, Vector2d direction){
 		if(e.type.contains(ElementType.MOVABLE)){
+//			System.out.println("test" + collisioncheck.type.toString());
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
 			for(GameElement collisioncheck : level.getGameElements()){
-				System.out.println("test" + collisioncheck.type.toString());
 				if(e.collision(collisioncheck)){
-//					System.out.println("test" + collisioncheck.type.toString());
-						
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
 						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
 					}
