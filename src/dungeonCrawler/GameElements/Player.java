@@ -57,6 +57,7 @@ public class Player extends GameElement {
 	
 	public void increaseHealt(int Health) {
 		this.Health += Health;
+		if(this.Health > this.maxHealth) this.Health = this.maxHealth;
 	}
 	
 	public void reduceHealth(int Health, GameLogic logic) {
@@ -76,6 +77,14 @@ public class Player extends GameElement {
 				logic.teleportElement(this, logic.getCheckPoint());
 			}
 		}
+	}
+	
+	public boolean reduceMana(int mana, GameLogic logic) {
+		if (this.mana-mana >= 0){
+			this.mana = this.mana-mana;
+			return true;
+		}
+		return false;
 	}
 	
 	public int getHealt() {
