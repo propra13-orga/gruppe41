@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
+import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -33,6 +34,12 @@ public class Movable extends GameElement {
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void GameEventPerformed(GameEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.EnumSet;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
+import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -30,6 +31,12 @@ public class Wall extends GameElement {
 		// TODO Auto-generated method stub
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, size.getX(), size.getY());
+	}
+
+	@Override
+	public void GameEventPerformed(GameEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

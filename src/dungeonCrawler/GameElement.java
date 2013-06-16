@@ -9,7 +9,7 @@ import java.util.EnumSet;
  * @author Mattes, Tissen
  *
  */
-public abstract class GameElement implements Drawable {
+public abstract class GameElement implements Drawable, GameListener {
 
 	public EnumSet<ElementType> type;
 	private String name;

@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.util.EnumSet;
 
 import dungeonCrawler.ElementType;
+import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
+import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -27,6 +29,14 @@ public class Trap extends GameElement {
 		// TODO Auto-generated method stub
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, size.getX(), size.getY());
+	}
+
+	@Override
+	public void GameEventPerformed(GameEvent e) {
+		// TODO Auto-generated method stub
+		if(e.element instanceof Player && e.type == EventType.COLLISION){
+			System.out.println("autsch!");
+		}
 	}
 
 }
