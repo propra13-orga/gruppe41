@@ -17,6 +17,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Timer timer;
 	private App app;
 	GameElement player;
+	private ShopSystem shop;
 
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
@@ -115,6 +116,10 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (keys.get(40)) {// down arrow
 			direction = direction.addY(2);
 			System.out.println("DOWN");
+		}
+		if (keys.get(27)) { // ESC
+			ShopSystem shop = new ShopSystem();
+			shop.shopSystem();
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealt()<=0){

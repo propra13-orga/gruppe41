@@ -3,10 +3,13 @@
  */
 package dungeonCrawler;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -24,7 +27,7 @@ public class MainMenu extends JPanel {
 	private Container parent;
 	private MainMenu menu;
 	private App app;
-	//private Settings settings;
+	private Settings settings;
 
 	/**
 	 * 
@@ -76,14 +79,14 @@ public class MainMenu extends JPanel {
 			public void actionPerformed(ActionEvent e){
 			
 			Settings settings =new Settings();
-			settings.setVisible(true);
+			settings.startSettings();
 			}
 		});
 		
 		credits.addActionListener(new ActionListener() {
 			public void credits() {
 
-				// Erstellung Array vom Datentyp Object, Hinzufügen der Optionen
+				// Erstellung Array vom Datentyp Object, Hinzufï¿½gen der Optionen
 				Object[] options = { "OK" };
 
 				int selected = JOptionPane
@@ -91,7 +94,7 @@ public class MainMenu extends JPanel {
 								null,
 								"Dieses Projekt ist von:\n Eugen,\n Matthias,\n Florian,\n und Dominik\n"
 										+ "Es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n"
-										+ "Wir wünschen euch viel Spaß beim Spielen!",
+										+ "Wir wï¿½nschen euch viel Spaï¿½ beim Spielen!",
 								"Credits", JOptionPane.DEFAULT_OPTION,
 								JOptionPane.PLAIN_MESSAGE, null, options, null);
 				//System.out.println(selected);
