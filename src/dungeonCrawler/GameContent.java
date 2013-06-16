@@ -58,7 +58,7 @@ public class GameContent {
 
 	private GameElement collisionWith(GameElement newElement) {
 		for (GameElement e: gameElements) {
-			if (e.collision(newElement))
+			if (e.collision(newElement) && !e.type.contains(ElementType.WALKABLE) && !newElement.type.contains(ElementType.WALKABLE))
 				return e;
 		}
 		return null;

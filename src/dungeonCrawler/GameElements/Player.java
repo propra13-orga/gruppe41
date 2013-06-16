@@ -9,6 +9,7 @@ import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
 import dungeonCrawler.Vector2d;
 
@@ -18,6 +19,7 @@ import dungeonCrawler.Vector2d;
  */
 public class Player extends GameElement {
 	private int Health=1000;
+	private int lives=2;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	/**
 	 * @param position
@@ -53,13 +55,19 @@ public class Player extends GameElement {
 		this.Health = Health;
 	}
 	
-	public void reduceHealth(int Health) {
-		if (this.Health-Health >= 0){
+	public void reduceHealth(int Health, GameLogic logic) {
+		if (this.Health-Health > 0){
+			System.out.println("!" + (this.Health-Health));
 			this.Health = this.Health-Health;
 			System.out.println("Health verloren! Health: " + this.Health);
+		}
+		else {
+			if(lives<=0){
+				System.out.println("!TOT! (x.x) Health: " + this.Health);
+			} else {
+				this.Health = 1000;
+				logic.teleportElement(this, logic.getCheckPoint());
 			}
-		else  {
-			System.out.println("!TOT! (x.x) Health: " + this.Health);
 		}
 	}
 	

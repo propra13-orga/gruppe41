@@ -104,6 +104,8 @@ public class LevelLoader {
 				element = new NPC(position, size); break;
 			case "ENEMY":
 				element = new Enemy(position, size); break;
+			case "CHECKPOINT":
+				element = new CheckPoint(position, size); break;
 			case "WARPPOINT":
 				element = new WarpPoint(position, size);
 				((WarpPoint)element).setTarget(new Vector2d(Integer.parseInt(param[5]), Integer.parseInt(param[6])));

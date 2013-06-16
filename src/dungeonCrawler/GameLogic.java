@@ -12,6 +12,7 @@ import dungeonCrawler.GameElements.Player;
 
 public class GameLogic implements KeyListener, ActionListener {
 
+	private Vector2d checkPoint = new Vector2d(0,0);
 	private GameContent level;
 	private BitSet keys;
 	protected Timer timer;
@@ -133,6 +134,14 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		if (e.getActionCommand() == "Timer")
 			app.camera.repaint();
+	}
+
+	public Vector2d getCheckPoint() {
+		return checkPoint;
+	}
+
+	public void setCheckPoint(Vector2d checkPoint) {
+		this.checkPoint = checkPoint;
 	}
 
 }

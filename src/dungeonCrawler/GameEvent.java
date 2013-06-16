@@ -22,9 +22,9 @@ public class GameEvent {
 		this.gameLogic = logic;
 	}
 
-	public GameElement getElement() {
+/*	public GameElement getElement() {
 		return element;
-	}
+	}*/
 
 	public EventType getType() {
 		return type;
