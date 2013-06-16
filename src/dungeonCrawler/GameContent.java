@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameElements.StatusBar;
 
 /**
  * @author Mattes
@@ -17,6 +18,7 @@ public class GameContent {
 	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
 	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
 	private GameElement player;
+	private GameElement statusBar = new StatusBar(new Vector2d(30, 230), new Vector2d(100, 10));
 	/**
 	 * 
 	 */
@@ -80,6 +82,10 @@ public class GameContent {
 
 	public void setPlayer(GameElement player) {
 		this.player = player;
+	}
+	
+	public GameElement getStatusBar() {
+		return statusBar;
 	}
 
 }

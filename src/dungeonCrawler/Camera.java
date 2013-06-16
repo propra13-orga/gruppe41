@@ -8,6 +8,9 @@ import java.util.ListIterator;
 
 import javax.swing.JPanel;
 
+import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameElements.StatusBar;
+
 /**
  * Shows level content
  * 
@@ -71,6 +74,13 @@ public class Camera extends JPanel {
 						.getSize().getX(), tmp.getSize().getY());
 				tmp.draw(gr);
 				gr.dispose();
+				tmp = level.getStatusBar();
+				((StatusBar)tmp).setValue(((Player) level.getPlayer()).getHealt()*100/1000);
+				gr = g.create(((StatusBar)tmp).position.getX(), ((StatusBar)tmp).position.getY(),
+						((StatusBar)tmp).getSize().getX(), ((StatusBar)tmp).getSize().getY());
+				tmp.draw(gr);
+				gr.dispose();
+				
 			}
 		}
 	}
