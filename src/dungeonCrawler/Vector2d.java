@@ -23,6 +23,9 @@ public class Vector2d {
 	public Vector2d addY(int y){
 		return new Vector2d(this.x, this.y + y);
 	}
+	public Vector2d mul(double d){
+		return new Vector2d((int)(this.x*d), (int)(this.y*d));
+	}
 	public Vector2d add(Vector2d a){
 		return new Vector2d(a.getX() + this.x, a.getY() + this.y);
 	}

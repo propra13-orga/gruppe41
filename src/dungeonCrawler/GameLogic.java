@@ -13,7 +13,10 @@ import dungeonCrawler.GameElements.Player;
 
 public class GameLogic implements KeyListener, ActionListener {
 
+	private Vector2d direction = new Vector2d(0,0);
+	private Vector2d lastDirection = new Vector2d(1,0);
 	private Vector2d checkPoint = new Vector2d(0,0);
+	private int[] delay = new int[1000];
 	private GameContent level;
 	private BitSet keys;
 	protected Timer timer;
@@ -105,7 +108,10 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
 		player = level.getPlayer();
 		Vector2d position = player.getPosition();
-		Vector2d direction = new Vector2d(0,0);
+		if(!(direction.getX() == 0 && direction.getY() == 0)){
+			lastDirection = direction;
+		}
+		direction = new Vector2d(0,0);
 		if (keys.get(37)) {// left arrow
 			direction = direction.addX(-5);
 			System.out.println("LEFT");
@@ -126,11 +132,26 @@ public class GameLogic implements KeyListener, ActionListener {
 			DirtyShopSystem shop = new DirtyShopSystem();
 			shop.startDirtyShop(100);
 		}
+		if(delay[32] >= 0){
+			delay[32] -= 1;
+		}
 		if (keys.get(32)){
-			System.out.println("test");
-			Bullet tmp = new Bullet(position.add(player.size).add(new Vector2d(2,2)), new Vector2d(10, 10));
-			tmp.setDirection(new Vector2d(1,0));
-			level.addGameElement(tmp);
+			if(delay[32] < 0){
+				delay[32] = 15;
+				
+				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
+				if(lastDirection.getX() > 0)
+					pos = pos.add(new Vector2d(player.size.getX()-2,0));
+				if(lastDirection.getX() < 0)
+					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
+				if(lastDirection.getY() > 0)
+					pos = pos.add(new Vector2d(0,player.size.getX()-2));
+				if(lastDirection.getY() < 0)
+					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
+				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
+				tmp.setDirection(lastDirection);
+				level.addGameElement(tmp);
+			}
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealt()<=0){
@@ -142,11 +163,16 @@ public class GameLogic implements KeyListener, ActionListener {
 			app.startMainMenu();
 		}
 		if (e.getActionCommand() == "Timer"){
+			GameElement tmpRem = null;
 			for(GameElement element : level.getGameElements()){
 				GameEvent event = new GameEvent(null, EventType.TIMER, this);
 				element.GameEventPerformed(event);
-				if(element.size.getX() == 0 && element.size.getY() == 0);
-				
+				if(element.size.getX() == 0 || element.size.getY() == 0){
+					tmpRem = element;
+				}
+			}
+			if (tmpRem != null) {
+				level.removeElement(tmpRem);
 			}
 			app.camera.repaint();
 		}
