@@ -75,7 +75,8 @@ public class Camera extends JPanel {
 				tmp.draw(gr);
 				gr.dispose();
 				tmp = level.getStatusBar();
-				((StatusBar)tmp).setValue(((Player) level.getPlayer()).getHealt()*100/1000);
+				((StatusBar)tmp).setHealthValue(((Player) level.getPlayer()).getHealt()*100/1000);
+				((StatusBar)tmp).setManaValue(((Player) level.getPlayer()).getMana()*100/100);
 				gr = g.create(((StatusBar)tmp).position.getX(), ((StatusBar)tmp).position.getY(),
 						((StatusBar)tmp).getSize().getX(), ((StatusBar)tmp).getSize().getY());
 				tmp.draw(gr);

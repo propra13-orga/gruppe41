@@ -18,7 +18,7 @@ public class GameContent {
 	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
 	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
 	private GameElement player;
-	private GameElement statusBar = new StatusBar(new Vector2d(30, 230), new Vector2d(100, 10));
+	private GameElement statusBar = new StatusBar(new Vector2d(0, 200), new Vector2d(500, 50));
 	/**
 	 * 
 	 */
