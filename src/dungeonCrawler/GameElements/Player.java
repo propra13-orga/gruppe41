@@ -19,7 +19,7 @@ import dungeonCrawler.Vector2d;
  */
 public class Player extends GameElement {
 	private int Health=1000;
-	private int lives=2;
+	private int lives=3;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	/**
 	 * @param position
@@ -62,7 +62,7 @@ public class Player extends GameElement {
 		}
 		else {
 			lives--;
-			if(lives<=0){
+			if(lives<0){
 				this.Health -= Health;
 				System.out.println("!TOT! (x.x) Health: " + this.Health);
 			} else {
