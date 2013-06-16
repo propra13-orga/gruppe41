@@ -29,19 +29,8 @@ public class LevelLoader {
 		this.level = lvl;
 		this.app = a;
 		this.loaded = false;
-//		this.element = new Wall(new Vector2d(), new Vector2d());
 		this.splitChar = ",";
 	}
-
-//	public Dungeon getNextLevel() {
-//		if (app.currentLevel<app.level-1) app.currentLevel++;
-//		return getLevel();
-//	}
-//
-//	public Dungeon getPreviousLevel() {
-//		if (app.currentLevel > 0) app.currentLevel--;
-//		return getLevel();
-//	}
 
 	public GameContent getLevel() {
 		String number = getLevelNumber(app.currentLevel);
@@ -57,7 +46,6 @@ public class LevelLoader {
 			String input = null;
 			while ((input = buffer.readLine()) != null) {
 				if (parse(input)) {
-//					level.setContent(element); // alte Version, sp�ter entfernen
 					if (!level.addGameElement(element)) {
 						Error err = new Error("Kann '" + input + "' nicht interpretieren");
 						err.showMe();

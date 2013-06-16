@@ -56,10 +56,6 @@ public abstract class GameElement implements Drawable, GameListener {
 		return position.addX(size.getX());
 	}
 
-	private Vector2d getBottomRight() {
-		return position.add(size);
-	}
-
 	private Vector2d getBottomLeft() {
 		return position.addY(size.getY());
 	}
@@ -124,36 +120,6 @@ public abstract class GameElement implements Drawable, GameListener {
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
 	}
-
-	public void move(Direction dir) {
-		Vector2d newPosition = this.getPosition(); 
-		switch (dir) {
-		case LEFT:
-			newPosition.setX(this.getPosition().getX()-1);
-			break;
-		case UP:
-			newPosition.setY(this.getPosition().getY()-1);
-			break;
-		case RIGHT:
-			newPosition.setX(this.getPosition().getX()+1);
-			break;
-		case DOWN:
-			newPosition.setY(this.getPosition().getY()+1);
-			break;
-		}
-		// TODO: abfragen nach Kollisionen!
-		this.setPosition(newPosition);
-	}
-
-	public boolean moveElement(Vector2d direction){
-		if(this.type.contains(ElementType.MOVABLE)){
-			this.setPosition(direction);
-			return true;
-		}
-		else
-			return false;
-	}
-
 
 	/* (non-Javadoc)
 	 * @see dungeonCrawler.Drawable#draw()

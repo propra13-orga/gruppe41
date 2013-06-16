@@ -36,10 +36,6 @@ public class Player extends GameElement {
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 	
-	public void setPosition(Vector2d pos) {
-		this.position = pos;
-	}
-	
 	public void add(GameObject object){
 		inventar.add(object);
 	}
