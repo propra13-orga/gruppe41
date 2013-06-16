@@ -19,6 +19,7 @@ import dungeonCrawler.Vector2d;
  */
 public class Player extends GameElement {
 	private int Health=1000;
+	private int mana = 100;
 	private int lives=3;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	/**
@@ -77,6 +78,14 @@ public class Player extends GameElement {
 	
 	public int getHealt() {
 		return this.Health;
+	}
+	
+	public int getMana() {
+		return mana;
+	}
+	
+	public void setMana(int m) {
+		this.mana = m;
 	}
 
 }
