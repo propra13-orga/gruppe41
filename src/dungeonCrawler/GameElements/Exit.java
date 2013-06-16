@@ -6,8 +6,10 @@ import java.util.EnumSet;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
+import dungeonCrawler.GameContent;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.App;
 
@@ -36,8 +38,13 @@ public class Exit extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			e.gameLogic.app.currentLevel += 1;
-			e.gameLogic.app.startGame();
+			e.gameLogic.app.cp.removeAll();
+			e.gameLogic.app.cp.validate();
+			e.gameLogic.app.gameContent = new GameContent();
+			e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
+//			e.gameLogic.app.startGame();
 			System.out.println("Ausgang");
+			e.gameLogic.app.startGame();
 		}
 		// TODO Auto-generated method stub
 		

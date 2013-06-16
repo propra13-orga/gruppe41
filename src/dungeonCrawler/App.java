@@ -20,8 +20,8 @@ public class App {
 	public int currentLevel = 0; // current level number
 //	Listener listener = new Listener(this); // listener that monitors the game
 	protected GameLogic gameLogic = new GameLogic(this);
-	protected LevelLoader loader;
-	protected GameContent gameContent;
+	public LevelLoader loader;
+	public GameContent gameContent;
 
 	// constructor
 	public App(int level, int width, int height) {
@@ -76,6 +76,7 @@ public class App {
 		else {
 			currentLevel = 0;
 			startMainMenu();
+			gameLogic.timer.stop();
 		}
 
 		/*	JPanel tmp = new JPanel(); // test for clipping
