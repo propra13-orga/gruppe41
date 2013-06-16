@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,20 +12,36 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class ShopSystem{
+public class ShopSystem implements ActionListener {
 	private JDialog dialog;
 	private JButton button;
 	private Container cp;
-	//private Icon picture; 
+	 
 	public JTextField number;
-	public int times;
+	public int times[];
+	public int vermoegen2;
+	public int price2[];
+	public int item_number;
 	
 	
-	private int item(int gridy, String item,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
+	
+	private void item(int gridy, String item_name,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
+		switch(item_name){
+		case "hp": 
+			item_number=1 ;break;
+		case "mana": 
+			item_number=2 ;break;
+		case "weapon": 
+			item_number=3 ;break;
+		default: JOptionPane.showMessageDialog(null, "Item ist nicht vorgesehen." ,"Error" , 0);
+		}
 		
+		
+		price2[item_number]=price;
 		//Item Picture
 		
 		gbc.gridheight=1;
@@ -34,7 +49,6 @@ public class ShopSystem{
 		gbc.gridy = gridy;
 		Icon pictureInGame = new ImageIcon(picturePath); 
 		JLabel pic = new JLabel(pictureInGame);
-		//pic.setSize(5, 5);
 		layout.setConstraints(pic, gbc);
 		dialog.add(pic);
 				
@@ -43,7 +57,7 @@ public class ShopSystem{
 		gbc.gridx = 1;  
 		gbc.gridy = gridy;
 		JTextPane itemName = new JTextPane();
-		itemName.setText(item);
+		itemName.setText(item_name);
 		itemName.setBackground(dialog.getContentPane().getBackground());
 		itemName.setEditable(false);
 		layout.setConstraints(itemName, gbc);
@@ -61,29 +75,22 @@ public class ShopSystem{
 		layout.setConstraints(priceInGame, gbc);
 		dialog.add(priceInGame);
 		
-		//number
+		/*//number
 		gbc.gridheight=1;
 		gbc.gridwidth=5;
 		gbc.gridx = 4;
 		gbc.gridy = gridy;
 		number = new JTextField();
-		number.setText("1");
-		//number.setBounds(0, 0, 128, 64);
+		times=1;
+		number.setText(times +"");
 		number.setBackground(Color.white);
 		number.setEditable(true);
 		layout.setConstraints(number, gbc);
 		dialog.add(number);
-		number.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				times = Integer.parseInt(number.getText());
-				System.out.println("inner" + times);
-			}
-			
-		});
-		System.out.println("out" + times);
+		
+		//Test Ausgabe
+		System.out.println("out: "  + times);
+		
 		//Price
 		gbc.gridheight=1;
 		gbc.gridx = 12;
@@ -100,24 +107,36 @@ public class ShopSystem{
 		System.out.println(numberPrice);
 		dialog.add(priceTimes);
 		
+		*/
+		
 		
 		//buy
 		gbc.gridheight=1;
 		gbc.gridwidth=2;
 		gbc.gridx = 20;
 		gbc.gridy =gridy;
+		
 		button = new JButton("Kaufen?");
 		layout.setConstraints(button, gbc);
+		button.addActionListener(this);
 		dialog.add(button);
-		return times;
+		//button.addActionListener();
+		
+		
+		
+		
+		
 		
 	}
 	
-	public void shopSystem(){
-		startShop();
+	public void shopSystem(int vermoegen){
+		startShop(vermoegen);
 	}
 	
-	private void startShop(){
+	
+	
+	private void startShop(int vermoegen){
+		vermoegen2=vermoegen;
 		dialog = new JDialog(dialog, "Settings");
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);	
 		
@@ -127,18 +146,49 @@ public class ShopSystem{
 		
 		dialog.setLayout(layout);
 		GridBagConstraints gbc=new GridBagConstraints();
-		//gbc.insets = new Insets(7, 7, 7, 7); 
-		//Horizontal filling the Grid
-		//gbc.fill=GridBagConstraints.VERTICAL; 
+		
+
+		//Geld
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		JTextPane geld = new JTextPane();
+		geld.setText("Geld: " + vermoegen2 );
+		geld.setBackground(dialog.getContentPane().getBackground());
+		geld.setEditable(false);
+		layout.setConstraints(geld, gbc);
+		geld.repaint();
+		dialog.add(geld);
+		
 		
 		
 		//item(int gridy, String item,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog)
-		item(0, "Mate",2, "mate_h64.jpg", layout, gbc, dialog);
-		item(2, "Mate",2, "mate_h64.jpg", layout, gbc, dialog);
+		//health
+		item(2, "hp",2, "mate_h64.jpg", layout, gbc, dialog);
+		//mana
+		item(4, "mana",7, "mate_h64.jpg", layout, gbc, dialog);
+		//weapon
+		item(4, "weapon",10, "mate_h64.jpg", layout, gbc, dialog);
+		
 		
 		dialog.pack();
 		dialog.setVisible(true);
 		dialog.repaint();
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if ((vermoegen2-price2[item_number])>0){
+		    times[item_number]++;
+			vermoegen2=vermoegen2-price2[item_number];
+			System.out.println("Geld: " +vermoegen2);
+		}
+		else if ((vermoegen2-price2[item_number])>0){
+			JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);
+			
+					
+		}
+				
 	}
 
 }

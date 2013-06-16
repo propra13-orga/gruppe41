@@ -121,7 +121,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		if (keys.get(27)) { // ESC
 			ShopSystem shop = new ShopSystem();
-			shop.shopSystem();
+			shop.shopSystem(10);
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealt()<=0){
