@@ -55,16 +55,18 @@ public class GameLogic implements KeyListener, ActionListener {
 	
 	private void handleCollision(GameElement active, GameElement passive){
 		//TODO generate GameEvents
+		GameEvent e = new GameEvent(passive, EventType.COLLISION);
+		active.GameEventPerformed(e);
+		e = new GameEvent(active, EventType.COLLISION);
+		passive.GameEventPerformed(e);
 	}
 	
 	public boolean moveElement(GameElement e, Vector2d direction){
-		if(e.type.contains(ElementType.MOVABLE)){
+		if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
+//			System.out.println("test" + collisioncheck.type.toString());
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
 			for(GameElement collisioncheck : level.getGameElements()){
-				System.out.println("test" + collisioncheck.type.toString());
 				if(e.collision(collisioncheck)){
-//					System.out.println("test" + collisioncheck.type.toString());
-						
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
 						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
 					}

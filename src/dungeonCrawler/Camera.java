@@ -80,9 +80,11 @@ public class Camera extends JPanel {
 			ListIterator<GameElement> it = level.getIterator();
 			GameElement tmp;
 			Graphics gr;
+			
+			position = level.getPlayer().position.add(new Vector2d(-this.getWidth()/2, -this.getHeight()/2));
 			while (it.hasNext()) {
 				tmp = it.next();
-				gr = g.create(tmp.position.getX(), tmp.position.getY(), tmp
+				gr = g.create(tmp.position.getX()-position.getX(), tmp.position.getY()-position.getY(), tmp
 						.getSize().getX(), tmp.getSize().getY());
 				tmp.draw(gr);
 				gr.dispose();

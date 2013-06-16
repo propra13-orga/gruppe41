@@ -6,6 +6,7 @@ import java.util.EnumSet;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
+import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -31,6 +32,12 @@ public class Player extends GameElement {
 	
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
+	}
+
+	@Override
+	public void GameEventPerformed(GameEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
