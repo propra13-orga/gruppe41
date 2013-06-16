@@ -58,7 +58,7 @@ public class NPC extends GameElement {
 				if(Math.random()<0.5){
 					x=0;y=0;
 				}
-				System.out.println(x + ":" + y);
+//				System.out.println(x + ":" + y);
 				Vector2d direction = new Vector2d(x, y);
 				e.gameLogic.moveElement(this, direction);
 			}
