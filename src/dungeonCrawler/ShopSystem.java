@@ -16,21 +16,41 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class ShopSystem implements ActionListener {
+public class ShopSystem {
 	private JDialog dialog;
 	private JButton button;
 	private Container cp;
 	 
 	public JTextField number;
-	public int times[];
-	public int vermoegen2;
-	public int price2[];
+	public int times;
+	private int vermoegen;
+	private int price[];
 	public int item_number;
 	
 	
+	public int getprice(int item_number){
+		return this.price[item_number];
+	}
+	
+	public int getvermoegen(){
+		return this.vermoegen;
+	}
+	
+	public void setvermoegen(int vermoegen){
+		this.vermoegen=vermoegen;
+	}
+	
+	public void setprice(int item_number, int price){
+		this.price[item_number]=price;
+	}
+	
+	public void shopSystem(int vermoegen){
+		startShop(vermoegen);
+	}
+	
 	
 	private void item(int gridy, String item_name,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
-		switch(item_name){
+	/*	switch(item_name){
 		case "hp": 
 			item_number=1 ;break;
 		case "mana": 
@@ -39,9 +59,16 @@ public class ShopSystem implements ActionListener {
 			item_number=3 ;break;
 		default: JOptionPane.showMessageDialog(null, "Item ist nicht vorgesehen." ,"Error" , 0);
 		}
+		*/
+		/*if(item_name=="hp")item_number=1;
+		else if (item_name=="mana") item_number=2;
+		else if (item_name=="weapon") item_number=3;
+		else JOptionPane.showMessageDialog(null, "Item ist nicht vorgesehen." ,"Error" , 0);
+		*/
 		
+		setprice(item_number, price);
 		
-		price2[item_number]=price;
+		System.out.println("Anfang: " + getprice(item_number));
 		//Item Picture
 		
 		gbc.gridheight=1;
@@ -69,7 +96,7 @@ public class ShopSystem implements ActionListener {
 		gbc.gridx = 2;
 		gbc.gridy = gridy;
 		JTextPane priceInGame = new JTextPane();
-		priceInGame.setText(price + " Geld");
+		priceInGame.setText(getprice(item_number) + " Geld");
 		priceInGame.setBackground(dialog.getContentPane().getBackground());
 		priceInGame.setEditable(false);
 		layout.setConstraints(priceInGame, gbc);
@@ -118,25 +145,36 @@ public class ShopSystem implements ActionListener {
 		
 		button = new JButton("Kaufen?");
 		layout.setConstraints(button, gbc);
-		button.addActionListener(this);
-		dialog.add(button);
-		//button.addActionListener();
-		
-		
-		
-		
-		
-		
-	}
+		//button.addActionListener(this);
+		button.addActionListener(new ActionListener() {
 	
-	public void shopSystem(int vermoegen){
-		startShop(vermoegen);
+			public void actionPerformed(ActionEvent e){
+				System.out.println(getvermoegen());
+				System.out.println(getprice(item_number));
+				if ((getvermoegen()-getprice(item_number))>0){
+				    times++;
+					setvermoegen(getvermoegen()-getprice(item_number));
+					System.out.println("Geld: " +getvermoegen());
+					System.out.println(getvermoegen());
+					System.out.println(getprice(item_number));
+				}
+				else if ((getvermoegen()-getprice(item_number))>0){
+					JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
+				}
+
+			}
+		});
+				
+		dialog.add(button);
 	}
+
 	
 	
 	
 	private void startShop(int vermoegen){
-		vermoegen2=vermoegen;
+		setvermoegen(vermoegen);
+		
+		
 		dialog = new JDialog(dialog, "Settings");
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);	
 		
@@ -152,7 +190,7 @@ public class ShopSystem implements ActionListener {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		JTextPane geld = new JTextPane();
-		geld.setText("Geld: " + vermoegen2 );
+		geld.setText("Geld: " + getvermoegen() );
 		geld.setBackground(dialog.getContentPane().getBackground());
 		geld.setEditable(false);
 		layout.setConstraints(geld, gbc);
@@ -162,12 +200,13 @@ public class ShopSystem implements ActionListener {
 		
 		
 		//item(int gridy, String item,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog)
+		
 		//health
 		item(2, "hp",2, "mate_h64.jpg", layout, gbc, dialog);
 		//mana
 		item(4, "mana",7, "mate_h64.jpg", layout, gbc, dialog);
 		//weapon
-		item(4, "weapon",10, "mate_h64.jpg", layout, gbc, dialog);
+		item(6, "weapon",10, "mate_h64.jpg", layout, gbc, dialog);
 		
 		
 		dialog.pack();
@@ -176,19 +215,5 @@ public class ShopSystem implements ActionListener {
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if ((vermoegen2-price2[item_number])>0){
-		    times[item_number]++;
-			vermoegen2=vermoegen2-price2[item_number];
-			System.out.println("Geld: " +vermoegen2);
-		}
-		else if ((vermoegen2-price2[item_number])>0){
-			JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);
-			
-					
-		}
-				
-	}
 
 }

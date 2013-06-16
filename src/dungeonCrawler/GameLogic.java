@@ -18,7 +18,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Timer timer;
 	public App app;
 	GameElement player;
-	private ShopSystem shop;
+	
 
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
@@ -120,8 +120,8 @@ public class GameLogic implements KeyListener, ActionListener {
 			System.out.println("DOWN");
 		}
 		if (keys.get(27)) { // ESC
-			ShopSystem shop = new ShopSystem();
-			shop.shopSystem(10);
+			DirtyShopSystem shop = new DirtyShopSystem();
+			shop.startDirtyShop(100);
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealt()<=0){
