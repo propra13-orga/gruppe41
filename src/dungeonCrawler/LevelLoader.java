@@ -35,6 +35,8 @@ public class LevelLoader {
 	public GameContent getLevel() {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
+
+		System.out.println(number);
 		if (separator.equals(null)) {
 			Error err = new Error("File separator not found");
 			err.showMe();
@@ -66,10 +68,10 @@ public class LevelLoader {
 	private String getLevelNumber(int currentLevel) {
 		String str;
 		try {
-			str = Integer.toString(currentLevel) + "00";
+			str = 0 +  Integer.toString(app.currentLevel);
 			str = str.substring(str.length()-2);
 		} catch (Exception e) {
-			return "";
+			return "03";
 		}
 		return str;
 	}

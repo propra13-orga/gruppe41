@@ -44,6 +44,8 @@ public class Exit extends GameElement {
 			e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
 //			e.gameLogic.app.startGame();
 			System.out.println("Ausgang");
+			System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
+			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
 			e.gameLogic.app.startGame();
 		}
 		// TODO Auto-generated method stub
