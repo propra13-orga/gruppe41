@@ -34,7 +34,7 @@ public class Bullet extends GameElement {
 			if(life<0)
 				this.size = new Vector2d(0,0);
 		}
-		if(e.type == EventType.COLLISION){
+		if(e.type == EventType.COLLISION && !e.element.type.contains(ElementType.WALKABLE)){
 			if (e.element instanceof Player) {
 				Player element = (Player) e.element;
 				element.reduceHealth(10, e.gameLogic);
