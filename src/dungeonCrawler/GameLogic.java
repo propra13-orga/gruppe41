@@ -132,8 +132,14 @@ public class GameLogic implements KeyListener, ActionListener {
 			this.timer.stop();
 			app.startMainMenu();
 		}
-		if (e.getActionCommand() == "Timer")
+		if (e.getActionCommand() == "Timer"){
+			for(GameElement element : level.getGameElements()){
+				GameEvent event = new GameEvent(null, EventType.TIMER, this);
+			element.GameEventPerformed(event);
+				
+			}
 			app.camera.repaint();
+		}
 	}
 
 	public Vector2d getCheckPoint() {

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.EnumSet;
 
 import dungeonCrawler.ElementType;
+import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
@@ -37,7 +38,14 @@ public class Enemy extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.element instanceof Player && e.type == EventType.COLLISION){
+			System.out.println("autsch!");
+			Player elementPlayer = (Player) e.element;
+			elementPlayer.reduceHealth(10, e.gameLogic);
+		}
+		if(e.type == EventType.TIMER){
+			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
+		}
 	}
 
 }
