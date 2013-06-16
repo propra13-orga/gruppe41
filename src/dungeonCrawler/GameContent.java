@@ -67,6 +67,12 @@ public class GameContent {
 	public LinkedList<GameElement> getGameElements() {
 		return gameElements;
 	}
+	
+	public boolean removeElement(GameElement element){
+		boolean ret = true;
+		ret &= movables.remove(element);
+		return gameElements.remove(element) && ret;
+	}
 
 	public GameElement getPlayer() {
 		return player;

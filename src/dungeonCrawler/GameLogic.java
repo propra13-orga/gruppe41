@@ -8,6 +8,7 @@ import java.util.BitSet;
 
 import javax.swing.Timer;
 
+import dungeonCrawler.GameElements.Bullet;
 import dungeonCrawler.GameElements.Player;
 
 public class GameLogic implements KeyListener, ActionListener {
@@ -76,6 +77,7 @@ public class GameLogic implements KeyListener, ActionListener {
 					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
+			//if(level.getGameElements().contains(e)){
 			e.setPosition(e.position.add(new Vector2d(0, direction.getY())));
 			for(GameElement collisioncheck : level.getGameElements()){
 				if(e.collision(collisioncheck)){
@@ -85,6 +87,7 @@ public class GameLogic implements KeyListener, ActionListener {
 					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
+			//}
 			//e.setPosition(direction.add(e.position));
 			return true;
 		}
@@ -101,8 +104,8 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
 		player = level.getPlayer();
-		Vector2d direction = player.getPosition();
-		direction = new Vector2d(0,0);
+		Vector2d position = player.getPosition();
+		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(37)) {// left arrow
 			direction = direction.addX(-5);
 			System.out.println("LEFT");
@@ -123,6 +126,12 @@ public class GameLogic implements KeyListener, ActionListener {
 			DirtyShopSystem shop = new DirtyShopSystem();
 			shop.startDirtyShop(100);
 		}
+		if (keys.get(32)){
+			System.out.println("test");
+			Bullet tmp = new Bullet(position.add(player.size).add(new Vector2d(2,2)), new Vector2d(10, 10));
+			tmp.setDirection(new Vector2d(1,0));
+			level.addGameElement(tmp);
+		}
 		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealt()<=0){
 			app.cp.removeAll();
@@ -135,7 +144,8 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (e.getActionCommand() == "Timer"){
 			for(GameElement element : level.getGameElements()){
 				GameEvent event = new GameEvent(null, EventType.TIMER, this);
-			element.GameEventPerformed(event);
+				element.GameEventPerformed(event);
+				if(element.size.getX() == 0 && element.size.getY() == 0);
 				
 			}
 			app.camera.repaint();

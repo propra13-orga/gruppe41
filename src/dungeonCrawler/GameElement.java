@@ -33,12 +33,12 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.name = name;
 	}
 
-	public GameElement() {
+	/*public GameElement() {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = new Vector2d();
 		this.size = new Vector2d();
 		this.name = "";
-	}
+	}*/
 
 	public Vector2d getPosition() {
 		return position;
