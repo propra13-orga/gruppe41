@@ -57,7 +57,6 @@ public class Player extends GameElement {
 	
 	public void reduceHealth(int Health, GameLogic logic) {
 		if (this.Health-Health > 0){
-			System.out.println("!" + (this.Health-Health));
 			this.Health = this.Health-Health;
 			System.out.println("Health verloren! Health: " + this.Health);
 		}
@@ -67,6 +66,8 @@ public class Player extends GameElement {
 				this.Health -= Health;
 				System.out.println("!TOT! (x.x) Health: " + this.Health);
 			} else {
+				this.Health -= Health;
+				System.out.println("!TOT! (x.x) Health: " + this.Health);
 				this.Health = 1000;
 				logic.teleportElement(this, logic.getCheckPoint());
 			}
