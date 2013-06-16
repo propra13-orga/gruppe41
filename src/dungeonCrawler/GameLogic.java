@@ -52,20 +52,31 @@ public class GameLogic implements KeyListener, ActionListener {
 		this.level = level;
 	}
 	
+	private void handleCollision(GameElement active, GameElement passive){
+		//TODO generate GameEvents
+	}
+	
 	public boolean moveElement(GameElement e, Vector2d direction){
 		if(e.type.contains(ElementType.MOVABLE)){
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
 			for(GameElement collisioncheck : level.getGameElements()){
+				System.out.println("test" + collisioncheck.type.toString());
 				if(e.collision(collisioncheck)){
-					e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
-					//handle collision (e.g. traps, exit ...)
+//					System.out.println("test" + collisioncheck.type.toString());
+						
+					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
+						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
+					}
+					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
 			e.setPosition(e.position.add(new Vector2d(0, direction.getY())));
 			for(GameElement collisioncheck : level.getGameElements()){
 				if(e.collision(collisioncheck)){
-					e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
-					//handle collision (e.g. traps, exit ...)
+					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
+						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
+					}
+					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
 			//e.setPosition(direction.add(e.position));

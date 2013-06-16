@@ -15,9 +15,6 @@ public abstract class GameElement implements Drawable {
 	private String name;
 	protected Vector2d position;
 	protected Vector2d size;
-	private Vector2d topRight;
-	private Vector2d bottomRight;
-	private Vector2d bottomLeft;
 
 	/**
 	 * 
@@ -26,7 +23,6 @@ public abstract class GameElement implements Drawable {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
-		myAngles();
 		this.name = "";
 	}
 
@@ -34,7 +30,6 @@ public abstract class GameElement implements Drawable {
 		this.type = type;
 		this.position = position;
 		this.size = size;
-		myAngles();
 		this.name = name;
 	}
 
@@ -42,14 +37,7 @@ public abstract class GameElement implements Drawable {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = new Vector2d();
 		this.size = new Vector2d();
-		myAngles();
 		this.name = "";
-	}
-
-	private void myAngles() {
-		topRight = new Vector2d(position.getX()+size.getX()-1, position.getY());
-		bottomRight = new Vector2d(position.getX()+size.getX()-1, position.getY()+size.getY()-1);
-		bottomLeft = new Vector2d(position.getX(), position.getY()+size.getY()-1);
 	}
 
 	public Vector2d getPosition() {
@@ -65,24 +53,64 @@ public abstract class GameElement implements Drawable {
 	}
 
 	private Vector2d getTopRight() {
-		topRight.setX(position.getX()+size.getX()-1);
-		return topRight;
+		
+		return position.addX(size.getX());
 	}
 
 	private Vector2d getBottomRight() {
-		bottomRight.setX(position.getX()+size.getX()-1);
-		bottomRight.setY(position.getY()+size.getY()-1);
-		return bottomRight;
+		return position.add(size);
 	}
 
 	private Vector2d getBottomLeft() {
-		bottomLeft.setY(position.getY()+size.getY()-1);
-		return bottomLeft;
+		return position.addY(size.getY());
+	}
+	
+	private int getLeft(){
+		return this.position.getX();
+	}
+	
+	private int getTop(){
+		return this.position.getY();
+	}
+	
+	private int getRight(){
+		return this.position.getX() + this.size.getX();
+	}
+	
+	private int getBottom(){
+		return this.position.getY() + this.size.getY();
+	}
+	
+	public boolean isInnerPoint(Vector2d point){
+		if(this.getLeft() < point.getX() && this.getRight() > point.getX() &&
+				this.getTop() < point.getY() && this.getBottom() > point.getY())
+			return true;
+		return false;
 	}
 
 	public boolean collision(GameElement element) {
-		if(element != this){ //TODO kollidiert nicht richtig mit Wänden und und Kollision nach oben/unten fehlerhaft
-			if ((this.getTopLeft().getX()<=element.getTopLeft().getX()) && (this.getTopRight().getX()>=element.getTopLeft().getX())) {
+		if(element != this){ //TODO Kollision nach oben/unten fehlerhaft
+			
+			if(element.isInnerPoint(this.getTopLeft()))
+				return true;
+			if(element.isInnerPoint(this.getBottomLeft()))
+				return true;
+			if(element.isInnerPoint(this.getTopRight()))
+				return true;
+			if(element.isInnerPoint(this.getBottomRight()))
+				return true;
+			
+
+			if(this.isInnerPoint(element.getTopLeft()))
+				return true;
+			if(this.isInnerPoint(element.getBottomLeft()))
+				return true;
+			if(this.isInnerPoint(element.getTopRight()))
+				return true;
+			if(this.isInnerPoint(element.getBottomRight()))
+				return true;
+			
+/*			if ((this.getTopLeft().getX()<=element.getTopLeft().getX()) && (this.getTopRight().getX()>=element.getTopLeft().getX())) {
 				if ((this.getTopLeft().getY()<=element.getTopLeft().getY()) && (this.getBottomLeft().getY()>=element.getTopLeft().getY())) {
 					return true;
 				}
@@ -97,7 +125,7 @@ public abstract class GameElement implements Drawable {
 				else if ((this.getTopLeft().getY()<=element.getBottomRight().getY()) && (this.getBottomLeft().getY()>=element.getBottomRight().getY())) {
 					return true;
 				}
-			}
+			}*/
 		}
 		return false;
 	}
@@ -108,7 +136,6 @@ public abstract class GameElement implements Drawable {
 
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
-		myAngles();
 	}
 
 	public void move(Direction dir) {
