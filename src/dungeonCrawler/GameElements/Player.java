@@ -18,8 +18,10 @@ import dungeonCrawler.Vector2d;
  *
  */
 public class Player extends GameElement {
-	private int Health=1000;
-	private int mana = 100;
+	public final int maxHealth = 1000;
+	public final int maxMana = 100;
+	private int Health=maxHealth;
+	private int mana = maxMana;
 	private int lives=3;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	/**
