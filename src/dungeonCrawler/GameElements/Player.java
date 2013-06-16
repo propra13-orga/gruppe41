@@ -44,8 +44,7 @@ public class Player extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		if(e.element instanceof Trap && e.type == EventType.COLLISION){
-		}
+
 		// TODO Auto-generated method stub
 		
 	}

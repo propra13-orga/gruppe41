@@ -17,7 +17,7 @@ public class App {
 	public MainMenu mainmenu; // main menu
 	Camera camera; // camera that shows a current level
 	int level; // number of level
-	int currentLevel = 0; // current level number
+	public int currentLevel = 0; // current level number
 //	Listener listener = new Listener(this); // listener that monitors the game
 	protected GameLogic gameLogic = new GameLogic(this);
 	protected LevelLoader loader;
