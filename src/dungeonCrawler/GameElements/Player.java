@@ -32,6 +32,7 @@ public class Player extends GameElement {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
+		
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
@@ -49,6 +50,10 @@ public class Player extends GameElement {
 	
 	public void setHealt(int Health) {
 		this.Health = Health;
+	}
+	
+	public void increaseHealt(int Health) {
+		this.Health += Health;
 	}
 	
 	public void reduceHealth(int Health, GameLogic logic) {

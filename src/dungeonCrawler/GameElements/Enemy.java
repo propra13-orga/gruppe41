@@ -55,6 +55,10 @@ public class Enemy extends GameElement {
 		this.Health = Health;
 	}
 	
+	public void increaseHealt(int Health) {
+		this.Health += Health;
+	}
+	
 	public void reduceHealth(int Health, GameLogic logic) {
 		if (this.Health-Health > 0){
 			this.Health = this.Health-Health;
