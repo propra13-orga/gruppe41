@@ -16,6 +16,8 @@ public class LevelContent {
 	public static final int COMPUTER = 2;
 	public static final int WALL = 3;
 	public static final int EXIT = 4;
+	public static final int NPC = 5;
+	public static final int Enemy = 6;
 	// add some more level contens here like trap etc.
 	
 	// constructor

@@ -57,7 +57,7 @@ public class LevelLoader {
 			String input = null;
 			while ((input = buffer.readLine()) != null) {
 				if (parse(input)) {
-//					level.setContent(element); // alte Version, später entfernen
+//					level.setContent(element); // alte Version, spï¿½ter entfernen
 					if (!level.addGameElement(element)) {
 						Error err = new Error("Kann '" + input + "' nicht interpretieren");
 						err.showMe();
@@ -101,6 +101,8 @@ public class LevelLoader {
 			case "PLAYER":
 				element = new Player(position, size); break;
 			case "NPC":
+				element = new NPC(position, size); break;
+			case "Enemy":
 				element = new NPC(position, size); break;
 			}
 			return true;
