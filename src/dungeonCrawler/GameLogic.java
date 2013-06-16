@@ -20,7 +20,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
-		timer = new Timer(50, this);
+		timer = new Timer(25, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
@@ -74,7 +74,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			for(GameElement collisioncheck : level.getGameElements()){
 				if(e.collision(collisioncheck)){
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
-						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
+						e.setPosition(e.position.add(new Vector2d(0, -direction.getY())));
 					}
 					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}

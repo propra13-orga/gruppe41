@@ -89,43 +89,31 @@ public abstract class GameElement implements Drawable {
 	}
 
 	public boolean collision(GameElement element) {
-		if(element != this){ //TODO Kollision nach oben/unten fehlerhaft
+		if(element != this){ //TODO kollidiert nicht richtig mit W�nden
+			int xl 	= 	this	.getTopLeft().getX();
+			int xr 	= 	this	.getTopRight().getX()-1;
+			int yt 	= 	this	.getTopLeft().getY();
+			int yb 	= 	this	.getBottomLeft().getY()-1;
+			int xel = 	element	.getTopLeft().getX();
+			int xer = 	element	.getTopRight().getX()-1;
+			int yet = 	element	.getTopLeft().getY();
+			int yeb = 	element	.getBottomLeft().getY()-1;	
 			
-			if(element.isInnerPoint(this.getTopLeft()))
+			if (xl<xer && xr>=xer && yt<=yeb && (yb>=yet)){					//Kollision 	rechts 	am element 
 				return true;
-			if(element.isInnerPoint(this.getBottomLeft()))
-				return true;
-			if(element.isInnerPoint(this.getTopRight()))
-				return true;
-			if(element.isInnerPoint(this.getBottomRight()))
-				return true;
-			
-
-			if(this.isInnerPoint(element.getTopLeft()))
-				return true;
-			if(this.isInnerPoint(element.getBottomLeft()))
-				return true;
-			if(this.isInnerPoint(element.getTopRight()))
-				return true;
-			if(this.isInnerPoint(element.getBottomRight()))
-				return true;
-			
-/*			if ((this.getTopLeft().getX()<=element.getTopLeft().getX()) && (this.getTopRight().getX()>=element.getTopLeft().getX())) {
-				if ((this.getTopLeft().getY()<=element.getTopLeft().getY()) && (this.getBottomLeft().getY()>=element.getTopLeft().getY())) {
-					return true;
-				}
-				else if ((this.getTopLeft().getY()<=element.getBottomLeft().getY()) && (this.getBottomLeft().getY()>=element.getBottomLeft().getY())) {
-					return true;
-				}
 			}
-			else if ((this.getTopLeft().getX()<=element.getTopRight().getX()) && (this.getTopRight().getX()>=element.getTopRight().getX())) {
-				if ((this.getTopLeft().getY()<=element.getTopRight().getY()) && (this.getBottomLeft().getY()>=element.getTopRight().getY())) {
-					return true;
-				}
-				else if ((this.getTopLeft().getY()<=element.getBottomRight().getY()) && (this.getBottomLeft().getY()>=element.getBottomRight().getY())) {
-					return true;
-				}
-			}*/
+			
+			else if (xr>xel && xl<=xel && yt<=yeb && (yb>=yet)){			//Kollision 	links 	am element 
+				return true;
+			}
+		
+			else if (yt<yeb && yb>=yeb && xr>=xel && xl<=xer){				//Kollision 	unten 	am element 
+				return true;
+			}	
+			
+			else if (yb>yet && yt<=yet && xr>=xel && xl<=xer){				//Kollision 	oben 	am element 
+				return true;
+			}
 		}
 		return false;
 	}
