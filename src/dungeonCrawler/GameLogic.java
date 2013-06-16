@@ -10,6 +10,7 @@ import javax.swing.Timer;
 
 import dungeonCrawler.GameElements.Bullet;
 import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameElements.Spell;
 
 public class GameLogic implements KeyListener, ActionListener {
 
@@ -21,7 +22,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	private BitSet keys;
 	protected Timer timer;
 	public App app;
-	GameElement player;
+	Player player;
 	
 
 	public GameLogic(App app) {
@@ -106,7 +107,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
-		player = level.getPlayer();
+		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
 		if(!(direction.getX() == 0 && direction.getY() == 0)){
 			lastDirection = direction;
@@ -149,6 +150,27 @@ public class GameLogic implements KeyListener, ActionListener {
 				if(lastDirection.getY() < 0)
 					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
 				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
+				tmp.setDirection(lastDirection);
+				level.addGameElement(tmp);
+			}
+		}
+		if(delay[KeyEvent.VK_Q] >= 0){
+			delay[KeyEvent.VK_Q] -= 1;
+		}
+		if (keys.get(KeyEvent.VK_Q)){
+			if(delay[KeyEvent.VK_Q] < 0 && player.reduceMana(8, this)){
+				delay[KeyEvent.VK_Q] = 70;
+				
+				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
+				if(lastDirection.getX() > 0)
+					pos = pos.add(new Vector2d(player.size.getX()-2,0));
+				if(lastDirection.getX() < 0)
+					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
+				if(lastDirection.getY() > 0)
+					pos = pos.add(new Vector2d(0,player.size.getX()-2));
+				if(lastDirection.getY() < 0)
+					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
+				Spell tmp = new Spell(pos, new Vector2d(10, 10));
 				tmp.setDirection(lastDirection);
 				level.addGameElement(tmp);
 			}
