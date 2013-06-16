@@ -11,6 +11,7 @@ import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
 public class Bullet extends GameElement {
+	private int life = 300;
 	private Vector2d direction = new Vector2d(0,0);
 	public Bullet(Vector2d position, Vector2d size) {
 		super(position, size, "Bullet", EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE));
@@ -28,12 +29,19 @@ public class Bullet extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
 		if(e.type == EventType.TIMER){
+			life--;
 			e.gameLogic.moveElement(this, direction);
+			if(life<0)
+				this.size = new Vector2d(0,0);
 		}
 		if(e.type == EventType.COLLISION){
 			if (e.element instanceof Player) {
-				Player elementPlayer = (Player) e.element;
-				elementPlayer.reduceHealth(10, e.gameLogic);
+				Player element = (Player) e.element;
+				element.reduceHealth(10, e.gameLogic);
+			}
+			if(e.element instanceof Enemy){
+				Enemy element = (Enemy) e.element;
+				element.reduceHealth(10, e.gameLogic);
 			}
 			if(!(e.element instanceof Bullet)){
 				this.size = new Vector2d(0,0);

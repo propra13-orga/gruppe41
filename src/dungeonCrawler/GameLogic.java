@@ -137,7 +137,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		if (keys.get(32)){
 			if(delay[32] < 0){
-				delay[32] = 15;
+				delay[32] = 70;
 				
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)

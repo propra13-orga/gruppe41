@@ -17,7 +17,7 @@ import dungeonCrawler.Vector2d;
  */
 public class Enemy extends GameElement {
 	private int Health=100;
-	private int lives=1;
+	private int lives=0;
 
 	/**
 	 * @param position
@@ -62,18 +62,18 @@ public class Enemy extends GameElement {
 	public void reduceHealth(int Health, GameLogic logic) {
 		if (this.Health-Health > 0){
 			this.Health = this.Health-Health;
-			System.out.println("Enemy lost " + this.Health + "Healt");
+			System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
 		}
 		else {
 			lives--;
 			if(lives<0){
 				this.Health -= Health;
+				this.size = new Vector2d(0,0);
 				System.out.println("Enemy dead");
 			} else {
 				this.Health -= Health;
-				System.out.println("Enemy lost " + this.Health + "Healt");
+				System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
 				this.Health = 100;
-				logic.teleportElement(this, logic.getCheckPoint());
 			}
 		}
 	}
