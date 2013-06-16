@@ -62,7 +62,9 @@ public class Player extends GameElement {
 			System.out.println("Health verloren! Health: " + this.Health);
 		}
 		else {
+			lives--;
 			if(lives<=0){
+				this.Health -= Health;
 				System.out.println("!TOT! (x.x) Health: " + this.Health);
 			} else {
 				this.Health = 1000;
