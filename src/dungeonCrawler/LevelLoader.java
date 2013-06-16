@@ -102,7 +102,7 @@ public class LevelLoader {
 				element = new Player(position, size); break;
 			case "NPC":
 				element = new NPC(position, size); break;
-			case "Enemy":
+			case "ENEMY":
 				element = new Enemy(position, size); break;
 			case "WARPPOINT":
 				element = new WarpPoint(position, size);
