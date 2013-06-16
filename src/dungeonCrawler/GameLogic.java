@@ -15,7 +15,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	private GameContent level;
 	private BitSet keys;
 	protected Timer timer;
-	private App app;
+	public App app;
 	GameElement player;
 	private ShopSystem shop;
 

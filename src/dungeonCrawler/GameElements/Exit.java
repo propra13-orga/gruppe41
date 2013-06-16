@@ -35,8 +35,8 @@ public class Exit extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			App.currentLevel =App.currentLevel+1;
-			App.startGame();
+			e.gameLogic.app.currentLevel += 1;
+			e.gameLogic.app.startGame();
 			System.out.println("Ausgang");
 		}
 		// TODO Auto-generated method stub
