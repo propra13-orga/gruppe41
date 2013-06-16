@@ -1,3 +1,3 @@
 README
 
-Steuerung mit wasd. // Eugen T.
+Steuerung mit Pfeiltasten.

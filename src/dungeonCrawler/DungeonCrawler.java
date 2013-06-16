@@ -11,7 +11,7 @@ public class DungeonCrawler {
 	 * 
 	 */
 	public static void main(String[] args) {
-		App app = new App(3, 10, 5); // number of levels, width and length of a dungeon
+		App app = new App(3, 500, 250); // number of levels, width and length of a dungeon
 		app.start();
 	}
 	

@@ -1,5 +1,7 @@
 package dungeonCrawler;
 
+import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,42 +19,40 @@ import javax.swing.JTextPane;
 
 
 
-public class Settings extends JDialog {
-	private JButton btn_up;
-	private JButton btn_right;
-	private JButton btn_down;
-	private JButton btn_left;
+public class Settings {
+	private JDialog dialog;
+	private JButton button;
 	private JButton btn_defaults;
 	private JButton btn_exit;
+	
 	//Key Code for the Arrows
 	private int up=38, right=39, down=40, left=37;
 	
-	public Settings(){
-		setTitle("Settings");
-		//Set layout to Grid
-		GridBagLayout layout = new GridBagLayout();
-		setLayout(layout);
-		GridBagConstraints gbc=new GridBagConstraints();
-		gbc.insets = new Insets(5, 5, 5, 5); 
-		//Horizontal filling the Grid
-		gbc.fill=GridBagConstraints.HORIZONTAL; 
-		//setResizable(false);
+	//return Value Control Buttons
+	public int direction;
+	
+	public Container contentpane;
+	
+	
+	//paint method
+	public void paint(Graphics g){
 		
+	}
+	
+	//Constructor
+	public void startSettings(){
+		gui();
 		
-		gbc.gridx = 3;  
-		gbc.gridy = 0;
-		JTextPane message = new JTextPane();
-		message.setText("Settings Test");
-		message.setBackground(getContentPane().getBackground());
-		message.setEditable(false);
-		layout.setConstraints(message, gbc);
-		add(message);
+	}
+	
+	//Steuerung Buttons 
+	public int button_direction( int gridx, int gridy,int value, String name, GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
 		
-		//Up Button
-		gbc.gridx=3;
-		gbc.gridy=2;
-		btn_up=new JButton("UP");
-		btn_up.addKeyListener(new KeyListener() {
+		gbc.gridx=gridx;
+		gbc.gridy=gridy;
+		button=new JButton(name);
+		direction=value;
+		button.addKeyListener(new KeyListener() {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -59,89 +60,72 @@ public class Settings extends JDialog {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				up=e.getExtendedKeyCode();
-				
+				direction=e.getExtendedKeyCode();
+				System.out.println("In der Schleife Released"+direction);
+				System.out.println("Alle" + up + right + down + left);
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
+				direction=e.getExtendedKeyCode();
+				System.out.println("In der Schleife Pressed"+direction);
 			}
 		});
-		layout.setConstraints(btn_up, gbc);
-		add(btn_up);
+		layout.setConstraints(button, gbc);
+		dialog.add(button);
+		System.out.println("Ausserhalb der Schleife"+direction);
+		return direction;
 		
-		//End Up Button
-
-		//right Button
-		gbc.gridx=4;
-		gbc.gridy=3;		
-		btn_right=new JButton("RIGHT");
-		btn_right.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				right=e.getExtendedKeyCode();			
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {				
-			}
-		});
+	}
+	
+	public void key_column(int gridx, int gridy, String name,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
+		gbc.gridx = gridx;  
+		gbc.gridy = gridy;
+		JTextPane key = new JTextPane();
+		key.setText("Key");
+		key.setBackground(dialog.getContentPane().getBackground());
+		key.setEditable(false);
+		layout.setConstraints(key, gbc);
+		dialog.add(key);
+	}
+	
+	public void value_column(int gridx, int gridy,int key, GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
+		gbc.gridx=gridx;
+		gbc.gridy=gridy;
+		JTextPane value = new JTextPane();
+		if(key>0){
+		    value.setText(key +"");}
+		else if(key==0){
+			value.setText("Value");
+		}
+		//Text background to window background
+		value.setBackground(dialog.getContentPane().getBackground());
+		value.setEditable(false);
+		layout.setConstraints(value, gbc);
+		dialog.add(value);
+	}
+	
+	
+	
+	public void gui(){
+		dialog = new JDialog(dialog, "Settings");
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);	
 		
-		layout.setConstraints(btn_right, gbc);
-		add(btn_right);
-		//End right Button
+		contentpane = dialog.getContentPane();
+		//Set layout to Grid
+		GridBagLayout layout = new GridBagLayout();
 		
-		//down Button
-		gbc.gridx=3;
-		gbc.gridy=4;
-		btn_down=new JButton("DOWN");
+		dialog.setLayout(layout);
+		GridBagConstraints gbc=new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5); 
+		//Horizontal filling the Grid
+		gbc.fill=GridBagConstraints.HORIZONTAL; 
 		
-		btn_down.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				down=e.getExtendedKeyCode();			
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {				
-			}
-		});
-		layout.setConstraints(btn_down, gbc);
-		add(btn_down);
-		//End down Button
-		
-		//Left Button
-		gbc.gridx=2;
-		gbc.gridy=3;
-		btn_left=new JButton("LEFT");		
-		btn_left.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				left=e.getExtendedKeyCode();			
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {				
-			}
-		});
-		layout.setConstraints(btn_left, gbc);
-		add(btn_left);
-		//End left Button
+		//Buttons direction
+		up    = button_direction( 3, 2,38, "UP"   ,layout, gbc, dialog);
+		right = button_direction( 4, 3,39, "RIGHT",layout, gbc, dialog);
+		down  = button_direction( 3, 4,40, "DOWN" ,layout, gbc, dialog);
+		left  = button_direction( 2, 3, 37, "LEFT" ,layout, gbc, dialog);
 		
 		//Defaults Button
 		gbc.gridx=1;
@@ -150,21 +134,19 @@ public class Settings extends JDialog {
 		gbc.weightx = 1.0;
 		btn_defaults=new JButton("Defaults");
 		layout.setConstraints(btn_defaults, gbc);
-		add(btn_defaults);
+		dialog.add(btn_defaults);
 		btn_defaults.addActionListener(new ActionListener(){
-		
+				
 			public void actionPerformed(ActionEvent arg0) {
 				up=38;
 				right=39;
 				down=40;
 				left=37;
-				//Test Output
-				//System.out.println(up + right + down + left);
+					
+				}
+					
+			});
 				
-			}
-			
-		});
-		
 		// End Defaults Button
 		
 		//Exit Button
@@ -174,131 +156,63 @@ public class Settings extends JDialog {
 		gbc.weightx = 1.0;
 		btn_exit=new JButton("OK/Exit");
 		layout.setConstraints(btn_exit, gbc);
-		add(btn_exit);
+		dialog.add(btn_exit);
 		btn_exit.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				dialog.dispose();
 				
 			}
 			
 		});
+	//End Exit Button
 		
-		//End Exit Button
+		//up=38; right=39; down=40; left=37;
+		//key and value column
+		key_column(6, 1, "Key",  layout, gbc, dialog);
+		value_column(7, 1, 0,    layout, gbc, dialog);
+		key_column(6, 2, "UP",   layout, gbc, dialog);
+		value_column(7, 2, up,   layout, gbc, dialog);
+		key_column(6, 3, "RIGHT",layout, gbc, dialog);
+		value_column(7, 3, right,layout, gbc, dialog);
+		key_column(6, 4, "DOWN", layout, gbc, dialog);
+		value_column(7, 4, down, layout, gbc, dialog);
+		key_column(6, 5, "LEFT", layout, gbc, dialog);
+		value_column(7, 5, left, layout, gbc, dialog);
 		
-		//Key Column
-		gbc.gridx = 6;  
-		gbc.gridy = 1;
-		JTextPane key = new JTextPane();
-		key.setText("Key");
-		key.setBackground(getContentPane().getBackground());
-		key.setEditable(false);
-		layout.setConstraints(key, gbc);
-		add(key);
 		
-		gbc.gridx = 6;  
-		gbc.gridy = 2;
-		JTextPane key_up = new JTextPane();
-		key_up.setText("UP");
-		key_up.setBackground(getContentPane().getBackground());
-		key_up.setEditable(false);
-		layout.setConstraints(key_up, gbc);
-		add(key_up);
-
 		
-		gbc.gridx = 6;  
-		gbc.gridy = 3;
-		JTextPane key_right = new JTextPane();
-		key_right.setText("RIGHT");
-		key_right.setBackground(getContentPane().getBackground());
-		key_right.setEditable(false);
-		layout.setConstraints(key_right, gbc);
-		add(key_right);
 		
-
 		
-		gbc.gridx = 6;  
-		gbc.gridy = 4;
-		JTextPane key_down = new JTextPane();
-		key_down.setText("DOWN");
-		key_down.setBackground(getContentPane().getBackground());
-		key_down.setEditable(false);
-		layout.setConstraints(key_down, gbc);
-		add(key_down);
-				
-		gbc.gridx = 6;  
-		gbc.gridy = 5;
-		JTextPane key_left = new JTextPane();
-		key_left.setText("LEFT");
-		key_left.setBackground(getContentPane().getBackground());
-		key_left.setEditable(false);
-		layout.setConstraints(key_left, gbc);
-		add(key_left);
+		
+		
+		gbc.gridx = 3;  
+		gbc.gridy = 0;
+		JTextPane message = new JTextPane();
+		message.setText("Settings Test");
+		message.setBackground(dialog.getContentPane().getBackground());
+		message.setEditable(false);
+		layout.setConstraints(message, gbc);
+		dialog.add(message);
+		
+		
+		
+	
 		
 		
 		
 			
 		
 		
-		//Value Column
-		gbc.gridx=7;
-		gbc.gridy=1;
-		JTextPane value = new JTextPane();
-		value.setText("Value");
-		//Text background to window background
-		value.setBackground(getContentPane().getBackground());
-		value.setEditable(false);
-		layout.setConstraints(value, gbc);
-		add(value);
-	
 		
-		
-		gbc.gridx=7;
-		gbc.gridy=2;
-		JTextPane value_up = new JTextPane();
-		value_up.setText(up +"");
-		//Text background to window background
-		value_up.setBackground(getContentPane().getBackground());
-		value_up.setEditable(false);
-		layout.setConstraints(value_up, gbc);
-		add(value_up);
-		
-		gbc.gridx=7;
-		gbc.gridy=3;
-		JTextPane value_right = new JTextPane();
-		value_right.setText(Integer.toString(right));
-		//Text background to window background
-		value_right.setBackground(getContentPane().getBackground());
-		value_right.setEditable(false);
-		layout.setConstraints(value_right, gbc);
-		add(value_right);
-		
-		gbc.gridx=7;
-		gbc.gridy=4;
-		JTextPane value_down = new JTextPane();
-		value_down.setText(Integer.toString(down));
-		//Text background to window background
-		value_down.setBackground(getContentPane().getBackground());
-		value_down.setEditable(false);
-		layout.setConstraints(value_down, gbc);
-		add(value_down);
-		
-		
-		gbc.gridx=7;
-		gbc.gridy=5;
-		JTextPane value_left = new JTextPane();
-		value_left.setText(Integer.toString(left));
-		//Text background to window background
-		value_left.setBackground(getContentPane().getBackground());
-		value_left.setEditable(false);
-		layout.setConstraints(value_left, gbc);
-		add(value_left);
-		
+		contentpane = dialog.getContentPane();
 
 		
 		//Automatic determine the size of the Dialog
 		
-		pack();		
+		dialog.pack();
+		contentpane.repaint();
+		dialog.setVisible(true);
 		
 	}
 	
