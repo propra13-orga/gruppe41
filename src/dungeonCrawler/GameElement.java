@@ -49,11 +49,10 @@ public abstract class GameElement implements Drawable {
 	}
 
 	private Vector2d getTopLeft() {
-		return position;
+		return new Vector2d(position);
 	}
 
 	private Vector2d getTopRight() {
-		
 		return position.addX(size.getX());
 	}
 

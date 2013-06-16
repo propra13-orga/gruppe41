@@ -13,6 +13,10 @@ public class Vector2d {
 		x = 0;
 		y = 0;
 	}
+	public Vector2d(Vector2d vector) {
+		x = vector.x;
+		y = vector.y;
+	}
 	public Vector2d addX(int x){
 		return new Vector2d(this.x + x, this.y);
 	}
