@@ -8,6 +8,7 @@ import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameLogic;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -15,6 +16,8 @@ import dungeonCrawler.Vector2d;
  *
  */
 public class Enemy extends GameElement {
+	private int Health=100;
+	private int lives=1;
 
 	/**
 	 * @param position
@@ -46,6 +49,35 @@ public class Enemy extends GameElement {
 		if(e.type == EventType.TIMER){
 			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
 		}
+	}	
+	
+	public void setHealt(int Health) {
+		this.Health = Health;
+	}
+	
+	public void reduceHealth(int Health, GameLogic logic) {
+		if (this.Health-Health > 0){
+			this.Health = this.Health-Health;
+			System.out.println("Enemy lost " + this.Health + "Healt");
+		}
+		else {
+			lives--;
+			if(lives<0){
+				this.Health -= Health;
+				System.out.println("Enemy dead");
+			} else {
+				this.Health -= Health;
+				System.out.println("Enemy lost " + this.Health + "Healt");
+				this.Health = 100;
+				logic.teleportElement(this, logic.getCheckPoint());
+			}
+		}
+	}
+	
+	public int getHealt() {
+		return this.Health;
 	}
 
 }
+
+
