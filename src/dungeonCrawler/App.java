@@ -61,6 +61,7 @@ public class App {
 		if (currentLevel<level) {
 //			dungeon[currentLevel].complete = false;
 			gameContent = loader.getLevel();
+			
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);

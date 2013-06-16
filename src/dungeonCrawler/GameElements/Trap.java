@@ -36,6 +36,8 @@ public class Trap extends GameElement {
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
+			Player elementPlayer = (Player) e.element;
+			elementPlayer.reduceHealth(10);
 		}
 	}
 

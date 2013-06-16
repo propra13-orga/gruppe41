@@ -8,6 +8,8 @@ import java.util.BitSet;
 
 import javax.swing.Timer;
 
+import dungeonCrawler.GameElements.Player;
+
 public class GameLogic implements KeyListener, ActionListener {
 
 	private GameContent level;
@@ -115,7 +117,14 @@ public class GameLogic implements KeyListener, ActionListener {
 			System.out.println("DOWN");
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
-
+		if (((Player) player).getHealt()<=0){
+			app.cp.removeAll();
+			app.cp.validate();
+			app.gameContent = new GameContent();
+			app.loader = new LevelLoader(app.gameContent, app);
+			this.timer.stop();
+			app.startMainMenu();
+		}
 		if (e.getActionCommand() == "Timer")
 			app.camera.repaint();
 	}
