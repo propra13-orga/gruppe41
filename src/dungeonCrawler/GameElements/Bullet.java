@@ -35,7 +35,9 @@ public class Bullet extends GameElement {
 				Player elementPlayer = (Player) e.element;
 				elementPlayer.reduceHealth(10, e.gameLogic);
 			}
-			this.size = new Vector2d(0,0);
+			if(!(e.element instanceof Bullet)){
+				this.size = new Vector2d(0,0);
+			}
 		}
 	}
 
