@@ -6,6 +6,7 @@ package dungeonCrawler;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 
@@ -18,7 +19,8 @@ public class GameContent {
 	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
 	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
 	private GameElement player;
-	private GameElement statusBar = new StatusBar(new Vector2d(0, 200), new Vector2d(500, 50));
+	private GameElement statusBar;
+	private GameElement itemPanel;
 	/**
 	 * 
 	 */
@@ -39,8 +41,11 @@ public class GameContent {
 			err.showMe();
 			return false;
 		}
-		if (e.getName().equalsIgnoreCase("PLAYER"))
+		if (e.getName().equalsIgnoreCase("PLAYER")) {
 			player = e;
+			statusBar = new StatusBar(new Vector2d(0, 200), new Vector2d(500, 50), player);
+			itemPanel = new ItemPanel(new Vector2d(0, 0), new Vector2d(50, 210), player);
+		}
 		if(e.type.contains(ElementType.MOVABLE))
 			ret &= this.movables.add(e);
 		if(e instanceof Player){
@@ -86,6 +91,10 @@ public class GameContent {
 	
 	public GameElement getStatusBar() {
 		return statusBar;
+	}
+	
+	public GameElement getItemPanel() {
+		return itemPanel;
 	}
 
 }

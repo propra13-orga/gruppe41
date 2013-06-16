@@ -8,6 +8,7 @@ import java.util.ListIterator;
 
 import javax.swing.JPanel;
 
+import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 
@@ -74,15 +75,19 @@ public class Camera extends JPanel {
 						.getSize().getX(), tmp.getSize().getY());
 				tmp.draw(gr);
 				gr.dispose();
-				tmp = level.getStatusBar();
-				((StatusBar)tmp).setHealthValue(((Player) level.getPlayer()).getHealt()*100/1000);
-				((StatusBar)tmp).setManaValue(((Player) level.getPlayer()).getMana()*100/100);
-				gr = g.create(((StatusBar)tmp).position.getX(), ((StatusBar)tmp).position.getY(),
-						((StatusBar)tmp).getSize().getX(), ((StatusBar)tmp).getSize().getY());
-				tmp.draw(gr);
-				gr.dispose();
-				
 			}
+			// show status bar
+			tmp = level.getStatusBar();
+			gr = g.create(((StatusBar)tmp).position.getX(), ((StatusBar)tmp).position.getY(),
+					((StatusBar)tmp).getSize().getX(), ((StatusBar)tmp).getSize().getY());
+			tmp.draw(gr);
+			gr.dispose();
+			// show item panel
+			tmp = level.getItemPanel();
+			gr = g.create(((ItemPanel)tmp).position.getX(), ((ItemPanel)tmp).position.getY(),
+					((ItemPanel)tmp).getSize().getX(), ((ItemPanel)tmp).getSize().getY());
+			tmp.draw(gr);
+			gr.dispose();
 		}
 	}
 }
