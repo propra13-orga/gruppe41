@@ -103,7 +103,11 @@ public class LevelLoader {
 			case "NPC":
 				element = new NPC(position, size); break;
 			case "Enemy":
-				element = new NPC(position, size); break;
+				element = new Enemy(position, size); break;
+			case "WARPPOINT":
+				element = new WarpPoint(position, size);
+				((WarpPoint)element).setTarget(new Vector2d(Integer.parseInt(param[5]), Integer.parseInt(param[6])));
+				break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

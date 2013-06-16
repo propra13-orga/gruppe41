@@ -57,9 +57,9 @@ public class GameLogic implements KeyListener, ActionListener {
 	
 	private void handleCollision(GameElement active, GameElement passive){
 		//TODO generate GameEvents
-		GameEvent e = new GameEvent(passive, EventType.COLLISION);
+		GameEvent e = new GameEvent(passive, EventType.COLLISION, this);
 		active.GameEventPerformed(e);
-		e = new GameEvent(active, EventType.COLLISION);
+		e = new GameEvent(active, EventType.COLLISION, this);
 		passive.GameEventPerformed(e);
 	}
 	
@@ -92,6 +92,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	}
 
 	public boolean teleportElement(GameElement e, Vector2d position){
+		e.setPosition(position);
 		return false;
 	}
 

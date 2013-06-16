@@ -3,11 +3,13 @@ package dungeonCrawler.GameElements;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
+import java.util.LinkedList;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameObject;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -15,7 +17,8 @@ import dungeonCrawler.Vector2d;
  *
  */
 public class Player extends GameElement {
-		private int Health=1000;
+	private int Health=1000;
+	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	/**
 	 * @param position
 	 * @param size
@@ -33,6 +36,10 @@ public class Player extends GameElement {
 	
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
+	}
+	
+	public void add(GameObject object){
+		inventar.add(object);
 	}
 
 	@Override
