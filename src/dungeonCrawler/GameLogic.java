@@ -51,6 +51,29 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void setLevel(GameContent level) {
 		this.level = level;
 	}
+	
+	public boolean moveElement(GameElement e, Vector2d direction){
+		if(e.type.contains(ElementType.MOVABLE)){
+			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
+			for(GameElement collisioncheck : level.getGameElements()){
+				if(e.collision(collisioncheck)){
+					e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
+					//handle collision (e.g. traps, exit ...)
+				}
+			}
+			e.setPosition(e.position.add(new Vector2d(0, direction.getY())));
+			for(GameElement collisioncheck : level.getGameElements()){
+				if(e.collision(collisioncheck)){
+					e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
+					//handle collision (e.g. traps, exit ...)
+				}
+			}
+			//e.setPosition(direction.add(e.position));
+			return true;
+		}
+		else
+			return false;
+	}
 
 	public boolean teleportElement(GameElement e, Vector2d position){
 		return false;
@@ -61,6 +84,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
 		player = level.getPlayer();
 		Vector2d direction = player.getPosition();
+		direction = new Vector2d(0,0);
 		if (keys.get(37)) {// left arrow
 			direction = direction.addX(-2);
 			System.out.println("LEFT");
@@ -77,7 +101,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			direction = direction.addY(2);
 			System.out.println("DOWN");
 		}
-		if(!keys.isEmpty()) player.moveElement(direction);
+		if(!keys.isEmpty()) moveElement(player, direction);
 
 		if (e.getActionCommand() == "Timer")
 			app.camera.repaint();

@@ -81,20 +81,22 @@ public abstract class GameElement implements Drawable {
 	}
 
 	public boolean collision(GameElement element) {
-		if ((this.getTopLeft().getX()<=element.getTopLeft().getX()) && (this.getTopRight().getX()>=element.getTopLeft().getX())) {
-			if ((this.getTopLeft().getY()<=element.getTopLeft().getY()) && (this.getBottomLeft().getY()>=element.getTopLeft().getY())) {
-				return true;
+		if(element != this){ //TODO kollidiert nicht richtig mit Wänden und und Kollision nach oben/unten fehlerhaft
+			if ((this.getTopLeft().getX()<=element.getTopLeft().getX()) && (this.getTopRight().getX()>=element.getTopLeft().getX())) {
+				if ((this.getTopLeft().getY()<=element.getTopLeft().getY()) && (this.getBottomLeft().getY()>=element.getTopLeft().getY())) {
+					return true;
+				}
+				else if ((this.getTopLeft().getY()<=element.getBottomLeft().getY()) && (this.getBottomLeft().getY()>=element.getBottomLeft().getY())) {
+					return true;
+				}
 			}
-			else if ((this.getTopLeft().getY()<=element.getBottomLeft().getY()) && (this.getBottomLeft().getY()>=element.getBottomLeft().getY())) {
-				return true;
-			}
-		}
-		else if ((this.getTopLeft().getX()<=element.getTopRight().getX()) && (this.getTopRight().getX()>=element.getTopRight().getX())) {
-			if ((this.getTopLeft().getY()<=element.getTopRight().getY()) && (this.getBottomLeft().getY()>=element.getTopRight().getY())) {
-				return true;
-			}
-			else if ((this.getTopLeft().getY()<=element.getBottomRight().getY()) && (this.getBottomLeft().getY()>=element.getBottomRight().getY())) {
-				return true;
+			else if ((this.getTopLeft().getX()<=element.getTopRight().getX()) && (this.getTopRight().getX()>=element.getTopRight().getX())) {
+				if ((this.getTopLeft().getY()<=element.getTopRight().getY()) && (this.getBottomLeft().getY()>=element.getTopRight().getY())) {
+					return true;
+				}
+				else if ((this.getTopLeft().getY()<=element.getBottomRight().getY()) && (this.getBottomLeft().getY()>=element.getBottomRight().getY())) {
+					return true;
+				}
 			}
 		}
 		return false;

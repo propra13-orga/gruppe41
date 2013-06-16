@@ -64,6 +64,10 @@ public class GameContent {
 		return null;
 	}
 	
+	public LinkedList<GameElement> getGameElements() {
+		return gameElements;
+	}
+
 	public GameElement getPlayer() {
 		return player;
 	}
