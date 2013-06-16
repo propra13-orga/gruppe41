@@ -19,7 +19,7 @@ public class Player extends GameElement {
 	 * @param size
 	 */
 	public Player(Vector2d position, Vector2d size) {
-		super(position, size, "PLAYER", EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE));
+		super(position, size, "PLAYER", EnumSet.of(ElementType.MOVABLE));
 	}
 
 	@Override

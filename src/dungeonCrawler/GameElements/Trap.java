@@ -19,7 +19,7 @@ public class Trap extends GameElement {
 	 * @param size
 	 */
 	public Trap(Vector2d position, Vector2d size) {
-		super(position, size, "TRAP", EnumSet.of(ElementType.IMMOVABLE));
+		super(position, size, "TRAP", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
 	}
 
 	@Override

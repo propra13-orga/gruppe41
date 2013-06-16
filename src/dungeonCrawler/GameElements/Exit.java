@@ -19,7 +19,7 @@ public class Exit extends GameElement {
 	 * @param size
 	 */
 	public Exit(Vector2d position, Vector2d size) {
-		super(position, size, "EXIT", EnumSet.of(ElementType.IMMOVABLE));
+		super(position, size, "EXIT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
 	}
 
 	@Override

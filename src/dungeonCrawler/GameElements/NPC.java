@@ -19,7 +19,7 @@ public class NPC extends GameElement {
 	 * @param size
 	 */
 	public NPC(Vector2d position, Vector2d size) {
-		super(position, size, "NPC", EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE));
+		super(position, size, "NPC", EnumSet.of(ElementType.MOVABLE));
 	}
 
 	@Override
