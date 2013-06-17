@@ -27,7 +27,7 @@ public class Healthpot extends GameElement {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.magenta);
+		g.setColor(Color.MAGENTA);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 
