@@ -51,11 +51,11 @@ public class Enemy extends GameElement {
 		}
 	}	
 	
-	public void setHealt(int Health) {
+	public void setHealth(int Health) {
 		this.Health = Health;
 	}
 	
-	public void increaseHealt(int Health) {
+	public void increaseHealth(int Health) {
 		this.Health += Health;
 	}
 	
@@ -78,7 +78,7 @@ public class Enemy extends GameElement {
 		}
 	}
 	
-	public int getHealt() {
+	public int getHealth() {
 		return this.Health;
 	}
 
