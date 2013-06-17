@@ -26,6 +26,7 @@ public class Player extends GameElement {
 	private int lives=3;
 	private int money;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
+	private GameEvent e;
 	/**
 	 * @param position
 	 * @param size
@@ -48,9 +49,8 @@ public class Player extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-
 		// TODO Auto-generated method stub
-		
+		this.e=e;
 	}
 	
 	public void setHealth(int Health) {
@@ -83,6 +83,7 @@ public class Player extends GameElement {
 			if(lives<0){
 				this.Health -= Health;
 				System.out.println("!TOT! (x.x) Health: " + this.Health);
+				e.gameLogic.app.currentLevel = 0;
 			} else {
 				this.Health -= Health;
 				System.out.println("!TOT! (x.x) Health: " + this.Health);
