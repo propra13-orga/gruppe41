@@ -70,7 +70,10 @@ public class Player extends GameElement {
 			Health = this.armor*(-1);
 			this.armor = 0;
 		}
-		else System.out.println(Health + " Schaden");
+		else {
+			System.out.println(Health + " Schaden");
+			Health = 0;
+		}
 		if (this.Health-Health > 0){
 			this.Health = this.Health-Health;
 			System.out.println("Health verloren! Health: " + this.Health);
