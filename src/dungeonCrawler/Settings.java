@@ -19,7 +19,7 @@ import javax.swing.JTextPane;
 
 
 
-public class Settings {
+public class Settings implements KeyListener {
 	private JDialog dialog;
 	private JButton button;
 	private JButton btn_defaults;
@@ -213,6 +213,24 @@ public class Settings {
 		dialog.pack();
 		contentpane.repaint();
 		dialog.setVisible(true);
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	

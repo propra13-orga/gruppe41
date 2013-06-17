@@ -23,8 +23,9 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Timer timer;
 	public App app;
 	Player player;
+	private DirtyShopSystem shop = new DirtyShopSystem();
+	public int money;
 	
-
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
@@ -33,6 +34,9 @@ public class GameLogic implements KeyListener, ActionListener {
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
+		
+		shop.setvermoegen(100);
+		shop.gui(shop.getvermoegen());
 	}
 
 	@Override
@@ -107,6 +111,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
+
 		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
 		if(!(direction.getX() == 0 && direction.getY() == 0)){
@@ -154,10 +159,15 @@ public class GameLogic implements KeyListener, ActionListener {
 			direction = direction.addY(1);
 			System.out.println("DOWN");
 		}
-		if (keys.get(27)) { // ESC
-			DirtyShopSystem shop = new DirtyShopSystem();
-			shop.startDirtyShop(100);
+
+	
+		if (keys.get(83)) { // s
+			keys.clear();
+			System.out.println("Shop Visable you have " + money + " Geld");
+			shop.startDirtyShop();
+			money = shop.getvermoegen();
 		}
+		
 		if(delay[32] >= 0){
 			delay[32] -= 1;
 		}
