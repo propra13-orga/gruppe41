@@ -138,6 +138,8 @@ public class Player extends GameElement {
 		if(this.armor > this.maxArmor) this.armor = this.maxArmor;
 	}
 	
-
+	public int getArmor() {
+		return this.armor;
+	}
 
 }

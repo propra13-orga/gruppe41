@@ -17,16 +17,20 @@ public class StatusBar extends GameElement {
 
 	@Override
 	public void draw(Graphics g) {
-			// health bar
-			g.setColor(Color.RED);
-			g.fillRect(30, 30, 200*player.getHealth()/player.maxHealth, 15);
-			g.setColor(Color.BLACK);
-			g.drawRect(30, 30, 200, 15);
-			// mana bar
-			g.setColor(Color.BLUE);
-			g.fillRect(270, 30, 200*player.getMana()/player.maxMana, 15);
-			g.setColor(Color.BLACK);
-			g.drawRect(270, 30, 200, 15);
+		// health bar
+		g.setColor(Color.RED);
+		g.fillRect(30, 30, 200*player.getHealth()/player.maxHealth, 15);
+		// armor bar
+		g.setColor(Color.GREEN);
+		g.fillRect(30, 30, 200*player.getArmor()/player.maxArmor, 15);
+		// mana bar
+		g.setColor(Color.BLUE);
+		g.fillRect(270, 30, 200*player.getMana()/player.maxMana, 15);
+		// bounds
+		g.setColor(Color.BLACK);
+		g.drawRect(30, 30, 200, 15);
+		g.setColor(Color.BLACK);
+		g.drawRect(270, 30, 200, 15);
 	}
 
 	@Override
