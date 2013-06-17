@@ -209,7 +209,7 @@ public class DirtyShopSystem{
 		//Weapon
 
 		gridy=6;
-		item_name = "Weapon";
+		item_name = "Armor";
 
 		//Item description
 		gbc.gridheight=1;
@@ -260,7 +260,7 @@ public class DirtyShopSystem{
 						JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
 					}
 				}
-				else System.out.println("Rüstung 100%");
+				else System.out.println("Ruestung 100%");
 
 			}
 		});
