@@ -51,22 +51,34 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyChar() == 'h') {// "h" key typed
+		if (e.getKeyChar() == 'h') {// "h" such health
 			keys.clear(72);
 			Iterator<GameObject> it = player.getInventar().iterator();
 			boolean b = true;
-			GameObject o;
+			GameObject obj;
 			while (it.hasNext() && b) {
-				o = it.next();
-				if (o.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
-					System.out.println("HealthPotion");
-					o.performOn(player);
-					player.getInventar().remove(o);
+				obj = it.next();
+				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
+					obj.performOn(player);
+					player.getInventar().remove(obj);
 					b = false;
 				}
 			}
 		}
-
+		if (e.getKeyChar() == 'm') {// "m" such mana
+			keys.clear(72);
+			Iterator<GameObject> it = player.getInventar().iterator();
+			boolean b = true;
+			GameObject obj;
+			while (it.hasNext() && b) {
+				obj = it.next();
+				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.ManaPotion")) {
+					obj.performOn(player);
+					player.getInventar().remove(obj);
+					b = false;
+				}
+			}
+		}
 	}
 
 	public GameContent getLevel() {
@@ -147,7 +159,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			System.out.println("CHEAT RIGHT");
 		}
 		if (keys.get(101)) {// cheat Leben
-			player.setHealt(player.getHealt()+1000);
+			player.setHealth(player.getHealth()+1000);
 			System.out.println("CHEAT Leben");
 		}
 
@@ -239,7 +251,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
-		if (((Player) player).getHealt()<=0){
+		if (((Player) player).getHealth()<=0){
 			app.cp.removeAll();
 			app.cp.validate();
 			app.gameContent = new GameContent();
