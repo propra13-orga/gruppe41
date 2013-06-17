@@ -25,6 +25,8 @@ public class GameLogic implements KeyListener, ActionListener {
 	public App app;
 	Player player;
 	private DirtyShopSystem shop = null;
+	public int Money;
+
 
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
@@ -34,6 +36,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
+		Money = 0;
 	}
 
 	@Override
@@ -193,11 +196,10 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (keys.get(83)) { // s
 			keys.clear();
 			if (level.getPlayer() != null) {
-
 				if (shop == null) {
 					// initialize shop
 					shop = new DirtyShopSystem((Player)level.getPlayer());
-					shop.setvermoegen(100);
+					setmoney(Money+100);
 					shop.gui(shop.getvermoegen());
 				}
 				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
@@ -280,6 +282,26 @@ public class GameLogic implements KeyListener, ActionListener {
 
 	public void setCheckPoint(Vector2d checkPoint) {
 		this.checkPoint = checkPoint;
+	}
+	
+	public void addmoney(int amount){
+		shop.setvermoegen(shop.getvermoegen() + shop.getvermoegen());
+	}
+	
+	public void setmoney(int amount){
+		if (shop == null){
+			this.Money=amount;
+		}
+		else {
+			this.Money=amount;
+			shop.setvermoegen(Money);
+		}
+	}
+	public int getmoney(){
+		if (shop != null){
+			Money =shop.getvermoegen();
+		}
+		return Money;
 	}
 
 }

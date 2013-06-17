@@ -65,7 +65,7 @@ public class Player extends GameElement {
 	
 	public void reduceHealth(int Health, GameLogic logic) {
 		this.armor -= Health;
-		System.out.print("Rüstung absorbiert ");
+		System.out.print("Rï¿½stung absorbiert ");
 		if (this.armor<0) {
 			System.out.println((Health+this.armor) + " Schaden");
 			Health = this.armor*(-1);
@@ -123,12 +123,13 @@ public class Player extends GameElement {
 	}
 	
 	public int getMoney() {
-		return this.money;
+		return e.gameLogic.getmoney();
 	}
 
 	public void setMoney(int money) {
-		this.money = money;
+		e.gameLogic.setmoney(money);				
 	}
+	
 	
 	public void addItem(GameObject item) {
 		this.inventar.add(item);
