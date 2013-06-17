@@ -111,6 +111,8 @@ public class LevelLoader {
 			case "MANAPOT":
 				element = new Manapot(position, size);
 				break;					
+			case "ARMOR":
+				element = new Armor(position, size); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

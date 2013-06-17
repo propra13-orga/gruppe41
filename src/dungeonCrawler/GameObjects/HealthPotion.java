@@ -5,6 +5,10 @@ import dungeonCrawler.GameObject;
 import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
+/**
+ * @author Tissen
+ *
+ */
 public class HealthPotion extends GameObject {
 	private int health;
 

@@ -6,7 +6,6 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 
 import dungeonCrawler.ElementType;
-import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
@@ -22,6 +21,8 @@ public class Player extends GameElement {
 	public final int maxMana = 100;
 	private int Health=maxHealth;
 	private int mana = maxMana;
+	public final int maxArmor = 1000;
+	private int armor = 0;
 	private int lives=3;
 	private int money;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
@@ -62,6 +63,14 @@ public class Player extends GameElement {
 	}
 	
 	public void reduceHealth(int Health, GameLogic logic) {
+		this.armor -= Health;
+		System.out.print("Rüstung absorbiert ");
+		if (this.armor<0) {
+			System.out.println((Health+this.armor) + " Schaden");
+			Health = this.armor*(-1);
+			this.armor = 0;
+		}
+		else System.out.println(Health + " Schaden");
 		if (this.Health-Health > 0){
 			this.Health = this.Health-Health;
 			System.out.println("Health verloren! Health: " + this.Health);
@@ -119,5 +128,12 @@ public class Player extends GameElement {
 	public void addItem(GameObject item) {
 		this.inventar.add(item);
 	}
+	
+	public void increaseArmor(int arm) {
+		this.armor += arm;
+		if(this.armor > this.maxArmor) this.armor = this.maxArmor;
+	}
+	
+
 
 }
