@@ -20,12 +20,12 @@ public class ItemPanel extends GameElement {
 		// draw items
 		for (int i=0;i<player.getInventar().size();i++) {
 			g.setColor(Color.GRAY);
-			g.fillRect(10, 40*i+10, 30, 30);
+			g.fillRect(10, 20*i+10, 10, 10);
 		}
 		// draw bounds
-		for (int i=0;i<5;i++) {
+		for (int i=0;i<player.getInventar().size();i++) {
 			g.setColor(Color.BLACK);
-			g.drawRect(10, 40*i+10, 30, 30);
+			g.drawRect(10, 20*i+10, 10, 10);
 		}
 
 	}
