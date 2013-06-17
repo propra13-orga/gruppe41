@@ -1,36 +1,38 @@
 package dungeonCrawler;
 
-import java.awt.Container;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.BitSet;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class DirtyShopSystem {
+public class DirtyShopSystem{
 	private JDialog dialog;
 	private JButton button_hp;
 	private JButton button_mana;
 	private JButton button_weapon;
-	private Container cp;
-	 
+	private JButton btn_exit;
 	public JTextField number_hp;
 	public JTextField number_mana;
 	public JTextField number_weapon;
-	public int times_hp=0;
-	public int times_mana=0;
-	public int times_weapon=0;
+	public int times_hp=2;
+	public int times_mana=2;
+	public int times_weapon=2;
 	private int vermoegen;
 	private int price;
 	public int item_number;
+
+	
 
 	public int getvermoegen(){
 		return this.vermoegen;
@@ -65,16 +67,16 @@ public class DirtyShopSystem {
 	}
 	
 	
-	private void gui(int vermoegen){
+	int gui(int vermoegen){
 		setvermoegen(vermoegen);
 		
 		//Dialog init
 		
+		dialog = new JDialog(dialog, "Shop");
+		//dialog.setUndecorated(true);
+		dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);	
 		
-		dialog = new JDialog(dialog, "Settings");
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);	
 		
-		cp = dialog.getContentPane();
 		//Set layout to Grid
 		GridBagLayout layout = new GridBagLayout();
 		
@@ -129,12 +131,11 @@ public class DirtyShopSystem {
 					System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_hp());
 				}
 				else if ((getvermoegen()-price)<0){
-					JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
+					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
 				}
 
 			}
 		});
-		System.out.println("out" + getvermoegen() + " " + price + " " + gettimes_hp());		
 		dialog.add(button_hp);
 		//End HeathPack
 		
@@ -188,12 +189,11 @@ public class DirtyShopSystem {
 					System.out.println("in " +getvermoegen() + " " + price + " " + gettimes_mana());
 				}
 				else if ((getvermoegen()-price)<0){
-					JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
+					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
 				}
 
 			}
 		});
-		System.out.println("out" +getvermoegen() + " " + price + " " + gettimes_mana());
 		dialog.add(button_mana);
 		//ManaTrank End
 		
@@ -245,20 +245,47 @@ public class DirtyShopSystem {
 					System.out.println("in" + getvermoegen() + " " + price + " " + gettimes_weapon());
 				}
 				else if ((getvermoegen()-price)<0){
-					JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
+					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
 				}
 
 			}
 		});
-		System.out.println("Out" + getvermoegen() + " " + price + " " + gettimes_weapon());
-		dialog.add(button_weapon);
 		//End Weapon
-dialog.pack();
-dialog.setVisible(true);
+		//Exit Button
+		gbc.gridx=7; 
+		gbc.gridy=20;
+		gbc.gridwidth=2;
+		gbc.weightx = 1.0;
+		btn_exit=new JButton("shop close");
+		layout.setConstraints(btn_exit, gbc);
+		dialog.add(btn_exit);
+		btn_exit.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				dialog.setVisible(false);
+				System.out.println("Shop Invisable");
+				
+				
+			}
+			
+		});
+
+	System.out.println("ShopSystem Started");
+	dialog.add(button_weapon);
+	
+	dialog.pack();
+	return getvermoegen();
 	}
 
-public void startDirtyShop(int vermoegen){
-	gui(vermoegen);
-}
+public void startDirtyShop(){
+	dialog.setVisible(true);
+		
+	}
+
+public void stopDirtyShop(){
+	dialog.setVisible(false);
+	}
+
+
 
 }
