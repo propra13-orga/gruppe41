@@ -21,7 +21,7 @@ public class Manapot extends GameElement {
 	 * @param size
 	 */
 	public Manapot(Vector2d position, Vector2d size) {
-		super(position, size, "TRAP", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size, "MANAPOT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
 	}
 
 	@Override

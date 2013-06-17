@@ -21,7 +21,7 @@ public class Healthpot extends GameElement {
 	 * @param size
 	 */
 	public Healthpot(Vector2d position, Vector2d size) {
-		super(position, size, "TRAP", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size, "HEALTHPOT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
 	}
 
 	@Override

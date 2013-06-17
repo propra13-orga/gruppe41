@@ -33,7 +33,7 @@ public class GameContent {
 	public boolean addGameElement(GameElement e){
 		boolean ret = true;
 		GameElement collisionElement = collisionWith(e);
-		if (collisionElement != null) {
+/*		if (collisionElement != null) {	
 			Error err = new Error("Kann '" + e.getName() +
 					"', Position: " + e.position.getX() + "," + e.position.getY() +
 					" Gr��e: " + e.size.getX() + "," + e.size.getY() +
@@ -42,7 +42,7 @@ public class GameContent {
 					" Gr��e: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
 			err.showMe();
 			return false;
-		}
+		}*/
 		if (e.getName().equalsIgnoreCase("PLAYER")) {
 			player = e;
 			statusBar = new StatusBar(new Vector2d(0, 200), new Vector2d(500, 50), player);
