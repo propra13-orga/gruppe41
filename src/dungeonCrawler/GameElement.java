@@ -109,7 +109,7 @@ public abstract class GameElement implements Drawable, GameListener {
 			else if (yb>yet && yt<yet && xr>xel && xl<xer){				//Kollision 	oben 	am element 
 				return true;
 			}
-			else if (xl>xel && xr<xer && yt> yet && yb<yeb){
+			else if ((xl>xel || xl==xel) && (xr<xer || xr==xer) && (yt>yet || yt==yet) && (yb<yeb || yb==yeb)){
 				return true;
 			}
 		}
