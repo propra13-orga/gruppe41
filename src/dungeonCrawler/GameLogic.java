@@ -181,13 +181,15 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (keys.get(83)) { // s
 			keys.clear();
 			if (level.getPlayer() != null) {
+				
 				if (shop == null) {
 					// initialize shop
+					timer.stop();
 					shop = new DirtyShopSystem((Player)level.getPlayer());
 					shop.setvermoegen(100);
 					shop.gui(shop.getvermoegen());
 				}
-
+				timer.start();
 				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
 				shop.startDirtyShop();
 				player.setMoney(shop.getvermoegen());
