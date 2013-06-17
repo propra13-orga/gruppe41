@@ -113,6 +113,31 @@ public class GameLogic implements KeyListener, ActionListener {
 			lastDirection = direction;
 		}
 		direction = new Vector2d(0,0);
+		if (keys.get(100)) {// cheat left
+			player.setPosition(position.addX(-10));
+			System.out.println("CHEAT LEFT");
+		}		
+		if (keys.get(104)) {// cheat up
+			player.setPosition(position.addY(-10));
+			System.out.println("CHEAT UP");
+		}
+		if (keys.get(98)) {// cheat down
+			player.setPosition(position.addY(10));
+			System.out.println("CHEAT DOWN");
+		}
+		if (keys.get(102)) {// cheat right
+			player.setPosition(position.addX(10));
+			System.out.println("CHEAT RIGHT");
+		}
+		if (keys.get(101)) {// Leben
+			player.setHealt(player.getHealt()+1000);
+			System.out.println("CHEAT Leben");
+		}
+		if (keys.get(99)) {// Exit
+			if (level.getExit() != null){
+			level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
+			System.out.println("CHEAT EXIT");
+		}
 		if (keys.get(37)) {// left arrow
 			direction = direction.addX(-1);
 			System.out.println("LEFT");

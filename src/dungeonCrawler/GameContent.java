@@ -9,6 +9,7 @@ import java.util.ListIterator;
 import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
+import dungeonCrawler.GameElements.Exit;
 
 /**
  * @author Mattes
@@ -19,6 +20,7 @@ public class GameContent {
 	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
 	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
 	private GameElement player;
+	private GameElement Exit;
 	private GameElement statusBar;
 	private GameElement itemPanel;
 	/**
@@ -34,10 +36,10 @@ public class GameContent {
 		if (collisionElement != null) {
 			Error err = new Error("Kann '" + e.getName() +
 					"', Position: " + e.position.getX() + "," + e.position.getY() +
-					" Größe: " + e.size.getX() + "," + e.size.getY() +
+					" Grï¿½ï¿½e: " + e.size.getX() + "," + e.size.getY() +
 					" nicht setzen. (" + collisionElement.getName() +
 					": " + collisionElement.position.getX() + "," + collisionElement.position.getY() +
-					" Größe: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
+					" Grï¿½ï¿½e: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
 			err.showMe();
 			return false;
 		}
@@ -50,6 +52,9 @@ public class GameContent {
 			ret &= this.movables.add(e);
 		if(e instanceof Player){
 			this.player = e;
+		}
+		if(e instanceof Exit){
+			this.Exit=e;
 		}
 		System.out.println(gameElements.size());
 		return this.gameElements.add(e) && ret;
@@ -83,6 +88,10 @@ public class GameContent {
 
 	public GameElement getPlayer() {
 		return player;
+	}
+	
+	public GameElement getExit(){
+		return this.Exit;
 	}
 
 	public void setPlayer(GameElement player) {
