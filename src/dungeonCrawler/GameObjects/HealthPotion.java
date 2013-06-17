@@ -17,8 +17,8 @@ public class HealthPotion extends GameObject {
 		// TODO Auto-generated method stub
 		String name = element.getName();
 		switch (name) {
-		case "PLAYER": ((Player)element).increaseHealt(health); break;
-		case "ENEMY": ((Enemy)element).increaseHealt(health); break;
+		case "PLAYER": ((Player)element).increaseHealth(health); break;
+		case "ENEMY": ((Enemy)element).increaseHealth(health); break;
 		}
 	}
 
