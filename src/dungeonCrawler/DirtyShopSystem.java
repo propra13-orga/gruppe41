@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameObjects.HealthPotion;
+import dungeonCrawler.GameObjects.ManaPotion;
 
 public class DirtyShopSystem{
 	private JDialog dialog;
@@ -135,6 +137,7 @@ public class DirtyShopSystem{
 					setvermoegen(getvermoegen()-price);
 					System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_hp());
 					player.setMoney(getvermoegen());
+					player.addItem(new HealthPotion(200));
 					
 				}
 				else if ((getvermoegen()-price)<0){
@@ -195,6 +198,7 @@ public class DirtyShopSystem{
 					setvermoegen(getvermoegen()-price);
 					System.out.println("in " +getvermoegen() + " " + price + " " + gettimes_mana());
 					player.setMoney(getvermoegen());
+					player.addItem(new ManaPotion(50));
 				}
 				else if ((getvermoegen()-price)<0){
 					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				

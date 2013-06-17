@@ -3,11 +3,11 @@ package dungeonCrawler.GameObjects;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
 
-public class HealthPotion extends GameObject {
-	private int health;
+public class ManaPotion extends GameObject {
+	private int mana;
 
-	public HealthPotion(int h) {
-		this.health = h;
+	public ManaPotion(int m) {
+		this.mana = m;
 	}
 	
 	@Override
