@@ -36,7 +36,7 @@ public class LevelLoader {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
 
-		System.out.println(number);
+		System.out.println("Lade Level " + number + "...");
 		if (separator.equals(null)) {
 			Error err = new Error("File separator not found");
 			err.showMe();
@@ -47,20 +47,25 @@ public class LevelLoader {
 			buffer = new BufferedReader(buffer);
 			String input = null;
 			while ((input = buffer.readLine()) != null) {
-				if (parse(input)) {
-					if (!level.addGameElement(element)) {
-						Error err = new Error("Kann '" + input + "' nicht interpretieren");
-						err.showMe();
+				if (!input.startsWith(";")) {
+					System.out.println("Lade Element: " + input);
+					if (parse(input)) {
+						if (!level.addGameElement(element)) {
+							Error err = new Error("Kann '" + input + "' nicht interpretieren");
+							err.showMe();
+						}
 					}
 				}
 			}
 			buffer.close();
 			loaded = true;
+			System.out.println("Fertig.");
 		}
 		// show an error message
 		catch (IOException e) {
 			e.printStackTrace();
 			loaded = false;
+			System.out.println("Ladevorgang nicht erfolgreich.");
 		}
 		return level;
 	}
@@ -115,5 +120,5 @@ public class LevelLoader {
 			return false;
 		}
 	}
-	
+
 }

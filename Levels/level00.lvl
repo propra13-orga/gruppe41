@@ -1,3 +1,6 @@
+; Kommentarzeile beginnt immer mit einem semikolon!
+; Keine Leerzeilen erlaubt. Zum Strukturieren Kommentare benutzen!
+;
 WALL,0,0,350,50
 HEALTHPOT,360,55,10,10
 WALL,0,50,50,200
