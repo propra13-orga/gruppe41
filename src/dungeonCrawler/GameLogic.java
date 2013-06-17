@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
+import java.util.Iterator;
 
 import javax.swing.Timer;
 
@@ -50,6 +51,21 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyChar() == 'h') {// "h" key typed
+			keys.clear(72);
+			Iterator<GameObject> it = player.getInventar().iterator();
+			boolean b = true;
+			GameObject o;
+			while (it.hasNext() && b) {
+				o = it.next();
+				if (o.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
+					System.out.println("HealthPotion");
+					o.performOn(player);
+					player.getInventar().remove(o);
+					b = false;
+				}
+			}
+		}
 
 	}
 

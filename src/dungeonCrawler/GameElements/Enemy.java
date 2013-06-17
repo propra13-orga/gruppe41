@@ -24,7 +24,7 @@ public class Enemy extends GameElement {
 	 * @param size
 	 */
 	public Enemy(Vector2d position, Vector2d size) {
-		super(position, size, "Enemy", EnumSet.of(ElementType.MOVABLE));
+		super(position, size, "ENEMY", EnumSet.of(ElementType.MOVABLE));
 	}
 
 	@Override
