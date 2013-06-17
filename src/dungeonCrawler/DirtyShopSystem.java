@@ -5,9 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.BitSet;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -138,7 +135,7 @@ public class DirtyShopSystem{
 					System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_hp());
 					player.setMoney(getvermoegen());
 					player.addItem(new HealthPotion(200));
-					
+
 				}
 				else if ((getvermoegen()-price)<0){
 					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
@@ -250,16 +247,20 @@ public class DirtyShopSystem{
 
 			public void actionPerformed(ActionEvent e){
 
-				price=10;
-				if ((getvermoegen()-price)>=0){
-					settimes_weapon(times_weapon+1);
-					setvermoegen(getvermoegen()-price);
-					System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_weapon());
-					player.setMoney(getvermoegen());
+				if (player.getArmor() < player.maxArmor) {
+					price=10;
+					if ((getvermoegen()-price)>=0){
+						settimes_weapon(times_weapon+1);
+						setvermoegen(getvermoegen()-price);
+						System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_weapon());
+						player.setMoney(getvermoegen());
+						player.increaseArmor(100);
+					}
+					else if ((getvermoegen()-price)<0){
+						JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
+					}
 				}
-				else if ((getvermoegen()-price)<0){
-					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
-				}
+				else System.out.println("Rüstung 100%");
 
 			}
 		});
