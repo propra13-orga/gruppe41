@@ -51,43 +51,22 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyChar() == 'h') {// "h" key typed
+			keys.clear(72);
+			Iterator<GameObject> it = player.getInventar().iterator();
+			boolean b = true;
+			GameObject o;
+			while (it.hasNext() && b) {
+				o = it.next();
+				if (o.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
+					System.out.println("HealthPotion");
+					o.performOn(player);
+					player.getInventar().remove(o);
+					b = false;
+				}
+			}
+		}
 
-		if(keys.get(27)){
-			if (timer.isRunning()){
-				timer.stop();
-			}
-			else {
-				timer.start();
-			}
-		}
-		if (e.getKeyChar() == 'h') {// "h" such health
-			keys.clear(72);
-			Iterator<GameObject> it = player.getInventar().iterator();
-			boolean b = true;
-			GameObject obj;
-			while (it.hasNext() && b) {
-				obj = it.next();
-				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
-					obj.performOn(player);
-					player.getInventar().remove(obj);
-					b = false;
-				}
-			}
-		}
-		if (e.getKeyChar() == 'm') {// "m" such mana
-			keys.clear(72);
-			Iterator<GameObject> it = player.getInventar().iterator();
-			boolean b = true;
-			GameObject obj;
-			while (it.hasNext() && b) {
-				obj = it.next();
-				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.ManaPotion")) {
-					obj.performOn(player);
-					player.getInventar().remove(obj);
-					b = false;
-				}
-			}
-		}
 	}
 
 	public GameContent getLevel() {
@@ -145,7 +124,6 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
 
-		
 		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
 		if(!(direction.getX() == 0 && direction.getY() == 0)){
@@ -206,12 +184,10 @@ public class GameLogic implements KeyListener, ActionListener {
 				
 				if (shop == null) {
 					// initialize shop
-					timer.stop();
 					shop = new DirtyShopSystem((Player)level.getPlayer());
 					shop.setvermoegen(100);
 					shop.gui(shop.getvermoegen());
 				}
-				timer.start();
 				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
 				shop.startDirtyShop();
 				player.setMoney(shop.getvermoegen());
