@@ -37,7 +37,7 @@ public class Healthpot extends GameElement {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("Heil mich");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.increaseHealt(100);
+			elementPlayer.increaseHealth(100);
 			this.size.setX(0);this.size.setY(0);
 		}
 	}

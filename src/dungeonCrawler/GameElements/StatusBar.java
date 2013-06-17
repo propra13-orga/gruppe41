@@ -19,7 +19,7 @@ public class StatusBar extends GameElement {
 	public void draw(Graphics g) {
 			// health bar
 			g.setColor(Color.RED);
-			g.fillRect(30, 30, 200*player.getHealt()/player.maxHealth, 15);
+			g.fillRect(30, 30, 200*player.getHealth()/player.maxHealth, 15);
 			g.setColor(Color.BLACK);
 			g.drawRect(30, 30, 200, 15);
 			// mana bar
