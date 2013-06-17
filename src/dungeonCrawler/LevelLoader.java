@@ -113,6 +113,8 @@ public class LevelLoader {
 				break;					
 			case "ARMOR":
 				element = new Armor(position, size); break;
+			case "BOW":
+				element = new Bow(position, size); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

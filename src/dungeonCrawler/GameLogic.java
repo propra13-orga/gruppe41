@@ -181,7 +181,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (keys.get(83)) { // s
 			keys.clear();
 			if (level.getPlayer() != null) {
-				
+
 				if (shop == null) {
 					// initialize shop
 					shop = new DirtyShopSystem((Player)level.getPlayer());
@@ -198,21 +198,23 @@ public class GameLogic implements KeyListener, ActionListener {
 			delay[32] -= 1;
 		}
 		if (keys.get(32)){
-			if(delay[32] < 0){
-				delay[32] = 70;
+			if (player.hasBow()) {
+				if(delay[32] < 0){
+					delay[32] = 70;
 
-				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
-				if(lastDirection.getX() > 0)
-					pos = pos.add(new Vector2d(player.size.getX()-2,0));
-				if(lastDirection.getX() < 0)
-					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
-				if(lastDirection.getY() > 0)
-					pos = pos.add(new Vector2d(0,player.size.getX()-2));
-				if(lastDirection.getY() < 0)
-					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
-				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection);
-				level.addGameElement(tmp);
+					Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
+					if(lastDirection.getX() > 0)
+						pos = pos.add(new Vector2d(player.size.getX()-2,0));
+					if(lastDirection.getX() < 0)
+						pos = pos.add(new Vector2d(-player.size.getX()+2,0));
+					if(lastDirection.getY() > 0)
+						pos = pos.add(new Vector2d(0,player.size.getX()-2));
+					if(lastDirection.getY() < 0)
+						pos = pos.add(new Vector2d(0,-player.size.getX()+2));
+					Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
+					tmp.setDirection(lastDirection);
+					level.addGameElement(tmp);
+				}
 			}
 		}
 		if(delay[KeyEvent.VK_Q] >= 0){

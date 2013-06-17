@@ -23,6 +23,7 @@ public class Player extends GameElement {
 	private int mana = maxMana;
 	public final int maxArmor = 1000;
 	private int armor = 0;
+	private boolean bow;
 	private int lives=3;
 	private int money;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
@@ -140,6 +141,13 @@ public class Player extends GameElement {
 	
 	public int getArmor() {
 		return this.armor;
+	}
+	
+	public boolean hasBow() {
+		return bow;
+	}
+	public void setBow(boolean b) {
+		this.bow = b;
 	}
 
 }
