@@ -21,7 +21,7 @@ public class DirtyShopSystem{
 	private JDialog dialog;
 	private JButton button_hp;
 	private JButton button_mana;
-	private JButton button_weapon;
+	private JButton button_armor;
 	private JButton btn_exit;
 	public JTextField number_hp;
 	public JTextField number_mana;
@@ -240,10 +240,10 @@ public class DirtyShopSystem{
 		gbc.gridx = 20;
 		gbc.gridy =gridy;
 
-		button_weapon = new JButton("Kaufen?");
-		layout.setConstraints(button_weapon, gbc);
+		button_armor = new JButton("Kaufen?");
+		layout.setConstraints(button_armor, gbc);
 		//button.addActionListener(this);
-		button_weapon.addActionListener(new ActionListener() {
+		button_armor.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e){
 
@@ -264,6 +264,7 @@ public class DirtyShopSystem{
 
 			}
 		});
+		dialog.add(button_armor);
 		//End Weapon
 		//Exit Button
 		gbc.gridx=7; 
@@ -285,7 +286,6 @@ public class DirtyShopSystem{
 		});
 
 		System.out.println("ShopSystem Started");
-		dialog.add(button_weapon);
 
 		dialog.pack();
 	}
