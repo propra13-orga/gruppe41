@@ -115,6 +115,8 @@ public class LevelLoader {
 				element = new Armor(position, size); break;
 			case "BOW":
 				element = new Bow(position, size); break;
+			case "MONEY":
+				element = new Moneypot(position, size); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {
