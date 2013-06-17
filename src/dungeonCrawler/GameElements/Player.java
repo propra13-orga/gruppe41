@@ -115,5 +115,9 @@ public class Player extends GameElement {
 	public void setMoney(int money) {
 		this.money = money;
 	}
+	
+	public void addItem(GameObject item) {
+		this.inventar.add(item);
+	}
 
 }

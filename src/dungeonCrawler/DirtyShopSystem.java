@@ -27,9 +27,9 @@ public class DirtyShopSystem{
 	public JTextField number_hp;
 	public JTextField number_mana;
 	public JTextField number_weapon;
-	public int times_hp=2;
-	public int times_mana=2;
-	public int times_weapon=2;
+	public int times_hp=0;
+	public int times_mana=0;
+	public int times_weapon=0;
 	private int vermoegen;
 	private int price;
 	public int item_number;
@@ -135,6 +135,7 @@ public class DirtyShopSystem{
 					setvermoegen(getvermoegen()-price);
 					System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_hp());
 					player.setMoney(getvermoegen());
+					
 				}
 				else if ((getvermoegen()-price)<0){
 					JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
@@ -282,7 +283,6 @@ public class DirtyShopSystem{
 		dialog.add(button_weapon);
 
 		dialog.pack();
-//		return getvermoegen();
 	}
 
 	public void startDirtyShop(){
