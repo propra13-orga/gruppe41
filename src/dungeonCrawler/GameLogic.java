@@ -134,10 +134,15 @@ public class GameLogic implements KeyListener, ActionListener {
 			player.setPosition(position.addX(10));
 			System.out.println("CHEAT RIGHT");
 		}
-		if (keys.get(101)) {// Leben
+		if (keys.get(101)) {// cheat Leben
 			player.setHealt(player.getHealt()+1000);
 			System.out.println("CHEAT Leben");
 		}
+		
+		if (keys.get(103)) {// position output
+			System.out.println("x= " + player.getPosition().getX() + "y= " + player.getPosition().getY());
+		}
+		
 		if (keys.get(99)) {// Exit
 			if (level.getExit() != null){
 			level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
