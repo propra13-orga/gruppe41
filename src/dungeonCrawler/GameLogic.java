@@ -211,7 +211,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				if(lastDirection.getY() < 0)
 					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
 				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection);
+				tmp.setDirection(lastDirection.mul(2));
 				level.addGameElement(tmp);
 			}
 		}
@@ -232,7 +232,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				if(lastDirection.getY() < 0)
 					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
 				Spell tmp = new Spell(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection);
+				tmp.setDirection(lastDirection.mul(1.5));
 				level.addGameElement(tmp);
 			}
 		}
