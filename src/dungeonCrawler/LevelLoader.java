@@ -102,7 +102,10 @@ public class LevelLoader {
 				break;
 			case "HEALTHPOT":
 				element = new Healthpot(position, size);
-				break;				
+				break;	
+			case "MANAPOT":
+				element = new Manapot(position, size);
+				break;					
 			}
 			return true;
 		} catch (NumberFormatException e) {

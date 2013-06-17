@@ -86,6 +86,13 @@ public class Player extends GameElement {
 		}
 		return false;
 	}
+	public boolean increaseMana(int mana) {
+		if (this.mana-mana >= 0){
+			this.mana = this.mana-mana;
+			return true;
+		}
+		return false;
+	}	
 	
 	public int getHealt() {
 		return this.Health;
