@@ -23,6 +23,7 @@ public class Player extends GameElement {
 	private int Health=maxHealth;
 	private int mana = maxMana;
 	private int lives=3;
+	private int money;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	/**
 	 * @param position
@@ -105,6 +106,14 @@ public class Player extends GameElement {
 	
 	public LinkedList<GameObject> getInventar() {
 		return inventar;
+	}
+	
+	public int getMoney() {
+		return this.money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 }

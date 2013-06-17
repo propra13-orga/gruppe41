@@ -23,9 +23,8 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Timer timer;
 	public App app;
 	Player player;
-	private DirtyShopSystem shop = new DirtyShopSystem();
-	public int money;
-	
+	private DirtyShopSystem shop = null;
+
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
@@ -34,9 +33,6 @@ public class GameLogic implements KeyListener, ActionListener {
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
-		
-		shop.setvermoegen(100);
-		shop.gui(shop.getvermoegen());
 	}
 
 	@Override
@@ -64,7 +60,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void setLevel(GameContent level) {
 		this.level = level;
 	}
-	
+
 	private void handleCollision(GameElement active, GameElement passive){
 		//TODO generate GameEvents
 		GameEvent e = new GameEvent(passive, EventType.COLLISION, this);
@@ -72,10 +68,10 @@ public class GameLogic implements KeyListener, ActionListener {
 		e = new GameEvent(active, EventType.COLLISION, this);
 		passive.GameEventPerformed(e);
 	}
-	
+
 	public boolean moveElement(GameElement e, Vector2d direction){
 		if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
-//			System.out.println("test" + collisioncheck.type.toString());
+			//			System.out.println("test" + collisioncheck.type.toString());
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
 			for(GameElement collisioncheck : level.getGameElements()){
 				if(e.collision(collisioncheck)){
@@ -138,14 +134,14 @@ public class GameLogic implements KeyListener, ActionListener {
 			player.setHealt(player.getHealt()+1000);
 			System.out.println("CHEAT Leben");
 		}
-		
+
 		if (keys.get(103)) {// position output
 			System.out.println("x= " + player.getPosition().getX() + "y= " + player.getPosition().getY());
 		}
-		
+
 		if (keys.get(99)) {// Exit
 			if (level.getExit() != null){
-			level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
+				level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
 			System.out.println("CHEAT EXIT");
 		}
 		if (keys.get(37)) {// left arrow
@@ -165,21 +161,30 @@ public class GameLogic implements KeyListener, ActionListener {
 			System.out.println("DOWN");
 		}
 
-	
+
 		if (keys.get(83)) { // s
 			keys.clear();
-			System.out.println("Shop Visable you have " + money + " Geld");
-			shop.startDirtyShop();
-			money = shop.getvermoegen();
+			if (level.getPlayer() != null) {
+				if (shop == null) {
+					// initialize shop
+					shop = new DirtyShopSystem((Player)level.getPlayer());
+					shop.setvermoegen(100);
+					shop.gui(shop.getvermoegen());
+				}
+
+				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
+				shop.startDirtyShop();
+				player.setMoney(shop.getvermoegen());
+			}
 		}
-		
+
 		if(delay[32] >= 0){
 			delay[32] -= 1;
 		}
 		if (keys.get(32)){
 			if(delay[32] < 0){
 				delay[32] = 70;
-				
+
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
 					pos = pos.add(new Vector2d(player.size.getX()-2,0));
@@ -200,7 +205,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (keys.get(KeyEvent.VK_Q)){
 			if(delay[KeyEvent.VK_Q] < 0 && player.reduceMana(8, this)){
 				delay[KeyEvent.VK_Q] = 70;
-				
+
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
 					pos = pos.add(new Vector2d(player.size.getX()-2,0));
