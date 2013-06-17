@@ -213,7 +213,6 @@ public class GameLogic implements KeyListener, ActionListener {
 			if (player.hasBow()) {
 				if(delay[32] < 0){
 					delay[32] = 70;
-				}
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
 					pos = pos.add(new Vector2d(player.size.getX()-2,0));
@@ -226,6 +225,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
 				tmp.setDirection(lastDirection.mul(3));
 				level.addGameElement(tmp);
+				}
 			}
 		}
 		if(delay[KeyEvent.VK_Q] >= 0){
