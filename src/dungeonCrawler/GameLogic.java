@@ -51,6 +51,15 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+
+		if(keys.get(27)){
+			if (timer.isRunning()){
+				timer.stop();
+			}
+			else {
+				timer.start();
+			}
+		}
 		if (e.getKeyChar() == 'h') {// "h" such health
 			keys.clear(72);
 			Iterator<GameObject> it = player.getInventar().iterator();
@@ -136,6 +145,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
 
+		
 		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
 		if(!(direction.getX() == 0 && direction.getY() == 0)){
