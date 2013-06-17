@@ -159,7 +159,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			System.out.println("CHEAT RIGHT");
 		}
 		if (keys.get(101)) {// cheat Leben
-			player.setHealt(player.getHealt()+1000);
+			player.setHealth(player.getHealth()+1000);
 			System.out.println("CHEAT Leben");
 		}
 
@@ -249,7 +249,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 		if(!keys.isEmpty()) moveElement(player, direction);
-		if (((Player) player).getHealt()<=0){
+		if (((Player) player).getHealth()<=0){
 			app.cp.removeAll();
 			app.cp.validate();
 			app.gameContent = new GameContent();

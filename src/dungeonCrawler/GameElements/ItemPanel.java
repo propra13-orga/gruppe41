@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
+import dungeonCrawler.GameObjects.HealthPotion;
+import dungeonCrawler.GameObjects.ManaPotion;
 
 public class ItemPanel extends GameElement {
 	private Player player;
@@ -20,6 +22,10 @@ public class ItemPanel extends GameElement {
 		// draw items
 		for (int i=0;i<player.getInventar().size();i++) {
 			g.setColor(Color.GRAY);
+			if(player.getInventar().get(i) instanceof HealthPotion)
+				g.setColor(Color.RED);
+			if(player.getInventar().get(i) instanceof ManaPotion)
+				g.setColor(Color.BLUE);
 			g.fillRect(10, 20*i+10, 10, 10);
 		}
 		// draw bounds

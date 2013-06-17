@@ -52,11 +52,11 @@ public class Player extends GameElement {
 		
 	}
 	
-	public void setHealt(int Health) {
+	public void setHealth(int Health) {
 		this.Health = Health;
 	}
 	
-	public void increaseHealt(int Health) {
+	public void increaseHealth(int Health) {
 		this.Health += Health;
 		if(this.Health > this.maxHealth) this.Health = this.maxHealth;
 	}
@@ -92,7 +92,7 @@ public class Player extends GameElement {
 		if(this.mana > this.maxMana) this.mana = this.maxMana;
 	}	
 	
-	public int getHealt() {
+	public int getHealth() {
 		return this.Health;
 	}
 	
