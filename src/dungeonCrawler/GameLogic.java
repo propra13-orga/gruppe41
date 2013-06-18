@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.Timer;
 
@@ -24,8 +25,9 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Timer timer;
 	public App app;
 	Player player;
-	private DirtyShopSystem shop = null;
+	public DirtyShopSystem shop = null;
 	public int Money;
+	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
 
 
 	public GameLogic(App app) {
@@ -68,8 +70,8 @@ public class GameLogic implements KeyListener, ActionListener {
 				}
 			}
 		}
-		if (e.getKeyChar() == 'h') {// "m" for mana
-			keys.clear(72);
+		if (e.getKeyChar() == 'm') {// "m" for mana
+			keys.clear(77);
 			Iterator<GameObject> it = player.getInventar().iterator();
 			boolean b = true;
 			GameObject obj;
@@ -199,7 +201,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				if (shop == null) {
 					// initialize shop
 					shop = new DirtyShopSystem((Player)level.getPlayer());
-					setmoney(Money+100);
+					setmoney(Money+1000);
 					shop.gui(shop.getvermoegen());
 				}
 				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
@@ -303,5 +305,13 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		return Money;
 	}
+
+	public LinkedList<GameObject> getinventory() {
+		return this.Inventar;	
+	}
+
+	public void setinventory(LinkedList<GameObject> Inventar) {
+		  this.Inventar = Inventar;
+	}	
 
 }

@@ -14,7 +14,10 @@ public class Armor extends GameObject {
 	
 	@Override
 	public void performOn(GameElement element) {
-		// TODO Auto-generated method stub
+		String name = element.getName();
+		switch (name) {
+		case "PLAYER": ((Player)element).increaseArmor(armor); break;
 	}
 
+}
 }

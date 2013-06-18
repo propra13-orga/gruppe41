@@ -10,6 +10,7 @@ import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 import dungeonCrawler.GameElements.Exit;
+import dungeonCrawler.ShopSystem;;
 
 /**
  * @author Mattes
@@ -27,6 +28,7 @@ public class GameContent {
 	 * 
 	 */
 	public GameContent() {
+		
 		// TODO Auto-generated constructor stub
 	}
 

@@ -26,7 +26,6 @@ public class Player extends GameElement {
 	private boolean bow;
 	private int lives=3;
 	private int money;
-	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	private GameEvent e;
 	/**
 	 * @param position
@@ -45,7 +44,7 @@ public class Player extends GameElement {
 	}
 	
 	public void add(GameObject object){
-		inventar.add(object);
+		e.gameLogic.Inventar.add(object);
 	}
 
 	@Override
@@ -119,7 +118,7 @@ public class Player extends GameElement {
 	}
 	
 	public LinkedList<GameObject> getInventar() {
-		return inventar;
+		return e.gameLogic.getinventory();
 	}
 	
 	public int getMoney() {
@@ -132,7 +131,7 @@ public class Player extends GameElement {
 	
 	
 	public void addItem(GameObject item) {
-		this.inventar.add(item);
+		e.gameLogic.Inventar.add(item);
 	}
 	
 	public void increaseArmor(int arm) {
@@ -149,6 +148,12 @@ public class Player extends GameElement {
 	}
 	public void setBow(boolean b) {
 		this.bow = b;
+	}
+
+	public void setArmor(int armor) {
+		this.armor=armor;
+		// TODO Auto-generated method stub
+		
 	}
 
 }

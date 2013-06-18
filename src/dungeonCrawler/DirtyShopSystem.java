@@ -37,6 +37,10 @@ public class DirtyShopSystem{
 	public DirtyShopSystem(Player p) {
 		this.player = p;
 	}
+	
+	public void setPlayer(Player p){
+		this.player = p;
+	}
 
 	public int getvermoegen(){
 		return this.vermoegen;
@@ -260,8 +264,10 @@ public class DirtyShopSystem{
 						JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
 					}
 				}
+
 				else System.out.println("Ruestung 100%");
 
+				player.increaseArmor(1);
 			}
 		});
 		dialog.add(button_armor);
