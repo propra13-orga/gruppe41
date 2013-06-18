@@ -56,6 +56,14 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		 if(keys.get(27)){
+			       if (timer.isRunning()){
+			         timer.stop();
+			       }
+			       else {
+			         timer.start();
+			       }
+			     }
 		if (e.getKeyChar() == 'h') {// "h" for health
 			keys.clear(72);
 			Iterator<GameObject> it = player.getInventar().iterator();
