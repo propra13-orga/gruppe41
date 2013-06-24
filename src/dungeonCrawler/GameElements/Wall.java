@@ -38,5 +38,9 @@ public class Wall extends GameElement {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static Wall createWall(Vector2d pos, Vector2d s) {
+		return (new Wall(pos, s));
+	}
 
 }
