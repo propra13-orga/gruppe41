@@ -24,6 +24,7 @@ public class MainMenu extends JPanel {
 	private JButton exit;
 	private JButton credits;
 	private JButton setting;
+	private JButton editor;
 	private Container parent;
 	private MainMenu menu;
 	private App app;
@@ -40,13 +41,15 @@ public class MainMenu extends JPanel {
 	}
 	
 	public void initialize(){
-		this.setLayout(new GridLayout(4,1));
+		this.setLayout(new GridLayout(5,1));
 		start = new JButton("Start");
 		setting = new JButton("Settings");
 		exit = new JButton("Exit");
 		credits = new JButton("Credits");
+		editor = new JButton("Editor");
 		this.add(start);
 		this.add(setting);
+		this.add(editor);
 		this.add(credits);
 		this.add(exit);
 		
@@ -62,6 +65,15 @@ public class MainMenu extends JPanel {
 			
 		});
 		
+		editor.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO öffne editormenü
+				app.starteditormenu();
+				
+			}
+		});
 		
 		exit.addActionListener(new ActionListener(){
 

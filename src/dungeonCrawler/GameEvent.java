@@ -8,7 +8,7 @@ package dungeonCrawler;
  *
  */
 public class GameEvent {
-	
+
 	public final GameLogic gameLogic;
 	public final GameElement element;
 	public final EventType type;
@@ -22,12 +22,10 @@ public class GameEvent {
 		this.gameLogic = logic;
 	}
 
+
 /*	public GameElement getElement() {
 		return element;
 	}*/
 
-	public EventType getType() {
-		return type;
-	}
 
 }
