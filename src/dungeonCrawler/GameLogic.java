@@ -16,6 +16,7 @@ import dungeonCrawler.GameElements.Spell;
 
 public class GameLogic implements KeyListener, ActionListener {
 
+//	private long time;
 	private Vector2d direction = new Vector2d(0,0);
 	private Vector2d lastDirection = new Vector2d(1,0);
 	private Vector2d checkPoint = new Vector2d(0,0);
@@ -34,7 +35,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
-		timer = new Timer(10, this);
+		timer = new Timer(1, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
@@ -149,6 +150,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
 
+//		time = System.currentTimeMillis();
 		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
 		if(!(direction.getX() == 0 && direction.getY() == 0)){
@@ -283,6 +285,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				level.removeElement(tmpRem);
 			}
 			app.camera.repaint();
+//			System.out.println("Timediff " + (System.currentTimeMillis() - time));
 		}
 	}
 

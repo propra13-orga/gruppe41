@@ -17,6 +17,7 @@ import dungeonCrawler.Vector2d;
  *
  */
 public class Player extends GameElement {
+	public String name = "PLAYER";
 	public final int maxHealth = 1000;
 	public final int maxMana = 100;
 	private int Health=maxHealth;
@@ -33,6 +34,10 @@ public class Player extends GameElement {
 	 */
 	public Player(Vector2d position, Vector2d size) {
 		super(position, size, "PLAYER", EnumSet.of(ElementType.MOVABLE));
+	}
+	
+	public String getName(){
+		return "PLAYER";
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import java.util.EnumSet;
 public abstract class GameElement implements Drawable, GameListener {
 
 	public EnumSet<ElementType> type;
-	private String name;
 	protected Vector2d position;
 	protected Vector2d size;
 
@@ -23,14 +22,14 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
-		this.name = "";
+//		this.name = "";
 	}
-
+	@Deprecated
 	public GameElement(Vector2d position, Vector2d size, String name, EnumSet<ElementType> type) {
 		this.type = type;
 		this.position = position;
 		this.size = size;
-		this.name = name;
+	//	this.name = name;
 	}
 
 	/*public GameElement() {
@@ -40,6 +39,10 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.name = "";
 	}*/
 
+/*	public static GameElement create(String data){
+		return null;
+	}*/
+	
 	public Vector2d getPosition() {
 		return position;
 	}
@@ -117,7 +120,7 @@ public abstract class GameElement implements Drawable, GameListener {
 	}
 
 	public String getName() {
-		return name;
+		return "GameElement";
 	}
 
 	public void setPosition(Vector2d pos) {
