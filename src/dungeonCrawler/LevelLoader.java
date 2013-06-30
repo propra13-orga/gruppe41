@@ -35,6 +35,7 @@ public class LevelLoader {
 	public GameContent getLevel() {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
+		int elementCounter = 0;
 
 		System.out.println("Lade Level " + number + "...");
 		if (separator.equals(null)) {
@@ -48,10 +49,11 @@ public class LevelLoader {
 			String input = null;
 			while ((input = buffer.readLine()) != null) {
 				if (!input.startsWith(";")) {
-					System.out.println("Lade Element: " + input);
+					elementCounter++;
+					System.out.println("Lade Element " + elementCounter + ": " + input);
 					if (parse(input)) {
 						if (!level.addGameElement(element)) {
-							Error err = new Error("Kann '" + input + "' nicht interpretieren");
+							Error err = new Error("Kann Element '" + input + "' nicht hinzufügen.");
 							err.showMe();
 						}
 					}

@@ -189,19 +189,15 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		if (keys.get(37)) {// left arrow
 			direction = direction.addX(-1);
-			System.out.println("LEFT");
 		}
 		if (keys.get(38)) {// up arrow
 			direction = direction.addY(-1);
-			System.out.println("UP");
 		}
 		if (keys.get(39)) {// right arrow
 			direction = direction.addX(1);
-			System.out.println("RIGHT");
 		}
 		if (keys.get(40)) {// down arrow
 			direction = direction.addY(1);
-			System.out.println("DOWN");
 		}
 
 

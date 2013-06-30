@@ -58,7 +58,6 @@ public class GameContent {
 		if(e instanceof Exit){
 			this.Exit=e;
 		}
-		System.out.println(gameElements.size());
 		return this.gameElements.add(e) && ret;
 	}
 
