@@ -130,7 +130,7 @@ public abstract class GameElement implements Drawable, GameListener {
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see dungeonCrawler.Drawable#draw()
 	 */
