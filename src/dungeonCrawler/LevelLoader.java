@@ -88,7 +88,7 @@ public class LevelLoader {
 			Vector2d size = new Vector2d(Integer.parseInt(param[3]), Integer.parseInt(param[4]));
 			switch (param[0]) {
 			case "WALL":
-				element = Wall.createWall(position, size); break;
+				element = Wall.createElement(param); break;
 			case "TRAP":
 				element = new Trap(position, size); break;
 			case "EXIT":
