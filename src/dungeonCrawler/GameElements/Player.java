@@ -2,21 +2,23 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.EnumSet;
+import java.util.BitSet;
+//import java.util.EnumSet;
 import java.util.LinkedList;
 
-import dungeonCrawler.ElementType;
-import dungeonCrawler.GameElement;
+//import dungeonCrawler.ElementType;
+//import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
+import dungeonCrawler.SettingSet;
 import dungeonCrawler.Vector2d;
 
 /**
  * @author Tissen
  *
  */
-public class Player extends GameElement {
+public class Player extends Active {
 	public String name = "PLAYER";
 	public final int maxHealth = 1000;
 	public final int maxMana = 100;
@@ -26,14 +28,14 @@ public class Player extends GameElement {
 	private int armor = 0;
 	private boolean bow;
 	private int lives=3;
-	private int money;
+//	private int money; TODO
 	private GameEvent e;
 	/**
 	 * @param position
 	 * @param size
 	 */
 	public Player(Vector2d position, Vector2d size) {
-		super(position, size, "PLAYER", EnumSet.of(ElementType.MOVABLE));
+		super(position, size);
 	}
 	
 	public String getName(){
@@ -157,6 +159,12 @@ public class Player extends GameElement {
 
 	public void setArmor(int armor) {
 		this.armor=armor;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void interaction(SettingSet settings, BitSet keys) {
 		// TODO Auto-generated method stub
 		
 	}

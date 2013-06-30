@@ -21,7 +21,8 @@ public class Healthpot extends GameElement {
 	 * @param size
 	 */
 	public Healthpot(Vector2d position, Vector2d size) {
-		super(position, size, "HEALTHPOT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
 
 	@Override
@@ -40,6 +41,12 @@ public class Healthpot extends GameElement {
 			elementPlayer.increaseHealth(100);
 			this.size.setX(0);this.size.setY(0);
 		}
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Healthpot";
 	}
 
 }

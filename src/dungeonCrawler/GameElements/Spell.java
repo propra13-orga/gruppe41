@@ -15,7 +15,8 @@ public class Spell extends GameElement {
 	private Vector2d direction = new Vector2d(0,0);
 
 	public Spell(Vector2d position, Vector2d size) {
-		super(position, size, "Spell", EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -58,6 +59,12 @@ public class Spell extends GameElement {
 
 	public void setDirection(Vector2d direction) {
 		this.direction = direction;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Spell";
 	}
 
 }

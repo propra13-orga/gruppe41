@@ -118,7 +118,7 @@ public class LevelLoader {
 			case "MONEY":
 				element = new Moneypot(position, size); break;
 			case "FIREBAL":
-				element = new Firebal(position, size); break;				
+				element = new Fireball(position, size); break;				
 			}
 			return true;
 		} catch (NumberFormatException e) {

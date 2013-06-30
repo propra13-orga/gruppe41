@@ -39,9 +39,13 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.name = "";
 	}*/
 
-/*	public static GameElement create(String data){
+	public static GameElement create(String data){
 		return null;
-	}*/
+	}
+	
+	public String getString(){
+		return this.toString();
+	}
 	
 	public Vector2d getPosition() {
 		return position;
@@ -87,7 +91,7 @@ public abstract class GameElement implements Drawable, GameListener {
 	}
 
 	public boolean collision(GameElement element) {
-		if(element != this){ //TODO kollidiert nicht richtig mit W�nden
+		if(element != this){ //TODO kollidiert nicht richtig mit Wänden
 			int xl 	= 	this	.getTopLeft().getX();
 			int xr 	= 	this	.getTopRight().getX();
 			int yt 	= 	this	.getTopLeft().getY();

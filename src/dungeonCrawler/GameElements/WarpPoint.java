@@ -15,7 +15,8 @@ public class WarpPoint extends GameElement {
 	private Vector2d target = new Vector2d(0,0);
 
 	public WarpPoint(Vector2d position, Vector2d size) {
-		super(position, size, "WarpPoint", EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -41,6 +42,12 @@ public class WarpPoint extends GameElement {
 
 	public void setTarget(Vector2d target) {
 		this.target = target;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "WarpPoint";
 	}
 
 }

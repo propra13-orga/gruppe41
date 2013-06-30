@@ -21,7 +21,8 @@ public class Moneypot extends GameElement {
 	 * @param size
 	 */
 	public Moneypot(Vector2d position, Vector2d size) {
-		super(position, size, "MONEYPOT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
 
 	@Override
@@ -41,6 +42,12 @@ public class Moneypot extends GameElement {
 
 			this.size.setX(0);this.size.setY(0);
 		}
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Moneypot";
 	}
 
 }

@@ -10,7 +10,7 @@ import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 import dungeonCrawler.GameElements.Exit;
-import dungeonCrawler.ShopSystem;;
+//import dungeonCrawler.ShopSystem;
 
 /**
  * @author Mattes
@@ -34,8 +34,8 @@ public class GameContent {
 
 	public boolean addGameElement(GameElement e){
 		boolean ret = true;
-		GameElement collisionElement = collisionWith(e);
-/*		if (collisionElement != null) {	
+/*		GameElement collisionElement = collisionWith(e);
+		if (collisionElement != null) {	
 			Error err = new Error("Kann '" + e.getName() +
 					"', Position: " + e.position.getX() + "," + e.position.getY() +
 					" Gr��e: " + e.size.getX() + "," + e.size.getY() +
@@ -70,14 +70,14 @@ public class GameContent {
 		return this.movables.listIterator();
 	}
 
-	private GameElement collisionWith(GameElement newElement) {
+/*	private GameElement collisionWith(GameElement newElement) {
 		for (GameElement e: gameElements) {
 			if (e.collision(newElement) && !e.type.contains(ElementType.WALKABLE) && !newElement.type.contains(ElementType.WALKABLE))
 				return e;
 		}
 		return null;
 	}
-	
+*/	
 	public LinkedList<GameElement> getGameElements() {
 		return gameElements;
 	}

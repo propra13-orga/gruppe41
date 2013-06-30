@@ -21,7 +21,8 @@ public class Trap extends GameElement {
 	 * @param size
 	 */
 	public Trap(Vector2d position, Vector2d size) {
-		super(position, size, "TRAP", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
 
 	@Override
@@ -39,6 +40,12 @@ public class Trap extends GameElement {
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.reduceHealth(10, e.gameLogic);
 		}
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Trap";
 	}
 
 }

@@ -2,9 +2,9 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.EnumSet;
+//import java.util.EnumSet;
 
-import dungeonCrawler.ElementType;
+//import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
@@ -20,7 +20,7 @@ public class Wall extends GameElement {
 	 * @param size
 	 */
 	public Wall(Vector2d position, Vector2d size) {
-		super(position, size, "WALL", EnumSet.of(ElementType.IMMOVABLE));
+		super(position, size);
 	}
 
 	/* (non-Javadoc)
@@ -41,6 +41,12 @@ public class Wall extends GameElement {
 	
 	public static Wall createWall(Vector2d pos, Vector2d s) {
 		return (new Wall(pos, s));
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Wall";
 	}
 
 }

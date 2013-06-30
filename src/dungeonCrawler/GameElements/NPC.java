@@ -21,7 +21,8 @@ public class NPC extends GameElement {
 	 * @param size
 	 */
 	public NPC(Vector2d position, Vector2d size) {
-		super(position, size, "NPC", EnumSet.of(ElementType.MOVABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.MOVABLE);
 	}
 
 	@Override
@@ -63,6 +64,12 @@ public class NPC extends GameElement {
 				e.gameLogic.moveElement(this, direction);
 			}
 		}
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "NPC";
 	}
 
 }

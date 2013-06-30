@@ -8,20 +8,21 @@ import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
-import dungeonCrawler.GameLogic;
+//import dungeonCrawler.GameLogic;
 import dungeonCrawler.Vector2d;
 
 /**
  * @author Dominik
  *
  */
-public class Firebal extends GameElement {
+public class Fireball extends GameElement {
 	/**
 	 * @param position
 	 * @param size
 	 */
-	public Firebal(Vector2d position, Vector2d size) {
-		super(position, size, "FIREABL", EnumSet.of(ElementType.MOVABLE));
+	public Fireball(Vector2d position, Vector2d size) {
+		super(position, size);
+		this.type = EnumSet.of(ElementType.MOVABLE);
 	}
 
 	@Override
@@ -46,6 +47,12 @@ public class Firebal extends GameElement {
 		if(e.type == EventType.TIMER){
 			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
 		}
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Fireball";
 	}	
 	
 }

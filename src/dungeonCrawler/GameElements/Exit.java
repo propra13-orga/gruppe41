@@ -11,7 +11,7 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
-import dungeonCrawler.App;
+//import dungeonCrawler.App;
 
 /**
  * @author Tissen
@@ -24,7 +24,8 @@ public class Exit extends GameElement {
 	 * @param size
 	 */
 	public Exit(Vector2d position, Vector2d size) {
-		super(position, size, "EXIT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
 
 	@Override
@@ -52,6 +53,12 @@ public class Exit extends GameElement {
 		}
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Exit";
 	}
 
 }

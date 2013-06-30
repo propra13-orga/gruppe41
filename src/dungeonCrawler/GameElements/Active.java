@@ -3,24 +3,27 @@
  */
 package dungeonCrawler.GameElements;
 
-import java.awt.Graphics;
+//import java.awt.Graphics;
+
+import java.util.BitSet;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
-import dungeonCrawler.GameEvent;
+import dungeonCrawler.SettingSet;
+//import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
 /**
  * @author Mattes
  *
  */
-public class Movable extends GameElement {
+public abstract class Active extends GameElement {
 
 	/**
 	 * @param position
 	 * @param size
 	 */
-	public Movable(Vector2d position, Vector2d size) {
+	public Active(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type.clear();
 		this.type.add(ElementType.MOVABLE);
@@ -30,16 +33,6 @@ public class Movable extends GameElement {
 	/* (non-Javadoc)
 	 * @see dungeonCrawler.Drawable#draw(java.awt.Graphics)
 	 */
-	@Override
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public abstract void interaction(SettingSet settings, BitSet keys);
 
 }

@@ -13,8 +13,14 @@ import dungeonCrawler.Vector2d;
 public class CheckPoint extends GameElement {
 
 	public CheckPoint(Vector2d position, Vector2d size) {
-		super(position, size, "CHECKPOINT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public String getName(){
+		return "CheckPoint";
 	}
 
 	@Override
