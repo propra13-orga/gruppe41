@@ -42,7 +42,7 @@ public class App {
 		window.setLocationRelativeTo(null);
 		mainmenu = new MainMenu(this);
 		cp.add(mainmenu);
-		gameContent = new GameContent();
+		gameContent = new GameContent(gameLogic);
 		loader = new LevelLoader(gameContent, this);
 	}
 

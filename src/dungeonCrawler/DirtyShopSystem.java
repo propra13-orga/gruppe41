@@ -251,14 +251,14 @@ public class DirtyShopSystem{
 
 			public void actionPerformed(ActionEvent e){
 
-				if (player.getArmor() < player.maxArmor) {
+				if (player.getShield() < player.maxShield) {
 					price=10;
 					if ((getvermoegen()-price)>=0){
 						settimes_weapon(times_weapon+1);
 						setvermoegen(getvermoegen()-price);
 						System.out.println("in " + getvermoegen() + " " + price + " " + gettimes_weapon());
 						player.setMoney(getvermoegen());
-						player.increaseArmor(100);
+						player.increaseShield(100);
 					}
 					else if ((getvermoegen()-price)<0){
 						JOptionPane.showMessageDialog(null, "Komm doch mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
@@ -267,7 +267,7 @@ public class DirtyShopSystem{
 
 				else System.out.println("Ruestung 100%");
 
-				player.increaseArmor(1);
+				player.increaseShield(1);
 			}
 		});
 		dialog.add(button_armor);

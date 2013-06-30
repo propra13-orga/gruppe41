@@ -22,7 +22,7 @@ public class StatusBar extends GameElement {
 		g.fillRect(30, 30, 200*player.getHealth()/player.maxHealth, 15);
 		// armor bar
 		g.setColor(Color.GREEN);
-		g.fillRect(30, 30, 200*player.getArmor()/player.maxArmor, 15);
+		g.fillRect(30, 30, 200*player.getShield()/player.maxShield, 15);
 		// mana bar
 		g.setColor(Color.BLUE);
 		g.fillRect(270, 30, 200*player.getMana()/player.maxMana, 15);

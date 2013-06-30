@@ -41,7 +41,7 @@ public class Exit extends GameElement {
 			e.gameLogic.app.currentLevel += 1;
 			e.gameLogic.app.cp.removeAll();
 			e.gameLogic.app.cp.validate();
-			e.gameLogic.app.gameContent = new GameContent();
+			e.gameLogic.app.gameContent = new GameContent(e.gameLogic);
 			e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
 //			e.gameLogic.app.startGame();
 			System.out.println("Ausgang");

@@ -5,31 +5,32 @@ import java.awt.Graphics;
 
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameLogic;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameObjects.HealthPotion;
 import dungeonCrawler.GameObjects.ManaPotion;
 
 public class ItemPanel extends GameElement {
-	private Player player;
+	private GameLogic logic;
 
-	public ItemPanel(Vector2d position, Vector2d size, GameElement player) {
+	public ItemPanel(Vector2d position, Vector2d size, GameLogic l) {
 		super(position, size);
-		this.player = (Player) player;
+		this.logic = l;
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		// draw items
-		for (int i=0;i<player.getInventar().size();i++) {
+		for (int i=0;i<logic.getinventory().size();i++) {
 			g.setColor(Color.GRAY);
-			if(player.getInventar().get(i) instanceof HealthPotion)
+			if(logic.getinventory().get(i) instanceof HealthPotion)
 				g.setColor(Color.RED);
-			if(player.getInventar().get(i) instanceof ManaPotion)
+			if(logic.getinventory().get(i) instanceof ManaPotion)
 				g.setColor(Color.BLUE);
 			g.fillRect(10, 20*i+10, 10, 10);
 		}
 		// draw bounds
-		for (int i=0;i<player.getInventar().size();i++) {
+		for (int i=0;i<logic.getinventory().size();i++) {
 			g.setColor(Color.BLACK);
 			g.drawRect(10, 20*i+10, 10, 10);
 		}

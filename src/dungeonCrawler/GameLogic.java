@@ -263,7 +263,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (((Player) player).getHealth()<=0){
 			app.cp.removeAll();
 			app.cp.validate();
-			app.gameContent = new GameContent();
+			app.gameContent = new GameContent(this);
 			app.loader = new LevelLoader(app.gameContent, app);
 			this.timer.stop();
 			app.startMainMenu();
