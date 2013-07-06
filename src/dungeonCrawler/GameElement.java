@@ -14,14 +14,22 @@ public abstract class GameElement implements Drawable, GameListener {
 	public EnumSet<ElementType> type;
 	protected Vector2d position;
 	protected Vector2d size;
+	protected final int id;
 
-	/**
-	 * 
-	 */
-	public GameElement(Vector2d position, Vector2d size) {
+	public GameElement(Vector2d position, Vector2d size){
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
+		this.id=0;
+	}
+	/**
+	 * 
+	 */
+	public GameElement(Vector2d position, Vector2d size, int id) {
+		this.type = EnumSet.of(ElementType.IMMOVABLE);
+		this.position = position;
+		this.size = size;
+		this.id = id;
 //		this.name = "";
 	}
 	@Deprecated
@@ -29,6 +37,7 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.type = type;
 		this.position = position;
 		this.size = size;
+		this.id = 0;
 	//	this.name = name;
 	}
 
