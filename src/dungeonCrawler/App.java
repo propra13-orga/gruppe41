@@ -2,7 +2,6 @@ package dungeonCrawler;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.util.LinkedList;
 
 import javax.swing.JFrame;
 

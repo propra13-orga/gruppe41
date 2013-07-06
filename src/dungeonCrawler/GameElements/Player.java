@@ -92,10 +92,10 @@ public class Player extends Active {
 		if (protection != null) { // Player hat R�stung
 			Health -= protection.getConvProtection();
 			if (Health > 0) {
-				System.out.println("R�stung absorbiert " + protection.getConvProtection() + " Schaden (" + (Health + protection.getConvProtection()) + ")");
+				System.out.println("Rüstung absorbiert " + protection.getConvProtection() + " Schaden (" + (Health + protection.getConvProtection()) + ")");
 			}
 			else {
-				System.out.println("R�stung absorbiert vollen Schaden (" + (Health + protection.getConvProtection()) + ")");
+				System.out.println("Rüstung absorbiert vollen Schaden (" + (Health + protection.getConvProtection()) + ")");
 				Health = 0;
 			}
 		}

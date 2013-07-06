@@ -53,7 +53,7 @@ public class LevelLoader {
 					System.out.println("Lade Element " + elementCounter + ": " + input);
 					if (parse(input)) {
 						if (!level.addGameElement(element)) {
-							Error err = new Error("Kann Element '" + input + "' nicht hinzufügen.");
+							Error err = new Error("Kann Element '" + input + "' nicht hinzufÃ¼gen.");
 							err.showMe();
 						}
 					}

@@ -1,7 +1,7 @@
 package dungeonCrawler;
 
-import java.awt.Color;
-import java.awt.Container;
+//import java.awt.Color;
+//import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ import javax.swing.JTextPane;
 public class ShopSystem {
 	private JDialog dialog;
 	private JButton button;
-	private Container cp;
+//	private Container cp;
 	 
 	public JTextField number;
 	public int times;
@@ -178,7 +178,7 @@ public class ShopSystem {
 		dialog = new JDialog(dialog, "Settings");
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);	
 		
-		cp = dialog.getContentPane();
+//		cp = dialog.getContentPane();
 		//Set layout to Grid
 		GridBagLayout layout = new GridBagLayout();
 		

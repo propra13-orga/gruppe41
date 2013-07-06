@@ -2,7 +2,6 @@ package dungeonCrawler.GameObjects;
 
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
-import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
 /**

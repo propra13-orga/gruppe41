@@ -47,6 +47,7 @@ public class Exit extends GameElement {
 			System.out.println("Ausgang");
 			System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
 //			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
+			// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
 			this.size.setX(0);this.size.setY(0);
 			e.gameLogic.app.startGame();
 			e.gameLogic.shop = null;

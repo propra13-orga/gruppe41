@@ -42,10 +42,10 @@ public class GameContent {
 		if (collisionElement != null) {	
 			Error err = new Error("Kann '" + e.getName() +
 					"', Position: " + e.position.getX() + "," + e.position.getY() +
-					" Gr��e: " + e.size.getX() + "," + e.size.getY() +
+					" Größe: " + e.size.getX() + "," + e.size.getY() +
 					" nicht setzen. (" + collisionElement.getName() +
 					": " + collisionElement.position.getX() + "," + collisionElement.position.getY() +
-					" Gr��e: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
+					" Größe: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
 			err.showMe();
 			return false;
 		}*/

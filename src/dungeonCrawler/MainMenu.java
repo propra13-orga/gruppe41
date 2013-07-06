@@ -3,13 +3,13 @@
  */
 package dungeonCrawler;
 
-import java.awt.Component;
-import java.awt.Container;
+
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComponent;
+
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -24,18 +24,18 @@ public class MainMenu extends JPanel {
 	private JButton exit;
 	private JButton credits;
 	private JButton setting;
-	private Container parent;
-	private MainMenu menu;
+//	private Container parent;
+//	private MainMenu menu;
 	private App app;
-	private Settings settings;
+//	private Settings settings;
 
 	/**
 	 * 
 	 */
 	public MainMenu(App app) {
-		parent = this.getParent();
+//		parent = this.getParent();
 		this.app = app;
-		menu = this;
+//		menu = this;
 		this.initialize(); //remove if thread-problems occur
 	}
 	
@@ -86,15 +86,16 @@ public class MainMenu extends JPanel {
 		credits.addActionListener(new ActionListener() {
 			public void credits() {
 
-				// Erstellung Array vom Datentyp Object, Hinzuf�gen der Optionen
+				// Erstellung Array vom Datentyp Object, Hinzufügen der Optionen
 				Object[] options = { "OK" };
 
+				@SuppressWarnings("unused")
 				int selected = JOptionPane
 						.showOptionDialog(
 								null,
 								"Dieses Projekt ist von:\n Eugen,\n Matthias,\n Florian,\n und Dominik\n"
 										+ "Es ist bei dem Modul Programmierpraktikum im Sommersemester 2013 entstanden.\n"
-										+ "Wir w�nschen euch viel Spa� beim Spielen!",
+										+ "Wir wünschen euch viel Spaß beim Spielen!",
 								"Credits", JOptionPane.DEFAULT_OPTION,
 								JOptionPane.PLAIN_MESSAGE, null, options, null);
 				//System.out.println(selected);

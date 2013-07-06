@@ -38,7 +38,7 @@ public class Armor extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			System.out.println("+500 Rüstung");
+			System.out.println("+500 RÃ¼stung");
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.increaseShield(500);
 			this.size.setX(0);this.size.setY(0);

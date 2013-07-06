@@ -113,7 +113,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	}
 
 	public boolean moveElement(GameElement e, Vector2d direction){
-		if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
+		if(e.type.contains(ElementType.MOVABLE)){ 
 			//			System.out.println("test" + collisioncheck.type.toString());
 			HashSet<GameElement> collides = new HashSet<GameElement>();
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
@@ -123,7 +123,6 @@ public class GameLogic implements KeyListener, ActionListener {
 						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
 					}
 					collides.add(collisioncheck);
-					//handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
 			//if(level.getGameElements().contains(e)){
@@ -134,7 +133,6 @@ public class GameLogic implements KeyListener, ActionListener {
 						e.setPosition(e.position.add(new Vector2d(0, -direction.getY())));
 					}
 					collides.add(collisioncheck);
-					//handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
 			for(GameElement col : collides){
@@ -155,7 +153,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
+		// TODO: abfragen, welche Bits gesetzt sind und entsprechend handeln
 //		System.out.println(System.currentTimeMillis()-time);
 //		time = System.currentTimeMillis();
 		reduceDelay();
