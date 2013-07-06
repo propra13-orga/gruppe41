@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.Timer;
@@ -49,7 +48,9 @@ public class GameLogic implements KeyListener, ActionListener {
 		for(int i=0;i<1000;i++){
 			max_delay[i] = 3; 
 		}
-		max_delay[32] = 200;
+		max_delay[settings.SHOOT] = 200;
+		max_delay[settings.USE_HEALTHPOT] = 500;
+		max_delay[settings.USE_MANAPOT] = 500;
 	}
 	
 	private void reduceDelay(){
@@ -58,7 +59,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 	}
 	
-	private boolean checkKey(int i){
+	public boolean checkKey(int i){
 		if(delay[i]<=0 && keys.get(i)){
 			delay[i] = max_delay[i];
 			return true;
@@ -76,47 +77,23 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		keys.clear(e.getKeyCode());
+		if(e.getKeyCode() == settings.USE_HEALTHPOT)
+			delay[settings.USE_HEALTHPOT] = 0;
+		if(e.getKeyCode() == settings.USE_MANAPOT)
+			delay[settings.USE_MANAPOT] = 0;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		 if(keys.get(27)){
-			       if (timer.isRunning()){
-			         timer.stop();
-			       }
-			       else {
-			         timer.start();
-			       }
-			     }
-		if (e.getKeyChar() == 'h') {// "h" for health
-			keys.clear(72);
-			Iterator<GameObject> it = player.getInventar().iterator();
-			boolean b = true;
-			GameObject obj;
-			while (it.hasNext() && b) {
-				obj = it.next();
-				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
-					obj.performOn(player);
-					player.getInventar().remove(obj);
-					b = false;
-				}
+		if (keys.get(27)) {
+			if (timer.isRunning()) {
+				timer.stop();
+			} else {
+				timer.start();
 			}
 		}
-		if (e.getKeyChar() == 'm') {// "m" for mana
-			keys.clear(77);
-			Iterator<GameObject> it = player.getInventar().iterator();
-			boolean b = true;
-			GameObject obj;
-			while (it.hasNext() && b) {
-				obj = it.next();
-				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.ManaPotion")) {
-					obj.performOn(player);
-					player.getInventar().remove(obj);
-					b = false;
-				}
-			}
-		}
+
 	}
 
 	public GameContent getLevel() {
@@ -342,9 +319,10 @@ public class GameLogic implements KeyListener, ActionListener {
 	}
 
 	public LinkedList<GameObject> getinventory() {
-		return this.Inventar;	
+		return player.getInventar();	
 	}
 
+	@Deprecated
 	public void setinventory(LinkedList<GameObject> Inventar) {
 		  this.Inventar = Inventar;
 	}	

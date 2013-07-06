@@ -13,6 +13,8 @@ import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
 import dungeonCrawler.SettingSet;
 import dungeonCrawler.Vector2d;
+import dungeonCrawler.GameObjects.HealthPotion;
+import dungeonCrawler.GameObjects.ManaPotion;
 import dungeonCrawler.GameObjects.Protection;
 
 /**
@@ -20,6 +22,7 @@ import dungeonCrawler.GameObjects.Protection;
  *
  */
 public class Player extends Active {
+	public Vector2d last_direction = new Vector2d(0,1);
 	public String name = "PLAYER";
 	public final int maxHealth = 1000;
 	public final int maxMana = 100;
@@ -29,6 +32,9 @@ public class Player extends Active {
 	private int shield = 0;
 	private boolean bow;
 	private int lives=3;
+	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
+	
+	private int movementdelay = 0;
 	//	private int money; TODO
 	private GameEvent e;
 	private Protection protection = null;
@@ -134,7 +140,7 @@ public class Player extends Active {
 	}
 
 	public LinkedList<GameObject> getInventar() {
-		return e.gameLogic.getinventory();
+		return this.inventar;
 	}
 
 	public int getMoney() {
@@ -147,7 +153,7 @@ public class Player extends Active {
 
 
 	public void addItem(GameObject item) {
-		e.gameLogic.Inventar.add(item);
+		this.inventar.add(item);
 	}
 
 	public void increaseShield(int s) {
@@ -179,7 +185,8 @@ public class Player extends Active {
 
 	@Override
 	public void interaction(GameLogic logic, SettingSet settings, BitSet keys) {
-		// TODO Auto-generated method stub
+		
+		if (movementdelay >= 0) movementdelay -=1;
 		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(settings.MOVE_LEFT)) {// left arrow
 			direction = direction.addX(-1);
@@ -193,7 +200,35 @@ public class Player extends Active {
 		if (keys.get(settings.MOVE_DOWN)) {// down arrow
 			direction = direction.addY(1);
 		}
-		logic.moveElement(this, direction);
+		if(movementdelay <= 0){
+			logic.moveElement(this, direction);
+			movementdelay = 3;
+		}
+		
+		
+		if (logic.checkKey(settings.USE_HEALTHPOT)){
+			for(GameObject o : inventar){
+				if(o instanceof HealthPotion){
+					o.performOn(this);
+					inventar.remove(o);
+					break;
+				}
+			}
+		}
+		
+		if (logic.checkKey(settings.USE_MANAPOT)){
+			for(GameObject o : inventar){
+				if(o instanceof ManaPotion){
+					o.performOn(this);
+					inventar.remove(o);
+					break;
+				}
+			}
+		}
+		
+		
+		
+		this.last_direction = direction;
 	}
 
 }
