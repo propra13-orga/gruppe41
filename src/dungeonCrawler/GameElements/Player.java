@@ -83,13 +83,13 @@ public class Player extends Active {
 			System.out.println("Magischer Schutz absorbiert vollen Schaden (" + Health + ")");
 			Health = 0;
 		}
-		if (protection != null) { // Player hat Rüstung
+		if (protection != null) { // Player hat Rï¿½stung
 			Health -= protection.getConvProtection();
 			if (Health > 0) {
-				System.out.println("Rüstung absorbiert " + protection.getConvProtection() + " Schaden (" + (Health + protection.getConvProtection()) + ")");
+				System.out.println("Rï¿½stung absorbiert " + protection.getConvProtection() + " Schaden (" + (Health + protection.getConvProtection()) + ")");
 			}
 			else {
-				System.out.println("Rüstung absorbiert vollen Schaden (" + (Health + protection.getConvProtection()) + ")");
+				System.out.println("Rï¿½stung absorbiert vollen Schaden (" + (Health + protection.getConvProtection()) + ")");
 				Health = 0;
 			}
 		}
@@ -178,9 +178,22 @@ public class Player extends Active {
 	}
 
 	@Override
-	public void interaction(SettingSet settings, BitSet keys) {
+	public void interaction(GameLogic logic, SettingSet settings, BitSet keys) {
 		// TODO Auto-generated method stub
-
+		Vector2d direction = new Vector2d(0,0);
+		if (keys.get(settings.MOVE_LEFT)) {// left arrow
+			direction = direction.addX(-1);
+		}
+		if (keys.get(settings.MOVE_UP)) {// up arrow
+			direction = direction.addY(-1);
+		}
+		if (keys.get(settings.MOVE_RIGHT)) {// right arrow
+			direction = direction.addX(1);
+		}
+		if (keys.get(settings.MOVE_DOWN)) {// down arrow
+			direction = direction.addY(1);
+		}
+		logic.moveElement(this, direction);
 	}
 
 }

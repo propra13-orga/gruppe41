@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.Timer;
 
+import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.Bullet;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.Spell;
@@ -20,7 +22,10 @@ public class GameLogic implements KeyListener, ActionListener {
 	private Vector2d direction = new Vector2d(0,0);
 	private Vector2d lastDirection = new Vector2d(1,0);
 	private Vector2d checkPoint = new Vector2d(0,0);
+	
+	private SettingSet settings = new SettingSet(); 
 	private int[] delay = new int[1000];
+	private int[] max_delay = new int[1000];
 	private GameContent level;
 	private BitSet keys;
 	protected Timer timer;
@@ -40,6 +45,25 @@ public class GameLogic implements KeyListener, ActionListener {
 		timer.stop();
 		this.app = app;
 		Money = 0;
+		
+		for(int i=0;i<1000;i++){
+			max_delay[i] = 3; 
+		}
+		max_delay[32] = 200;
+	}
+	
+	private void reduceDelay(){
+		for(int i=0;i<1000;i++){
+			if(delay[i] > 0) delay[i]--;
+		}
+	}
+	
+	private boolean checkKey(int i){
+		if(delay[i]<=0 && keys.get(i)){
+			delay[i] = max_delay[i];
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -114,13 +138,15 @@ public class GameLogic implements KeyListener, ActionListener {
 	public boolean moveElement(GameElement e, Vector2d direction){
 		if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
 			//			System.out.println("test" + collisioncheck.type.toString());
+			HashSet<GameElement> collides = new HashSet<GameElement>();
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
 			for(GameElement collisioncheck : level.getGameElements()){
 				if(e.collision(collisioncheck)){
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
 						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
 					}
-					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
+					collides.add(collisioncheck);
+					//handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
 			}
 			//if(level.getGameElements().contains(e)){
@@ -130,8 +156,12 @@ public class GameLogic implements KeyListener, ActionListener {
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
 						e.setPosition(e.position.add(new Vector2d(0, -direction.getY())));
 					}
-					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
+					collides.add(collisioncheck);
+					//handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
 				}
+			}
+			for(GameElement col : collides){
+				handleCollision(e, col);
 			}
 			//}
 			//e.setPosition(direction.add(e.position));
@@ -149,59 +179,65 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
-
+//		System.out.println(System.currentTimeMillis()-time);
 //		time = System.currentTimeMillis();
+		reduceDelay();
 		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
 		if(!(direction.getX() == 0 && direction.getY() == 0)){
 			lastDirection = direction;
 		}
 		direction = new Vector2d(0,0);
-		if (keys.get(100)) {// cheat left
+		
+		for(Active active : level.getActives()){
+			active.interaction(this, settings, keys);
+		}
+		
+		if (checkKey(100)) {// cheat left
 			player.setPosition(position.addX(-10));
 			System.out.println("CHEAT LEFT");
 		}		
-		if (keys.get(104)) {// cheat up
+		if (checkKey(104)) {// cheat up
 			player.setPosition(position.addY(-10));
 			System.out.println("CHEAT UP");
 		}
-		if (keys.get(98)) {// cheat down
+		if (checkKey(98)) {// cheat down
 			player.setPosition(position.addY(10));
 			System.out.println("CHEAT DOWN");
 		}
-		if (keys.get(102)) {// cheat right
+		if (checkKey(102)) {// cheat right
 			player.setPosition(position.addX(10));
 			System.out.println("CHEAT RIGHT");
 		}
-		if (keys.get(101)) {// cheat Leben
+		if (checkKey(101)) {// cheat Leben
 			player.setHealth(player.getHealth()+1000);
 			System.out.println("CHEAT Leben");
 		}
 
-		if (keys.get(103)) {// position output
+		if (checkKey(103)) {// position output
 			System.out.println("x= " + player.getPosition().getX() + "y= " + player.getPosition().getY());
 		}
 
-		if (keys.get(99)) {// Exit
+		if (checkKey(99)) {// Exit
 			if (level.getExit() != null){
 				level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
 			System.out.println("CHEAT EXIT");
 		}
-		if (keys.get(37)) {// left arrow
+		if (checkKey(37)) {// left arrow
 			direction = direction.addX(-1);
 		}
-		if (keys.get(38)) {// up arrow
+		if (checkKey(38)) {// up arrow
 			direction = direction.addY(-1);
 		}
-		if (keys.get(39)) {// right arrow
+		if (checkKey(39)) {// right arrow
 			direction = direction.addX(1);
 		}
-		if (keys.get(40)) {// down arrow
+		if (checkKey(40)) {// down arrow
 			direction = direction.addY(1);
 		}
 
 
-		if (keys.get(83)) { // s
+		if (checkKey(83)) { // s
 			keys.clear();
 			if (level.getPlayer() != null) {
 				if (shop == null) {
@@ -216,13 +252,8 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 
-		if(delay[32] >= 0){
-			delay[32] -= 1;
-		}
-		if (keys.get(32)){
+		if (checkKey(32)){
 			if (player.hasBow()) {
-				if(delay[32] < 0){
-					delay[32] = 70;
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
 					pos = pos.add(new Vector2d(player.size.getX()-2,0));
@@ -235,15 +266,13 @@ public class GameLogic implements KeyListener, ActionListener {
 				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
 				tmp.setDirection(lastDirection.mul(3));
 				level.addGameElement(tmp);
-				}
+				
 			}
 		}
-		if(delay[KeyEvent.VK_Q] >= 0){
-			delay[KeyEvent.VK_Q] -= 1;
-		}
 		if (keys.get(KeyEvent.VK_Q)){
-			if(delay[KeyEvent.VK_Q] < 0 && player.reduceMana(8, this)){
-				delay[KeyEvent.VK_Q] = 70;
+			System.out.println(delay[KeyEvent.VK_Q]);
+			if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(8, this)){
+				delay[KeyEvent.VK_Q] = 250;
 
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
@@ -255,11 +284,10 @@ public class GameLogic implements KeyListener, ActionListener {
 				if(lastDirection.getY() < 0)
 					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
 				Spell tmp = new Spell(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection.mul(2));
+				tmp.setDirection(lastDirection.mul(1));
 				level.addGameElement(tmp);
 			}
 		}
-		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealth()<=0){
 			app.cp.removeAll();
 			app.cp.validate();

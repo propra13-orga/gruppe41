@@ -6,6 +6,7 @@ package dungeonCrawler;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
@@ -20,6 +21,7 @@ public class GameContent {
 
 	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
 	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
+	private LinkedList<Active> actives = new LinkedList<Active>();
 	private GameElement player;
 	private GameElement Exit;
 	private GameElement statusBar;
@@ -60,6 +62,9 @@ public class GameContent {
 		if(e instanceof Exit){
 			this.Exit=e;
 		}
+		if(e instanceof Active){
+			ret &= this.actives.add((Active)e);
+		}
 		return this.gameElements.add(e) && ret;
 	}
 
@@ -86,7 +91,12 @@ public class GameContent {
 	public boolean removeElement(GameElement element){
 		boolean ret = true;
 		ret &= movables.remove(element);
+		ret &= actives.remove(element);
 		return gameElements.remove(element) && ret;
+	}
+
+	public LinkedList<Active> getActives() {
+		return actives;
 	}
 
 	public GameElement getPlayer() {
