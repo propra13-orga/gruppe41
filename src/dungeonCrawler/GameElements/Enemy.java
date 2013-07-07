@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
 
+import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
@@ -45,7 +46,7 @@ public class Enemy extends GameElement {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.reduceHealth(10, e.gameLogic);
+			elementPlayer.reduceHealth(10, DamageType.CONVENTIONAL, e.gameLogic);
 		}
 		if(e.type == EventType.TIMER){
 			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
@@ -60,7 +61,7 @@ public class Enemy extends GameElement {
 		this.Health += Health;
 	}
 	
-	public void reduceHealth(int Health, GameLogic logic) {
+	public void reduceHealth(int Health, DamageType damage, GameLogic logic) {
 		if (this.Health-Health > 0){
 			this.Health = this.Health-Health;
 			System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");

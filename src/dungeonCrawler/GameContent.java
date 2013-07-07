@@ -52,7 +52,7 @@ public class GameContent {
 		if (e.getName().equalsIgnoreCase("PLAYER")) {
 			player = e;
 			statusBar = new StatusBar(new Vector2d(0, 200), new Vector2d(500, 50), player);
-			itemPanel = new ItemPanel(new Vector2d(0, 0), new Vector2d(30, 250), logic);
+			itemPanel = new ItemPanel(new Vector2d(0, 0), new Vector2d(30, 250), player);
 		}
 		if(e.type.contains(ElementType.MOVABLE))
 			ret &= this.movables.add(e);

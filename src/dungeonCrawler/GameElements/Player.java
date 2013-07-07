@@ -2,10 +2,12 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.BitSet;
 //import java.util.EnumSet;
 import java.util.LinkedList;
 
+import dungeonCrawler.DamageType;
 //import dungeonCrawler.ElementType;
 //import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
@@ -78,7 +80,7 @@ public class Player extends Active {
 		if(this.Health > this.maxHealth) this.Health = this.maxHealth;
 	}
 
-	public void reduceHealth(int Health, GameLogic logic) {
+	public void reduceHealth(int Health, DamageType damageTyp, GameLogic logic) {
 		this.shield -= Health;
 		if (this.shield <= 0) { // Player hat magischen Schild
 			System.out.println("Magischer Schutz absorbiert " + (Health + this.shield) + " Schaden (" + Health + ")");
@@ -89,8 +91,12 @@ public class Player extends Active {
 			System.out.println("Magischer Schutz absorbiert vollen Schaden (" + Health + ")");
 			Health = 0;
 		}
-		if (protection != null) { // Player hat R�stung
-			Health -= protection.getConvProtection();
+		if (protection != null) { // Player hat Rüstung
+			switch (damageTyp) {
+			case CONVENTIONAL: Health -= protection.getConvProtection();
+			case FIRE: Health -= protection.getFireResist();
+			case ICE: Health -= protection.getIceResist();
+			}
 			if (Health > 0) {
 				System.out.println("Rüstung absorbiert " + protection.getConvProtection() + " Schaden (" + (Health + protection.getConvProtection()) + ")");
 			}
@@ -226,7 +232,23 @@ public class Player extends Active {
 			}
 		}
 		
-		
+		if (logic.checkKey(settings.CHANGE_ARMOR)){
+			ArrayList<GameObject> protectionList = new ArrayList<GameObject>();
+			int current = -1;
+			int n = -1;
+			for(GameObject o : inventar){
+				if(o instanceof Protection){
+					n++;
+					protectionList.add(o);
+					if (o == protection) {
+						current = n;
+					}
+				}
+			}
+			if (current > -1) {
+				protectionList.get((current+1)%protectionList.size()).performOn(this);
+			}
+		}
 		
 		this.last_direction = direction;
 	}

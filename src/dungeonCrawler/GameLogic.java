@@ -12,6 +12,8 @@ import javax.swing.Timer;
 
 import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.Bullet;
+import dungeonCrawler.GameElements.FireBolt;
+import dungeonCrawler.GameElements.IceBolt;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.Spell;
 
@@ -227,7 +229,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 
-		if (checkKey(32)){
+		if (checkKey(32)){// Space (bow)
 			if (player.hasBow()) {
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
@@ -244,7 +246,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				
 			}
 		}
-		if (keys.get(KeyEvent.VK_Q)){
+		if (keys.get(KeyEvent.VK_Q)){// q (fire bolt)
 			System.out.println(delay[KeyEvent.VK_Q]);
 			if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(8, this)){
 				delay[KeyEvent.VK_Q] = 250;
@@ -258,7 +260,26 @@ public class GameLogic implements KeyListener, ActionListener {
 					pos = pos.add(new Vector2d(0,player.size.getX()-2));
 				if(lastDirection.getY() < 0)
 					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
-				Spell tmp = new Spell(pos, new Vector2d(10, 10));
+				FireBolt tmp = new FireBolt(pos, new Vector2d(10, 10));
+				tmp.setDirection(lastDirection.mul(1));
+				level.addGameElement(tmp);
+			}
+		}
+		if (keys.get(KeyEvent.VK_W)){// w (ice bolt)
+			System.out.println(delay[KeyEvent.VK_W]);
+			if(delay[KeyEvent.VK_W] <= 0 && player.reduceMana(8, this)){
+				delay[KeyEvent.VK_W] = 250;
+
+				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
+				if(lastDirection.getX() > 0)
+					pos = pos.add(new Vector2d(player.size.getX()-2,0));
+				if(lastDirection.getX() < 0)
+					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
+				if(lastDirection.getY() > 0)
+					pos = pos.add(new Vector2d(0,player.size.getX()-2));
+				if(lastDirection.getY() < 0)
+					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
+				IceBolt tmp = new IceBolt(pos, new Vector2d(10, 10));
 				tmp.setDirection(lastDirection.mul(1));
 				level.addGameElement(tmp);
 			}

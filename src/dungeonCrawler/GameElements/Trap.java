@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
 
+import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
@@ -38,7 +39,7 @@ public class Trap extends GameElement {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.reduceHealth(10, e.gameLogic);
+			elementPlayer.reduceHealth(10, DamageType.CONVENTIONAL, e.gameLogic);
 		}
 	}
 
