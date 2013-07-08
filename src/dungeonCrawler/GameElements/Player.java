@@ -8,6 +8,7 @@ import java.util.BitSet;
 import java.util.LinkedList;
 
 import dungeonCrawler.DamageType;
+import dungeonCrawler.EventType;
 //import dungeonCrawler.ElementType;
 //import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
@@ -28,17 +29,17 @@ public class Player extends Active {
 	public String name = "PLAYER";
 	public final int maxHealth = 1000;
 	public final int maxMana = 100;
-	private int Health=maxHealth;
+	private int health=maxHealth;
 	private int mana = maxMana;
 	public final int maxShield = 1000;
 	private int shield = 0;
 	private boolean bow;
 	private int lives=3;
+	private int money = 0;
+	private Vector2d checkpoint;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	
 	private int movementdelay = 0;
-	//	private int money; TODO
-	private GameEvent e;
 	private Protection protection = null;
 
 	/**
@@ -47,6 +48,7 @@ public class Player extends Active {
 	 */
 	public Player(Vector2d position, Vector2d size) {
 		super(position, size);
+		checkpoint = position;
 	}
 
 	public String getName(){
@@ -62,22 +64,36 @@ public class Player extends Active {
 	}
 
 	public void add(GameObject object){
-		e.gameLogic.Inventar.add(object);
+		this.inventar.add(object);
 	}
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
-		this.e=e;
+		if(e.type == EventType.COLLISION){
+			if(e.element instanceof CheckPoint){
+				this.checkpoint = this.position;
+			}
+		}
 	}
 
 	public void setHealth(int Health) {
-		this.Health = Health;
+		this.health = Health;
 	}
 
 	public void increaseHealth(int Health) {
-		this.Health += Health;
-		if(this.Health > this.maxHealth) this.Health = this.maxHealth;
+		this.health += Health;
+		if(this.health > this.maxHealth) this.health = this.maxHealth;
+	}
+	
+	public void die(GameLogic logic){
+		if(this.lives>=0){
+			this.lives--;
+			this.health = this.maxHealth;
+			this.position = this.checkpoint;
+		} else {
+			logic.lost(this);
+		}
 	}
 
 	public void reduceHealth(int Health, DamageType damageTyp, GameLogic logic) {
@@ -105,17 +121,17 @@ public class Player extends Active {
 				Health = 0;
 			}
 		}
-		this.Health -= Health;
-		if (this.Health > 0) {
-			System.out.println("Leben verloren! Health: " + this.Health);
+		this.health -= Health;
+		if (this.health > 0) {
+			System.out.println("Leben verloren! Health: " + this.health);
 		}
 		else {
 			System.out.println("!TOT! (x.x) Leben: " + lives);
 			lives--;
 			if(lives < 0){
-				e.gameLogic.app.currentLevel = 0;
+				logic.app.currentLevel = 0;
 			} else {
-				this.Health = maxHealth;
+				this.health = maxHealth;
 				logic.teleportElement(this, logic.getCheckPoint());
 			}
 		}
@@ -134,7 +150,7 @@ public class Player extends Active {
 	}	
 
 	public int getHealth() {
-		return this.Health;
+		return this.health;
 	}
 
 	public int getMana() {
@@ -150,11 +166,11 @@ public class Player extends Active {
 	}
 
 	public int getMoney() {
-		return e.gameLogic.getmoney();
+		return money;
 	}
 
 	public void setMoney(int money) {
-		e.gameLogic.setmoney(money);				
+		this.money = money;
 	}
 
 

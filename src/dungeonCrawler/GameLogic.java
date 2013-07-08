@@ -15,7 +15,7 @@ import dungeonCrawler.GameElements.Bullet;
 import dungeonCrawler.GameElements.FireBolt;
 import dungeonCrawler.GameElements.IceBolt;
 import dungeonCrawler.GameElements.Player;
-import dungeonCrawler.GameElements.Spell;
+//import dungeonCrawler.GameElements.Spell;
 
 public class GameLogic implements KeyListener, ActionListener {
 
@@ -285,12 +285,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 		if (((Player) player).getHealth()<=0){
-			app.cp.removeAll();
-			app.cp.validate();
-			app.gameContent = new GameContent(this);
-			app.loader = new LevelLoader(app.gameContent, app);
-			this.timer.stop();
-			app.startMainMenu();
+			startMainMenu();
 		}
 		if (e.getActionCommand() == "Timer"){
 			GameElement tmpRem = null;
@@ -344,6 +339,19 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Deprecated
 	public void setinventory(LinkedList<GameObject> Inventar) {
 		  this.Inventar = Inventar;
-	}	
+	}
+	
+	public void startMainMenu(){
+		app.cp.removeAll();
+		app.cp.validate();
+		app.gameContent = new GameContent(this);
+		app.loader = new LevelLoader(app.gameContent, app);
+		this.timer.stop();
+		app.startMainMenu();
+	}
+
+	public void lost(Player player) {
+		startMainMenu();
+	}
 
 }
