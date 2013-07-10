@@ -18,7 +18,7 @@ import dungeonCrawler.SettingSet;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameObjects.HealthPotion;
 import dungeonCrawler.GameObjects.ManaPotion;
-import dungeonCrawler.GameObjects.Protection;
+import dungeonCrawler.GameObjects.Armor;
 
 /**
  * @author Tissen
@@ -40,7 +40,7 @@ public class Player extends Active {
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	
 	private int movementdelay = 0;
-	private Protection protection = null;
+	private Armor protection = null;
 
 	/**
 	 * @param position
@@ -198,10 +198,10 @@ public class Player extends Active {
 		this.bow = b;
 	}
 
-	public Protection getProtection() {
+	public Armor getProtection() {
 		return this.protection;
 	}
-	public void setProtection(Protection prot) {
+	public void setProtection(Armor prot) {
 		this.protection = prot;
 	}
 
@@ -253,7 +253,7 @@ public class Player extends Active {
 			int current = -1;
 			int n = -1;
 			for(GameObject o : inventar){
-				if(o instanceof Protection){
+				if(o instanceof Armor){
 					n++;
 					protectionList.add(o);
 					if (o == protection) {
@@ -267,6 +267,20 @@ public class Player extends Active {
 		}
 		
 		this.last_direction = direction;
+	}
+
+	public static Player createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann PLAYER-Parameter nicht interpretieren.");
+		}
+		return (new Player(position, size));
 	}
 
 }

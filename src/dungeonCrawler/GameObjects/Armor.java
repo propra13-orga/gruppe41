@@ -9,15 +9,15 @@ import dungeonCrawler.GameElements.Player;
  * @author Tissen
  *
  */
-public class Protection extends GameObject {
-	private int convProtection;
-	private int fireResist;
-	private int iceResist;
+public class Armor extends GameObject {
+	private int convArmor;
+	private int fireArmor;
+	private int iceArmor;
 
-	public Protection(int a, int fire, int ice) {
-		this.convProtection = a;
-		this.fireResist = fire;
-		this.iceResist = ice;
+	public Armor(int conv, int fire, int ice) {
+		this.convArmor = conv;
+		this.fireArmor = fire;
+		this.iceArmor = ice;
 	}
 
 	@Override
@@ -29,15 +29,15 @@ public class Protection extends GameObject {
 	}
 	
 	public int getConvProtection() {
-		return convProtection;
+		return convArmor;
 	}
 	
 	public int getFireResist() {
-		return fireResist;
+		return fireArmor;
 	}
 	
 	public int getIceResist() {
-		return iceResist;
+		return iceArmor;
 	}
 
 }

@@ -56,6 +56,20 @@ public class Exit extends GameElement {
 		
 	}
 
+	public static Exit createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann EXIT-Parameter nicht interpretieren.");
+		}
+		return (new Exit(position, size));
+	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub

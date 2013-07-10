@@ -14,6 +14,7 @@ import dungeonCrawler.Vector2d;
 public class Bullet extends GameElement {
 	private int life = 300;
 	private Vector2d direction = new Vector2d(0,0);
+	
 	public Bullet(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
@@ -57,6 +58,20 @@ public class Bullet extends GameElement {
 
 	public void setDirection(Vector2d direction) {
 		this.direction = direction;
+	}
+
+	public static Bullet createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann BULLET-Parameter nicht interpretieren.");
+		}
+		return (new Bullet(position, size));
 	}
 
 	@Override

@@ -10,24 +10,27 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
-public class CheckPoint extends GameElement {
+/**
+ * @author Tissen
+ *
+ */
+public class MagicShield extends GameElement {
 
-	public CheckPoint(Vector2d position, Vector2d size) {
+	/**
+	 * @param position
+	 * @param size
+	 */
+	public MagicShield(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public String getName(){
-		return "CheckPoint";
-	}
+	
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 
@@ -35,11 +38,14 @@ public class CheckPoint extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			e.gameLogic.setCheckPoint(this.getPosition());
+			System.out.println("+500 Rüstung");
+			Player elementPlayer = (Player) e.element;
+			elementPlayer.increaseShield(500);
+			this.size.setX(0);this.size.setY(0);
 		}
 	}
 
-	public static CheckPoint createElement(String[] param) {
+	public static MagicShield createElement(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -48,9 +54,15 @@ public class CheckPoint extends GameElement {
 			size.setX(Integer.parseInt(param[3]));
 			size.setY(Integer.parseInt(param[4]));
 		} catch (NumberFormatException e) {
-			System.out.println("Kann CHECKPOINT-Parameter nicht interpretieren.");
+			System.out.println("Kann MAGICSHIELD-Parameter nicht interpretieren.");
 		}
-		return (new CheckPoint(position, size));
+		return (new MagicShield(position, size));
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "MagicShield";
 	}
 
 }

@@ -14,10 +14,10 @@ public class WarpPoint extends GameElement {
 	
 	private Vector2d target = new Vector2d(0,0);
 
-	public WarpPoint(Vector2d position, Vector2d size) {
+	public WarpPoint(Vector2d position, Vector2d size, Vector2d target) {
 		super(position, size);
+		this.target = target;
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -42,6 +42,23 @@ public class WarpPoint extends GameElement {
 
 	public void setTarget(Vector2d target) {
 		this.target = target;
+	}
+
+	public static WarpPoint createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		Vector2d target = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+			target.setX(Integer.parseInt(param[5]));
+			target.setY(Integer.parseInt(param[6]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann WARPPOINT-Parameter nicht interpretieren.");
+		}
+		return (new WarpPoint(position, size, target));
 	}
 
 	@Override

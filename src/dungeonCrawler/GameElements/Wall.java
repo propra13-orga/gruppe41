@@ -58,7 +58,6 @@ public class Wall extends GameElement {
 			size.setY(Integer.parseInt(param[4]));
 		} catch (NumberFormatException e) {
 			System.out.println("Kann WALL-Parameter nicht interpretieren.");
-			e.printStackTrace();
 		}
 		return (new Wall(position, size));
 	}

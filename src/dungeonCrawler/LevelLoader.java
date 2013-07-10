@@ -86,41 +86,45 @@ public class LevelLoader {
 	private boolean parse(String input) {
 		try {
 			String[] param = input.split(splitChar);
-			Vector2d position = new Vector2d(Integer.parseInt(param[1]), Integer.parseInt(param[2]));
-			Vector2d size = new Vector2d(Integer.parseInt(param[3]), Integer.parseInt(param[4]));
 			switch (param[0]) {
+			case "BOW":
+				element = Bow.createElement(param); break;
+			case "BULLET":
+				element = Bullet.createElement(param); break;
+			case "CHECKPOINT":
+				element = CheckPoint.createElement(param); break;
+			case "ENEMY":
+				element = Enemy.createElement(param); break;
+			case "EXIT":
+				element = Exit.createElement(param); break;
+			case "FIREBOLT":
+				element = FireBolt.createElement(param); break;				
+			case "FIREFOX":
+				element = FireFox.createElement(param); break;				
+			case "HEALTHPOT":
+				element = Healthpot.createElement(param); break;	
+			case "ICEBOLT":
+				element = IceBolt.createElement(param); break;				
+			case "ICEWEASEL":
+				element = IceWeasel.createElement(param); break;				
+			case "MAGICSHIELD":
+				element = MagicShield.createElement(param); break;
+			case "MANAPOT":
+				element = Manapot.createElement(param); break;					
+			case "MONEY":
+				element = Money.createElement(param); break;
+			case "NPC":
+				element = NPC.createElement(param); break;
+			case "PLAYER":
+				element = Player.createElement(param); break;
+			case "SPELL":
+				element = Spell.createElement(param); break;
+			case "TRAP":
+				element = Trap.createElement(param); break;
 			case "WALL":
 				element = Wall.createElement(param); break;
-			case "TRAP":
-				element = new Trap(position, size); break;
-			case "EXIT":
-				element = new Exit(position, size); break;
-			case "PLAYER":
-				element = new Player(position, size); break;
-			case "NPC":
-				element = new NPC(position, size); break;
-			case "ENEMY":
-				element = new Enemy(position, size); break;
-			case "CHECKPOINT":
-				element = new CheckPoint(position, size); break;
 			case "WARPPOINT":
-				element = new WarpPoint(position, size);
-				((WarpPoint)element).setTarget(new Vector2d(Integer.parseInt(param[5]), Integer.parseInt(param[6])));
-				break;
-			case "HEALTHPOT":
-				element = new Healthpot(position, size);
-				break;	
-			case "MANAPOT":
-				element = new Manapot(position, size);
-				break;					
-			case "ARMOR":
-				element = new Armor(position, size); break;
-			case "BOW":
-				element = new Bow(position, size); break;
-			case "MONEY":
-				element = new Moneypot(position, size); break;
-			case "FIREBAL":
-				element = new Fireball(position, size); break;				
+				element = WarpPoint.createElement(param); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

@@ -16,12 +16,12 @@ import dungeonCrawler.Vector2d;
  * @author Dominik
  *
  */
-public class Fireball extends GameElement {
+public class FireFox extends GameElement {
 	/**
 	 * @param position
 	 * @param size
 	 */
-	public Fireball(Vector2d position, Vector2d size) {
+	public FireFox(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.MOVABLE);
 	}
@@ -50,6 +50,20 @@ public class Fireball extends GameElement {
 		}
 	}
 
+	public static FireFox createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann FIREFOX-Parameter nicht interpretieren.");
+		}
+		return (new FireFox(position, size));
+	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -57,5 +71,3 @@ public class Fireball extends GameElement {
 	}	
 	
 }
-
-

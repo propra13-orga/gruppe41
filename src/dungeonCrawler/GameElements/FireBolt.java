@@ -63,6 +63,20 @@ public class FireBolt extends GameElement {
 		this.direction = direction;
 	}
 
+	public static FireBolt createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann FIREBOLT-Parameter nicht interpretieren.");
+		}
+		return (new FireBolt(position, size));
+	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub

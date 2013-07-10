@@ -63,6 +63,20 @@ public class IceBolt extends GameElement {
 		this.direction = direction;
 	}
 
+	public static IceBolt createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann ICEBOLT-Parameter nicht interpretieren.");
+		}
+		return (new IceBolt(position, size));
+	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
