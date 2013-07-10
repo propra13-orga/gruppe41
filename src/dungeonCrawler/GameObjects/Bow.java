@@ -3,6 +3,9 @@
  */
 package dungeonCrawler.GameObjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
@@ -50,6 +53,12 @@ public class Bow extends GameObject {
 		Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
 		tmp.setDirection(lastDirection.mul(3));
 		logic.addGameElement(tmp);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(Color.BLACK);
+		super.draw(g);
 	}
 
 }
