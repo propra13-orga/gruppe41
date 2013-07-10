@@ -17,6 +17,11 @@ public class Vector2d {
 		x = vector.x;
 		y = vector.y;
 	}
+	public boolean isNull(){
+		if(this.x == 0 && this.y == 0)
+			return true;
+		return false;
+	}
 	public Vector2d addX(int x){
 		return new Vector2d(this.x + x, this.y);
 	}
@@ -44,6 +49,11 @@ public class Vector2d {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "(" + this.x + "," + this.y + ")";
 	}
 
 }

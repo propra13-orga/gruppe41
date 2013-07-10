@@ -7,5 +7,8 @@ public abstract class GameObject {
 	}
 	
 	public abstract void performOn(GameElement element);
+	public void performOn(GameElement element, GameLogic logic){
+		this.performOn(element);
+	}
 
 }

@@ -74,6 +74,14 @@ public class Bullet extends GameElement {
 		return (new Bullet(position, size));
 	}
 
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub

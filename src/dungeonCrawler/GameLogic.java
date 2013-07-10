@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import javax.swing.Timer;
 
 import dungeonCrawler.GameElements.Active;
-import dungeonCrawler.GameElements.Bullet;
 import dungeonCrawler.GameElements.FireBolt;
 import dungeonCrawler.GameElements.IceBolt;
 import dungeonCrawler.GameElements.Player;
@@ -229,23 +228,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 
-		if (checkKey(32)){// Space (bow)
-			if (player.hasBow()) {
-				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
-				if(lastDirection.getX() > 0)
-					pos = pos.add(new Vector2d(player.size.getX()-2,0));
-				if(lastDirection.getX() < 0)
-					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
-				if(lastDirection.getY() > 0)
-					pos = pos.add(new Vector2d(0,player.size.getX()-2));
-				if(lastDirection.getY() < 0)
-					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
-				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection.mul(3));
-				level.addGameElement(tmp);
-				
-			}
-		}
+		
 		if (keys.get(KeyEvent.VK_Q)){// q (fire bolt)
 			System.out.println(delay[KeyEvent.VK_Q]);
 			if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(8, this)){
@@ -302,6 +285,10 @@ public class GameLogic implements KeyListener, ActionListener {
 			app.camera.repaint();
 //			System.out.println("Timediff " + (System.currentTimeMillis() - time));
 		}
+	}
+	
+	public void addGameElement(GameElement element){
+		level.addGameElement(element);
 	}
 
 	public Vector2d getCheckPoint() {

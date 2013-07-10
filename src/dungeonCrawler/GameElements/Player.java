@@ -33,7 +33,6 @@ public class Player extends Active {
 	private int mana = maxMana;
 	public final int maxShield = 1000;
 	private int shield = 0;
-	private boolean bow;
 	private int lives=3;
 	private int money = 0;
 	private Vector2d checkpoint;
@@ -190,13 +189,7 @@ public class Player extends Active {
 	public void setShield(int s) {
 		this.shield = s;
 	}
-	public boolean hasBow() {
-		return bow;
-	}
 
-	public void setBow(boolean b) {
-		this.bow = b;
-	}
 
 	public Armor getProtection() {
 		return this.protection;
@@ -248,6 +241,32 @@ public class Player extends Active {
 			}
 		}
 		
+		if (logic.checkKey(settings.SHOOT)){
+			dungeonCrawler.GameObjects.Bow bow = null;
+			for(GameObject o : inventar){
+				if(o instanceof dungeonCrawler.GameObjects.Bow){
+					bow = (dungeonCrawler.GameObjects.Bow) o;
+					break;
+				}
+			}
+			if(bow != null){
+				bow.performOn(this,logic);
+			} else {
+				Vector2d pos = new Vector2d(position.add(this.getSize().mul(0.5)).add(new Vector2d(-5, -5)));
+				if(last_direction.getX() > 0)
+					pos = pos.add(new Vector2d(this.getSize().getX()-2,0));
+				if(last_direction.getX() < 0)
+					pos = pos.add(new Vector2d(-this.getSize().getX()+2,0));
+				if(last_direction.getY() > 0)
+					pos = pos.add(new Vector2d(0,this.getSize().getX()-2));
+				if(last_direction.getY() < 0)
+					pos = pos.add(new Vector2d(0,-this.getSize().getX()+2));
+				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
+				tmp.setLife(20);
+				logic.addGameElement(tmp);
+			}
+		}
+		
 		if (logic.checkKey(settings.CHANGE_ARMOR)){
 			ArrayList<GameObject> protectionList = new ArrayList<GameObject>();
 			int current = -1;
@@ -265,8 +284,8 @@ public class Player extends Active {
 				protectionList.get((current+1)%protectionList.size()).performOn(this);
 			}
 		}
-		
-		this.last_direction = direction;
+		if(!direction.isNull())
+			this.last_direction = direction;
 	}
 
 	public static Player createElement(String[] param) {

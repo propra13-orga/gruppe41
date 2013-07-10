@@ -32,10 +32,10 @@ public class StatusBar extends GameElement {
 		g.setColor(Color.BLACK);
 		g.drawRect(270, 30, 200, 15);
 		// bow
-		if (player.hasBow()) {
+		/*if (player.hasBow()) {
 			g.setColor(Color.BLACK);
 			g.fillRect(245, 30, 10, 10);
-		}
+		}*/
 	}
 
 	@Override
