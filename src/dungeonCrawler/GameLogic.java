@@ -43,6 +43,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	public int Money;
 	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
 	private Vector2d startpos= new Vector2d(0,0);
+	private Vector2d endpos= new Vector2d(0,0);
 	private boolean setze=false; // für editor, wenn variable gesetzt ist, dann nochmal drücken um das gameelement hinzu zu fügen
 	public File file;
 
@@ -56,303 +57,76 @@ public class GameLogic implements KeyListener, ActionListener {
 		this.app = app;
 		Money = 0;
 	}
-	
-	
-	
+
+
+	private void createElement(int sx,int sy,int px,int py,String elementtype){
+		if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
+		else {
+			level.removeElement(level.getPlayer());
+			calculatepositions(sx,sy,px,py);
+			switch (elementtype){
+			case "Bow":			level.addGameElement(new Bow(startpos,endpos));				break;
+			case "Checkpoint":	level.addGameElement(new CheckPoint(startpos,endpos));		break;
+			case "Enemy":		level.addGameElement(new Enemy(startpos,endpos));			break;
+			case "Exit":		level.addGameElement(new Exit(startpos,endpos));			break;
+			case "Healthpot":	level.addGameElement(new Healthpot(startpos,endpos));		break;
+			case "Manapot":		level.addGameElement(new Manapot(startpos,endpos));			break;
+			case "Moneypot":	level.addGameElement(new Moneypot(startpos,endpos));		break;
+			case "NPC":			level.addGameElement(new NPC(startpos,endpos));				break;
+			case "Trap":		level.addGameElement(new Trap(startpos,endpos));			break;
+			case "Wall":		level.addGameElement(new Wall(startpos,endpos));			break;
+			}
+			level.addGameElement(player);
+			setze=false;
+		}
+	}
+
+	private void calculatepositions(int sx,int sy,int px,int py){
+		/**
+		 * berechnet die start- und endposition für ein zu erzeugendes Element
+		 * */
+		 if (px> sx && py>sy){
+			 startpos=	new Vector2d(sx,sy);
+			 endpos=	new Vector2d(px-sx,py-sy);
+	 }
+		 else if (px< sx && py>sy){
+			 startpos=	new Vector2d(px,sy);
+			 endpos=	new Vector2d(sx-px,py-sy);
+	 }
+		 else if (px< sx && py<sy){
+			 startpos=	new Vector2d(px,py);
+			 endpos=	new Vector2d(sx-px,sy-py);
+	 }
+		 else if (px> sx && py<sy){
+			 startpos=	new Vector2d(sx,py);
+			 endpos=	new Vector2d(px-sx,sy-py);
+	 }
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		
-		
-		
-		
-		
-		if (app.editmode==true){
-			 if(e.getKeyCode()==87){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-				 if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
-				 else if (px> sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Wall(startpos,new Vector2d(px-sx,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 
-				 else if (px< sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Wall(new Vector2d(px,sy),new Vector2d(sx-px,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px< sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Wall(new Vector2d(px,py),new Vector2d(sx-px,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px> sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Wall(new Vector2d(sx,py),new Vector2d(px-sx,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-			 }
-			 
-			 if(e.getKeyCode()==69){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-				 if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
-				 else if (px> sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Exit(startpos,new Vector2d(px-sx,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 
-				 else if (px< sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Exit(new Vector2d(px,sy),new Vector2d(sx-px,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px< sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Exit(new Vector2d(px,py),new Vector2d(sx-px,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px> sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Exit(new Vector2d(sx,py),new Vector2d(px-sx,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-			 }
-			 
-			 
-			 if(e.getKeyCode()==84){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-				 if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
-				 else if (px> sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Trap(startpos,new Vector2d(px-sx,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 
-				 else if (px< sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Trap(new Vector2d(px,sy),new Vector2d(sx-px,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px< sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Trap(new Vector2d(px,py),new Vector2d(sx-px,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px> sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Trap(new Vector2d(sx,py),new Vector2d(px-sx,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-			 }
-			 
-			 		 
-			 
-			 
-			 if(e.getKeyCode()==67){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-				 if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
-				 else if (px> sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Enemy(startpos,new Vector2d(px-sx,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 
-				 else if (px< sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Enemy(new Vector2d(px,sy),new Vector2d(sx-px,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px< sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Enemy(new Vector2d(px,py),new Vector2d(sx-px,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px> sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Enemy(new Vector2d(sx,py),new Vector2d(px-sx,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-			 }
-			 
-			 
-			 if(e.getKeyCode()==71){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-				 if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
-				 else if (px> sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Moneypot(startpos,new Vector2d(px-sx,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 
-				 else if (px< sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Moneypot(new Vector2d(px,sy),new Vector2d(sx-px,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px< sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Moneypot(new Vector2d(px,py),new Vector2d(sx-px,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px> sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Moneypot(new Vector2d(sx,py),new Vector2d(px-sx,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-			 }
-			 
-			 if(e.getKeyCode()==83){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new CheckPoint(new Vector2d(px,py),new Vector2d(30,30)));
-				     level.addGameElement(player);
-
-			 }
-			 
-			 if(e.getKeyCode()==66){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-	
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Bow(level.getPlayer().getPosition(),new Vector2d(5,5)));
-				     level.addGameElement(player);
-			 
-			 }
-			 
-			 
-			 if(e.getKeyCode()==81){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-	
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Wall(level.getPlayer().getPosition(),new Vector2d(5,5)));
-				     level.addGameElement(player);
-			 
-			 }
-			 
-			 
-			 if(e.getKeyCode()==78){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-				 if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
-				 else if (px> sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new NPC(startpos,new Vector2d(px-sx,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 
-				 else if (px< sx && py>sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new NPC(new Vector2d(px,sy),new Vector2d(sx-px,py-sy)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px< sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new NPC(new Vector2d(px,py),new Vector2d(sx-px,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-				 else if (px> sx && py<sy){
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new NPC(new Vector2d(sx,py),new Vector2d(px-sx,sy-py)));
-				     setze = false;
-				     level.addGameElement(player);
-			 }
-			 }
-			 
-			 
-			 
-			 if(e.getKeyCode()==72){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-	
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Healthpot(level.getPlayer().getPosition(),new Vector2d(5,5)));
-				     level.addGameElement(player);
-			 
-			 }			 
-			 
-			 if(e.getKeyCode()==77){
-				 int sx = startpos.getX();
-				 int sy = startpos.getY();
-				 int px = level.getPlayer().getPosition().getX();
-				 int py = level.getPlayer().getPosition().getY();
-				 System.out.println("w");
-	
-					 level.removeElement(level.getPlayer());
-					 level.addGameElement(new Manapot(level.getPlayer().getPosition(),new Vector2d(5,5)));
-				     level.addGameElement(player);
-			 
-			 }
-			 
-			 
-			 
-			 
-			 
-			 
-		}
 		keys.set(e.getKeyCode());
+		if (app.editmode==true){
+			
+			 int sx = startpos.getX();
+			 int sy = startpos.getY();
+			 int px = level.getPlayer().getPosition().getX();
+			 int py = level.getPlayer().getPosition().getY();
+			 
+			 switch (e.getKeyCode()) {
+			 case 66:setze=true;createElement(px,py,px+5,py+5,"Bow");			break;	//Bow
+			 case 67:setze=true;createElement(px,py,px+30,py+30,"Enemy");		break;	//Enemy
+			 case 69:createElement(sx,sy,px,py,"Exit");							break;	//Exit
+			 case 71:setze=true;createElement(px,py,px+5,py+5,"Moneypot");		break;	//Moneypot
+			 case 72:setze=true;createElement(px,py,px+5,py+5,"Healthpot");		break;	//Healthpot
+			 case 77:setze=true;createElement(px,py,px+5,py+5,"Manapot");		break;	//Manapot
+			 case 78:setze=true;createElement(px,py,px+30,py+30,"NPC");			break;	//NPC
+			 case 83:setze=true;createElement(px,py,px+30,py+30,"Checkpoint");	break;	//CheckPoint
+			 case 84:createElement(sx,sy,px,py,"Trap");							break;	//Trap
+			 case 87:createElement(sx,sy,px,py,"Wall");							break;	//Wall
+			 }
+		}
 	}
 
 	@Override
@@ -669,16 +443,7 @@ public class GameLogic implements KeyListener, ActionListener {
 				direction = direction.addY(1);
 				System.out.println("DOWN");
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+						
 			
 		if (keys.get(83)) { // s
 			keys.clear();

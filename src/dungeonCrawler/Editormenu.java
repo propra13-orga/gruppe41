@@ -8,11 +8,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;;
 
 public class Editormenu extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -20,15 +23,22 @@ public class Editormenu extends JPanel {
 	private App app;
 	private Container parent;
 	private JButton NewMap;
+	private JComboBox editMapNr;
 	private File file;
+	private LinkedList<String> MapNr = new LinkedList<String>();
 	
-
 	public Editormenu(App app){
+		
+		int i=app.level;
+		int j=1;
+		Component comp = null;
+		editMapNr = new JComboBox();
 		this.app = app;
 		parent = this.getParent();
-		this.setLayout(new GridLayout(1, 1));
+		this.setLayout(new GridLayout(2, 2));
 		NewMap = new JButton("Neu");
 		this.add(NewMap);
+		this.add(editMapNr);
 		this.initialize();
 	}
 	
