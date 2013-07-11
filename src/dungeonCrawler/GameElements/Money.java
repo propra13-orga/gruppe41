@@ -61,7 +61,7 @@ public class Money extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Money";
+		return "MONEY";
 	}
 
 }

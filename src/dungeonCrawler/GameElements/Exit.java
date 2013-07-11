@@ -73,7 +73,7 @@ public class Exit extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Exit";
+		return "EXIT";
 	}
 
 }

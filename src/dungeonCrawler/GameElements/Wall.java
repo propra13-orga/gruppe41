@@ -64,7 +64,7 @@ public class Wall extends GameElement {
 
 	@Override
 	public String getName() {
-		return "Wall";
+		return "WALL";
 	}
 
 }

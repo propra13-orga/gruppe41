@@ -85,7 +85,7 @@ public class Bullet extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Bullet";
+		return "BULLET";
 	}
 
 }

@@ -64,7 +64,7 @@ public class WarpPoint extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "WarpPoint";
+		return "WARPPOINT";
 	}
 
 }
