@@ -1,6 +1,6 @@
 package dungeonCrawler;
 
-import java.util.EnumSet;
+//import java.util.EnumSet;
 
 public enum EventType {
 	COLLISION, TIMER;

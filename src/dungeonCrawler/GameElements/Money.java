@@ -10,23 +10,24 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
-public class CheckPoint extends GameElement {
+/**
+ * @author Dominik
+ *
+ */
+public class Money extends GameElement {
 
-	public CheckPoint(Vector2d position, Vector2d size) {
+	/**
+	 * @param position
+	 * @param size
+	 */
+	public Money(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
-	}
-	
-	@Override
-	public String getName(){
-		return "CheckPoint";
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
@@ -35,11 +36,15 @@ public class CheckPoint extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			e.gameLogic.setCheckPoint(this.getPosition());
+			Player elementPlayer = (Player) e.element;
+			elementPlayer.setMoney(elementPlayer.getMoney()+10);
+			System.out.println("Mach mich reich, ich habe jetzt " + elementPlayer.getMoney() + " geld + 10");
+
+			this.size.setX(0);this.size.setY(0);
 		}
 	}
 
-	public static CheckPoint createElement(String[] param) {
+	public static Money createElement(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -48,9 +53,15 @@ public class CheckPoint extends GameElement {
 			size.setX(Integer.parseInt(param[3]));
 			size.setY(Integer.parseInt(param[4]));
 		} catch (NumberFormatException e) {
-			System.out.println("Kann CHECKPOINT-Parameter nicht interpretieren.");
+			System.out.println("Kann MONEY-Parameter nicht interpretieren.");
 		}
-		return (new CheckPoint(position, size));
+		return (new Money(position, size));
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Money";
 	}
 
 }

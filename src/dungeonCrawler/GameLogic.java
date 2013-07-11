@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.BitSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -21,19 +22,28 @@ import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Exit;
 import dungeonCrawler.GameElements.Healthpot;
 import dungeonCrawler.GameElements.Manapot;
-import dungeonCrawler.GameElements.Moneypot;
+import dungeonCrawler.GameElements.Money;
 import dungeonCrawler.GameElements.NPC;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.Spell;
 import dungeonCrawler.GameElements.Trap;
 import dungeonCrawler.GameElements.Wall;
+import dungeonCrawler.GameElements.Active;
+import dungeonCrawler.GameElements.FireBolt;
+import dungeonCrawler.GameElements.IceBolt;
+import dungeonCrawler.GameElements.Player;
+//import dungeonCrawler.GameElements.Spell;
 
 public class GameLogic implements KeyListener, ActionListener {
 
+//	private long time;
 	private Vector2d direction = new Vector2d(0,0);
 	private Vector2d lastDirection = new Vector2d(0,1);
 	private Vector2d checkPoint = new Vector2d(0,0);
+	
+	private SettingSet settings = new SettingSet(); 
 	private int[] delay = new int[1000];
+	private int[] max_delay = new int[1000];
 	private GameContent level;
 	private BitSet keys;
 	protected Timer timer;
@@ -51,11 +61,32 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
-		timer = new Timer(10, this);
+		timer = new Timer(1, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
 		Money = 0;
+		
+		for(int i=0;i<1000;i++){
+			max_delay[i] = 3; 
+		}
+		max_delay[settings.SHOOT] = 200;
+		max_delay[settings.USE_HEALTHPOT] = 500;
+		max_delay[settings.USE_MANAPOT] = 500;
+	}
+	
+	private void reduceDelay(){
+		for(int i=0;i<1000;i++){
+			if(delay[i] > 0) delay[i]--;
+		}
+	}
+	
+	public boolean checkKey(int i){
+		if(delay[i]<=0 && keys.get(i)){
+			delay[i] = max_delay[i];
+			return true;
+		}
+		return false;
 	}
 
 
@@ -71,7 +102,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			case "Exit":		level.addGameElement(new Exit(startpos,endpos));			break;
 			case "Healthpot":	level.addGameElement(new Healthpot(startpos,endpos));		break;
 			case "Manapot":		level.addGameElement(new Manapot(startpos,endpos));			break;
-			case "Moneypot":	level.addGameElement(new Moneypot(startpos,endpos));		break;
+			case "Money":	level.addGameElement(new Money(startpos,endpos));		break;
 			case "NPC":			level.addGameElement(new NPC(startpos,endpos));				break;
 			case "Trap":		level.addGameElement(new Trap(startpos,endpos));			break;
 			case "Wall":		level.addGameElement(new Wall(startpos,endpos));			break;
@@ -118,7 +149,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			 case 66:setze=true;createElement(px,py,px+5,py+5,"Bow");			break;	//Bow
 			 case 67:setze=true;createElement(px,py,px+30,py+30,"Enemy");		break;	//Enemy
 			 case 69:createElement(sx,sy,px,py,"Exit");							break;	//Exit
-			 case 71:setze=true;createElement(px,py,px+5,py+5,"Moneypot");		break;	//Moneypot
+			 case 71:setze=true;createElement(px,py,px+5,py+5,"Money");			break;	//Money
 			 case 72:setze=true;createElement(px,py,px+5,py+5,"Healthpot");		break;	//Healthpot
 			 case 77:setze=true;createElement(px,py,px+5,py+5,"Manapot");		break;	//Manapot
 			 case 78:setze=true;createElement(px,py,px+30,py+30,"NPC");			break;	//NPC
@@ -133,6 +164,10 @@ public class GameLogic implements KeyListener, ActionListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		keys.clear(e.getKeyCode());
+		if(e.getKeyCode() == settings.USE_HEALTHPOT)
+			delay[settings.USE_HEALTHPOT] = 0;
+		if(e.getKeyCode() == settings.USE_MANAPOT)
+			delay[settings.USE_MANAPOT] = 0;
 	}
 	private String convertLvltoStr(int currentLevel) {
 		String str;
@@ -210,7 +245,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		
 		
 		
@@ -281,6 +316,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		}
 			
+
 	}
 
 	public GameContent getLevel() {
@@ -303,13 +339,14 @@ public class GameLogic implements KeyListener, ActionListener {
 		if (app.editmode==false){
 		if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
 			//			System.out.println("test" + collisioncheck.type.toString());
+			HashSet<GameElement> collides = new HashSet<GameElement>();
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
 			for(GameElement collisioncheck : level.getGameElements()){
 				if(e.collision(collisioncheck)){
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
 						e.setPosition(e.position.add(new Vector2d(-direction.getX(), 0)));
 					}
-					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
+					collides.add(collisioncheck);
 				}
 			}
 			//if(level.getGameElements().contains(e)){
@@ -319,8 +356,11 @@ public class GameLogic implements KeyListener, ActionListener {
 					if(!collisioncheck.type.contains(ElementType.WALKABLE)){
 						e.setPosition(e.position.add(new Vector2d(0, -direction.getY())));
 					}
-					handleCollision(e, collisioncheck); //handle collision (e.g. traps, exit ...)
+					collides.add(collisioncheck);
 				}
+			}
+			for(GameElement col : collides){
+				handleCollision(e, col);
 			}
 			//}
 			//e.setPosition(direction.add(e.position));
@@ -387,16 +427,23 @@ public class GameLogic implements KeyListener, ActionListener {
 				System.out.println("x= " + player.getPosition().getX() + " ; y= " + player.getPosition().getY());
 		}
 			
+
+
 		}
 		if (app.editmode==false){
 
 			
-			
-			
+			reduceDelay();
+			player = (Player)level.getPlayer();
 			if(!(direction.getX() == 0 && direction.getY() == 0)){
 				lastDirection = direction;
 			}
 			direction = new Vector2d(0,0);
+			
+			for(Active active : level.getActives()){
+				active.interaction(this, settings, keys);
+			}
+			
 			if (keys.get(100)) {// cheat left
 				player.setPosition(position.addX(-10));
 				System.out.println("CHEAT LEFT");
@@ -445,7 +492,8 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 						
 			
-		if (keys.get(83)) { // s
+
+		if (checkKey(83)) { // s
 			keys.clear();
 			if (level.getPlayer() != null) {
 				if (shop == null) {
@@ -460,34 +508,11 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 		}
 
-		if(delay[32] >= 0){
-			delay[32] -= 1;
-		}
-		if (keys.get(32)){
-			if (player.hasBow()) {
-				if(delay[32] < 0){
-					delay[32] = 70;
-				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
-				if(lastDirection.getX() > 0)
-					pos = pos.add(new Vector2d(player.size.getX()-2,0));
-				if(lastDirection.getX() < 0)
-					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
-				if(lastDirection.getY() > 0)
-					pos = pos.add(new Vector2d(0,player.size.getX()-2));
-				if(lastDirection.getY() < 0)
-					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
-				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection.mul(3));
-				level.addGameElement(tmp);
-				}
-			}
-		}
-		if(delay[KeyEvent.VK_Q] >= 0){
-			delay[KeyEvent.VK_Q] -= 1;
-		}
-		if (keys.get(KeyEvent.VK_Q)){
-			if(delay[KeyEvent.VK_Q] < 0 && player.reduceMana(8, this)){
-				delay[KeyEvent.VK_Q] = 70;
+		
+		if (keys.get(KeyEvent.VK_Q)){// q (fire bolt)
+			System.out.println(delay[KeyEvent.VK_Q]);
+			if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(8, this)){
+				delay[KeyEvent.VK_Q] = 250;
 
 				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
 				if(lastDirection.getX() > 0)
@@ -498,17 +523,35 @@ public class GameLogic implements KeyListener, ActionListener {
 					pos = pos.add(new Vector2d(0,player.size.getX()-2));
 				if(lastDirection.getY() < 0)
 					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
-				Spell tmp = new Spell(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection.mul(2));
+				FireBolt tmp = new FireBolt(pos, new Vector2d(10, 10));
+				tmp.setDirection(lastDirection.mul(1));
+				level.addGameElement(tmp);
+			}
+		}
+		if (keys.get(KeyEvent.VK_W)){// w (ice bolt)
+			System.out.println(delay[KeyEvent.VK_W]);
+			if(delay[KeyEvent.VK_W] <= 0 && player.reduceMana(8, this)){
+				delay[KeyEvent.VK_W] = 250;
+
+				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
+				if(lastDirection.getX() > 0)
+					pos = pos.add(new Vector2d(player.size.getX()-2,0));
+				if(lastDirection.getX() < 0)
+					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
+				if(lastDirection.getY() > 0)
+					pos = pos.add(new Vector2d(0,player.size.getX()-2));
+				if(lastDirection.getY() < 0)
+					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
+				IceBolt tmp = new IceBolt(pos, new Vector2d(10, 10));
+				tmp.setDirection(lastDirection.mul(1));
 				level.addGameElement(tmp);
 			}
 		
 		}
-		if(!keys.isEmpty()) moveElement(player, direction);
 		if (((Player) player).getHealth()<=0){
 			app.cp.removeAll();
 			app.cp.validate();
-			app.gameContent = new GameContent();
+			app.gameContent = new GameContent(this);
 			app.loader = new LevelLoader(app.gameContent, app);
 			this.timer.stop();
 			app.startMainMenu();
@@ -530,7 +573,12 @@ public class GameLogic implements KeyListener, ActionListener {
 				level.removeElement(tmpRem);
 			}
 			app.camera.repaint();
+//			System.out.println("Timediff " + (System.currentTimeMillis() - time));
 		}
+	}
+	
+	public void addGameElement(GameElement element){
+		level.addGameElement(element);
 	}
 
 	public Vector2d getCheckPoint() {
@@ -562,11 +610,25 @@ public class GameLogic implements KeyListener, ActionListener {
 	}
 
 	public LinkedList<GameObject> getinventory() {
-		return this.Inventar;	
+		return player.getInventar();	
 	}
 
+	@Deprecated
 	public void setinventory(LinkedList<GameObject> Inventar) {
 		  this.Inventar = Inventar;
-	}	
+	}
+	
+	public void startMainMenu(){
+		app.cp.removeAll();
+		app.cp.validate();
+		app.gameContent = new GameContent(this);
+		app.loader = new LevelLoader(app.gameContent, app);
+		this.timer.stop();
+		app.startMainMenu();
+	}
+
+	public void lost(Player player) {
+		startMainMenu();
+	}
 
 }

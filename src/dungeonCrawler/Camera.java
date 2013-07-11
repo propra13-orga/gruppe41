@@ -9,7 +9,6 @@ import java.util.ListIterator;
 import javax.swing.JPanel;
 
 import dungeonCrawler.GameElements.ItemPanel;
-import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 
 /**

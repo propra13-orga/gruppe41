@@ -11,7 +11,7 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
-import dungeonCrawler.App;
+//import dungeonCrawler.App;
 
 /**
  * @author Tissen
@@ -24,7 +24,8 @@ public class Exit extends GameElement {
 	 * @param size
 	 */
 	public Exit(Vector2d position, Vector2d size) {
-		super(position, size, "EXIT", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
 
 	@Override
@@ -40,18 +41,39 @@ public class Exit extends GameElement {
 			e.gameLogic.app.currentLevel += 1;
 			e.gameLogic.app.cp.removeAll();
 			e.gameLogic.app.cp.validate();
-			e.gameLogic.app.gameContent = new GameContent();
+			e.gameLogic.app.gameContent = new GameContent(e.gameLogic);
 			e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
 //			e.gameLogic.app.startGame();
 			System.out.println("Ausgang");
 			System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
 //			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
+			// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
 			this.size.setX(0);this.size.setY(0);
 			e.gameLogic.app.startGame();
 			e.gameLogic.shop = null;
 		}
 		// TODO Auto-generated method stub
 		
+	}
+
+	public static Exit createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann EXIT-Parameter nicht interpretieren.");
+		}
+		return (new Exit(position, size));
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Exit";
 	}
 
 }

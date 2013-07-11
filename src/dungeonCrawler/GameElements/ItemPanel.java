@@ -6,30 +6,34 @@ import java.awt.Graphics;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
-import dungeonCrawler.GameObjects.HealthPotion;
-import dungeonCrawler.GameObjects.ManaPotion;
+//import dungeonCrawler.GameObjects.HealthPotion;
+//import dungeonCrawler.GameObjects.ManaPotion;
 
 public class ItemPanel extends GameElement {
-	private Player player;
+	private GameElement player;
 
 	public ItemPanel(Vector2d position, Vector2d size, GameElement player) {
 		super(position, size);
-		this.player = (Player) player;
+		this.player = player;
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		// draw items
-		for (int i=0;i<player.getInventar().size();i++) {
+		Graphics gr;
+		for (int i=0;i<((Player) player).getInventar().size();i++) {
+			gr = g.create(10, 20*i+10, 10, 10);
+			((Player) player).getInventar().get(i).draw(gr);
+			gr.dispose();
 			g.setColor(Color.GRAY);
-			if(player.getInventar().get(i) instanceof HealthPotion)
+		/*	if (((Player) player).getInventar().get(i) instanceof HealthPotion)
 				g.setColor(Color.RED);
-			if(player.getInventar().get(i) instanceof ManaPotion)
+			if (((Player) player).getInventar().get(i) instanceof ManaPotion)
 				g.setColor(Color.BLUE);
-			g.fillRect(10, 20*i+10, 10, 10);
+			g.fillRect(10, 20*i+10, 10, 10);*/
 		}
 		// draw bounds
-		for (int i=0;i<player.getInventar().size();i++) {
+		for (int i=0;i<((Player) player).getInventar().size();i++) {
 			g.setColor(Color.BLACK);
 			g.drawRect(10, 20*i+10, 10, 10);
 		}

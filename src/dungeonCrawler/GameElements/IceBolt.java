@@ -11,11 +11,12 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
-public class Spell extends GameElement {
+public class IceBolt extends GameElement {
 	private int life = 600;
 	private Vector2d direction = new Vector2d(0,0);
+	private int damage = 30;
 
-	public Spell(Vector2d position, Vector2d size) {
+	public IceBolt(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
@@ -24,7 +25,7 @@ public class Spell extends GameElement {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, size.getX(), size.getY());
 
 	}
@@ -41,12 +42,12 @@ public class Spell extends GameElement {
 		if(e.type == EventType.COLLISION && !e.element.type.contains(ElementType.WALKABLE)){
 			if (e.element instanceof Player) {
 				Player element = (Player) e.element;
-				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
+				element.reduceHealth(damage, DamageType.ICE, e.gameLogic);
 				this.size = new Vector2d(0,0);
 			}
 			if(e.element instanceof Enemy){
 				Enemy element = (Enemy) e.element;
-				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
+				element.reduceHealth(damage, DamageType.ICE, e.gameLogic);
 				this.size = new Vector2d(0,0);
 			}
 			this.direction = this.direction.mul(-1);
@@ -62,7 +63,7 @@ public class Spell extends GameElement {
 		this.direction = direction;
 	}
 
-	public static Spell createElement(String[] param) {
+	public static IceBolt createElement(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -71,9 +72,9 @@ public class Spell extends GameElement {
 			size.setX(Integer.parseInt(param[3]));
 			size.setY(Integer.parseInt(param[4]));
 		} catch (NumberFormatException e) {
-			System.out.println("Kann SPELL-Parameter nicht interpretieren.");
+			System.out.println("Kann ICEBOLT-Parameter nicht interpretieren.");
 		}
-		return (new Spell(position, size));
+		return (new IceBolt(position, size));
 	}
 
 	@Override

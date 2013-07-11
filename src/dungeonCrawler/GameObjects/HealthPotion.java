@@ -1,5 +1,8 @@
 package dungeonCrawler.GameObjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
 import dungeonCrawler.GameElements.Enemy;
@@ -24,6 +27,12 @@ public class HealthPotion extends GameObject {
 		case "PLAYER": ((Player)element).increaseHealth(health); break;
 		case "ENEMY": ((Enemy)element).increaseHealth(health); break;
 		}
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(Color.RED);
+		super.draw(g);
 	}
 
 }

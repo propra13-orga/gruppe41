@@ -73,7 +73,7 @@ public class Settings implements KeyListener {
 		});
 		layout.setConstraints(button, gbc);
 		dialog.add(button);
-		System.out.println("Ausserhalb der Schleife"+direction);
+		System.out.println("Außerhalb der Schleife"+direction);
 		return direction;
 		
 	}

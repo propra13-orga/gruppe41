@@ -6,11 +6,12 @@ package dungeonCrawler;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 import dungeonCrawler.GameElements.Exit;
-import dungeonCrawler.ShopSystem;;
+//import dungeonCrawler.ShopSystem;
 
 /**
  * @author Mattes
@@ -20,28 +21,31 @@ public class GameContent {
 
 	private LinkedList<GameElement> gameElements = new LinkedList<GameElement>();
 	private LinkedList<GameElement> movables = new LinkedList<GameElement>();
+	private LinkedList<Active> actives = new LinkedList<Active>();
 	private GameElement player;
 	private GameElement Exit;
 	private GameElement statusBar;
 	private GameElement itemPanel;
+	private GameLogic logic;
+	
 	/**
 	 * 
 	 */
-	public GameContent() {
-		
+	public GameContent(GameLogic gl) {
+		this.logic = gl;
 		// TODO Auto-generated constructor stub
 	}
 
 	public boolean addGameElement(GameElement e){
 		boolean ret = true;
-		GameElement collisionElement = collisionWith(e);
-/*		if (collisionElement != null) {	
+/*		GameElement collisionElement = collisionWith(e);
+		if (collisionElement != null) {	
 			Error err = new Error("Kann '" + e.getName() +
 					"', Position: " + e.position.getX() + "," + e.position.getY() +
-					" Gr��e: " + e.size.getX() + "," + e.size.getY() +
+					" Größe: " + e.size.getX() + "," + e.size.getY() +
 					" nicht setzen. (" + collisionElement.getName() +
 					": " + collisionElement.position.getX() + "," + collisionElement.position.getY() +
-					" Gr��e: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
+					" Größe: " + collisionElement.size.getX() + "," + collisionElement.size.getY() + ")");
 			err.showMe();
 			return false;
 		}*/
@@ -58,7 +62,9 @@ public class GameContent {
 		if(e instanceof Exit){
 			this.Exit=e;
 		}
-		System.out.println(gameElements.size());
+		if(e instanceof Active){
+			ret &= this.actives.add((Active)e);
+		}
 		return this.gameElements.add(e) && ret;
 	}
 
@@ -70,14 +76,14 @@ public class GameContent {
 		return this.movables.listIterator();
 	}
 
-	private GameElement collisionWith(GameElement newElement) {
+/*	private GameElement collisionWith(GameElement newElement) {
 		for (GameElement e: gameElements) {
 			if (e.collision(newElement) && !e.type.contains(ElementType.WALKABLE) && !newElement.type.contains(ElementType.WALKABLE))
 				return e;
 		}
 		return null;
 	}
-	
+*/	
 	public LinkedList<GameElement> getGameElements() {
 		return gameElements;
 	}
@@ -85,7 +91,12 @@ public class GameContent {
 	public boolean removeElement(GameElement element){
 		boolean ret = true;
 		ret &= movables.remove(element);
+		ret &= actives.remove(element);
 		return gameElements.remove(element) && ret;
+	}
+
+	public LinkedList<Active> getActives() {
+		return actives;
 	}
 
 	public GameElement getPlayer() {
@@ -106,6 +117,10 @@ public class GameContent {
 	
 	public GameElement getItemPanel() {
 		return itemPanel;
+	}
+	
+	public GameLogic getGameLogic() {
+		return this.logic;
 	}
 
 }

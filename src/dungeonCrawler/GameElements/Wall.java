@@ -1,11 +1,14 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.util.EnumSet;
+import java.io.File;
+import java.io.IOException;
 
-import dungeonCrawler.ElementType;
+import javax.imageio.ImageIO;
+
+//import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
+import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.Vector2d;
 
@@ -14,13 +17,21 @@ import dungeonCrawler.Vector2d;
  *
  */
 public class Wall extends GameElement {
+	GameElementImage gei = new GameElementImage();
 
 	/**
 	 * @param position
 	 * @param size
 	 */
 	public Wall(Vector2d position, Vector2d size) {
-		super(position, size, "WALL", EnumSet.of(ElementType.IMMOVABLE));
+		super(position, size);
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "Wall.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -28,19 +39,32 @@ public class Wall extends GameElement {
 	 */
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 0, size.getX(), size.getY());
+		gei.paintComponent(g);
 	}
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	public static Wall createWall(Vector2d pos, Vector2d s) {
-		return (new Wall(pos, s));
+
+	public static Wall createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann WALL-Parameter nicht interpretieren.");
+		}
+		return (new Wall(position, size));
+	}
+
+	@Override
+	public String getName() {
+		return "Wall";
 	}
 
 }

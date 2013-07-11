@@ -12,25 +12,33 @@ import java.util.EnumSet;
 public abstract class GameElement implements Drawable, GameListener {
 
 	public EnumSet<ElementType> type;
-	private String name;
 	protected Vector2d position;
 	protected Vector2d size;
+	protected final int id;
 
-	/**
-	 * 
-	 */
-	public GameElement(Vector2d position, Vector2d size) {
+	public GameElement(Vector2d position, Vector2d size){
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
-		this.name = "";
+		this.id=0;
 	}
-
+	/**
+	 * 
+	 */
+	public GameElement(Vector2d position, Vector2d size, int id) {
+		this.type = EnumSet.of(ElementType.IMMOVABLE);
+		this.position = position;
+		this.size = size;
+		this.id = id;
+//		this.name = "";
+	}
+	@Deprecated
 	public GameElement(Vector2d position, Vector2d size, String name, EnumSet<ElementType> type) {
 		this.type = type;
 		this.position = position;
 		this.size = size;
-		this.name = name;
+		this.id = 0;
+	//	this.name = name;
 	}
 
 	/*public GameElement() {
@@ -40,6 +48,14 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.name = "";
 	}*/
 
+	public static GameElement create(String data){
+		return null;
+	}
+	
+	public String getString(){
+		return this.toString();
+	}
+	
 	public Vector2d getPosition() {
 		return position;
 	}
@@ -84,7 +100,7 @@ public abstract class GameElement implements Drawable, GameListener {
 	}
 
 	public boolean collision(GameElement element) {
-		if(element != this){ //TODO kollidiert nicht richtig mit W�nden
+		if(element != this){ //TODO kollidiert nicht richtig mit Wänden
 			int xl 	= 	this	.getTopLeft().getX();
 			int xr 	= 	this	.getTopRight().getX();
 			int yt 	= 	this	.getTopLeft().getY();
@@ -117,13 +133,13 @@ public abstract class GameElement implements Drawable, GameListener {
 	}
 
 	public String getName() {
-		return name;
+		return "GameElement";
 	}
 
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see dungeonCrawler.Drawable#draw()
 	 */

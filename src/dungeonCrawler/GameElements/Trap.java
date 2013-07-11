@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
 
+import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
@@ -21,7 +22,8 @@ public class Trap extends GameElement {
 	 * @param size
 	 */
 	public Trap(Vector2d position, Vector2d size) {
-		super(position, size, "TRAP", EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE));
+		super(position, size);
+		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
 
 	@Override
@@ -37,8 +39,28 @@ public class Trap extends GameElement {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.reduceHealth(10, e.gameLogic);
+			elementPlayer.reduceHealth(10, DamageType.CONVENTIONAL, e.gameLogic);
 		}
+	}
+
+	public static Trap createElement(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		try {
+			position.setX(Integer.parseInt(param[1]));
+			position.setY(Integer.parseInt(param[2]));
+			size.setX(Integer.parseInt(param[3]));
+			size.setY(Integer.parseInt(param[4]));
+		} catch (NumberFormatException e) {
+			System.out.println("Kann TRAP-Parameter nicht interpretieren.");
+		}
+		return (new Trap(position, size));
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Trap";
 	}
 
 }
