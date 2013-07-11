@@ -1,219 +1,178 @@
 package dungeonCrawler;
 
-//import java.awt.Color;
-//import java.awt.Container;
+
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+
+import dungeonCrawler.GameElements.Inventar;
+import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameObjects.ManaPotion;
+
 
 public class ShopSystem {
-	private JDialog dialog;
-	private JButton button;
-//	private Container cp;
-	 
-	public JTextField number;
-	public int times;
+	private int gridy=0;
+	private int[] times = new int[100];
 	private int vermoegen;
-	private int price[];
-	public int item_number;
-	
-	
-	public int getprice(int item_number){
-		return this.price[item_number];
+	private int[] price = new int[100];
+	private String[] names = new String[100];
+	private int number;
+	private JTextField[] text = new JTextField[100];
+	private JTextField actualMoney;
+	private JButton[] button = new JButton[100];
+	private JDialog dialog;
+	private Player player;
+	private Inventar inventar;
+	private int preBuyVermoegen;
+
+	public ShopSystem(Player p) {
+		this.player = p;
 	}
 	
+	public void setPlayer(Player p){
+		this.player = p;
+	}
+		
+	static void addComponent( Container cont,GridBagLayout gbl,Component c,int x, int y,int width, int height,double weightx, double weighty ){
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = x; gbc.gridy = y;
+		gbc.gridwidth = width; gbc.gridheight = height;
+		gbc.weightx = weightx; gbc.weighty = weighty;
+		gbl.setConstraints( c, gbc );
+		cont.add( c );
+	}
+	
+		
 	public int getvermoegen(){
 		return this.vermoegen;
 	}
-	
 	public void setvermoegen(int vermoegen){
 		this.vermoegen=vermoegen;
 	}
 	
-	public void setprice(int item_number, int price){
-		this.price[item_number]=price;
+	public int getPrice(int number){
+		return this.price[number];
+	}
+	public void setPrice(int number, int price){
+		this.price[number]=price;
 	}
 	
-	public void shopSystem(int vermoegen){
-		startShop(vermoegen);
+	public String getName(int number){
+		return this.names[number];
+	}
+	public void setName(int number, String name){
+		this.names[number]=name;
 	}
 	
-	
-	private void item(int gridy, String item_name,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
-	/*	switch(item_name){
-		case "hp": 
-			item_number=1 ;break;
-		case "mana": 
-			item_number=2 ;break;
-		case "weapon": 
-			item_number=3 ;break;
-		default: JOptionPane.showMessageDialog(null, "Item ist nicht vorgesehen." ,"Error" , 0);
-		}
-		*/
-		/*if(item_name=="hp")item_number=1;
-		else if (item_name=="mana") item_number=2;
-		else if (item_name=="weapon") item_number=3;
-		else JOptionPane.showMessageDialog(null, "Item ist nicht vorgesehen." ,"Error" , 0);
-		*/
+	public void fillShop(int money, ShopItem ...item){
+		dialog = new JDialog(dialog, "Shop");
+		dialog.setDefaultCloseOperation( JDialog.DISPOSE_ON_CLOSE );
+		Container c = dialog.getContentPane();
+		setvermoegen(money);
 		
-		setprice(item_number, price);
-		
-		System.out.println("Anfang: " + getprice(item_number));
-		//Item Picture
-		
-		gbc.gridheight=1;
-		gbc.gridx = 0;  
-		gbc.gridy = gridy;
-		Icon pictureInGame = new ImageIcon(picturePath); 
-		JLabel pic = new JLabel(pictureInGame);
-		layout.setConstraints(pic, gbc);
-		dialog.add(pic);
-				
-		//Item description
-		gbc.gridheight=1;
-		gbc.gridx = 1;  
-		gbc.gridy = gridy;
-		JTextPane itemName = new JTextPane();
-		itemName.setText(item_name);
-		itemName.setBackground(dialog.getContentPane().getBackground());
-		itemName.setEditable(false);
-		layout.setConstraints(itemName, gbc);
-		dialog.add(itemName);
-		
-		//Price
-		gbc.gridheight=1;
-		gbc.gridwidth=2;
-		gbc.gridx = 2;
-		gbc.gridy = gridy;
-		JTextPane priceInGame = new JTextPane();
-		priceInGame.setText(getprice(item_number) + " Geld");
-		priceInGame.setBackground(dialog.getContentPane().getBackground());
-		priceInGame.setEditable(false);
-		layout.setConstraints(priceInGame, gbc);
-		dialog.add(priceInGame);
-		
-		/*//number
-		gbc.gridheight=1;
-		gbc.gridwidth=5;
-		gbc.gridx = 4;
-		gbc.gridy = gridy;
-		number = new JTextField();
-		times=1;
-		number.setText(times +"");
-		number.setBackground(Color.white);
-		number.setEditable(true);
-		layout.setConstraints(number, gbc);
-		dialog.add(number);
-		
-		//Test Ausgabe
-		System.out.println("out: "  + times);
-		
-		//Price
-		gbc.gridheight=1;
-		gbc.gridx = 12;
-		gbc.gridy = gridy;
-		JTextPane priceTimes;
-		int numberPrice= price*times;
-		priceTimes = new JTextPane();
-		priceTimes.setSize(128, 64);
-		priceTimes.setText("Gesammt Preis: " + numberPrice);
-		priceInGame.setBackground(dialog.getContentPane().getBackground());
-		layout.setConstraints(priceTimes, gbc);
-		
-		System.out.println(times);
-		System.out.println(numberPrice);
-		dialog.add(priceTimes);
-		
-		*/
-		
-		
-		//buy
-		gbc.gridheight=1;
-		gbc.gridwidth=2;
-		gbc.gridx = 20;
-		gbc.gridy =gridy;
-		
-		button = new JButton("Kaufen?");
-		layout.setConstraints(button, gbc);
-		//button.addActionListener(this);
-		button.addActionListener(new ActionListener() {
-	
-			public void actionPerformed(ActionEvent e){
-				System.out.println(getvermoegen());
-				System.out.println(getprice(item_number));
-				if ((getvermoegen()-getprice(item_number))>0){
-				    times++;
-					setvermoegen(getvermoegen()-getprice(item_number));
-					System.out.println("Geld: " +getvermoegen());
-					System.out.println(getvermoegen());
-					System.out.println(getprice(item_number));
-				}
-				else if ((getvermoegen()-getprice(item_number))>0){
-					JOptionPane.showMessageDialog(null, "Komm noch mit mit Geld wieder..." ,"Ohne Geld gibts keine Ware!" , 0);				
-				}
+		GridBagLayout gbl = new GridBagLayout();
+		c.setLayout( gbl );
+		actualMoney = new JTextField("Sie haben noch: " + getvermoegen()+" Geld");
+		addComponent(c, gbl, actualMoney, 0, 0, 1, 1, 0, 0); 
+		preBuyVermoegen = getvermoegen();
 
+		for(ShopItem x:item){
+			gridy=gridy+2;
+			number=gridy/2;
+			setPrice(number, x.getItemPrice());
+			setName(number, x.getItemName());
+			
+			//ItemName
+			
+			addComponent(c, gbl, new JTextField(x.getItemName()), 0, gridy, 2, 2, 0.0, 0.0);
+			
+			//ItemPrice
+			addComponent(c, gbl, new JTextField(getPrice(number) + " Geld"), 3, gridy, 1, 2, 0, 0);
+
+	
+			
+			/*
+			 * Buy Action
+			 */
+			button[number]=new JButton(x.getItemName() + " auswaehlen?");
+			addComponent(c, gbl, button[number], 20, gridy, 2, 2, 0, 0);
+			text[number]=new JTextField(times[number] + "x ausgewaehlt");
+			addComponent(c, gbl, text[number], 22, gridy, 10, 1, 2.0, 0);
+			//button.addActionListener(this);
+			button[number].addActionListener(new ActionListener() {
+		
+				public void actionPerformed(ActionEvent e){
+					for(int i=1;i<=number;i++){
+						
+						if(e.getSource()==button[i]){
+			
+							if ((getvermoegen()-getPrice(i))>=0){
+								times[i]++;				    
+								setvermoegen(getvermoegen()-getPrice(i));
+								actualMoney.setText("Geld: " + getvermoegen());
+								text[i].setText(times[i] + "x Gekauft");
+							}
+							else if ((getvermoegen()-getPrice(i))<0){
+								JOptionPane.showMessageDialog(null, "Du hast noch "+getvermoegen()+" Geld, das Item kostest aber "+getPrice(i)+" Geld" ,"Ohne Geld gibts keine Ware!" , 0);				
+							}
+						}
+							
+					}
+				}
+			});
+		}
+
+		JButton cancel = new JButton("Abbruch");
+		addComponent(c, gbl, cancel, 1, 100, 2, 1, 0, 0);
+		
+		JButton buy = new JButton("Auswahl einkaufen?");
+		addComponent(c, gbl, buy, 10, 100, 2, 1, 0, 0);
+		
+		cancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setvermoegen(preBuyVermoegen);
+				dialog.dispose();
+				
 			}
 		});
+		
+		buy.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				inventar = new Inventar();
+				for(int n=0; n<number+1;n++){
+					inventar.inventar(getName(n), times[n]);
+					inventar.printInventar(getName(n), times[n]);
+					player.setMoney(getvermoegen());
+					for(int i=1;i<=times[n]; i++)
+						switch (getName(n)){
+							case "Armor": player.increaseShield(100);System.out.println("Amor done"); break;
+							case "Bow"	: player.hasBow(); System.out.println("Bow done"); break;
+							case "Bullet": System.out.println("Bullet done");break;
+							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("MAna done"); break;
+							case "Health": player.increaseHealth(100);System.out.println("Health done"); break;
+					
+						}
+					
+					dialog.dispose();
+					
+				}
 				
-		dialog.add(button);
-	}
-
-	
-	
-	
-	private void startShop(int vermoegen){
-		setvermoegen(vermoegen);
-		
-		
-		dialog = new JDialog(dialog, "Settings");
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);	
-		
-//		cp = dialog.getContentPane();
-		//Set layout to Grid
-		GridBagLayout layout = new GridBagLayout();
-		
-		dialog.setLayout(layout);
-		GridBagConstraints gbc=new GridBagConstraints();
-		
-
-		//Geld
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		JTextPane geld = new JTextPane();
-		geld.setText("Geld: " + getvermoegen() );
-		geld.setBackground(dialog.getContentPane().getBackground());
-		geld.setEditable(false);
-		layout.setConstraints(geld, gbc);
-		geld.repaint();
-		dialog.add(geld);
-		
-		
-		
-		//item(int gridy, String item,int price, String picturePath,GridBagLayout layout, GridBagConstraints gbc, JDialog dialog)
-		
-		//health
-		item(2, "hp",2, "mate_h64.jpg", layout, gbc, dialog);
-		//mana
-		item(4, "mana",7, "mate_h64.jpg", layout, gbc, dialog);
-		//weapon
-		item(6, "weapon",10, "mate_h64.jpg", layout, gbc, dialog);
-		
-		
+			}
+		});
 		dialog.pack();
 		dialog.setVisible(true);
-		dialog.repaint();
 		
 	}
-
-
 }

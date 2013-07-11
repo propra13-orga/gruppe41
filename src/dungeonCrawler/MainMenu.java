@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import dungeonCrawler.Network.Lounge.LoungeWindow;
+
 /**
  * @author Mattes
  *
@@ -24,6 +26,7 @@ public class MainMenu extends JPanel {
 	private JButton exit;
 	private JButton credits;
 	private JButton setting;
+	private JButton network;
 //	private Container parent;
 //	private MainMenu menu;
 	private App app;
@@ -43,10 +46,12 @@ public class MainMenu extends JPanel {
 		this.setLayout(new GridLayout(4,1));
 		start = new JButton("Start");
 		setting = new JButton("Settings");
+		network = new JButton("Start Networkgame");
 		exit = new JButton("Exit");
 		credits = new JButton("Credits");
 		this.add(start);
 		this.add(setting);
+		this.add(network);
 		this.add(credits);
 		this.add(exit);
 		
@@ -80,6 +85,15 @@ public class MainMenu extends JPanel {
 			
 			Settings settings =new Settings();
 			settings.startSettings();
+			}
+		});
+		
+		network.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new LoungeWindow();
+				
 			}
 		});
 		

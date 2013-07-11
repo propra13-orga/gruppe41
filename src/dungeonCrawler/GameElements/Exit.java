@@ -50,7 +50,7 @@ public class Exit extends GameElement {
 			// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
 			this.size.setX(0);this.size.setY(0);
 			e.gameLogic.app.startGame();
-			e.gameLogic.shop = null;
+			e.gameLogic.new_shop = null;
 		}
 		// TODO Auto-generated method stub
 		

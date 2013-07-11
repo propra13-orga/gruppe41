@@ -32,7 +32,8 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Timer timer;
 	public App app;
 	Player player;
-	public DirtyShopSystem shop = null;
+	public ShopSystem new_shop = null;
+	public ShopItem new_item;
 	public int Money;
 	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
 
@@ -216,18 +217,22 @@ public class GameLogic implements KeyListener, ActionListener {
 
 		if (checkKey(83)) { // s
 			keys.clear();
+			
 			if (level.getPlayer() != null) {
-				if (shop == null) {
+				if (new_shop == null) {
 					// initialize shop
-					shop = new DirtyShopSystem((Player)level.getPlayer());
-					setmoney(Money+1000);
-					shop.gui(shop.getvermoegen());
+					new_shop = new ShopSystem((Player)level.getPlayer());
+					setmoney(Money+100);
+					new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 				}
+				else{
 				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
-				shop.startDirtyShop();
-				player.setMoney(shop.getvermoegen());
+				new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
+				player.setMoney(new_shop.getvermoegen());
+				}
 			}
 		}
+
 
 		if (checkKey(32)){// Space (bow)
 			if (player.hasBow()) {
@@ -313,21 +318,21 @@ public class GameLogic implements KeyListener, ActionListener {
 	}
 	
 	public void addmoney(int amount){
-		shop.setvermoegen(shop.getvermoegen() + shop.getvermoegen());
+		new_shop.setvermoegen(new_shop.getvermoegen() + new_shop.getvermoegen());
 	}
 	
 	public void setmoney(int amount){
-		if (shop == null){
+		if (new_shop == null){
 			this.Money=amount;
 		}
 		else {
 			this.Money=amount;
-			shop.setvermoegen(Money);
+			new_shop.setvermoegen(Money);
 		}
 	}
 	public int getmoney(){
-		if (shop != null){
-			Money =shop.getvermoegen();
+		if (new_shop != null){
+			Money =new_shop.getvermoegen();
 		}
 		return Money;
 	}
