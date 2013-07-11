@@ -38,7 +38,8 @@ public class Bow extends GameElement {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("Bogen aufgenommen");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.setBow(true);
+			elementPlayer.addItem(new dungeonCrawler.GameObjects.Bow());
+//			elementPlayer.setBow(true);
 			this.size.setX(0);this.size.setY(0);
 		}
 	}
@@ -60,7 +61,7 @@ public class Bow extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Bow";
+		return "BOW";
 	}
 
 }

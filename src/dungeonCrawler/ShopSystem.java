@@ -158,7 +158,6 @@ public class ShopSystem {
 					for(int i=1;i<=times[n]; i++)
 						switch (getName(n)){
 							case "Armor": player.increaseShield(100);System.out.println("Amor done"); break;
-							case "Bow"	: player.hasBow(); System.out.println("Bow done"); break;
 							case "Bullet": System.out.println("Bullet done");break;
 							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("MAna done"); break;
 							case "Health": player.increaseHealth(100);System.out.println("Health done"); break;

@@ -4,14 +4,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.BitSet;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.Timer;
 
-import dungeonCrawler.GameElements.Active;
+import dungeonCrawler.GameElements.Bow;
 import dungeonCrawler.GameElements.Bullet;
+import dungeonCrawler.GameElements.CheckPoint;
+import dungeonCrawler.GameElements.Enemy;
+import dungeonCrawler.GameElements.Exit;
+import dungeonCrawler.GameElements.Healthpot;
+import dungeonCrawler.GameElements.Manapot;
+import dungeonCrawler.GameElements.Money;
+import dungeonCrawler.GameElements.NPC;
+import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameElements.Spell;
+import dungeonCrawler.GameElements.Trap;
+import dungeonCrawler.GameElements.Wall;
+import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.FireBolt;
 import dungeonCrawler.GameElements.IceBolt;
 import dungeonCrawler.GameElements.Player;
@@ -21,7 +38,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 //	private long time;
 	private Vector2d direction = new Vector2d(0,0);
-	private Vector2d lastDirection = new Vector2d(1,0);
+	private Vector2d lastDirection = new Vector2d(0,1);
 	private Vector2d checkPoint = new Vector2d(0,0);
 	
 	private SettingSet settings = new SettingSet(); 
@@ -36,7 +53,10 @@ public class GameLogic implements KeyListener, ActionListener {
 	public ShopItem new_item;
 	public int Money;
 	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
-
+	private Vector2d startpos= new Vector2d(0,0);
+	private Vector2d endpos= new Vector2d(0,0);
+	private boolean setze=false; // für editor, wenn variable gesetzt ist, dann nochmal drücken um das gameelement hinzu zu fügen
+	public File file;
 
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
@@ -70,10 +90,75 @@ public class GameLogic implements KeyListener, ActionListener {
 		return false;
 	}
 
+
+	private void createElement(int sx,int sy,int px,int py,String elementtype){
+		if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
+		else {
+			level.removeElement(level.getPlayer());
+			calculatepositions(sx,sy,px,py);
+			switch (elementtype){
+			case "Bow":			level.addGameElement(new Bow(startpos,endpos));				break;
+			case "Checkpoint":	level.addGameElement(new CheckPoint(startpos,endpos));		break;
+			case "Enemy":		level.addGameElement(new Enemy(startpos,endpos));			break;
+			case "Exit":		level.addGameElement(new Exit(startpos,endpos));			break;
+			case "Healthpot":	level.addGameElement(new Healthpot(startpos,endpos));		break;
+			case "Manapot":		level.addGameElement(new Manapot(startpos,endpos));			break;
+			case "Money":	level.addGameElement(new Money(startpos,endpos));		break;
+			case "NPC":			level.addGameElement(new NPC(startpos,endpos));				break;
+			case "Trap":		level.addGameElement(new Trap(startpos,endpos));			break;
+			case "Wall":		level.addGameElement(new Wall(startpos,endpos));			break;
+			}
+			level.addGameElement(player);
+			setze=false;
+		}
+	}
+
+	private void calculatepositions(int sx,int sy,int px,int py){
+		/**
+		 * berechnet die start- und endposition für ein zu erzeugendes Element
+		 * */
+		 if (px> sx && py>sy){
+			 startpos=	new Vector2d(sx,sy);
+			 endpos=	new Vector2d(px-sx,py-sy);
+	 }
+		 else if (px< sx && py>sy){
+			 startpos=	new Vector2d(px,sy);
+			 endpos=	new Vector2d(sx-px,py-sy);
+	 }
+		 else if (px< sx && py<sy){
+			 startpos=	new Vector2d(px,py);
+			 endpos=	new Vector2d(sx-px,sy-py);
+	 }
+		 else if (px> sx && py<sy){
+			 startpos=	new Vector2d(sx,py);
+			 endpos=	new Vector2d(px-sx,sy-py);
+	 }
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		keys.set(e.getKeyCode());
+		if (app.editmode==true){
+			
+			 int sx = startpos.getX();
+			 int sy = startpos.getY();
+			 int px = level.getPlayer().getPosition().getX();
+			 int py = level.getPlayer().getPosition().getY();
+			 
+			 switch (e.getKeyCode()) {
+			 case 66:setze=true;createElement(px,py,px+5,py+5,"Bow");			break;	//Bow
+			 case 67:setze=true;createElement(px,py,px+30,py+30,"Enemy");		break;	//Enemy
+			 case 69:createElement(sx,sy,px,py,"Exit");							break;	//Exit
+			 case 71:setze=true;createElement(px,py,px+5,py+5,"Money");			break;	//Money
+			 case 72:setze=true;createElement(px,py,px+5,py+5,"Healthpot");		break;	//Healthpot
+			 case 77:setze=true;createElement(px,py,px+5,py+5,"Manapot");		break;	//Manapot
+			 case 78:setze=true;createElement(px,py,px+30,py+30,"NPC");			break;	//NPC
+			 case 83:setze=true;createElement(px,py,px+30,py+30,"Checkpoint");	break;	//CheckPoint
+			 case 84:createElement(sx,sy,px,py,"Trap");							break;	//Trap
+			 case 87:createElement(sx,sy,px,py,"Wall");							break;	//Wall
+			 }
+		}
 	}
 
 	@Override
@@ -85,17 +170,153 @@ public class GameLogic implements KeyListener, ActionListener {
 		if(e.getKeyCode() == settings.USE_MANAPOT)
 			delay[settings.USE_MANAPOT] = 0;
 	}
+	private String convertLvltoStr(int currentLevel) {
+		String str;
+		try {
+			str = 0 +  Integer.toString(currentLevel);
+			str = str.substring(str.length()-2);
+			System.out.println(str);
 
+		} catch (Exception e) {
+			return "99";
+		}
+		return str;
+	}
+	
+	
+	private void writeLvl(){
+		LinkedList<GameElement> currentelement;
+		 file.delete();
+		file = new File("Levels"+File.separator+"level" + convertLvltoStr(app.currentLevel) +".lvl");
+			FileWriter writer = null;
+		    try {
+	        	PrintWriter outputstream = new PrintWriter(file);
+		        while ((currentelement=level.getGameElements())!=null && level.getPlayer() != currentelement.getFirst()){
+		        	outputstream.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+		        	level.removeElement(currentelement.getFirst());
+		        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+		        	outputstream.flush();
+		        }
+	        	outputstream.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+	        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+	        	outputstream.flush();
+		        outputstream.close();
+		    } catch (IOException e1) {
+		       
+		    }		
+		 
+	}
+	
+	
+	
+	private void increaselevels(){
+		file = new File("Levels"+File.separator+"level.lvl");
+///////////////////////////////////////////////////7
+		
+		
+		
+		   FileWriter writer = null;
+		    try {
+		        writer = new FileWriter(file);
+		        writer.write(String.valueOf(app.level));
+		    } catch (IOException e1) {
+		        e1.printStackTrace(); 
+		    } finally {
+		        if (writer != null) try { writer.close(); } catch (IOException ignore) {}
+		    }
+		    System.out.printf("File is located at %s%n", file.getAbsolutePath());				
+		
+		
+		
+		
+		
+		
+		
+		
+//////////////////////////////////////////////////////		
+		try {
+			file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (keys.get(27)) {
-			if (timer.isRunning()) {
-				timer.stop();
-			} else {
-				timer.start();
+
+		
+		
+		
+		if (app.editmode==true){
+			 if(keys.get(27)){
+				    writeLvl();
+				    System.out.println("geht weiter");
+				 	app.editmode=false;
+				 	app.currentLevel=app.level;
+				 	app.startGame();
+				 	increaselevels();
+			     }
+
+		}
+		if (app.editmode == false){		
+			
+			if (keys.get(37)) {// left
+				direction=direction.addX(-1);
+				System.out.println("LEFT");
+			}		
+			if (keys.get(38)) {// up
+				direction=direction.addY(-1);
+				System.out.println("UP");
+			}
+			if (keys.get(39)) {// right
+				direction=direction.addX(1);
+				System.out.println("RIGHT");
+			}
+			if (keys.get(40)) {// down
+				direction=direction.addY(1);
+				System.out.println("DOWN");
+			}
+		 if(keys.get(27)){
+			       if (timer.isRunning()){
+			         timer.stop();
+			       }
+			       else {
+			         timer.start();
+			       }
+			     }
+		if (e.getKeyChar() == 'h') {// "h" for health
+			keys.clear(72);
+			Iterator<GameObject> it = player.getInventar().iterator();
+			boolean b = true;
+			GameObject obj;
+			while (it.hasNext() && b) {
+				obj = it.next();
+				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.HealthPotion")) {
+					obj.performOn(player);
+					player.getInventar().remove(obj);
+					b = false;
+				}
 			}
 		}
+		if (e.getKeyChar() == 'm') {// "m" for mana
+			keys.clear(77);
+			Iterator<GameObject> it = player.getInventar().iterator();
+			boolean b = true;
+			GameObject obj;
+			while (it.hasNext() && b) {
+				obj = it.next();
+				if (obj.getClass().getName().equalsIgnoreCase("dungeonCrawler.GameObjects.ManaPotion")) {
+					obj.performOn(player);
+					player.getInventar().remove(obj);
+					b = false;
+				}
+			}
+		}
+		}
+			
 
 	}
 
@@ -116,7 +337,8 @@ public class GameLogic implements KeyListener, ActionListener {
 	}
 
 	public boolean moveElement(GameElement e, Vector2d direction){
-		if(e.type.contains(ElementType.MOVABLE)){ 
+		if (app.editmode==false){
+		if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
 			//			System.out.println("test" + collisioncheck.type.toString());
 			HashSet<GameElement> collides = new HashSet<GameElement>();
 			e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));
@@ -146,8 +368,11 @@ public class GameLogic implements KeyListener, ActionListener {
 			return true;
 		}
 		else
+		
 			return false;
 	}
+		else return true;
+		}
 
 	public boolean teleportElement(GameElement e, Vector2d position){
 		e.setPosition(position);
@@ -156,64 +381,118 @@ public class GameLogic implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO: abfragen, welche Bits gesetzt sind und entsprechend handeln
-//		System.out.println(System.currentTimeMillis()-time);
-//		time = System.currentTimeMillis();
-		reduceDelay();
 		player = (Player)level.getPlayer();
 		Vector2d position = player.getPosition();
-		if(!(direction.getX() == 0 && direction.getY() == 0)){
-			lastDirection = direction;
-		}
-		direction = new Vector2d(0,0);
+		// TODO: abfragen, welche Bits gesetzt sind und ensprechend handeln
+
+
+		if (app.editmode==true){
+			if (keys.get(100)) {// cheat left
+				player.setPosition(position.addX(-10));
+				System.out.println("CHEAT LEFT");
+			}		
+			if (keys.get(104)) {// cheat up
+				player.setPosition(position.addY(-10));
+				System.out.println("CHEAT UP");
+			}
+			if (keys.get(98)) {// cheat down
+				player.setPosition(position.addY(10));
+				System.out.println("CHEAT DOWN");
+			}
+			if (keys.get(102)) {// cheat right
+				player.setPosition(position.addX(10));
+				System.out.println("CHEAT RIGHT");
+			}
+			
+			
+			
+			if (keys.get(37)) {// left
+				player.setPosition(position.addX(-1));
+				System.out.println("LEFT");
+			}		
+			if (keys.get(38)) {// up
+				player.setPosition(position.addY(-1));
+				System.out.println("UP");
+			}
+			if (keys.get(39)) {// right
+				player.setPosition(position.addX(1));
+				System.out.println("RIGHT");
+			}
+			if (keys.get(40)) {// down
+				player.setPosition(position.addY(1));
+				System.out.println("DOWN");
+			}
+			
 		
-		for(Active active : level.getActives()){
-			active.interaction(this, settings, keys);
+		if (keys.get(103)) {// position output
+				System.out.println("x= " + player.getPosition().getX() + " ; y= " + player.getPosition().getY());
 		}
-		
-		if (checkKey(100)) {// cheat left
-			player.setPosition(position.addX(-10));
-			System.out.println("CHEAT LEFT");
-		}		
-		if (checkKey(104)) {// cheat up
-			player.setPosition(position.addY(-10));
-			System.out.println("CHEAT UP");
-		}
-		if (checkKey(98)) {// cheat down
-			player.setPosition(position.addY(10));
-			System.out.println("CHEAT DOWN");
-		}
-		if (checkKey(102)) {// cheat right
-			player.setPosition(position.addX(10));
-			System.out.println("CHEAT RIGHT");
-		}
-		if (checkKey(101)) {// cheat Leben
-			player.setHealth(player.getHealth()+1000);
-			System.out.println("CHEAT Leben");
-		}
+			
 
-		if (checkKey(103)) {// position output
-			System.out.println("x= " + player.getPosition().getX() + "y= " + player.getPosition().getY());
-		}
 
-		if (checkKey(99)) {// Exit
-			if (level.getExit() != null){
-				level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
-			System.out.println("CHEAT EXIT");
 		}
-		if (checkKey(37)) {// left arrow
-			direction = direction.addX(-1);
-		}
-		if (checkKey(38)) {// up arrow
-			direction = direction.addY(-1);
-		}
-		if (checkKey(39)) {// right arrow
-			direction = direction.addX(1);
-		}
-		if (checkKey(40)) {// down arrow
-			direction = direction.addY(1);
-		}
+		if (app.editmode==false){
 
+			
+			reduceDelay();
+			player = (Player)level.getPlayer();
+			if(!(direction.getX() == 0 && direction.getY() == 0)){
+				lastDirection = direction;
+			}
+			direction = new Vector2d(0,0);
+			
+			for(Active active : level.getActives()){
+				active.interaction(this, settings, keys);
+			}
+			
+			if (keys.get(100)) {// cheat left
+				player.setPosition(position.addX(-10));
+				System.out.println("CHEAT LEFT");
+			}		
+			if (keys.get(104)) {// cheat up
+				player.setPosition(position.addY(-10));
+				System.out.println("CHEAT UP");
+			}
+			if (keys.get(98)) {// cheat down
+				player.setPosition(position.addY(10));
+				System.out.println("CHEAT DOWN");
+			}
+			if (keys.get(102)) {// cheat right
+				player.setPosition(position.addX(10));
+				System.out.println("CHEAT RIGHT");
+			}
+			if (keys.get(101)) {// cheat Leben
+				player.setHealth(player.getHealth()+1000);
+				System.out.println("CHEAT Leben");
+			}
+
+			if (keys.get(103)) {// position output
+				System.out.println("x= " + player.getPosition().getX() + "y= " + player.getPosition().getY());
+			}
+
+			if (keys.get(99)) {// Exit
+				if (level.getExit() != null){
+					level.getPlayer().setPosition(level.getExit().getPosition().addX(10).addY(60));}
+				System.out.println("CHEAT EXIT");
+			}
+			if (keys.get(37)) {// left arrow
+				direction = direction.addX(-1);
+				System.out.println("LEFT");
+			}
+			if (keys.get(38)) {// up arrow
+				direction = direction.addY(-1);
+				System.out.println("UP");
+			}
+			if (keys.get(39)) {// right arrow
+				direction = direction.addX(1);
+				System.out.println("RIGHT");
+			}
+			if (keys.get(40)) {// down arrow
+				direction = direction.addY(1);
+				System.out.println("DOWN");
+			}
+						
+			
 
 		if (checkKey(83)) { // s
 			keys.clear();
@@ -234,23 +513,6 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 
 
-		if (checkKey(32)){// Space (bow)
-			if (player.hasBow()) {
-				Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));
-				if(lastDirection.getX() > 0)
-					pos = pos.add(new Vector2d(player.size.getX()-2,0));
-				if(lastDirection.getX() < 0)
-					pos = pos.add(new Vector2d(-player.size.getX()+2,0));
-				if(lastDirection.getY() > 0)
-					pos = pos.add(new Vector2d(0,player.size.getX()-2));
-				if(lastDirection.getY() < 0)
-					pos = pos.add(new Vector2d(0,-player.size.getX()+2));
-				Bullet tmp = new Bullet(pos, new Vector2d(10, 10));
-				tmp.setDirection(lastDirection.mul(3));
-				level.addGameElement(tmp);
-				
-			}
-		}
 		if (keys.get(KeyEvent.VK_Q)){// q (fire bolt)
 			System.out.println(delay[KeyEvent.VK_Q]);
 			if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(8, this)){
@@ -288,10 +550,20 @@ public class GameLogic implements KeyListener, ActionListener {
 				tmp.setDirection(lastDirection.mul(1));
 				level.addGameElement(tmp);
 			}
+		
 		}
 		if (((Player) player).getHealth()<=0){
-			startMainMenu();
+			app.cp.removeAll();
+			app.cp.validate();
+			app.gameContent = new GameContent(this);
+			app.loader = new LevelLoader(app.gameContent, app);
+			this.timer.stop();
+			app.startMainMenu();
+
 		}
+		}
+		
+		
 		if (e.getActionCommand() == "Timer"){
 			GameElement tmpRem = null;
 			for(GameElement element : level.getGameElements()){
@@ -307,6 +579,10 @@ public class GameLogic implements KeyListener, ActionListener {
 			app.camera.repaint();
 //			System.out.println("Timediff " + (System.currentTimeMillis() - time));
 		}
+	}
+	
+	public void addGameElement(GameElement element){
+		level.addGameElement(element);
 	}
 
 	public Vector2d getCheckPoint() {

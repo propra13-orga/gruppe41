@@ -20,7 +20,7 @@ public class CheckPoint extends GameElement {
 	
 	@Override
 	public String getName(){
-		return "CheckPoint";
+		return "CHECKPOINT";
 	}
 
 	@Override

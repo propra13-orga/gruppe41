@@ -60,7 +60,7 @@ public class Manapot extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Manapot";
+		return "MANAPOT";
 	}
 
 }

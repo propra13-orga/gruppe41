@@ -28,6 +28,12 @@ public class Enemy extends GameElement {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.MOVABLE);
 	}
+	
+	
+	@Override
+	public String getName(){
+		return "ENEMY";
+	}
 
 	@Override
 	public void draw(Graphics g) {

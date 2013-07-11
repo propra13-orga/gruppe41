@@ -1,5 +1,8 @@
 package dungeonCrawler.GameObjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
 import dungeonCrawler.GameElements.Player;
@@ -23,4 +26,10 @@ public class ManaPotion extends GameObject {
 		case "PLAYER": ((Player)element).increaseMana(mana); break;
 	}
 
-}}
+}
+
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(Color.BLUE);
+		super.draw(g);
+	}}
