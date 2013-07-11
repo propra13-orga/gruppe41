@@ -5,7 +5,6 @@ package dungeonCrawler;
 
 
 
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,12 +28,8 @@ public class MainMenu extends JPanel {
 	private JButton network;
 	private JButton setting;
 	private JButton editor;
-	private Container parent;
-	private MainMenu menu;
-//	private Container parent;
-//	private MainMenu menu;
 	private App app;
-//	private Settings settings;
+
 
 	/**
 	 * 

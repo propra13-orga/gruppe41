@@ -3,12 +3,9 @@ package dungeonCrawler;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.io.File;
-import java.util.LinkedList;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import dungeonCrawler.GameElements.Player;
+
 
 /**
  * Application that includes dungeons and main window

@@ -496,7 +496,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 		if (checkKey(83)) { // s
 			keys.clear();
-			
+			//timer.stop();
 			if (level.getPlayer() != null) {
 				if (new_shop == null) {
 					// initialize shop

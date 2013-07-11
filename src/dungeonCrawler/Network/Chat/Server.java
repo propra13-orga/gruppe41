@@ -56,7 +56,7 @@ public class Server{
 	/*
 	 * Here we get a list of all clients which are connected 
 	 */
-	Enumeration getOutputStreams() {
+	Enumeration<DataOutputStream> getOutputStreams() {
 		return outputStreams.elements();
 	}
 
@@ -72,7 +72,7 @@ public class Server{
 
 		synchronized(outputStreams) {
 			
-			for (Enumeration e = getOutputStreams();e.hasMoreElements(); ) {
+			for (Enumeration<DataOutputStream> e = getOutputStreams();e.hasMoreElements(); ) {
 
 				DataOutputStream output = (DataOutputStream)e.nextElement();
 				

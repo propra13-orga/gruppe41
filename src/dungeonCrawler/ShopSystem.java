@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import dungeonCrawler.GameElements.Inventar;
 import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameObjects.HealthPotion;
 import dungeonCrawler.GameObjects.ManaPotion;
 
 
@@ -158,13 +159,13 @@ public class ShopSystem {
 					for(int i=1;i<=times[n]; i++)
 						switch (getName(n)){
 							case "Armor": player.increaseShield(100);System.out.println("Amor done"); break;
-							case "Bullet": System.out.println("Bullet done");break;
 							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("MAna done"); break;
-							case "Health": player.increaseHealth(100);System.out.println("Health done"); break;
+							case "Health": player.addItem(new HealthPotion(50));System.out.println("Health done"); break;
 					
 						}
 					
 					dialog.dispose();
+					//new GameLogic().timer.start();
 					
 				}
 				
