@@ -194,7 +194,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	
 	private void writeLvl(){
 		LinkedList<GameElement> currentelement;
-		 file.delete();
+//		 file.delete();
 		file = new File("Levels"+File.separator+"level" + convertLvltoStr(app.currentLevel) +".lvl");
 			FileWriter writer = null;
 		    try {
@@ -230,8 +230,6 @@ public class GameLogic implements KeyListener, ActionListener {
 	
 	private void increaselevels(){
 		file = new File("Levels"+File.separator+"level.lvl");
-///////////////////////////////////////////////////7
-		
 		
 		
 		   FileWriter writer = null;
@@ -245,20 +243,8 @@ public class GameLogic implements KeyListener, ActionListener {
 		    }
 		    System.out.printf("File is located at %s%n", file.getAbsolutePath());				
 		
-		
-		
-		
-		
-		
-		
-		
-//////////////////////////////////////////////////////		
-		try {
-			file.createNewFile();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	
+
 	}
 	
 	

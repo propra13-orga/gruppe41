@@ -38,7 +38,7 @@ public class Editormenu extends JPanel {
 		editMapNr = new JComboBox<String>();
 		editMapNr.addItem("Neue Datei erstellen");
 		
-		for(int i=3;i<=app.level;i++){
+		for(int i=4;i<=app.level;i++){
 			if(i<10){
 				editMapNr.addItem(new File("Levels"+File.separator+"level0" + i +".lvl").getAbsolutePath());
 			}
@@ -99,10 +99,10 @@ public class Editormenu extends JPanel {
 				    } finally {
 				        if (writer != null) try { writer.close(); } catch (IOException ignore) {}
 				    }
-				    System.out.printf("File is located at %s%n", createNewFile(app.level+1).getAbsolutePath());				
+				    System.out.printf("File is located at %s%n", createNewFile(app.level).getAbsolutePath());				
 		
 					try {
-						createNewFile(app.level+1).createNewFile();
+						createNewFile(app.level).createNewFile();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -111,7 +111,7 @@ public class Editormenu extends JPanel {
 					app.startEdit(createNewFile(app.level));
 				}
 				else if(selectedFile != "Neue Datei erstellen") {
-					app.currentLevel = editMapNr.getSelectedIndex()+1;
+					app.currentLevel = editMapNr.getSelectedIndex()+2;
 					System.out.println("else " +selectedFile);
 					app.startEdit(new File(selectedFile));
 				}
