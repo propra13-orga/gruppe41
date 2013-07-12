@@ -32,6 +32,10 @@ public abstract class Active extends GameElement {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @param position
+	 * @param size
+	 */
 	public Active(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type.clear();
