@@ -111,16 +111,22 @@ public class LevelLoader {
 				element = Bullet.createElement(param, idCounter); break;
 			case "CHECKPOINT":
 				element = CheckPoint.createElement(param, idCounter); break;
+			case "CONVARMOR":
+				element = ConvArmor.createElement(param, idCounter); break;
 			case "ENEMY":
 				element = Enemy.createElement(param, idCounter); break;
 			case "EXIT":
 				element = Exit.createElement(param, idCounter); break;
+			case "FIREARMOR":
+				element = FireArmor.createElement(param, idCounter); break;
 			case "FIREBOLT":
 				element = FireBolt.createElement(param, idCounter); break;				
 			case "FIREFOX":
 				element = FireFox.createElement(param, idCounter); break;				
 			case "HEALTHPOT":
 				element = Healthpot.createElement(param, idCounter); break;	
+			case "ICEARMOR":
+				element = IceArmor.createElement(param, idCounter); break;
 			case "ICEBOLT":
 				element = IceBolt.createElement(param, idCounter); break;				
 			case "ICEWEASEL":

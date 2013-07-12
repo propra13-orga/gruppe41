@@ -16,8 +16,8 @@ import dungeonCrawler.Vector2d;
  * @author Tissen
  *
  */
-public class MagicShield extends GameElement {
-	static MagicShield element;
+public class ConvArmor extends GameElement {
+	static ConvArmor element;
 	GameElementImage gei = new GameElementImage();
 
 	/**
@@ -25,24 +25,24 @@ public class MagicShield extends GameElement {
 	 * @param size
 	 */
 	@Deprecated
-	public MagicShield(Vector2d position, Vector2d size) {
+	public ConvArmor(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
-	
+
 	/**
 	 * @param position
 	 * @param size
 	 */
-	public MagicShield(Vector2d position, Vector2d size,int id) {
+	public ConvArmor(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
-	
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.GREEN);
+		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 
@@ -50,24 +50,25 @@ public class MagicShield extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			System.out.println("+500 magischer Schild");
+			System.out.println("Rüstung aufgenommen");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.increaseShield(500);
-			this.size.setX(0);this.size.setY(0);
+			elementPlayer.addItem(new dungeonCrawler.GameObjects.ConvArmor(5));
+			this.size.setX(0);
+			this.size.setY(0);
 		}
 	}
 
 	/**Creates new instance of this class.
 	 * @param param parameters of this GameElement as {@link String[]}
 	 * @param id as {@link int}
-	 * @return a {@link MagicShield} instance
+	 * @return a {@link ConvArmor} instance
 	 */
-	public static MagicShield createElement(String[] param, int id) {
+	public static ConvArmor createElement(String[] param, int id) {
 			if (param.length > 5) {
-				element = new MagicShield(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+				element = new ConvArmor(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
 			}
 			else {
-				element = new MagicShield(new Vector2d(), new Vector2d(), id);
+				element = new ConvArmor(new Vector2d(), new Vector2d(), id);
 			}
 		modify(param);
 		return element;
@@ -89,7 +90,7 @@ public class MagicShield extends GameElement {
 			element.setSize(size);
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
-			System.out.println("Kann MAGICSHIELD-Parameter nicht interpretieren.");
+			System.out.println("Kann CONVARMOR-Parameter nicht interpretieren.");
 			element = null;
 		}
 	}
@@ -108,7 +109,7 @@ public class MagicShield extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "MagicShield";
+		return "CONVARMOR";
 	}
 
 }

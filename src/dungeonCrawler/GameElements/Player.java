@@ -18,9 +18,11 @@ import dungeonCrawler.GameObject;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.SettingSet;
 import dungeonCrawler.Vector2d;
+import dungeonCrawler.GameObjects.FireArmor;
 import dungeonCrawler.GameObjects.HealthPotion;
+import dungeonCrawler.GameObjects.IceArmor;
 import dungeonCrawler.GameObjects.ManaPotion;
-import dungeonCrawler.GameObjects.Armor;
+import dungeonCrawler.GameObjects.ConvArmor;
 
 /**
  * @author Tissen
@@ -43,7 +45,7 @@ public class Player extends Active {
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	
 	private int movementdelay = 0;
-	private Armor protection = null;
+	private GameObject armor = null;
 
 	/**
 	 * @param position
@@ -116,17 +118,14 @@ public class Player extends Active {
 			System.out.println("Magischer Schutz absorbiert vollen Schaden (" + Health + ")");
 			Health = 0;
 		}
-		if (protection != null) { // Player hat Rüstung
+		if (armor != null) { // Player hat Rüstung
 			switch (damageTyp) {
-			case CONVENTIONAL: Health -= protection.getConvProtection();
-			case FIRE: Health -= protection.getFireResist();
-			case ICE: Health -= protection.getIceResist();
+			case CONVENTIONAL: if (armor instanceof ConvArmor) Health -= ((ConvArmor)armor).getArmor(); break;
+			case FIRE: if (armor instanceof FireArmor) Health -= ((FireArmor)armor).getArmor(); break;
+			case ICE: if (armor instanceof IceArmor) Health -= ((IceArmor)armor).getArmor(); break;
 			}
-			if (Health > 0) {
-				System.out.println("Rüstung absorbiert " + protection.getConvProtection() + " Schaden (" + (Health + protection.getConvProtection()) + ")");
-			}
-			else {
-				System.out.println("Rüstung absorbiert vollen Schaden (" + (Health + protection.getConvProtection()) + ")");
+			if (Health < 0) {
+				System.out.println("Rüstung absorbiert Schaden.");
 				Health = 0;
 			}
 		}
@@ -201,11 +200,11 @@ public class Player extends Active {
 	}
 
 
-	public Armor getProtection() {
-		return this.protection;
+	public GameObject getArmor() {
+		return this.armor;
 	}
-	public void setProtection(Armor prot) {
-		this.protection = prot;
+	public void setArmor(GameObject a) {
+		this.armor = a;
 	}
 
 	@Override
@@ -278,20 +277,42 @@ public class Player extends Active {
 		}
 		
 		if (logic.checkKey(settings.CHANGE_ARMOR)){
-			ArrayList<GameObject> protectionList = new ArrayList<GameObject>();
+			ArrayList<GameObject> armorList = new ArrayList<GameObject>();
 			int current = -1;
 			int n = -1;
-			for(GameObject o : inventar){
-				if(o instanceof Armor){
+			for (GameObject o : inventar){
+				if (o instanceof ConvArmor) {
 					n++;
-					protectionList.add(o);
-					if (o == protection) {
+					armorList.add((ConvArmor) o);
+					if ((ConvArmor) o == armor) {
+						current = n;
+					}
+				}
+				if (o instanceof FireArmor) {
+					n++;
+					armorList.add((FireArmor) o);
+					if ((FireArmor) o == armor) {
+						current = n;
+					}
+				}
+				if (o instanceof IceArmor) {
+					n++;
+					armorList.add((IceArmor) o);
+					if ((IceArmor) o == armor) {
 						current = n;
 					}
 				}
 			}
-			if (current > -1) {
-				protectionList.get((current+1)%protectionList.size()).performOn(this);
+			if (n >= 0) {
+				if (current > 0) {
+					armorList.get((current+1)%armorList.size()).performOn(this);
+				}
+				else {
+					armorList.get(0).performOn(this);
+				}
+			}
+			else {
+				System.out.println("Keine Rüstungen vorhanden.");
 			}
 		}
 		if(!direction.isNull())
