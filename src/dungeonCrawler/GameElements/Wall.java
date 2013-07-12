@@ -26,7 +26,7 @@ public class Wall extends GameElement {
 	 */
 	@Deprecated
 	public Wall(Vector2d position, Vector2d size) {
-		super(position, size, -1);
+		super(position, size);
 		gei.setSize(getSize());
 		try {
 			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "Wall.png")));
@@ -62,6 +62,8 @@ public class Wall extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**Creates new instance of this class.

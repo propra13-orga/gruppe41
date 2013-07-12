@@ -106,43 +106,43 @@ public class LevelLoader {
 			String[] param = input.split(splitChar);
 			switch (param[0]) {
 			case "BOW":
-				element = Bow.createElement(param, idCounter); break;
+				element = Bow.createElement(param); break;
 			case "BULLET":
-				element = Bullet.createElement(param, idCounter); break;
+				element = Bullet.createElement(param); break;
 			case "CHECKPOINT":
-				element = CheckPoint.createElement(param, idCounter); break;
+				element = CheckPoint.createElement(param); break;
 			case "ENEMY":
-				element = Enemy.createElement(param, idCounter); break;
+				element = Enemy.createElement(param); break;
 			case "EXIT":
-				element = Exit.createElement(param, idCounter); break;
+				element = Exit.createElement(param); break;
 			case "FIREBOLT":
-				element = FireBolt.createElement(param, idCounter); break;				
+				element = FireBolt.createElement(param); break;				
 			case "FIREFOX":
-				element = FireFox.createElement(param, idCounter); break;				
+				element = FireFox.createElement(param); break;				
 			case "HEALTHPOT":
-				element = Healthpot.createElement(param, idCounter); break;	
+				element = Healthpot.createElement(param); break;	
 			case "ICEBOLT":
-				element = IceBolt.createElement(param, idCounter); break;				
+				element = IceBolt.createElement(param); break;				
 			case "ICEWEASEL":
-				element = IceWeasel.createElement(param, idCounter); break;				
+				element = IceWeasel.createElement(param); break;				
 			case "MAGICSHIELD":
-				element = MagicShield.createElement(param, idCounter); break;
+				element = MagicShield.createElement(param); break;
 			case "MANAPOT":
-				element = Manapot.createElement(param, idCounter); break;					
+				element = Manapot.createElement(param); break;					
 			case "MONEY":
-				element = Money.createElement(param, idCounter); break;
+				element = Money.createElement(param); break;
 			case "NPC":
-				element = NPC.createElement(param, idCounter); break;
+				element = NPC.createElement(param); break;
 			case "PLAYER":
-				element = Player.createElement(param, idCounter); break;
+				element = Player.createElement(param); break;
 			case "SPELL":
-				element = Spell.createElement(param, idCounter); break;
+				element = Spell.createElement(param); break;
 			case "TRAP":
-				element = Trap.createElement(param, idCounter); break;
+				element = Trap.createElement(param); break;
 			case "WALL":
 				element = Wall.createElement(param, idCounter); break;
 			case "WARPPOINT":
-				element = WarpPoint.createElement(param, idCounter); break;
+				element = WarpPoint.createElement(param); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {
