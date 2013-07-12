@@ -20,7 +20,7 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
-		this.id=0;
+		this.id = -1;
 	}
 	/**
 	 * 
@@ -138,6 +138,10 @@ public abstract class GameElement implements Drawable, GameListener {
 
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
+	}
+	
+	public void setSize(Vector2d s) {
+		this.size = s;
 	}
 	
 	/* (non-Javadoc)

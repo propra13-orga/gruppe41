@@ -8,14 +8,26 @@ import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
 
 public class WarpPoint extends GameElement {
+	final int id;
+	static WarpPoint element;
 	
 	private Vector2d target = new Vector2d(0,0);
 
+	@Deprecated
 	public WarpPoint(Vector2d position, Vector2d size, Vector2d target) {
 		super(position, size);
+		this.id = -1;
+		this.target = target;
+		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
+	}
+
+	public WarpPoint(Vector2d position, Vector2d size, Vector2d target, int id) {
+		super(position, size);
+		this.id = id;
 		this.target = target;
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
 	}
@@ -59,6 +71,13 @@ public class WarpPoint extends GameElement {
 			System.out.println("Kann WARPPOINT-Parameter nicht interpretieren.");
 		}
 		return (new WarpPoint(position, size, target));
+	}
+	
+	public String getString() {
+		String sep = LevelLoader.getSplitChar();
+		return (getName() + sep + id + sep +
+				position.getX() + sep + position.getY() + sep +
+				size.getX() + sep + size.getY());
 	}
 
 	@Override

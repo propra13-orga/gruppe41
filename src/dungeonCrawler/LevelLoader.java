@@ -22,16 +22,24 @@ public class LevelLoader {
 	boolean loaded;
 	private String folder = "Levels";
 	private GameElement element;
-	private String splitChar;
+	private static String splitChar;
+	int idCounter;
 
-	// constructor
-	public LevelLoader(GameContent lvl, App a) {
-		this.level = lvl;
+	/**Constructor
+	 * @param level to be loaded as {@link GameContent}
+	 * @param a the application as {@link App}
+	 */
+	public LevelLoader(GameContent level, App a) {
+		this.level = level;
 		this.app = a;
 		this.loaded = false;
-		this.splitChar = ",";
+		LevelLoader.splitChar = ",";
+		this.idCounter = 1000;
 	}
 
+	/**Loads a level or saved game
+	 * @return level as {@link GameContent}
+	 */
 	public GameContent getLevel() {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
@@ -51,7 +59,7 @@ public class LevelLoader {
 				if (!input.startsWith(";")) {
 					elementCounter++;
 					System.out.println("Lade Element " + elementCounter + ": " + input);
-					if (parse(input)) {
+					if (parse(input) && element != null) {
 						if (!level.addGameElement(element)) {
 							Error err = new Error("Kann Element '" + input + "' nicht hinzufügen.");
 							err.showMe();
@@ -72,19 +80,29 @@ public class LevelLoader {
 		return level;
 	}
 
+	/**Gets level number
+	 * @param currentLevel as {@link int}
+	 * @return level number as {@link String}
+	 */
 	private String getLevelNumber(int currentLevel) {
 		String str;
 		try {
 			str = 0 +  Integer.toString(app.currentLevel);
 			str = str.substring(str.length()-2);
 		} catch (Exception e) {
-			return "03";
+			return "00";
 		}
 		return str;
 	}
 
+	/**Parses a line of the level file
+	 * @param input {@link String} to be parsed
+	 * @return {@code true} if a {@link GameElement} was created<br>
+	 * {@code false} else
+	 */
 	private boolean parse(String input) {
 		try {
+			idCounter++;
 			String[] param = input.split(splitChar);
 			switch (param[0]) {
 			case "BOW":
@@ -122,7 +140,7 @@ public class LevelLoader {
 			case "TRAP":
 				element = Trap.createElement(param); break;
 			case "WALL":
-				element = Wall.createElement(param); break;
+				element = Wall.createElement(param, idCounter); break;
 			case "WARPPOINT":
 				element = WarpPoint.createElement(param); break;
 			}
@@ -133,6 +151,10 @@ public class LevelLoader {
 			err.showMe();
 			return false;
 		}
+	}
+	
+	public static String getSplitChar() {
+		return splitChar;
 	}
 
 }
