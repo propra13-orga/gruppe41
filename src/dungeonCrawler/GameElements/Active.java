@@ -24,8 +24,16 @@ public abstract class Active extends GameElement {
 	 * @param position
 	 * @param size
 	 */
+	@Deprecated
 	public Active(Vector2d position, Vector2d size) {
-		super(position, size);
+		super(position, size, -1);
+		this.type.clear();
+		this.type.add(ElementType.MOVABLE);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Active(Vector2d position, Vector2d size, int id) {
+		super(position, size, id);
 		this.type.clear();
 		this.type.add(ElementType.MOVABLE);
 		// TODO Auto-generated constructor stub

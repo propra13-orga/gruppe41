@@ -8,16 +8,27 @@ import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
+import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
 
 public class IceBolt extends GameElement {
+	static IceBolt element;
+	GameElementImage gei = new GameElementImage();
 	private int life = 600;
 	private Vector2d direction = new Vector2d(0,0);
 	private int damage = 30;
 
+	@Deprecated
 	public IceBolt(Vector2d position, Vector2d size) {
-		super(position, size);
+		super(position, size, -1);
+		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
+		// TODO Auto-generated constructor stub
+	}
+
+	public IceBolt(Vector2d position, Vector2d size, int id) {
+		super(position, size, id);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
 	}
@@ -63,18 +74,52 @@ public class IceBolt extends GameElement {
 		this.direction = direction;
 	}
 
-	public static IceBolt createElement(String[] param) {
+	/**Creates new instance of this class.
+	 * @param param parameters of this GameElement as {@link String[]}
+	 * @param id as {@link int}
+	 * @return a {@link IceBolt} instance
+	 */
+	public static IceBolt createElement(String[] param, int id) {
+			if (param.length > 5) {
+				element = new IceBolt(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+			}
+			else {
+				element = new IceBolt(new Vector2d(), new Vector2d(), id);
+			}
+		modify(param);
+		return element;
+	}
+
+	/**Modifies parameters.
+	 * @param param as {@link String[]}
+	 */
+	private static void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
-			position.setX(Integer.parseInt(param[1]));
-			position.setY(Integer.parseInt(param[2]));
-			size.setX(Integer.parseInt(param[3]));
-			size.setY(Integer.parseInt(param[4]));
+			int i = (param.length > 5 ? 1 : 0);
+			position.setX(Integer.parseInt(param[i+1]));
+			position.setY(Integer.parseInt(param[i+2]));
+			size.setX(Integer.parseInt(param[i+3]));
+			size.setY(Integer.parseInt(param[i+4]));
+			element.setPosition(position);
+			element.setSize(size);
+			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann ICEBOLT-Parameter nicht interpretieren.");
+			element = null;
 		}
-		return (new IceBolt(position, size));
+	}
+	
+	/**Gets a parameter string.
+	 * @see dungeonCrawler.GameElement#getString()
+	 */
+	@Override
+	public String getString() {
+		String sep = LevelLoader.getSplitChar();
+		return (getName() + sep + id + sep +
+				position.getX() + sep + position.getY() + sep +
+				size.getX() + sep + size.getY());
 	}
 
 	@Override

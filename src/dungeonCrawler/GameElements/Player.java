@@ -9,11 +9,13 @@ import java.util.LinkedList;
 
 import dungeonCrawler.DamageType;
 import dungeonCrawler.EventType;
+import dungeonCrawler.GameElementImage;
 //import dungeonCrawler.ElementType;
 //import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
+import dungeonCrawler.LevelLoader;
 import dungeonCrawler.SettingSet;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameObjects.HealthPotion;
@@ -25,6 +27,8 @@ import dungeonCrawler.GameObjects.Armor;
  *
  */
 public class Player extends Active {
+	static Player element;
+	GameElementImage gei = new GameElementImage();
 	public Vector2d last_direction = new Vector2d(0,1);
 	public String name = "PLAYER";
 	public final int maxHealth = 1000;
@@ -45,8 +49,14 @@ public class Player extends Active {
 	 * @param position
 	 * @param size
 	 */
+	@Deprecated
 	public Player(Vector2d position, Vector2d size) {
-		super(position, size);
+		super(position, size, -1);
+		checkpoint = position;
+	}
+
+	public Player(Vector2d position, Vector2d size, int id) {
+		super(position, size, id);
 		checkpoint = position;
 	}
 
@@ -288,18 +298,52 @@ public class Player extends Active {
 			this.last_direction = direction;
 	}
 
-	public static Player createElement(String[] param) {
+	/**Creates new instance of this class.
+	 * @param param parameters of this GameElement as {@link String[]}
+	 * @param id as {@link int}
+	 * @return a {@link Player} instance
+	 */
+	public static Player createElement(String[] param, int id) {
+			if (param.length > 5) {
+				element = new Player(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+			}
+			else {
+				element = new Player(new Vector2d(), new Vector2d(), id);
+			}
+		modify(param);
+		return element;
+	}
+
+	/**Modifies parameters.
+	 * @param param as {@link String[]}
+	 */
+	private static void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
-			position.setX(Integer.parseInt(param[1]));
-			position.setY(Integer.parseInt(param[2]));
-			size.setX(Integer.parseInt(param[3]));
-			size.setY(Integer.parseInt(param[4]));
+			int i = (param.length > 5 ? 1 : 0);
+			position.setX(Integer.parseInt(param[i+1]));
+			position.setY(Integer.parseInt(param[i+2]));
+			size.setX(Integer.parseInt(param[i+3]));
+			size.setY(Integer.parseInt(param[i+4]));
+			element.setPosition(position);
+			element.setSize(size);
+			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann PLAYER-Parameter nicht interpretieren.");
+			element = null;
 		}
-		return (new Player(position, size));
+	}
+	
+	/**Gets a parameter string.
+	 * @see dungeonCrawler.GameElement#getString()
+	 */
+	@Override
+	public String getString() {
+		String sep = LevelLoader.getSplitChar();
+		return (getName() + sep + id + sep +
+				position.getX() + sep + position.getY() + sep +
+				size.getX() + sep + size.getY());
 	}
 
 }
