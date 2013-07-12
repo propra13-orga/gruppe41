@@ -32,6 +32,8 @@ import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.FireBolt;
 import dungeonCrawler.GameElements.IceBolt;
 import dungeonCrawler.GameElements.Player;
+import dungeonCrawler.GameElements.WarpPoint;
+
 //import dungeonCrawler.GameElements.Spell;
 
 public class GameLogic implements KeyListener, ActionListener {
@@ -55,10 +57,12 @@ public class GameLogic implements KeyListener, ActionListener {
 	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
 	private Vector2d startpos= new Vector2d(0,0);
 	private Vector2d endpos= new Vector2d(0,0);
+	private Vector2d oldendpos= new Vector2d(0,0);
 	private boolean setze=false; // für editor, wenn variable gesetzt ist, dann nochmal drücken um das gameelement hinzu zu fügen
 	public File file;
 	int movedelay=0;
-	int editspeed=50;
+	int editspeed=5;
+	boolean tpset=false;
 
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
@@ -99,19 +103,20 @@ public class GameLogic implements KeyListener, ActionListener {
 			level.removeElement(level.getPlayer());
 			calculatepositions(sx,sy,px,py);
 			switch (elementtype){
-			case "Bow":			level.addGameElement(new Bow(startpos,endpos));				break;
-			case "Checkpoint":	level.addGameElement(new CheckPoint(startpos,endpos));		break;
-			case "Enemy":		level.addGameElement(new Enemy(startpos,endpos));			break;
-			case "Exit":		level.addGameElement(new Exit(startpos,endpos));			break;
-			case "Healthpot":	level.addGameElement(new Healthpot(startpos,endpos));		break;
-			case "Manapot":		level.addGameElement(new Manapot(startpos,endpos));			break;
-			case "Money":	level.addGameElement(new Money(startpos,endpos));		break;
-			case "NPC":			level.addGameElement(new NPC(startpos,endpos));				break;
-			case "Trap":		level.addGameElement(new Trap(startpos,endpos));			break;
-			case "Wall":		level.addGameElement(new Wall(startpos,endpos));			break;
+			case "Bow":			level.addGameElement(new Bow(startpos,endpos));			setze=false;	break;
+			case "Checkpoint":	level.addGameElement(new CheckPoint(startpos,endpos));	setze=false;	break;
+			case "Enemy":		level.addGameElement(new Enemy(startpos,endpos));		setze=false;	break;
+			case "Exit":		level.addGameElement(new Exit(startpos,endpos));		setze=false;	break;
+			case "Healthpot":	level.addGameElement(new Healthpot(startpos,endpos));	setze=false;	break;
+			case "Manapot":		level.addGameElement(new Manapot(startpos,endpos));		setze=false;	break;
+			case "Money":		level.addGameElement(new Money(startpos,endpos));		setze=false;	break;
+			case "NPC":			level.addGameElement(new NPC(startpos,endpos));			setze=false;	break;
+			case "Trap":		level.addGameElement(new Trap(startpos,endpos));		setze=false;	break;
+			case "Wall":		level.addGameElement(new Wall(startpos,endpos));		setze=false;	break;
+			case "Warppoint":	if(tpset){level.addGameElement(new WarpPoint(startpos,oldendpos,new Vector2d(px,py)));tpset=false;	break;}
+								else {tpset=true;oldendpos=endpos;break;}
 			}
 			level.addGameElement(player);
-			setze=false;
 		}
 	}
 
@@ -159,6 +164,7 @@ public class GameLogic implements KeyListener, ActionListener {
 			 case 83:setze=true;createElement(px,py,px+30,py+30,"Checkpoint");	break;	//CheckPoint
 			 case 84:createElement(sx,sy,px,py,"Trap");							break;	//Trap
 			 case 87:createElement(sx,sy,px,py,"Wall");							break;	//Wall
+			 case 90:createElement(sx,sy,px,py,"Warppoint");					break;	//Wall
 			 }
 		}
 	}
@@ -194,10 +200,20 @@ public class GameLogic implements KeyListener, ActionListener {
 		    try {
 	        	PrintWriter outputstream = new PrintWriter(file);
 		        while ((currentelement=level.getGameElements())!=null && level.getPlayer() != currentelement.getFirst()){
-		        	outputstream.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
-		        	level.removeElement(currentelement.getFirst());
-		        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
-		        	outputstream.flush();
+		        	
+		        	if (currentelement.element().getName()=="WARPPOINT"){
+			        	outputstream.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY()+","+((WarpPoint)currentelement.getFirst()).getTarget().getX()+","+((WarpPoint)currentelement.getFirst()).getTarget().getY());
+			        	level.removeElement(currentelement.getFirst());
+			        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+			        	outputstream.flush();
+		        	}
+		        	else{
+			        	outputstream.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+			        	level.removeElement(currentelement.getFirst());
+			        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
+			        	outputstream.flush();
+		        	}
+		        	
 		        }
 	        	outputstream.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
 	        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
