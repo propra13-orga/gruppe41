@@ -86,12 +86,13 @@ public class Editormenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(selectedFile.equals("Neue Datei erstellen")){
-					System.out.println("if" + selectedFile);
+					System.out.println("if " + selectedFile);
 					
 					FileWriter writer = null;
 				    try {
 				    	System.out.println(app.level);
-				        writer = new FileWriter(createNewFile(app.level+1));
+				    	app.currentLevel=app.level;
+				        writer = new FileWriter(createNewFile(app.level));
 				        writer.write("PLAYER,0,0,30,30");
 				    } catch (IOException e1) {
 				        e1.printStackTrace(); // I'd rather declare method with throws IOException and omit this catch.
@@ -106,10 +107,12 @@ public class Editormenu extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					app.startEdit(createNewFile(app.level+1));
+					app.level+=1;
+					app.startEdit(createNewFile(app.level));
 				}
 				else if(selectedFile != "Neue Datei erstellen") {
-					System.out.println("else" +selectedFile);
+					app.currentLevel = editMapNr.getSelectedIndex()+1;
+					System.out.println("else " +selectedFile);
 					app.startEdit(new File(selectedFile));
 				}
 			}

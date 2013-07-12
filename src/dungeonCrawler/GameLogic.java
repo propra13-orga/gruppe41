@@ -57,6 +57,8 @@ public class GameLogic implements KeyListener, ActionListener {
 	private Vector2d endpos= new Vector2d(0,0);
 	private boolean setze=false; // für editor, wenn variable gesetzt ist, dann nochmal drücken um das gameelement hinzu zu fügen
 	public File file;
+	int movedelay=0;
+	int editspeed=50;
 
 	public GameLogic(App app) {
 		// TODO Auto-generated constructor stub
@@ -201,6 +203,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	        	System.out.println(currentelement.element().getName()+","+currentelement.element().getPosition().getX()+","+currentelement.element().getPosition().getY()+","+currentelement.element().getSize().getX()+","+currentelement.element().getSize().getY());
 	        	outputstream.flush();
 		        outputstream.close();
+		        level.removeElement(currentelement.getFirst());
 		    } catch (IOException e1) {
 		       
 		    }		
@@ -259,7 +262,13 @@ public class GameLogic implements KeyListener, ActionListener {
 				 	app.startGame();
 				 	increaselevels();
 			     }
-
+			 if(keys.get(68)){
+					for(GameElement collisioncheck : level.getGameElements()){
+						if(level.getPlayer().collision(collisioncheck) && collisioncheck!=level.getPlayer()){
+							level.removeElement(collisioncheck);
+							}
+						}
+					}
 		}
 		if (app.editmode == false){		
 			
@@ -387,6 +396,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 
 		if (app.editmode==true){
+			movedelay=movedelay-1;
 			if (keys.get(100)) {// cheat left
 				player.setPosition(position.addX(-10));
 				System.out.println("CHEAT LEFT");
@@ -405,21 +415,49 @@ public class GameLogic implements KeyListener, ActionListener {
 			}
 			
 			
+			if (keys.get(107) && editspeed > 10) {// left
+					editspeed-=10;
+					System.out.println(editspeed);
+					keys.clear();
+			}			
+			else if (keys.get(107) && editspeed > 0) {// left
+				editspeed-=1;
+				System.out.println(editspeed);
+				keys.clear();
+			}	
+			if (keys.get(109) && editspeed < 10) {// left
+				editspeed+=1;
+				keys.clear();
+				System.out.println(editspeed);
+				
+			}	
+			else if (keys.get(109) && editspeed < 100) {// left
+				editspeed+=10;
+				keys.clear();
+				System.out.println(editspeed);
+				
+			}
+
 			
-			if (keys.get(37)) {// left
+
+			if (keys.get(37) && movedelay <=0) {// left
 				player.setPosition(position.addX(-1));
+				movedelay=editspeed;
 				System.out.println("LEFT");
 			}		
-			if (keys.get(38)) {// up
+			if (keys.get(38) && movedelay <=0) {// up
 				player.setPosition(position.addY(-1));
+				movedelay=editspeed;
 				System.out.println("UP");
 			}
-			if (keys.get(39)) {// right
+			if (keys.get(39) && movedelay <=0) {// right
 				player.setPosition(position.addX(1));
+				movedelay=editspeed;
 				System.out.println("RIGHT");
 			}
-			if (keys.get(40)) {// down
+			if (keys.get(40) && movedelay <=0) {// down
 				player.setPosition(position.addY(1));
+				movedelay=editspeed;
 				System.out.println("DOWN");
 			}
 			

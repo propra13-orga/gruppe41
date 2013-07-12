@@ -80,7 +80,6 @@ public class App {
 		editmode = true;
 		if (currentLevel<level) {
 //			dungeon[currentLevel].complete = false;
-			currentLevel=level-1;
 			gameContent = loader.getLevel();			
 			if (loader.loaded) {
 				cp.removeAll();
