@@ -5,13 +5,20 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 
+
+/**
+ * Listen on incoming messages and broadcast all incoming to connected clients 
+ * 
+ * @author Hucke
+ *
+ */
 public class ServerThread extends Thread{
 
 	private Server server;
 	private Socket socket;
-	 
+
 	
-	/*
+	/**
 	 * The constructor saves the variables in this class and start the Thread
 	 * which is the actually method of this class.
 	 * 
@@ -22,6 +29,8 @@ public class ServerThread extends Thread{
 	 * When the client is no more connected the Thread  call the method removeConnection from
 	 * the Server class.
 	 * 
+	 * @param server The server on which the thread should run
+	 * @param socket The port the server is listen on
 	 */
 	public ServerThread( Server server, Socket socket ) {
 		this.server = server;

@@ -18,6 +18,12 @@ import dungeonCrawler.GameObjects.HealthPotion;
 import dungeonCrawler.GameObjects.ManaPotion;
 
 
+/**
+ * Shop of the dungeon crawler create the Layout and fill it with content.
+ * 
+ * @author Hucke
+ *
+ */
 public class ShopSystem {
 	private int gridy=0;
 	private int[] times = new int[100];
@@ -40,7 +46,19 @@ public class ShopSystem {
 	public void setPlayer(Player p){
 		this.player = p;
 	}
-		
+	/**
+	 * Add components to the GridBagLayout. The method simplified adding components to the pane.
+	 *  	
+	 * @param cont The container to which the components are added 
+	 * @param gbl The definition of the GridBagLayout
+	 * @param c The adding component 
+	 * @param x The x coordinate of the grid
+	 * @param y The y coordinate of the grid
+	 * @param width The width of the component in the grid
+	 * @param height The height of the component in the grid
+	 * @param weightx The horizontal component weight 
+	 * @param weighty The vertical component weight
+	 */
 	static void addComponent( Container cont,GridBagLayout gbl,Component c,int x, int y,int width, int height,double weightx, double weighty ){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
@@ -73,6 +91,16 @@ public class ShopSystem {
 		this.names[number]=name;
 	}
 	
+	
+	/**
+	 * Fill the shop with Items
+	 * 
+	 * Create a Dialog and fill the shop with a indefinite number of item define in theShopItem class
+	 * and draw them to the dialog.
+	 * 
+	 * @param money The money the Player have
+	 * @param item The items which are available in the shop
+	 */
 	public void fillShop(int money, ShopItem ...item){
 		dialog = new JDialog(dialog, "Shop");
 		dialog.setDefaultCloseOperation( JDialog.DISPOSE_ON_CLOSE );
@@ -100,7 +128,7 @@ public class ShopSystem {
 
 	
 			
-			/*
+			/**
 			 * Buy Action
 			 */
 			button[number]=new JButton(x.getItemName() + " auswaehlen?");
@@ -161,18 +189,12 @@ public class ShopSystem {
 							case "Armor": player.increaseShield(100);System.out.println("Amor done"); break;
 							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("MAna done"); break;
 							case "Health": player.addItem(new HealthPotion(50));System.out.println("Health done"); break;
-					
 						}
-					
-					dialog.dispose();
-					//new GameLogic().timer.start();
-					
 				}
-				
+				dialog.dispose();
 			}
 		});
 		dialog.pack();
 		dialog.setVisible(true);
-		
 	}
 }

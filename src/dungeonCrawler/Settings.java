@@ -15,10 +15,14 @@ import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-
-
-
-
+/**
+ * Set up the main control element.
+ * 
+ * You can choose her the buttons for the direction
+ * 
+ * @author Hucke
+ *
+ */
 public class Settings{
 	private JDialog dialog;
 	private JButton[] button =new JButton[4];
@@ -27,8 +31,6 @@ public class Settings{
 	private JTextField[] valueField = new JTextField[5]; 
 	private Container c;
 	private GridBagConstraints gbc;
-	//private GridBagLayout layout;
-	
 	
 	//Key Code for the Arrows
 	private int i;
@@ -105,7 +107,6 @@ public class Settings{
 		valueField[getNumber()].setText(this.direction[getNumber()]+"");
 		valueField[getNumber()].setBackground(dialog.getContentPane().getBackground());
 		valueField[getNumber()].setEditable(false);
-		//addComponent(c, layout, valueField[4], 7, 1, 1, 1, 0, 0);
 		addComponent(c, layout, valueField[getNumber()], 7, getNumber()+2, 1, 1, 0, 0 );
 		addComponent(c, layout, new JTextField(name), 6, getNumber()+2, 1, 1, 0, 0);
 		
