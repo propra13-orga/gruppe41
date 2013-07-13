@@ -38,7 +38,7 @@ public class Editormenu extends JPanel {
 		editMapNr = new JComboBox<String>();
 		editMapNr.addItem("Neue Datei erstellen");
 		
-		for(int i=4;i<=app.level;i++){
+		for(int i=3;i<=app.level-1;i++){
 			if(i<10){
 				editMapNr.addItem(new File("Levels"+File.separator+"level0" + i +".lvl").getAbsolutePath());
 			}
