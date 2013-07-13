@@ -58,6 +58,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	private Vector2d startpos= new Vector2d(0,0);
 	private Vector2d endpos= new Vector2d(0,0);
 	private Vector2d oldendpos= new Vector2d(0,0);
+	private Vector2d oldstartpos= new Vector2d(0,0);
 	private boolean setze=false; // für editor, wenn variable gesetzt ist, dann nochmal drücken um das gameelement hinzu zu fügen
 	public File file;
 	int movedelay=0;
@@ -113,8 +114,8 @@ public class GameLogic implements KeyListener, ActionListener {
 			case "NPC":			level.addGameElement(new NPC(startpos,endpos));			setze=false;	break;
 			case "Trap":		level.addGameElement(new Trap(startpos,endpos));		setze=false;	break;
 			case "Wall":		level.addGameElement(new Wall(startpos,endpos));		setze=false;	break;
-			case "Warppoint":	if(tpset){level.addGameElement(new WarpPoint(startpos,oldendpos,new Vector2d(px,py)));tpset=false;	break;}
-								else {tpset=true;oldendpos=endpos;break;}
+			case "Warppoint":	if(tpset){level.addGameElement(new WarpPoint(oldstartpos,oldendpos,new Vector2d(px,py)));tpset=false;setze=false;	break;}
+								else {tpset=true;oldstartpos=startpos;oldendpos=endpos;break;}
 			}
 			level.addGameElement(player);
 		}

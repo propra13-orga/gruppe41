@@ -2,10 +2,14 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 //import java.util.EnumSet;
 import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.DamageType;
 import dungeonCrawler.EventType;
@@ -55,11 +59,19 @@ public class Player extends Active {
 	public Player(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		checkpoint = position;
+		GameElementImage gei = new GameElementImage();
 	}
 
 	public Player(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
-		checkpoint = position;
+		checkpoint = position;		
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "player.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	public String getName(){
@@ -69,9 +81,7 @@ public class Player extends Active {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-
-		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, size.getX(), size.getY());
+		gei.paintComponent(g);
 	}
 
 	public void add(GameObject object){
