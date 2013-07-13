@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import javax.swing.Timer;
 
 import dungeonCrawler.GameElements.Bow;
-import dungeonCrawler.GameElements.Bullet;
 import dungeonCrawler.GameElements.CheckPoint;
 import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Exit;
@@ -25,13 +24,11 @@ import dungeonCrawler.GameElements.Manapot;
 import dungeonCrawler.GameElements.Money;
 import dungeonCrawler.GameElements.NPC;
 import dungeonCrawler.GameElements.Player;
-import dungeonCrawler.GameElements.Spell;
 import dungeonCrawler.GameElements.Trap;
 import dungeonCrawler.GameElements.Wall;
 import dungeonCrawler.GameElements.Active;
 import dungeonCrawler.GameElements.FireBolt;
 import dungeonCrawler.GameElements.IceBolt;
-import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.WarpPoint;
 
 //import dungeonCrawler.GameElements.Spell;
@@ -673,6 +670,13 @@ public class GameLogic implements KeyListener, ActionListener {
 
 	public void lost(Player player) {
 		startMainMenu();
+	}
+	
+	public void changeTimer(boolean newStatus){
+		if(newStatus &&(!timer.isRunning())) timer.start();
+		if((!newStatus) &&timer.isRunning()) timer.stop();
+		
+		
 	}
 
 }

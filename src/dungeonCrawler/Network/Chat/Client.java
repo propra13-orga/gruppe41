@@ -14,40 +14,54 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
+/**
+ * This class creates a chat client to a server with some parts of the GUI 
+ * 
+ * @author Hucke
+ *
+ */
 public class Client extends JPanel implements Runnable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	/*
+	
+	/**
 	 * Components for Chat window
 	 */
 	private JTextField inputField = new JTextField();
 	private JTextArea outputArea = new JTextArea();
 	private JScrollPane scrollOutputArea = new JScrollPane(outputArea);
 	
-	// The socket connecting us to the server
 	private Socket socket;
 	
 	
-	/*
+	/**
 	 * For the communication with the server the streams are needed
 	 */
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
 
+
+	
+	/**
+	 * Setting up chat window and establish a Connection to the Server
+	 * 
+	 *  Setting up the chat window, like the incoming text area and the outgoing field. 
+	 *  The try to connect to the Server. When a Connection is created also the Input/Output streams
+	 *  will be created. And a Thread starts which listen for incoming data.
+	 * 
+	 * @param host The Address of the Server
+	 * @param port The port on which the Server listen
+	 * @param userName The user selected name for the chat 
+	 */
 	
 	public Client( String host, int port, final String userName) {
 
-		/*
-		 * Setting up the chat window.
-		 * The ActionListener is needed to send message a return hit
-		 */
+
 		setLayout( new BorderLayout() );
 		outputArea.setPreferredSize(new Dimension(500,350));
 		inputField.setPreferredSize(new Dimension(500,24));
 		inputField.addActionListener( new ActionListener() {
+			//is needed for sending with return key
 			public void actionPerformed(ActionEvent e) {
 				
 					getMessage(userName + "# " + e.getActionCommand());
@@ -58,11 +72,6 @@ public class Client extends JPanel implements Runnable
 		add(inputField,BorderLayout.PAGE_END);
 		add(scrollOutputArea,BorderLayout.CENTER);
 
-		/*
-		 * Try connect to Server
-		 * Initialize a socket and then create the Input/Output streams.
-		 * The Thread is listen to all incoming data 
-		 */
 		try {
 
 			socket = new Socket(host,port);
@@ -77,9 +86,13 @@ public class Client extends JPanel implements Runnable
 		
 	}
 	
-	/*
+	/**
+	 * Send entered message
+	 * 
 	 * This method get the user input and send it to the Server, 
 	 * after that it clear the inputField  
+	 * 
+	 * @param message the entered message
 	 */
 	private void getMessage(String message){
 			
@@ -93,7 +106,10 @@ public class Client extends JPanel implements Runnable
 			inputField.setText( "" );
 	}
 	
-	
+	/**
+	 * The Thread in a infinity-loop it waits for incoming messages and
+	 * append it to the incoming area
+	 */	
 	public void run() {
 		try {
 			

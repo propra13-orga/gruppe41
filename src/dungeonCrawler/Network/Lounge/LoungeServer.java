@@ -15,7 +15,13 @@ import javax.swing.JTextField;
 import dungeonCrawler.Network.Chat.Server;
 
 
-
+/**
+ * Draw layout and components of the Lounge server card for the Lounge Window.
+ * In this Card you can start the Server 
+ * 
+ * @author Hucke
+ *
+ */
 public class LoungeServer implements ActionListener,Runnable{
 	private JButton startServer_btn = null, stopServer_btn = null, cancel_btn = null;
 

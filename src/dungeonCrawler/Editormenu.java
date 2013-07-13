@@ -75,7 +75,7 @@ public class Editormenu extends JPanel {
 		}
 		else{
 			newFile = null;
-			System.out.println("Error level größer als 99"); 
+			System.out.println("Error level bigger then 99"); 
 		}
 		return newFile;
 	}

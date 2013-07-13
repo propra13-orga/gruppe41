@@ -1,5 +1,12 @@
 package dungeonCrawler;
 
+/**
+ * Kind definition of the Items which will available in the shop
+ * A Item is defined by a name and a price
+ * 
+ * @author Hucke
+ *
+ */
 public class ShopItem {
 private String x;
 private int y;
@@ -9,7 +16,6 @@ private int y;
 		this.y = y;
 	}
 	public ShopItem() {
-		// TODO Auto-generated constructor stub
 		x = "";
 		y = 0;
 	}

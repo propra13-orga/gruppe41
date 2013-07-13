@@ -7,6 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+/**
+ * Construction of the Lounge with added content in tabbed pane
+ *  
+ * @author Hucke 
+ *
+ */
 public class LoungeWindow{
 
 		
@@ -40,13 +46,5 @@ public class LoungeWindow{
 	    	c.add(tabbedPane);
 
 	    }
-	     
-
-	   /* public static void main(String[] args) {
-	            new LoungeWindow();
-	            
-	    }*/
-
-
 }
 

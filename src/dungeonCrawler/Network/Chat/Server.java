@@ -7,39 +7,49 @@ import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+/**
+ * The chat Server 
+ * @author Hucke
+ *
+ */
 public class Server{
 	
-	// The ServerSocket we'll use for accepting new connections
 	private ServerSocket serverSocket;
 
-	/*
+	/**
 	 * The Hashtable will be use for DataOutputStream it contain
 	 * the variable from the DataOutputStream and refer to the client.
 	 */
 	private Hashtable<Socket,DataOutputStream> outputStreams = new Hashtable<Socket,DataOutputStream>();
 	
-	
+	/**
+	 * Constructor of the class gives the listen method the port of the Server
+	 * 
+	 * @param port the port the Server run on
+	 * @throws IOException 
+	 */
 	public Server(int port) throws IOException {
 		listen(port);
 	}
+
 	
-	
-	
+	/**
+	 * Create a server and listen to new clients
+	 * 
+	 * A server will be created and the infinite-loop waits for new clients.
+	 * When a new client connects it will create a new DataOutputStream and 
+	 * fill the Hashtable with the new client and the matching DataOutputStream
+	 * variable 
+	 * 
+	 * @param port The port the server will start on
+	 * @throws IOException
+	 */
 	private void listen(int port) throws IOException {
 		
-		/*
-		 * Create a SeverSocket/start the Server
-		 */
+
 		serverSocket = new ServerSocket(port);
 		System.out.println("Server Started");
-		
-		/*
-		 * The infinite loop waits for clients to Connect, 
-		 * when a Client connect it creates a DataOutputStream.
-		 * 
-		 * Then the Hashtable outputStreams will get the variable
-		 * from DataOutputStream and connect it to the client.
-		 */
+
 		while (true) {
 
 			Socket client = serverSocket.accept();
@@ -53,20 +63,30 @@ public class Server{
 		}
 	}
 	
-	/*
-	 * Here we get a list of all clients which are connected 
+
+	
+	/**
+	 * Return the Hashtable with info of the clients and matching out DataOuttputSream as Enumeration
+	 * 
+	 * @return
 	 */
 	Enumeration<DataOutputStream> getOutputStreams() {
 		return outputStreams.elements();
 	}
 
-	/*
-	 * The title of the method describes all...
-	 * The use of synchronized here is that a Thread might 
-	 * closed by removeConnection, so the list is no more correct
+	
+	/**
+	 * Send the incoming messages to all connected clients
 	 * 
-	 * In the for-loop the will be send to all entries in the Enumeration
-	 * getOutputStreams()
+	 * The title of the method describes all...
+	 * synchronized is use to make a dependency to the method removeConnection
+	 *  
+	 * The use of synchronized here is that a Thread might closed by removeConnection, 
+	 * so the list isn't correct and we get exceptions. 
+	 * 
+	 * The for-loop send a incoming message to all entries in the Hashtable
+	 *  
+	 * @param message The message a client has send
 	 */
 	public void broadcastMessage( String message ){
 
@@ -86,10 +106,18 @@ public class Server{
 	}
 	
 	
-	/*
-	 * Like before we need a clean list of the clients which are connected to us.
-	 * So every time the class ServerThread remove a connection the list have to be
-	 * updated. And this is of course synchronized with the method broadcastMessage.
+
+	
+	/**
+	 * Remove a client connection
+	 * 
+	 * This method keeps the connection list clean. It is synchronized to broadcastMessage,
+	 * because we will keep a clean connection list, so we don't get exceptions because a client 
+	 * is removed but broadcastMessage will send a message to the disconnected client.
+	 * This method runs in the ServerThread class
+	 * 
+	 *  
+	 * @param s The Socket that will be close
 	 */
 	public void removeConnection( Socket s ) {
 
@@ -107,11 +135,12 @@ public class Server{
 		}
 	}
 
-	/*
-	 * The startServer(int port) method get the Port from
-	 * the class ServerLounge and only start the constructor
+
+	/**
+	 * Start the constructor with a given port.
+	 * 
+	 * @param port The port on which the server should listen
 	 */
-	
 	public void startServer(int port){
 		
 

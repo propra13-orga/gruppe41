@@ -26,7 +26,7 @@ public class MainMenu extends JPanel {
 	private JButton exit;
 	private JButton credits;
 	private JButton network;
-	private JButton setting;
+	//private JButton setting;
 	private JButton editor;
 	private App app;
 
@@ -44,13 +44,13 @@ public class MainMenu extends JPanel {
 	public void initialize(){
 		this.setLayout(new GridLayout(5,1));
 		start = new JButton("Start");
-		setting = new JButton("Settings");
+		//setting = new JButton("Settings");
 		network = new JButton("Start Networkgame");
 		exit = new JButton("Exit");
 		credits = new JButton("Credits");
 		editor = new JButton("Editor");
 		this.add(start);
-		this.add(setting);
+		//this.add(setting);
 		this.add(network);
 		this.add(editor);
 		this.add(credits);
@@ -89,14 +89,14 @@ public class MainMenu extends JPanel {
 		});
 		
 	
-		setting.addActionListener(new ActionListener() {
+		/*setting.addActionListener(new ActionListener() {
 	
 			public void actionPerformed(ActionEvent e){
 			
 			Settings settings =new Settings();
 			settings.startSettings();
 			}
-		});
+		});*/
 		
 		network.addActionListener(new ActionListener() {
 			

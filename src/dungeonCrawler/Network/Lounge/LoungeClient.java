@@ -13,9 +13,13 @@ import javax.swing.JTextField;
 
 import dungeonCrawler.Network.Chat.Client;
 
-
-
-
+/**
+ *Draw layout and components of the LoungeClient Card for the LoungeWindow.
+ *The Client will start through this Card
+ * 
+ * @author Hucke
+ *
+ */
 public class LoungeClient implements ActionListener{
 	
 	private JButton connectButton, backButton;
