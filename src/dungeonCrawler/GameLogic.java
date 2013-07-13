@@ -155,9 +155,9 @@ public class GameLogic implements KeyListener, ActionListener {
 			 case 66:setze=true;createElement(px,py,px+5,py+5,"Bow");			break;	//Bow
 			 case 67:setze=true;createElement(px,py,px+30,py+30,"Enemy");		break;	//Enemy
 			 case 69:createElement(sx,sy,px,py,"Exit");							break;	//Exit
-			 case 71:setze=true;createElement(px,py,px+5,py+5,"Money");			break;	//Money
-			 case 72:setze=true;createElement(px,py,px+5,py+5,"Healthpot");		break;	//Healthpot
-			 case 77:setze=true;createElement(px,py,px+5,py+5,"Manapot");		break;	//Manapot
+			 case 71:setze=true;createElement(px,py,px+10,py+10,"Money");			break;	//Money
+			 case 72:setze=true;createElement(px,py,px+10,py+10,"Healthpot");		break;	//Healthpot
+			 case 77:setze=true;createElement(px,py,px+10,py+10,"Manapot");		break;	//Manapot
 			 case 78:setze=true;createElement(px,py,px+30,py+30,"NPC");			break;	//NPC
 			 case 83:setze=true;createElement(px,py,px+30,py+30,"Checkpoint");	break;	//CheckPoint
 			 case 84:createElement(sx,sy,px,py,"Trap");							break;	//Trap
