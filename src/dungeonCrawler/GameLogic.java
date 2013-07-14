@@ -543,11 +543,12 @@ public class GameLogic implements KeyListener, ActionListener {
 					if (new_shop == null) {
 						// initialize shop
 						new_shop = new ShopSystem((Player)level.getPlayer());
-						new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
+						((Player)level.getPlayer()).setMoney(100);
+						new_shop.fillShop(((Player)level.getPlayer()).getMoney(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 					}
 					else{
 						System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
-						new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
+						new_shop.fillShop(((Player)level.getPlayer()).getMoney(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 						player.setMoney(new_shop.getvermoegen());
 					}
 				}
