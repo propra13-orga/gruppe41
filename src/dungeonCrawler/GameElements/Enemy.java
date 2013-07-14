@@ -125,7 +125,7 @@ public class Enemy extends GameElement {
 	 * @return a {@link Enemy} instance
 	 */
 	public static Enemy createElement(String[] param, int id) {
-			if (param.length > 7) {
+			if (param.length > 5) {
 				element = new Enemy(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
 			}
 			else {
@@ -142,15 +142,17 @@ public class Enemy extends GameElement {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
-			int i = (param.length > 7 ? 1 : 0);
+			int i = (param.length > 5 ? 1 : 0);
 			position.setX(Integer.parseInt(param[i+1]));
 			position.setY(Integer.parseInt(param[i+2]));
 			size.setX(Integer.parseInt(param[i+3]));
 			size.setY(Integer.parseInt(param[i+4]));
 			element.setPosition(position);
 			element.setSize(size);
-			element.setLives(Integer.parseInt(param[i+5]));
-			element.setHealth(Integer.parseInt(param[i+6]));
+			if (param.length > 5) {
+				element.setLives(Integer.parseInt(param[i+5]));
+				element.setHealth(Integer.parseInt(param[i+6]));
+			}
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann ENEMY-Parameter nicht interpretieren.");

@@ -378,17 +378,22 @@ public class Player extends Active {
 			position.setY(Integer.parseInt(param[i+2]));
 			size.setX(Integer.parseInt(param[i+3]));
 			size.setY(Integer.parseInt(param[i+4]));
-			checkPoint.setX(Integer.parseInt(param[i+5]));
-			checkPoint.setY(Integer.parseInt(param[i+6]));
 			element.setPosition(position);
 			element.setSize(size);
-			element.setCheckPoint(checkPoint);
-			element.setHealth(Integer.parseInt(param[i+7]));
-			element.setMana(Integer.parseInt(param[i+8]));
-			element.setShield(Integer.parseInt(param[i+9]));
-			element.setLives(Integer.parseInt(param[i+10]));
-			element.setMoney(Integer.parseInt(param[i+11]));
-			element.setMovementDelay(Integer.parseInt(param[i+12]));
+			if (param.length > 5) {
+				checkPoint.setX(Integer.parseInt(param[i+5]));
+				checkPoint.setY(Integer.parseInt(param[i+6]));
+				element.setCheckPoint(checkPoint);
+				element.setHealth(Integer.parseInt(param[i+7]));
+				element.setMana(Integer.parseInt(param[i+8]));
+				element.setShield(Integer.parseInt(param[i+9]));
+				element.setLives(Integer.parseInt(param[i+10]));
+				element.setMoney(Integer.parseInt(param[i+11]));
+				element.setMovementDelay(Integer.parseInt(param[i+12]));
+				for (int k=i+13;k<param.length;k++) {
+
+				}
+			}
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann PLAYER-Parameter nicht interpretieren.");
