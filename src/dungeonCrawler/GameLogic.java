@@ -78,6 +78,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		max_delay[settings.SHOOT] = 200;
 		max_delay[settings.USE_HEALTHPOT] = 500;
 		max_delay[settings.USE_MANAPOT] = 500;
+		max_delay[settings.CHANGE_ARMOR] = 50;
 	}
 
 	private void reduceDelay(){
@@ -556,7 +557,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 			if (keys.get(KeyEvent.VK_Q)){// q (fire bolt)
 				System.out.println(delay[KeyEvent.VK_Q]);
-				if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(15, this)){
+				if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(20, this)){
 					delay[KeyEvent.VK_Q] = 250;
 
 					Vector2d pos = new Vector2d(position.add(player.size.mul(0.5)).add(new Vector2d(-5, -5)));

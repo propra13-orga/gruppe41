@@ -44,7 +44,7 @@ public class Player extends Active {
 	private int money = 0;
 	private Vector2d checkPoint;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
-	
+
 	private int movementDelay = 0;
 	private GameObject armor = null;
 
@@ -95,7 +95,7 @@ public class Player extends Active {
 		this.health += Health;
 		if(this.health > this.maxHealth) this.health = this.maxHealth;
 	}
-	
+
 	public void die(GameLogic logic){
 		if(this.lives>=0){
 			this.lives--;
@@ -107,41 +107,47 @@ public class Player extends Active {
 	}
 
 	public void reduceHealth(int Health, DamageType damageTyp, GameLogic logic) {
-		this.shield -= Health;
-		if (this.shield <= 0) { // Player hat magischen Schild
-			System.out.println("Magischer Schutz absorbiert " + (Health + this.shield) + " Schaden (" + Health + ")");
-			Health = this.shield*(-1);
-			this.shield = 0;
+		if (this.shield > 0) { // Player hat magischen Schild
+			System.out.print("Magischer Schutz mindert Schaden von " + Health);
+			this.shield -= Health;
+			if (this.shield < 0) {
+				Health = this.shield*(-1);
+				this.shield = 0;
+			}
+			else {
+				Health = 0;
+			}
+			System.out.println(" auf " + Health);
 		}
-		else {
-			System.out.println("Magischer Schutz absorbiert vollen Schaden (" + Health + ")");
-			Health = 0;
-		}
-		if (armor != null) { // Player hat Rüstung
+		if ((armor != null) && (Health > 0)) { // Player hat Rüstung
+			System.out.print("Rüstung mindert Schaden von " + Health);
 			switch (damageTyp) {
 			case CONVENTIONAL: if (armor instanceof ConvArmor) Health -= ((ConvArmor)armor).getArmor(); break;
 			case FIRE: if (armor instanceof FireArmor) Health -= ((FireArmor)armor).getArmor(); break;
 			case ICE: if (armor instanceof IceArmor) Health -= ((IceArmor)armor).getArmor(); break;
 			}
-			if (Health < 0) {
-				System.out.println("Rüstung absorbiert Schaden.");
+			if (Health <= 0) {
 				Health = 0;
 			}
+			System.out.println(" auf " + Health);
 		}
-		this.health -= Health;
-		if (this.health > 0) {
-			System.out.println("Leben verloren! Health: " + this.health);
-		}
-		else {
-			System.out.println("!TOT! (x.x) Leben: " + lives);
-			lives--;
-			if(lives < 0){
-				logic.app.currentLevel = 0;
-			} else {
-				this.health = maxHealth;
-				logic.teleportElement(this, logic.getCheckPoint());
+		if (Health > 0) {
+			this.health -= Health;
+			if (this.health > 0) {
+				System.out.println("Leben verloren! Health: " + this.health);
+			}
+			else {
+				System.out.println("!TOT! (x.x) Leben: " + lives);
+				lives--;
+				if(lives < 0){
+					logic.app.currentLevel = 0;
+				} else {
+					this.health = maxHealth;
+					logic.teleportElement(this, logic.getCheckPoint());
+				}
 			}
 		}
+
 	}
 
 	public boolean reduceMana(int mana, GameLogic logic) {
@@ -224,7 +230,7 @@ public class Player extends Active {
 
 	@Override
 	public void interaction(GameLogic logic, SettingSet settings, BitSet keys) {
-		
+
 		if (movementDelay >= 0) movementDelay -=1;
 		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(settings.MOVE_LEFT)) {// left arrow
@@ -243,8 +249,8 @@ public class Player extends Active {
 			logic.moveElement(this, direction);
 			movementDelay = 3;
 		}
-		
-		
+
+
 		if (logic.checkKey(settings.USE_HEALTHPOT)){
 			for(GameObject o : inventar){
 				if(o instanceof HealthPotion){
@@ -254,7 +260,7 @@ public class Player extends Active {
 				}
 			}
 		}
-		
+
 		if (logic.checkKey(settings.USE_MANAPOT)){
 			for(GameObject o : inventar){
 				if(o instanceof ManaPotion){
@@ -264,7 +270,7 @@ public class Player extends Active {
 				}
 			}
 		}
-		
+
 		if (logic.checkKey(settings.SHOOT)){
 			dungeonCrawler.GameObjects.Bow bow = null;
 			for(GameObject o : inventar){
@@ -290,7 +296,7 @@ public class Player extends Active {
 				logic.addGameElement(tmp);
 			}
 		}
-		
+
 		if (logic.checkKey(settings.CHANGE_ARMOR)){
 			ArrayList<GameObject> armorList = new ArrayList<GameObject>();
 			int current = -1;
@@ -302,6 +308,8 @@ public class Player extends Active {
 					if ((ConvArmor) o == armor) {
 						current = n;
 					}
+					System.out.println("konventionell n=" + n + " c=" + current);
+					continue;
 				}
 				if (o instanceof FireArmor) {
 					n++;
@@ -309,6 +317,8 @@ public class Player extends Active {
 					if ((FireArmor) o == armor) {
 						current = n;
 					}
+					System.out.println("feuer n=" + n + " c=" + current);
+					continue;
 				}
 				if (o instanceof IceArmor) {
 					n++;
@@ -316,10 +326,12 @@ public class Player extends Active {
 					if ((IceArmor) o == armor) {
 						current = n;
 					}
+					System.out.println("eis n=" + n + " c=" + current);
+					continue;
 				}
 			}
 			if (n >= 0) {
-				if (current > 0) {
+				if (current >= 0) {
 					armorList.get((current+1)%armorList.size()).performOn(this);
 				}
 				else {
@@ -340,12 +352,12 @@ public class Player extends Active {
 	 * @return a {@link Player} instance
 	 */
 	public static Player createElement(String[] param, int id) {
-			if (param.length > 5) {
-				element = new Player(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new Player(new Vector2d(), new Vector2d(), id);
-			}
+		if (param.length > 5) {
+			element = new Player(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new Player(new Vector2d(), new Vector2d(), id);
+		}
 		modify(param);
 		return element;
 	}
@@ -404,7 +416,7 @@ public class Player extends Active {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */
