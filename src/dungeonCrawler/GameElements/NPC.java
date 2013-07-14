@@ -2,7 +2,11 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.EnumSet;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
@@ -28,6 +32,13 @@ public class NPC extends GameElement {
 	public NPC(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE);
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "NPC.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -37,13 +48,18 @@ public class NPC extends GameElement {
 	public NPC(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.MOVABLE);
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "NPC.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, size.getX(), size.getY());
+		gei.paintComponent(g);
 	}
 
 	@Override

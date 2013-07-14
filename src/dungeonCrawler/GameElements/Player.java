@@ -1,12 +1,10 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
-//import java.util.EnumSet;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -14,8 +12,6 @@ import javax.imageio.ImageIO;
 import dungeonCrawler.DamageType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElementImage;
-//import dungeonCrawler.ElementType;
-//import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
@@ -176,24 +172,12 @@ public class Player extends Active {
 		this.mana = m;
 	}
 
-	private int getLives() {
-		return lives;
-	}
-
 	private void setLives(int l) {
 		this.lives = l;
 	}
 
-	private Vector2d getCheckPoint() {
-		return checkPoint;
-	}
-
 	private void setCheckPoint(Vector2d cp) {
 		this.checkPoint = cp;
-	}
-
-	private int getMovementDelay() {
-		return movementDelay;
 	}
 
 	private void setMovementDelay(int md) {
@@ -427,11 +411,35 @@ public class Player extends Active {
 	@Override
 	public String getString() {
 		String sep = LevelLoader.getSplitChar();
-		return (getName() + sep + id + sep + //Name + id
-				position.getX() + sep + position.getY() + sep + //position
-				size.getX() + sep + size.getY() + sep + //size
-				//TODO parameterlist
-				"");
+		String inventory = "";
+		for (int i=0;i<inventar.size();i++) {
+			if (inventar.get(i) instanceof Bow) {
+				inventory = inventory + sep + "B" + sep + "0";
+			}
+			else if (inventar.get(i) instanceof HealthPotion) {
+				inventory = inventory + sep + "H" + sep + ((HealthPotion)inventar.get(i)).getValue();
+			}
+			else if (inventar.get(i) instanceof ManaPotion) {
+				inventory = inventory + sep + "M" + sep + ((ManaPotion)inventar.get(i)).getValue();
+			}
+			else if (inventar.get(i) instanceof ConvArmor) {
+				inventory = inventory + sep + "C" + sep + ((ConvArmor)inventar.get(i)).getArmor();
+			}
+			else if (inventar.get(i) instanceof FireArmor) {
+				inventory = inventory + sep + "F" + sep + ((FireArmor)inventar.get(i)).getArmor();
+			}
+			else if (inventar.get(i) instanceof IceArmor) {
+				inventory = inventory + sep + "I" + sep + ((IceArmor)inventar.get(i)).getArmor();
+			}
+		}
+		return (getName() + sep + id + sep +						//Name + id
+				position.getX() + sep + position.getY() + sep +		//position
+				size.getX() + sep + size.getY() + sep +				//size
+				checkPoint.getX() + sep + checkPoint.getY() + sep +	//checkPoint
+				health + sep + mana + sep +							//health + mana
+				shield + sep + lives + sep +						//shield + lives
+				money + sep + movementDelay +						//money + movementDelay
+				inventory);											//inventory
 	}
 
 	@Override

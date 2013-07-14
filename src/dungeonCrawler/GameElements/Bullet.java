@@ -19,7 +19,6 @@ public class Bullet extends GameElement {
 	private int life = 300;
 	private Vector2d direction = new Vector2d(0,0);
 	
-	@Deprecated
 	public Bullet(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);

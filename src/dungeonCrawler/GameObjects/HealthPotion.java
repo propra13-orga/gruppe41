@@ -29,7 +29,7 @@ public class HealthPotion extends GameObject {
 		}
 	}
 	
-	public int getHealth() {
+	public int getValue() {
 		return health;
 	}
 

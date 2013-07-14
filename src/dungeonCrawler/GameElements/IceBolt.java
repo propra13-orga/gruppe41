@@ -20,7 +20,6 @@ public class IceBolt extends GameElement {
 	private Vector2d direction = new Vector2d(0,0);
 	private int damage = 30;
 
-	@Deprecated
 	public IceBolt(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);

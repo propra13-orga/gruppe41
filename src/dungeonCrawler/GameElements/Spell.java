@@ -19,7 +19,6 @@ public class Spell extends GameElement {
 	private int life = 600;
 	private Vector2d direction = new Vector2d();
 
-	@Deprecated
 	public Spell(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);

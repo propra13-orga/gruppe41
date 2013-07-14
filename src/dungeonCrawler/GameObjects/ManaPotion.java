@@ -28,7 +28,7 @@ public class ManaPotion extends GameObject {
 
 	}
 	
-	public int getMana() {
+	public int getValue() {
 		return mana;
 	}
 

@@ -42,7 +42,7 @@ public class ConvArmor extends GameElement {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.GRAY);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 
