@@ -25,7 +25,7 @@ import dungeonCrawler.Vector2d;
 public class Enemy extends GameElement {
 	static Enemy element;
 	GameElementImage gei = new GameElementImage();
-	private int Health=100;
+	private int health=100;
 	private int lives=0;
 
 	/**
@@ -62,11 +62,6 @@ public class Enemy extends GameElement {
 	}
 	
 	@Override
-	public String getName(){
-		return "ENEMY";
-	}
-
-	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		gei.paintComponent(g);
@@ -89,35 +84,39 @@ public class Enemy extends GameElement {
 		}
 	}	
 	
-	public void setHealth(int Health) {
-		this.Health = Health;
+	public void setHealth(int health) {
+		this.health = health;
 	}
 	
-	public void increaseHealth(int Health) {
-		this.Health += Health;
+	public void setLives(int lives) {
+		this.lives = lives;
 	}
 	
-	public void reduceHealth(int Health, DamageType damage, GameLogic logic) {
-		if (this.Health-Health > 0){
-			this.Health = this.Health-Health;
-			System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
+	public void increaseHealth(int health) {
+		this.health += health;
+	}
+	
+	public void reduceHealth(int health, DamageType damage, GameLogic logic) {
+		if (this.health-health > 0){
+			this.health = this.health-health;
+			System.out.println("Enemy lost " + health + " and has now " + this.health + " Health");
 		}
 		else {
 			lives--;
 			if(lives<0){
-				this.Health -= Health;
+				this.health -= health;
 				this.size = new Vector2d(0,0);
 				System.out.println("Enemy dead");
 			} else {
-				this.Health -= Health;
-				System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
-				this.Health = 100;
+				this.health -= health;
+				System.out.println("Enemy lost " + health + " and has now " + this.health + " Health");
+				this.health = 100;
 			}
 		}
 	}
 	
 	public int getHealth() {
-		return this.Health;
+		return this.health;
 	}
 
 	/**Creates new instance of this class.
@@ -126,7 +125,7 @@ public class Enemy extends GameElement {
 	 * @return a {@link Enemy} instance
 	 */
 	public static Enemy createElement(String[] param, int id) {
-			if (param.length > 5) {
+			if (param.length > 7) {
 				element = new Enemy(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
 			}
 			else {
@@ -143,13 +142,15 @@ public class Enemy extends GameElement {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
-			int i = (param.length > 5 ? 1 : 0);
+			int i = (param.length > 7 ? 1 : 0);
 			position.setX(Integer.parseInt(param[i+1]));
 			position.setY(Integer.parseInt(param[i+2]));
 			size.setX(Integer.parseInt(param[i+3]));
 			size.setY(Integer.parseInt(param[i+4]));
 			element.setPosition(position);
 			element.setSize(size);
+			element.setLives(Integer.parseInt(param[i+5]));
+			element.setHealth(Integer.parseInt(param[i+6]));
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann ENEMY-Parameter nicht interpretieren.");
@@ -166,6 +167,11 @@ public class Enemy extends GameElement {
 		return (getName() + sep + id + sep +
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
+	}
+
+	@Override
+	public String getName(){
+		return "ENEMY";
 	}
 
 }

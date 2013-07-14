@@ -116,7 +116,7 @@ public class IceWeasel extends GameElement {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Iceweasel";
+		return "ICEWEASEL";
 	}	
 	
 }

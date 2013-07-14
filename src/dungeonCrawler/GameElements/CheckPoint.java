@@ -30,11 +30,6 @@ public class CheckPoint extends GameElement {
 	}
 	
 	@Override
-	public String getName(){
-		return "CHECKPOINT";
-	}
-
-	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		
@@ -96,6 +91,11 @@ public class CheckPoint extends GameElement {
 		return (getName() + sep + id + sep +
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
+	}
+
+	@Override
+	public String getName(){
+		return "CHECKPOINT";
 	}
 
 }

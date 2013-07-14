@@ -45,10 +45,10 @@ public class Player extends Active {
 	private int shield = 0;
 	private int lives=3;
 	private int money = 0;
-	private Vector2d checkpoint;
+	private Vector2d checkPoint;
 	private LinkedList<GameObject> inventar = new LinkedList<GameObject>();
 	
-	private int movementdelay = 0;
+	private int movementDelay = 0;
 	private GameObject armor = null;
 
 	/**
@@ -58,13 +58,13 @@ public class Player extends Active {
 	@Deprecated
 	public Player(Vector2d position, Vector2d size) {
 		super(position, size, -1);
-		checkpoint = position;
-		GameElementImage gei = new GameElementImage();
+		checkPoint = position;
+		gei = new GameElementImage();
 	}
 
 	public Player(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
-		checkpoint = position;		
+		checkPoint = position;		
 		gei.setSize(getSize());
 		try {
 			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "player.png")));
@@ -72,10 +72,6 @@ public class Player extends Active {
 			gei.setImage(null);
 			e.printStackTrace();
 		}
-	}
-
-	public String getName(){
-		return "PLAYER";
 	}
 
 	@Override
@@ -93,13 +89,9 @@ public class Player extends Active {
 		// TODO Auto-generated method stub
 		if(e.type == EventType.COLLISION){
 			if(e.element instanceof CheckPoint){
-				this.checkpoint = this.position;
+				this.checkPoint = this.position;
 			}
 		}
-	}
-
-	public void setHealth(int Health) {
-		this.health = Health;
 	}
 
 	public void increaseHealth(int Health) {
@@ -111,7 +103,7 @@ public class Player extends Active {
 		if(this.lives>=0){
 			this.lives--;
 			this.health = this.maxHealth;
-			this.position = this.checkpoint;
+			this.position = this.checkPoint;
 		} else {
 			logic.lost(this);
 		}
@@ -171,12 +163,40 @@ public class Player extends Active {
 		return this.health;
 	}
 
+	public void setHealth(int Health) {
+		this.health = Health;
+	}
+
 	public int getMana() {
 		return mana;
 	}
 
 	public void setMana(int m) {
 		this.mana = m;
+	}
+
+	private int getLives() {
+		return lives;
+	}
+
+	private void setLives(int l) {
+		this.lives = l;
+	}
+
+	private Vector2d getCheckPoint() {
+		return checkPoint;
+	}
+
+	private void setCheckPoint(Vector2d cp) {
+		this.checkPoint = cp;
+	}
+
+	private int getMovementDelay() {
+		return movementDelay;
+	}
+
+	private void setMovementDelay(int md) {
+		this.movementDelay = md;
 	}
 
 	public LinkedList<GameObject> getInventar() {
@@ -220,7 +240,7 @@ public class Player extends Active {
 	@Override
 	public void interaction(GameLogic logic, SettingSet settings, BitSet keys) {
 		
-		if (movementdelay >= 0) movementdelay -=1;
+		if (movementDelay >= 0) movementDelay -=1;
 		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(settings.MOVE_LEFT)) {// left arrow
 			direction = direction.addX(-1);
@@ -234,9 +254,9 @@ public class Player extends Active {
 		if (keys.get(settings.MOVE_DOWN)) {// down arrow
 			direction = direction.addY(1);
 		}
-		if(movementdelay <= 0){
+		if(movementDelay <= 0){
 			logic.moveElement(this, direction);
-			movementdelay = 3;
+			movementDelay = 3;
 		}
 		
 		
@@ -351,14 +371,24 @@ public class Player extends Active {
 	private static void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
+		Vector2d checkPoint = new Vector2d();
 		try {
 			int i = (param.length > 5 ? 1 : 0);
 			position.setX(Integer.parseInt(param[i+1]));
 			position.setY(Integer.parseInt(param[i+2]));
 			size.setX(Integer.parseInt(param[i+3]));
 			size.setY(Integer.parseInt(param[i+4]));
+			checkPoint.setX(Integer.parseInt(param[i+5]));
+			checkPoint.setY(Integer.parseInt(param[i+6]));
 			element.setPosition(position);
 			element.setSize(size);
+			element.setCheckPoint(checkPoint);
+			element.setHealth(Integer.parseInt(param[i+7]));
+			element.setMana(Integer.parseInt(param[i+8]));
+			element.setShield(Integer.parseInt(param[i+9]));
+			element.setLives(Integer.parseInt(param[i+10]));
+			element.setMoney(Integer.parseInt(param[i+11]));
+			element.setMovementDelay(Integer.parseInt(param[i+12]));
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann PLAYER-Parameter nicht interpretieren.");
@@ -372,9 +402,16 @@ public class Player extends Active {
 	@Override
 	public String getString() {
 		String sep = LevelLoader.getSplitChar();
-		return (getName() + sep + id + sep +
-				position.getX() + sep + position.getY() + sep +
-				size.getX() + sep + size.getY());
+		return (getName() + sep + id + sep + //Name + id
+				position.getX() + sep + position.getY() + sep + //position
+				size.getX() + sep + size.getY() + sep + //size
+				//TODO parameterlist
+				"");
+	}
+
+	@Override
+	public String getName(){
+		return "PLAYER";
 	}
 
 }
