@@ -1,7 +1,6 @@
 package dungeonCrawler;
 
 
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,22 +21,21 @@ public class Editormenu extends JPanel {
 	JComboBox<String> editMapNr;
 	private String selectedFile;
 	
-
-	
 	
 	public Editormenu(App app){
 		this.app = app;
 		this.setLayout(new FlowLayout());
-		NewMap = new JButton("Level Bearbeiten");
-		fillBox(this);
+		NewMap = new JButton("Level bearbeiten");
+		fillBox();
+		this.add(editMapNr);
 		this.add(NewMap);
 		this.initialize();
 	}
 	
-	private void fillBox(Container c){
+	private void fillBox(){
 		editMapNr = new JComboBox<String>();
 		editMapNr.addItem("Neue Datei erstellen");
-		
+
 		for(int i=3;i<=app.level-1;i++){
 			if(i<10){
 				editMapNr.addItem(new File("Levels"+File.separator+"level0" + i +".lvl").getAbsolutePath());
@@ -62,7 +60,6 @@ public class Editormenu extends JPanel {
 				
 			}
 		});
-		c.add(editMapNr);
 	}
 	
 	private File createNewFile(int number){
@@ -93,6 +90,7 @@ public class Editormenu extends JPanel {
 				    	System.out.println(app.level);
 				    	app.currentLevel=app.level;
 				        writer = new FileWriter(createNewFile(app.level));
+				        editMapNr.addItem(createNewFile(app.level).getAbsolutePath());
 				        writer.write("PLAYER,0,0,30,30");
 				    } catch (IOException e1) {
 				        e1.printStackTrace(); // I'd rather declare method with throws IOException and omit this catch.
