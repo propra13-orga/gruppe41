@@ -149,7 +149,7 @@ public class Enemy extends GameElement {
 			size.setY(Integer.parseInt(param[i+4]));
 			element.setPosition(position);
 			element.setSize(size);
-			if (param.length > 5) {
+			if (param.length > 6) {
 				element.setLives(Integer.parseInt(param[i+5]));
 				element.setHealth(Integer.parseInt(param[i+6]));
 			}

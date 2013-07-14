@@ -381,7 +381,7 @@ public class Player extends Active {
 			size.setY(Integer.parseInt(param[i+4]));
 			element.setPosition(position);
 			element.setSize(size);
-			if (param.length > 5) {
+			if (param.length > 6) {
 				checkPoint.setX(Integer.parseInt(param[i+5]));
 				checkPoint.setY(Integer.parseInt(param[i+6]));
 				element.setCheckPoint(checkPoint);

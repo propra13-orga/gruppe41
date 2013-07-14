@@ -59,7 +59,12 @@ public class LevelLoader {
 				if (!input.startsWith(";")) {
 					elementCounter++;
 					System.out.println("Lade Element " + elementCounter + ": " + input);
+					if(input.split(splitChar).length <= 5 && input.split(splitChar).length > 2){
+						int f = input.indexOf(splitChar);
+						input = input.substring(0, f) + splitChar + level.getNextFreeID() + input.substring(f);
+					}
 					if (parse(input) && element != null) {
+							System.out.println(element.id);
 						if (!level.addGameElement(element)) {
 							Error err = new Error("Kann Element '" + input + "' nicht hinzufügen.");
 							err.showMe();
@@ -102,7 +107,7 @@ public class LevelLoader {
 	 */
 	private boolean parse(String input) {
 		try {
-			idCounter++;
+			idCounter = level.getNextFreeID();
 			String[] param = input.split(splitChar);
 			switch (param[0]) {
 			case "BOW":
