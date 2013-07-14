@@ -27,6 +27,7 @@ import dungeonCrawler.GameObjects.HealthPotion;
 import dungeonCrawler.GameObjects.IceArmor;
 import dungeonCrawler.GameObjects.ManaPotion;
 import dungeonCrawler.GameObjects.ConvArmor;
+import dungeonCrawler.GameObjects.Bow;
 
 /**
  * @author Tissen
@@ -390,8 +391,27 @@ public class Player extends Active {
 				element.setLives(Integer.parseInt(param[i+10]));
 				element.setMoney(Integer.parseInt(param[i+11]));
 				element.setMovementDelay(Integer.parseInt(param[i+12]));
-				for (int k=i+13;k<param.length;k++) {
-
+				for (int k=i+13;k<param.length;k+=2) {
+					switch (param[k]) {
+					case "B":
+						element.getInventar().add(new Bow());
+						break;
+					case "H":
+						element.getInventar().add(new HealthPotion(Integer.parseInt(param[k+1])));
+						break;
+					case "M":
+						element.getInventar().add(new ManaPotion(Integer.parseInt(param[k+1])));
+						break;
+					case "C":
+						element.getInventar().add(new ConvArmor(Integer.parseInt(param[k+1])));
+						break;
+					case "F":
+						element.getInventar().add(new FireArmor(Integer.parseInt(param[k+1])));
+						break;
+					case "I":
+						element.getInventar().add(new IceArmor(Integer.parseInt(param[k+1])));
+						break;
+					}
 				}
 			}
 			element.gei.setSize(size);

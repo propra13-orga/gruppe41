@@ -28,6 +28,10 @@ public class HealthPotion extends GameObject {
 		case "ENEMY": ((Enemy)element).increaseHealth(health); break;
 		}
 	}
+	
+	public int getHealth() {
+		return health;
+	}
 
 	@Override
 	public void draw(Graphics g) {
