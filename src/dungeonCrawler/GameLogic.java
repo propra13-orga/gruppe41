@@ -43,13 +43,13 @@ public class GameLogic implements KeyListener, ActionListener {
 	private SettingSet settings = new SettingSet(); 
 	private int[] delay = new int[1000];
 	private int[] max_delay = new int[1000];
-	private GameContent level;
+	protected GameContent level;
 	private BitSet keys;
 	protected Timer timer;
 	public App app;
-	Player player;
+	protected Player player;
 	public ShopSystem new_shop = null;
-	public ShopItem new_item;
+//	public ShopItem new_item;
 	public int Money;
 	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
 	private Vector2d startpos= new Vector2d(0,0);
@@ -543,7 +543,6 @@ public class GameLogic implements KeyListener, ActionListener {
 					if (new_shop == null) {
 						// initialize shop
 						new_shop = new ShopSystem((Player)level.getPlayer());
-						setmoney(Money+100);
 						new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 					}
 					else{
@@ -627,42 +626,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		level.addGameElement(element);
 	}
 
-	public Vector2d getCheckPoint() {
-		return checkPoint;
-	}
 
-	public void setCheckPoint(Vector2d checkPoint) {
-		this.checkPoint = checkPoint;
-	}
-
-	public void addmoney(int amount){
-		new_shop.setvermoegen(new_shop.getvermoegen() + new_shop.getvermoegen());
-	}
-
-	public void setmoney(int amount){
-		if (new_shop == null){
-			this.Money=amount;
-		}
-		else {
-			this.Money=amount;
-			new_shop.setvermoegen(Money);
-		}
-	}
-	public int getmoney(){
-		if (new_shop != null){
-			Money =new_shop.getvermoegen();
-		}
-		return Money;
-	}
-
-	public LinkedList<GameObject> getinventory() {
-		return player.getInventar();	
-	}
-
-	@Deprecated
-	public void setinventory(LinkedList<GameObject> Inventar) {
-		this.Inventar = Inventar;
-	}
 
 	public void startMainMenu(){
 		app.cp.removeAll();

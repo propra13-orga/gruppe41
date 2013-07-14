@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import dungeonCrawler.App;
 import dungeonCrawler.Network.Chat.Server;
 
 
@@ -33,7 +34,10 @@ public class LoungeServer implements ActionListener,Runnable{
 	
 	private JLabel message;
 
-	public LoungeServer(JPanel c) {
+	private App app;
+
+	public LoungeServer(App app, JPanel c) {
+		this.app = app;
 		fillServerCard(c);
 	}
 	
@@ -108,7 +112,7 @@ public class LoungeServer implements ActionListener,Runnable{
 
 	public void run() {
 		try {			
-			Server server = new Server(new Integer(portNumber.getText()));
+			Server server = new Server(app, new Integer(portNumber.getText()));
 			server.startServer(new Integer(portNumber.getText()));
 		} catch (IOException e) {
 			e.printStackTrace();

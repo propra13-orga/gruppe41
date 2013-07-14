@@ -40,9 +40,6 @@ public class CheckPoint extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
-		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			e.gameLogic.setCheckPoint(this.getPosition());
-		}
 	}
 
 	/**Creates new instance of this class.

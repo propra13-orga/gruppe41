@@ -64,7 +64,7 @@ public class Client extends JPanel implements Runnable
 			//is needed for sending with return key
 			public void actionPerformed(ActionEvent e) {
 				
-					getMessage(userName + "# " + e.getActionCommand());
+					getMessage(/*userName + "# " +*/ e.getActionCommand());
 				
 			}
 		});	
@@ -103,6 +103,7 @@ public class Client extends JPanel implements Runnable
 				e.printStackTrace();
 			}
 			scrollOutputArea.getVerticalScrollBar().setValue(scrollOutputArea.getVerticalScrollBar().getMaximum());
+			System.out.println("Client: " + message);
 			inputField.setText( "" );
 	}
 	
@@ -115,7 +116,20 @@ public class Client extends JPanel implements Runnable
 			
 			while (true) {
 				String message = streamIn.readUTF();
-				outputArea.append( message+"\n" );
+				String msg = message.trim();
+				int space = msg.indexOf(" ");
+				if(space < 0) space = msg.length();
+				String cmd = msg.substring(0, space);
+				String params = msg.substring(space).trim();
+				switch(cmd){
+				case "/chat":
+					if(params.length()>0)
+						outputArea.append( params+"\n" );
+					break;
+				default:
+					System.out.println("msg:" + msg);
+					break;
+				}
 			}
 		} catch(IOException ie) { 
 			outputArea.append("Can't get the new input, sorry!!!");

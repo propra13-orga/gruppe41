@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 import dungeonCrawler.DamageType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElementImage;
+import dungeonCrawler.GameElement;
+import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
@@ -100,6 +102,7 @@ public class Player extends Active {
 		if(this.lives>=0){
 			this.lives--;
 			this.health = this.maxHealth;
+			logic.teleportElement(this, checkPoint);
 			this.position = this.checkPoint;
 		} else {
 			logic.lost(this);
@@ -138,15 +141,16 @@ public class Player extends Active {
 			}
 			else {
 				System.out.println("!TOT! (x.x) Leben: " + lives);
+			die(logic);/*
 				lives--;
 				if(lives < 0){
 					logic.app.currentLevel = 0;
 				} else {
 					this.health = maxHealth;
-					logic.teleportElement(this, logic.getCheckPoint());
+				logic.teleportElement(this, this.checkPoint);
+			}*/
 				}
 			}
-		}
 
 	}
 
@@ -457,6 +461,13 @@ public class Player extends Active {
 	@Override
 	public String getName(){
 		return "PLAYER";
+	}
+
+	@Override
+	public boolean collision(GameElement element) {
+		if(!(element instanceof NetworkPlayer))
+			return super.collision(element);
+		return false;
 	}
 
 }

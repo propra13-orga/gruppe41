@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import dungeonCrawler.App;
+import dungeonCrawler.Network.Lounge.GameServer;
+
 /**
  * The chat Server 
  * @author Hucke
@@ -21,14 +24,24 @@ public class Server{
 	 * the variable from the DataOutputStream and refer to the client.
 	 */
 	private Hashtable<Socket,DataOutputStream> outputStreams = new Hashtable<Socket,DataOutputStream>();
+
+	private boolean running = false;
+
+	private App app;
 	
+	public boolean isRunning() {
+		return running;
+	}
+
+
 	/**
 	 * Constructor of the class gives the listen method the port of the Server
 	 * 
 	 * @param port the port the Server run on
 	 * @throws IOException 
 	 */
-	public Server(int port) throws IOException {
+	public Server(App app, int port) throws IOException {
+		this.app = app;
 		listen(port);
 	}
 
@@ -48,7 +61,9 @@ public class Server{
 		
 
 		serverSocket = new ServerSocket(port);
+		GameServer gs = new GameServer(app, this);
 		System.out.println("Server Started");
+		this.running  = true;
 
 		while (true) {
 
@@ -59,7 +74,7 @@ public class Server{
 			DataOutputStream output = new DataOutputStream(client.getOutputStream());
 			outputStreams.put(client, output);
 			
-			new ServerThread(this, client);
+			new GameServerThread(this, client, gs);
 		}
 	}
 	
@@ -145,7 +160,7 @@ public class Server{
 		
 
 		try {
-			new Server(port);
+			new Server(app, port);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

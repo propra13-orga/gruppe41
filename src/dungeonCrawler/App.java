@@ -146,4 +146,28 @@ public class App {
 
 	}
 
+	public void startServerGame() {
+		// TODO Auto-generated method stub
+		if (currentLevel<level) {
+//			dungeon[currentLevel].complete = false;
+			gameContent = loader.getLevel();
+			
+			if (loader.loaded) {
+				cp.removeAll();
+				Camera camera = new Camera(gameContent);
+				gameLogic.setLevel(gameContent);
+				this.camera = camera;
+				//perhaps instead of camera a JPanel containing menu bar and camera
+				cp.add(camera);
+				cp.validate();
+				gameLogic.timer.start();
+			}
+		}
+		else {
+			currentLevel = 0;
+			startMainMenu();
+			gameLogic.timer.stop();
+		}
+	}
+
 }

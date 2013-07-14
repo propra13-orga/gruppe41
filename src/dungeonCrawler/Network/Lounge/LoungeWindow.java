@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import dungeonCrawler.App;
+
 /**
  * Construction of the Lounge with added content in tabbed pane
  *  
@@ -17,9 +19,11 @@ public class LoungeWindow{
 
 		
 		JButton server;
+		private App app;
 	 
-	    public LoungeWindow() {
+	    public LoungeWindow(App app) {
 	        super();
+	    	this.app = app;
             JFrame gui = new JFrame("Dungeon Crawler Lounge");
 	        gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        gui.setPreferredSize(new Dimension(600, 500));
@@ -40,7 +44,7 @@ public class LoungeWindow{
 	    	tabbedPane.addTab("Client", clientPanel);
 	    	
 	    	JPanel serverPanel = new JPanel();
-	    	serverPanel.add(server, new LoungeServer(server));
+	    	serverPanel.add(server, new LoungeServer(app, server));
 	    	tabbedPane.addTab("Server", serverPanel);
 	    	
 	    	c.add(tabbedPane);
