@@ -37,7 +37,7 @@ public class LevelLoader {
 		this.idCounter = 1000;
 	}
 	
-	public GameContent getClientLevel() {
+	public GameContent getClientLevel(String name) {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
 		int elementCounter = 0;
@@ -48,7 +48,7 @@ public class LevelLoader {
 			err.showMe();
 		}
 		try {
-			File file = new File(folder + separator + "levelN" + number + ".lvl");
+			File file = new File(folder + separator + "levelN" + name + number + ".lvl");
 			BufferedReader buffer = new BufferedReader(new FileReader(file));
 //			buffer = new BufferedReader(buffer);
 			String input = null;
@@ -200,6 +200,8 @@ public class LevelLoader {
 				element = Wall.createElement(param, idCounter); break;
 			case "WARPPOINT":
 				element = WarpPoint.createElement(param, idCounter); break;
+			case "NETWORKPLAYER":
+				element = NetworkPlayer.createElement(param, idCounter); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

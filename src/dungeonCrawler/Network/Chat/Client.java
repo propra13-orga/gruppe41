@@ -47,6 +47,8 @@ public class Client extends JPanel implements Runnable
 
 	private App app;
 
+	private String userName;
+
 
 	
 	/**
@@ -63,6 +65,7 @@ public class Client extends JPanel implements Runnable
 	
 	public Client(App app, String host, int port, final String userName) {
 		this.app = app;
+		this.userName = userName;
 
 
 		setLayout( new BorderLayout() );
@@ -115,6 +118,15 @@ public class Client extends JPanel implements Runnable
 			inputField.setText( "" );
 	}
 	
+	public void send(String message){
+		try {
+			streamOut.writeUTF(message);
+		} catch (IOException e) {
+			outputArea.append("The message is not sent, please try again...");
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * The Thread in a infinity-loop it waits for incoming messages and
 	 * append it to the incoming area
@@ -135,7 +147,7 @@ public class Client extends JPanel implements Runnable
 						outputArea.append( params+"\n" );
 					break;
 				case "/start":
-					app.startClientGame();
+					app.startClientGame(this);
 					break;
 				case "/delete":
 					deleteLvl(params);
@@ -164,7 +176,7 @@ public class Client extends JPanel implements Runnable
 		} catch (Exception e) {
 			str =  "00";
 		}
-		File file = new File("Levels" + separator + "levelN" + str + ".lvl");
+		File file = new File("Levels" + separator + "levelN" + userName + str + ".lvl");
 		if(file.exists()){
 			file.delete();
 		}
@@ -180,7 +192,7 @@ public class Client extends JPanel implements Runnable
 		} catch (Exception e) {
 			str =  "00";
 		}
-		File file = new File("Levels" + separator + "levelN" + str + ".lvl");
+		File file = new File("Levels" + separator + "levelN" + userName + str + ".lvl");
 		try {
 			if(!file.exists())
 				file.createNewFile();
@@ -191,6 +203,10 @@ public class Client extends JPanel implements Runnable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String getUserName() {
+		return userName;
 	}
 }
 

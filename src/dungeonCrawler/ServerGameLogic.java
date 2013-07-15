@@ -32,6 +32,8 @@ public class ServerGameLogic extends GameLogic {
 			}
 		}
 		player = (Player) level.getPlayer();
+		NetworkPlayer tmp1 = new NetworkPlayer(player.position, player.size, player.id);
+		gs.broadcastMessage("/line " + app.currentLevel + ";" + tmp1.getString());
 		for(Entry<Socket, State> entry: gs.getSockets().entrySet()){
 			entry.getValue().setPlayerID(app.gameContent.getNextFreeID());
 			gs.send(entry.getKey(),"/line " + app.currentLevel + ";" + (new Player(player.position, player.size, entry.getValue().getPlayerID())).getString());
@@ -42,6 +44,10 @@ public class ServerGameLogic extends GameLogic {
 		
 		
 		gs.broadcastMessage("/start");
+	}
+	
+	public void move(int id, Vector2d direction){
+		
 	}
 
 }

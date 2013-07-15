@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFrame;
 
+import dungeonCrawler.Network.Chat.Client;
 import dungeonCrawler.Network.Lounge.GameServer;
 
 
@@ -55,7 +56,9 @@ public class App {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("Dungeon Crawler");
 		window.setFocusable(true);
+		window.removeKeyListener(gameLogic);
 		window.addKeyListener(gameLogic);
+		window.removeKeyListener(clientGameLogic);
 		window.addKeyListener(clientGameLogic);
 		window.setResizable(false);
 		currentLevel=0;
@@ -182,18 +185,18 @@ public class App {
 		}
 	}
 	
-	public void startClientGame() {
+	public void startClientGame(Client client) {
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
 //			dungeon[currentLevel].complete = false;
-			gameContent = loader.getClientLevel();
+			gameContent = loader.getClientLevel(client.getUserName());
 			
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);
 				
 				window.removeKeyListener(clientGameLogic);
-				clientGameLogic = new ClientGameLogic(this);
+				clientGameLogic = new ClientGameLogic(this, client);
 				window.addKeyListener(clientGameLogic);
 				
 				clientGameLogic.setLevel(gameContent);
