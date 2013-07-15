@@ -30,11 +30,6 @@ public class CheckPoint extends GameElement {
 	}
 	
 	@Override
-	public String getName(){
-		return "CHECKPOINT";
-	}
-
-	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		
@@ -45,9 +40,6 @@ public class CheckPoint extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
-		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			e.gameLogic.setCheckPoint(this.getPosition());
-		}
 	}
 
 	/**Creates new instance of this class.
@@ -96,6 +88,11 @@ public class CheckPoint extends GameElement {
 		return (getName() + sep + id + sep +
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
+	}
+
+	@Override
+	public String getName(){
+		return "CHECKPOINT";
 	}
 
 }

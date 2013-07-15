@@ -27,6 +27,7 @@ public class GameContent {
 	private GameElement statusBar;
 	private GameElement itemPanel;
 	private GameLogic logic;
+	private int nextFreeID = 20000;
 	
 	/**
 	 * 
@@ -34,6 +35,10 @@ public class GameContent {
 	public GameContent(GameLogic gl) {
 		this.logic = gl;
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getNextFreeID() {
+		return nextFreeID++;
 	}
 
 	public boolean addGameElement(GameElement e){
@@ -65,6 +70,8 @@ public class GameContent {
 		if(e instanceof Active){
 			ret &= this.actives.add((Active)e);
 		}
+		if(e.id > this.nextFreeID)
+			this.nextFreeID = e.id + 1;
 		return this.gameElements.add(e) && ret;
 	}
 

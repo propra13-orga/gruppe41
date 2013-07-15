@@ -125,7 +125,6 @@ public class Healthpot extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "HEALTHPOT";
 	}
 

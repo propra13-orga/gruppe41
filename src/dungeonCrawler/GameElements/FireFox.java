@@ -115,8 +115,7 @@ public class FireFox extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return "Fireball";
+		return "FIREFOX";
 	}	
 	
 }

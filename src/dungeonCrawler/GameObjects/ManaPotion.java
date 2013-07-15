@@ -17,19 +17,25 @@ public class ManaPotion extends GameObject {
 	public ManaPotion(int m) {
 		this.mana = m;
 	}
-	
+
 	@Override
 	public void performOn(GameElement element) {
 		// TODO Auto-generated method stub
 		String name = element.getName();
 		switch (name) {
 		case "PLAYER": ((Player)element).increaseMana(mana); break;
-	}
+		}
 
-}
+	}
+	
+	public int getValue() {
+		return mana;
+	}
 
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.BLUE);
 		super.draw(g);
-	}}
+	}
+
+}
