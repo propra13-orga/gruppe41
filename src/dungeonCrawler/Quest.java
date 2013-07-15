@@ -184,8 +184,7 @@ public class Quest{
 							"Sammle alle Geldeinheiten";
 			case 1: return 	welcome +
 							"Töte 10 Teufel\n\n" +
-							"Sammle 2 Healthpacks ein\n\n" +
-							"Sammle 2 Manaträne ein";
+							"Sammle 2 magisches Schild ein\n\n";
 			case 2: return 	welcome +
 							"Sammle 10 Geldeinheien ein\n\n" +
 							"Sammle 10 Manaträne ein\n\n" +
