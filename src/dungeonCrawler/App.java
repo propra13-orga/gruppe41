@@ -10,11 +10,8 @@ import dungeonCrawler.Network.Lounge.GameServer;
 
 
 
-/**
- * Application that includes dungeons and main window
- * 
+/**Application that includes dungeons and main window
  * @author Tissen
- *
  */
 public class App {
 	JFrame window; // main window
@@ -23,7 +20,7 @@ public class App {
 	Camera camera; // camera that shows a current level
 	int level; // number of level
 	public int currentLevel = 0; // current level number
-//	Listener listener = new Listener(this); // listener that monitors the game
+	//Listener listener = new Listener(this); // listener that monitors the game
 	protected GameLogic gameLogic = new GameLogic(this);
 	protected ClientGameLogic clientGameLogic;
 	protected ServerGameLogic serverGameLogic;
@@ -33,7 +30,11 @@ public class App {
 	private Quest quest = new Quest();
 	public Boolean editmode = false;
 
-	// constructor
+	/**Constructor
+	 * @param level
+	 * @param width
+	 * @param height
+	 */
 	public App(int level, int width, int height) {
 		// set main window parameters
 		initialize();
@@ -50,7 +51,7 @@ public class App {
 		window.pack();
 		window.setLocationRelativeTo(null);
 	}
-	
+
 	private void initialize(){
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,7 +76,7 @@ public class App {
 		cp.add(mainmenu);
 		cp.repaint();
 	}
-	
+
 	public void starteditormenu(){
 		cp.removeAll();	
 		cp.add(editormenu);
@@ -83,12 +84,12 @@ public class App {
 		cp.repaint();
 	}
 
-	
-	
+
+
 	public void startEdit(File file) {
 		editmode = true;
 		if (currentLevel<level) {
-//			dungeon[currentLevel].complete = false;
+			//			dungeon[currentLevel].complete = false;
 			gameContent = loader.getLevel();			
 			if (loader.loaded) {
 				cp.removeAll();
@@ -118,15 +119,15 @@ public class App {
 		cp.add(tmp);*/
 
 	}
-	
-	
-	
+
+
+
 	// starts a new level
 	public void startGame() {
 		if (currentLevel<level) {
-//			dungeon[currentLevel].complete = false;
+			//			dungeon[currentLevel].complete = false;
 			gameContent = loader.getLevel();
-			
+
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);
@@ -159,17 +160,17 @@ public class App {
 	public void startServerGame(GameServer gs) {
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
-//			dungeon[currentLevel].complete = false;
+			//			dungeon[currentLevel].complete = false;
 			gameContent = loader.getLevel();
-			
+
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);
-				
+
 				window.removeKeyListener(serverGameLogic);
 				serverGameLogic = new ServerGameLogic(this, gs);
 				window.addKeyListener(serverGameLogic);
-				
+
 				serverGameLogic.setLevel(gameContent);
 				this.camera = camera;
 				//perhaps instead of camera a JPanel containing menu bar and camera
@@ -184,21 +185,21 @@ public class App {
 			gameLogic.timer.stop();
 		}
 	}
-	
+
 	public void startClientGame(Client client) {
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
-//			dungeon[currentLevel].complete = false;
+			//			dungeon[currentLevel].complete = false;
 			gameContent = loader.getClientLevel(client.getUserName());
-			
+
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);
-				
+
 				window.removeKeyListener(clientGameLogic);
 				clientGameLogic = new ClientGameLogic(this, client);
 				window.addKeyListener(clientGameLogic);
-				
+
 				clientGameLogic.setLevel(gameContent);
 				this.camera = camera;
 				//perhaps instead of camera a JPanel containing menu bar and camera

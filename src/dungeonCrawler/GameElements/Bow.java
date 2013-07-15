@@ -80,7 +80,7 @@ public class Bow extends GameElement {
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private void modify(String[] param) {
+	public void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {

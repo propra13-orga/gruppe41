@@ -317,7 +317,6 @@ public class Player extends Active {
 					if ((ConvArmor) o == armor) {
 						current = n;
 					}
-					System.out.println("konventionell n=" + n + " c=" + current);
 					continue;
 				}
 				if (o instanceof FireArmor) {
@@ -326,7 +325,6 @@ public class Player extends Active {
 					if ((FireArmor) o == armor) {
 						current = n;
 					}
-					System.out.println("feuer n=" + n + " c=" + current);
 					continue;
 				}
 				if (o instanceof IceArmor) {
@@ -335,7 +333,6 @@ public class Player extends Active {
 					if ((IceArmor) o == armor) {
 						current = n;
 					}
-					System.out.println("eis n=" + n + " c=" + current);
 					continue;
 				}
 			}
@@ -374,7 +371,7 @@ public class Player extends Active {
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private void modify(String[] param) {
+	public void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		Vector2d checkPoint = new Vector2d();

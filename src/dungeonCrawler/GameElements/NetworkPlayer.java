@@ -56,7 +56,7 @@ public class NetworkPlayer extends GameElement {
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	public static void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
