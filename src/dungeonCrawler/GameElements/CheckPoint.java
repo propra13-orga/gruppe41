@@ -22,17 +22,17 @@ public class CheckPoint extends GameElement {
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public CheckPoint(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		
+
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
@@ -48,20 +48,20 @@ public class CheckPoint extends GameElement {
 	 * @return a {@link CheckPoint} instance
 	 */
 	public static CheckPoint createElement(String[] param, int id) {
-			if (param.length > 5) {
-				element = new CheckPoint(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new CheckPoint(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 5) {
+			element = new CheckPoint(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new CheckPoint(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -78,7 +78,7 @@ public class CheckPoint extends GameElement {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */

@@ -18,7 +18,7 @@ public class Bullet extends GameElement {
 	GameElementImage gei = new GameElementImage();
 	private int life = 300;
 	private Vector2d direction = new Vector2d(0,0);
-	
+
 	public Bullet(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
@@ -84,20 +84,20 @@ public class Bullet extends GameElement {
 	 * @return a {@link Bullet} instance
 	 */
 	public static Bullet createElement(String[] param, int id) {
-			if (param.length > 7) {
-				element = new Bullet(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new Bullet(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 7) {
+			element = new Bullet(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new Bullet(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		Vector2d direction = new Vector2d();
@@ -118,7 +118,7 @@ public class Bullet extends GameElement {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */

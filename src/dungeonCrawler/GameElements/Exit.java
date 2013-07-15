@@ -68,24 +68,24 @@ public class Exit extends GameElement {
 				e.gameLogic.app.cp.validate();
 				e.gameLogic.app.gameContent = new GameContent(e.gameLogic);
 				e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
-	//			e.gameLogic.app.startGame();
+				//			e.gameLogic.app.startGame();
 				System.out.println("Ausgang");
 				System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
 				Quest.setLevel(e.gameLogic.app.currentLevel);
 				System.out.println("Workaround: " + Quest.getLevel());
-	//			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
+				//			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
 				// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
 				this.size.setX(0);this.size.setY(0);
 				e.gameLogic.app.startGame();
 				e.gameLogic.new_shop = null;
-				
+
 			}
 			/*else if(!Quest.doneQuest(Quest.getLevel())){
 				if(quest == null){
 					quest = new Quest();
 					quest.setTimer(false);
 					Quest.completedMission(false);
-					
+
 				}
 				else{
 					quest.setTimer(false);
@@ -94,7 +94,7 @@ public class Exit extends GameElement {
 			}*/
 		}
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**Creates new instance of this class.
@@ -103,20 +103,20 @@ public class Exit extends GameElement {
 	 * @return a {@link Exit} instance
 	 */
 	public static Exit createElement(String[] param, int id) {
-			if (param.length > 5) {
-				element = new Exit(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new Exit(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 5) {
+			element = new Exit(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new Exit(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -133,7 +133,7 @@ public class Exit extends GameElement {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */

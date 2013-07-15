@@ -30,7 +30,7 @@ public class MagicShield extends GameElement {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
-	
+
 	/**
 	 * @param position
 	 * @param size
@@ -39,7 +39,7 @@ public class MagicShield extends GameElement {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
 	}
-	
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
@@ -66,20 +66,20 @@ public class MagicShield extends GameElement {
 	 * @return a {@link MagicShield} instance
 	 */
 	public static MagicShield createElement(String[] param, int id) {
-			if (param.length > 5) {
-				element = new MagicShield(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new MagicShield(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 5) {
+			element = new MagicShield(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new MagicShield(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -96,7 +96,7 @@ public class MagicShield extends GameElement {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */

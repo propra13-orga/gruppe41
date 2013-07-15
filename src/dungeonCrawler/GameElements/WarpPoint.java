@@ -66,46 +66,46 @@ public class WarpPoint extends GameElement {
 		else {
 			element = new WarpPoint(new Vector2d(), new Vector2d(), id, new Vector2d());
 		}
-	modify(param);
-	return element;
-}
-
-/**Modifies parameters.
- * @param param as {@link String[]}
- */
-private static void modify(String[] param) {
-	Vector2d position = new Vector2d();
-	Vector2d size = new Vector2d();
-	Vector2d target = new Vector2d();
-	try {
-		int i = (param.length > 7 ? 1 : 0);
-		position.setX(Integer.parseInt(param[i+1]));
-		position.setY(Integer.parseInt(param[i+2]));
-		size.setX(Integer.parseInt(param[i+3]));
-		size.setY(Integer.parseInt(param[i+4]));
-		target.setX(Integer.parseInt(param[i+5]));
-		target.setY(Integer.parseInt(param[i+6]));
-		element.setPosition(position);
-		element.setSize(size);
-		element.setTarget(target);
-		element.gei.setSize(size);
-	} catch (NumberFormatException e) {
-		System.out.println("Kann WARPPOINT-Parameter nicht interpretieren.");
-		element = null;
+		element.modify(param);
+		return element;
 	}
-}
 
-/**Gets a parameter string.
- * @see dungeonCrawler.GameElement#getString()
- */
-@Override
-public String getString() {
-	String sep = LevelLoader.getSplitChar();
-	return (getName() + sep + id + sep +
-			position.getX() + sep + position.getY() + sep +
-			size.getX() + sep + size.getY() + sep +
-			target.getX() + sep + target.getY());
-}
+	/**Modifies parameters.
+	 * @param param as {@link String[]}
+	 */
+	private void modify(String[] param) {
+		Vector2d position = new Vector2d();
+		Vector2d size = new Vector2d();
+		Vector2d target = new Vector2d();
+		try {
+			int i = (param.length > 7 ? 1 : 0);
+			position.setX(Integer.parseInt(param[i+1]));
+			position.setY(Integer.parseInt(param[i+2]));
+			size.setX(Integer.parseInt(param[i+3]));
+			size.setY(Integer.parseInt(param[i+4]));
+			target.setX(Integer.parseInt(param[i+5]));
+			target.setY(Integer.parseInt(param[i+6]));
+			element.setPosition(position);
+			element.setSize(size);
+			element.setTarget(target);
+			element.gei.setSize(size);
+		} catch (NumberFormatException e) {
+			System.out.println("Kann WARPPOINT-Parameter nicht interpretieren.");
+			element = null;
+		}
+	}
+
+	/**Gets a parameter string.
+	 * @see dungeonCrawler.GameElement#getString()
+	 */
+	@Override
+	public String getString() {
+		String sep = LevelLoader.getSplitChar();
+		return (getName() + sep + id + sep +
+				position.getX() + sep + position.getY() + sep +
+				size.getX() + sep + size.getY() + sep +
+				target.getX() + sep + target.getY());
+	}
 
 	@Override
 	public String getName() {

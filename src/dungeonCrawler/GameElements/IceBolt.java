@@ -79,20 +79,20 @@ public class IceBolt extends GameElement {
 	 * @return a {@link IceBolt} instance
 	 */
 	public static IceBolt createElement(String[] param, int id) {
-			if (param.length > 7) {
-				element = new IceBolt(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new IceBolt(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 7) {
+			element = new IceBolt(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new IceBolt(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		Vector2d direction = new Vector2d();
@@ -113,7 +113,7 @@ public class IceBolt extends GameElement {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */

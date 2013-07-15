@@ -46,7 +46,7 @@ public class Enemy extends GameElement {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @param position
 	 * @param size
@@ -62,20 +62,20 @@ public class Enemy extends GameElement {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		gei.paintComponent(g);
 	}
-	
+
 	public void setPosition(Vector2d pos) {
 		this.position = pos;
 	}
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		
+
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
@@ -86,19 +86,19 @@ public class Enemy extends GameElement {
 			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
 		}
 	}	
-	
+
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	
+
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
-	
+
 	public void increaseHealth(int health) {
 		this.health += health;
 	}
-	
+
 	public void reduceHealth(int health, DamageType damage, GameLogic logic) {
 		if (this.health-health > 0){
 			this.health = this.health-health;
@@ -112,14 +112,14 @@ public class Enemy extends GameElement {
 				this.size = new Vector2d(0,0);
 				System.out.println("Enemy dead");
 				Quest.killedEnemys(Quest.getLevel());
-				} else {
+			} else {
 				this.health -= health;
 				System.out.println("Enemy lost " + health + " and has now " + this.health + " Health");
 				this.health = 100;
 			}
 		}
 	}
-	
+
 	public int getHealth() {
 		return this.health;
 	}
@@ -130,20 +130,20 @@ public class Enemy extends GameElement {
 	 * @return a {@link Enemy} instance
 	 */
 	public static Enemy createElement(String[] param, int id) {
-			if (param.length > 5) {
-				element = new Enemy(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new Enemy(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 5) {
+			element = new Enemy(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new Enemy(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -164,7 +164,7 @@ public class Enemy extends GameElement {
 			element = null;
 		}
 	}
-	
+
 	/**Gets a parameter string.
 	 * @see dungeonCrawler.GameElement#getString()
 	 */
@@ -175,8 +175,8 @@ public class Enemy extends GameElement {
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
 	}
-	
-	
+
+
 
 	@Override
 	public String getName(){

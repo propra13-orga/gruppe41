@@ -146,7 +146,7 @@ public class Player extends Active {
 			}
 			else {
 				System.out.println("!TOT! (x.x) Leben: " + lives);
-			die(logic);/*
+				die(logic);/*
 				lives--;
 				if(lives < 0){
 					logic.app.currentLevel = 0;
@@ -154,8 +154,8 @@ public class Player extends Active {
 					this.health = maxHealth;
 				logic.teleportElement(this, this.checkPoint);
 			}*/
-				}
 			}
+		}
 
 	}
 
