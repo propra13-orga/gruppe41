@@ -349,7 +349,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 	public boolean moveElement(GameElement e, Vector2d direction){
 		if (app.editmode==false){
-			if(e.type.contains(ElementType.MOVABLE)){ //TODO call handleCollision only once per GameElement
+			if(e.type.contains(ElementType.MOVABLE) && !direction.isNull()){ //TODO call handleCollision only once per GameElement
 				//			System.out.println("test" + collisioncheck.type.toString());
 				HashSet<GameElement> collides = new HashSet<GameElement>();
 				e.setPosition(e.position.add(new Vector2d(direction.getX(), 0)));

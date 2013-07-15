@@ -46,8 +46,33 @@ public class ServerGameLogic extends GameLogic {
 		gs.broadcastMessage("/start");
 	}
 	
-	public void move(int id, Vector2d direction){
-		
+	public boolean moveElement(int id, Vector2d direction){
+		GameElement tmp = level.find(id);
+		if(tmp != null)
+			return moveElement(tmp, direction);
+		return false;
+	}
+	public boolean teleportElement(int id, Vector2d position){
+		GameElement tmp = level.find(id);
+		if(tmp != null)
+			return teleportElement(tmp, position);
+		return false;
+	}
+
+	@Override
+	public boolean moveElement(GameElement e, Vector2d direction) {
+		boolean ret = super.moveElement(e, direction);
+		if(ret)
+			this.gs.sendAll("/teleport " + e.id + ";" + e.position);
+		return ret;
+	}
+
+	@Override
+	public boolean teleportElement(GameElement e, Vector2d position) {
+		boolean ret = super.teleportElement(e, position);
+		if(ret)
+			this.gs.sendAll("/teleport " + e.id + ";" + e.position);
+		return ret;
 	}
 
 }

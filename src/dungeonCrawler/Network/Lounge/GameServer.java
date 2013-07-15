@@ -47,6 +47,10 @@ public class GameServer extends JPanel {
 		}
 	}
 	
+	public void sendAll(String message){
+		server.broadcastMessage(message);
+	}
+	
 	public void broadcastMessage(String message){
 		server.broadcastMessage(message);
 	}
@@ -91,6 +95,12 @@ public class GameServer extends JPanel {
 			break;
 		case "/start":
 			start();
+			break;
+		case "/teleport":
+			System.out.println(msg);
+			break;
+		case "/move":
+			System.out.println("!	" + msg);
 			break;
 		default:
 			chat(msg);

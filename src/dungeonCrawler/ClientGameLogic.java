@@ -28,5 +28,28 @@ public class ClientGameLogic extends GameLogic {
 			}
 		}
 	}
+	
+	public boolean teleportElement(int id, Vector2d position){
+		GameElement tmp = level.find(id);
+		if(tmp != null){
+			tmp.position = position;
+			return true;
+		}
+		return false;
+	}
 
+	@Override
+	public boolean moveElement(GameElement e, Vector2d direction) {
+		boolean ret = super.moveElement(e, direction);
+		if(ret)
+			this.client.send("/move " + e.id + ";" + direction);
+		return ret;
+	}
+
+	@Override
+	public boolean teleportElement(GameElement e, Vector2d position) {
+		boolean ret = super.teleportElement(e, position);
+		this.client.send("/teleport " + e.id + ";" + e.position);
+		return ret;
+	}
 }

@@ -40,6 +40,14 @@ public class GameContent {
 	public int getNextFreeID() {
 		return nextFreeID++;
 	}
+	
+	public GameElement find(int id){
+		for(GameElement e: gameElements){
+			if(e.id == id)
+				return e;
+		}
+		return null;
+	}
 
 	public boolean addGameElement(GameElement e){
 		boolean ret = true;

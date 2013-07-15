@@ -4,6 +4,16 @@ public class Vector2d {
 
 	private int x, y;
 	
+	public Vector2d(String str){
+		String[] strs = str.split(",");
+		if(strs.length==2){
+			if(strs[0].startsWith("(") && strs[1].endsWith(")")){
+				this.x = Integer.parseInt(strs[0].substring(1));
+				this.y = Integer.parseInt(strs[1].substring(0, strs[1].length()-1));
+			}
+		}
+	}
+	
 	public Vector2d(int x, int y) {
 		this.x = x;
 		this.y = y;
