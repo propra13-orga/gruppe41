@@ -35,7 +35,7 @@ import dungeonCrawler.GameElements.WarpPoint;
 
 public class GameLogic implements KeyListener, ActionListener {
 
-	//	private long time;
+	private long time;
 	private Vector2d direction = new Vector2d(0,0);
 	private Vector2d lastDirection = new Vector2d(0,1);
 
@@ -65,7 +65,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		keys = new BitSet();
 		keys.clear();
 		this.level = app.gameContent;
-		timer = new Timer(1, this);
+		timer = new Timer(0, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
@@ -618,6 +618,22 @@ public class GameLogic implements KeyListener, ActionListener {
 				level.removeElement(tmpRem);
 			}
 			app.camera.repaint();
+			long timediff = (System.nanoTime() - time)/1000;
+			if(timediff>=4000) System.out.println("	" + timediff);
+			while(timediff<4000){
+//				try {
+//					Thread.sleep((4000-timediff)/1000);
+////					System.out.println("!	" + (timediff));
+////					Thread.sleep(0,(int)(4000-timediff)*1000);
+//				} catch (InterruptedException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+				timediff = (System.nanoTime() - time)/1000;
+//				if(timediff>=200) System.out.println("		" + timediff + "	e");
+			}
+//			System.out.println((System.nanoTime() - time)/1000);
+			time = System.nanoTime();
 			//			System.out.println("Timediff " + (System.currentTimeMillis() - time));
 		}
 	}
