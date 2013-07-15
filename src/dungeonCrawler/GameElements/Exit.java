@@ -9,7 +9,6 @@ import dungeonCrawler.GameContent;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
-import dungeonCrawler.GameLogic;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
@@ -23,7 +22,7 @@ import dungeonCrawler.Vector2d;
 public class Exit extends GameElement {
 	static Exit element;
 	GameElementImage gei = new GameElementImage();
-	Quest quest = null;
+	Quest quest = new Quest();
 
 
 	/**
@@ -55,14 +54,8 @@ public class Exit extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			if(Quest.doneQuest(Quest.getLevel()) || true){
-				Quest.completedMission(true);
-				try {
-					wait();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			if(Quest.doneQuest(Quest.getLevel())){
+				new Quest().completedMission(true);
 				e.gameLogic.app.currentLevel += 1;
 				e.gameLogic.app.cp.removeAll();
 				e.gameLogic.app.cp.validate();
@@ -80,18 +73,12 @@ public class Exit extends GameElement {
 				e.gameLogic.new_shop = null;
 
 			}
-			/*else if(!Quest.doneQuest(Quest.getLevel())){
-				if(quest == null){
-					quest = new Quest();
-					quest.setTimer(false);
-					Quest.completedMission(false);
-
-				}
-				else{
-					quest.setTimer(false);
-					Quest.completedMission(false);
-				}
-			}*/
+			else if(!Quest.doneQuest(Quest.getLevel())){
+				quest.setTimer(false);
+				e.gameLogic.app.gameContent.getPlayer().setPosition(e.gameLogic.app.gameContent.getPlayer().getPosition().addX(10));
+				new Quest().completedMission(false);
+			}
+			
 		}
 		// TODO Auto-generated method stub
 

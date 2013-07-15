@@ -71,7 +71,7 @@ public class Quest{
 		dialogStart.setVisible(true);
 	}
 	
-	public static void completedMission(boolean state){
+	public void completedMission(boolean state){
 			dialogComplete = new JDialog();
 			dialogComplete = new JDialog();
 			dialogComplete.setLocationRelativeTo(null);
@@ -104,8 +104,6 @@ public class Quest{
 				public void actionPerformed(ActionEvent e) {
 					dialogComplete.dispose();
 					GameLogic.timer.start();
-					notify();
-					
 				}
 			});
 			buttonPanel.add(exitButton);
