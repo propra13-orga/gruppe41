@@ -53,7 +53,10 @@ public abstract class GameElement implements Drawable, GameListener {
 	}
 	
 	public String getString(){
-		return this.toString();
+		String sep = LevelLoader.getSplitChar();
+		return (getName() + sep + id + sep +
+				position.getX() + sep + position.getY() + sep +
+				size.getX() + sep + size.getY());
 	}
 	
 	public Vector2d getPosition() {
