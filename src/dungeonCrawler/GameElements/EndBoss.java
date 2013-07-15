@@ -130,7 +130,7 @@ public class EndBoss extends GameElement {
 			}
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
-			System.out.println("Kann EndBoss-Parameter nicht interpretieren.");
+			System.out.println("Kann ENDBOSS-Parameter nicht interpretieren.");
 			element = null;
 		}
 	}

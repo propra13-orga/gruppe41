@@ -35,7 +35,7 @@ public class NetworkPlayer extends GameElement {
 
 	}
 
-	
+
 
 	@Override
 	public String getName() {
@@ -43,20 +43,20 @@ public class NetworkPlayer extends GameElement {
 	}
 
 	public static NetworkPlayer createElement(String[] param, int id) {
-			if (param.length > 5) {
-				element = new NetworkPlayer(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
-			}
-			else {
-				element = new NetworkPlayer(new Vector2d(), new Vector2d(), id);
-			}
-		modify(param);
+		if (param.length > 5) {
+			element = new NetworkPlayer(new Vector2d(), new Vector2d(), Integer.parseInt(param[1]));
+		}
+		else {
+			element = new NetworkPlayer(new Vector2d(), new Vector2d(), id);
+		}
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	public static void modify(String[] param) {
+	public void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		try {
@@ -67,13 +67,13 @@ public class NetworkPlayer extends GameElement {
 			size.setY(Integer.parseInt(param[i+4]));
 			element.setPosition(position);
 			element.setSize(size);
-//			element.gei.setSize(size);
+			//			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann NetworkPlayer-Parameter nicht interpretieren.");
 			element = null;
 		}
 	}
-	
+
 	@Override
 	public boolean collision(GameElement element) {
 		if(!(element instanceof Player))
