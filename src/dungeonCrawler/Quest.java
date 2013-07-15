@@ -13,13 +13,15 @@ import javax.swing.JTextArea;
 
 
 /**
- * 
+ * Add quests to the Dungeon Crawler
  * @author Hucke
  *
  */
 public class Quest{
 	
-	private JDialog dialogStart, dialogComplete; 
+	private JDialog dialogStart;
+
+	private static JDialog dialogComplete; 
 	
 	private static int level = 0;
 	private static int[] kills = {0,0,0};
@@ -31,7 +33,9 @@ public class Quest{
 	
 	public void startLevel(int level){
 		dialogStart = new JDialog();
-		dialogStart.setSize(300,300);
+		dialogStart.setSize(500,280);
+		dialogStart.setUndecorated(true);
+		dialogStart.setLocationRelativeTo(null);
 		JPanel dialogPanel = new JPanel();
 		dialogPanel.setLayout(new BorderLayout());
 		
@@ -54,7 +58,7 @@ public class Quest{
 			public void actionPerformed(ActionEvent e) {
 				dialogStart.dispose();
 				GameLogic.timer.start();
-				
+						
 			}
 		});
 		buttonPanel.add(exitButton);
@@ -66,10 +70,12 @@ public class Quest{
 		dialogStart.setVisible(true);
 	}
 	
-	public void completMission(boolean state){
+	public static void completedMission(boolean state){
 			dialogComplete = new JDialog();
 			dialogComplete = new JDialog();
-			dialogComplete.setSize(300,300);
+			dialogComplete.setLocationRelativeTo(null);
+			dialogComplete.setSize(500,280);
+			dialogComplete.setUndecorated(true);
 			JPanel dialogPanel = new JPanel();
 			dialogPanel.setLayout(new BorderLayout());
 			
@@ -84,7 +90,7 @@ public class Quest{
 			if(state == true){
 				textArea.setText("Alle Aufgaben wurden erledigt");
 			}
-			else{
+			else if(state == false){
 				textArea.setText("Es sind nach nicht alle aufgaben erfüllt");
 			}
 				
@@ -97,6 +103,7 @@ public class Quest{
 				public void actionPerformed(ActionEvent e) {
 					dialogComplete.dispose();
 					GameLogic.timer.start();
+					notify();
 					
 				}
 			});
@@ -168,15 +175,19 @@ public class Quest{
 		return health[level];
 	}
 	
-	public String getQuest(int level){
+	public static String getQuest(int level){
+		String welcome = "Hallo in Level: " + (level+1) + " hast du folgende Aufgaben:\n\n";
 		switch(level){
-			case 0: return 	"Sammle einen Bogen\n\n" +
+			case 0: return 	welcome +
+							"Sammle einen Bogen\n\n" +
 							"Töte alle Teufel\n\n" +
 							"Sammle alle Geldeinheiten";
-			case 1: return 	"Töte 10 Teufel\n\n" +
+			case 1: return 	welcome +
+							"Töte 10 Teufel\n\n" +
 							"Sammle 2 Healthpacks ein\n\n" +
 							"Sammle 2 Manaträne ein";
-			case 2: return 	"Sammle 10 Geldeinheien ein\n\n" +
+			case 2: return 	welcome +
+							"Sammle 10 Geldeinheien ein\n\n" +
 							"Sammle 2 Manaträne ein\n\n" +
 							"Sammle 5 magische Schilde ein";
 			default: return null;

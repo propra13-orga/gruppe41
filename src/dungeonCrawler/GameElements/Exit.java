@@ -55,8 +55,14 @@ public class Exit extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			if(Quest.doneQuest(Quest.getLevel())){
-				quest.completMission(true);
+			if(Quest.doneQuest(Quest.getLevel()) || true){
+				Quest.completedMission(true);
+				try {
+					wait();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.gameLogic.app.currentLevel += 1;
 				e.gameLogic.app.cp.removeAll();
 				e.gameLogic.app.cp.validate();
@@ -74,18 +80,18 @@ public class Exit extends GameElement {
 				e.gameLogic.new_shop = null;
 				
 			}
-			else if(!Quest.doneQuest(Quest.getLevel())){
+			/*else if(!Quest.doneQuest(Quest.getLevel())){
 				if(quest == null){
 					quest = new Quest();
 					quest.setTimer(false);
-					quest.completMission(false);
-					setAddPostion(getPosition(), -10, 0);
+					Quest.completedMission(false);
+					
 				}
 				else{
 					quest.setTimer(false);
-					quest.completMission(false);
+					Quest.completedMission(false);
 				}
-			}
+			}*/
 		}
 		// TODO Auto-generated method stub
 		
