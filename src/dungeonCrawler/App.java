@@ -31,9 +31,9 @@ public class App {
 	public Boolean editmode = false;
 
 	/**Constructor
-	 * @param level
-	 * @param width
-	 * @param height
+	 * @param level number of levels as {@link int}
+	 * @param width of the window in pixels
+	 * @param height of the window in pixels
 	 */
 	public App(int level, int width, int height) {
 		// set main window parameters
@@ -52,6 +52,9 @@ public class App {
 		window.setLocationRelativeTo(null);
 	}
 
+	/**Initialize game window
+	 * 
+	 */
 	private void initialize(){
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,11 +68,16 @@ public class App {
 		currentLevel=0;
 	}
 
-	// view window
+	/**View window
+	 * 
+	 */
 	public void start() {
 		window.setVisible(true);
 	}
 
+	/**Starts main menu
+	 * 
+	 */
 	public void startMainMenu(){
 		this.initialize();
 		cp.removeAll();
@@ -77,6 +85,9 @@ public class App {
 		cp.repaint();
 	}
 
+	/**Starts editor menu
+	 * 
+	 */
 	public void starteditormenu(){
 		cp.removeAll();	
 		cp.add(editormenu);
@@ -84,8 +95,9 @@ public class App {
 		cp.repaint();
 	}
 
-
-
+	/**Starts editor
+	 * @param file to be edited
+	 */
 	public void startEdit(File file) {
 		editmode = true;
 		if (currentLevel<level) {
@@ -108,21 +120,11 @@ public class App {
 			startMainMenu();
 			GameLogic.timer.stop();
 		}
-
-		/*	JPanel tmp = new JPanel(); // test for clipping
-		tmp.setLayout(null);
-		tmp.setSize(150, 130);
-		camera.setSize(70, 70);
-		tmp.add(camera);
-
-		tmp.validate();
-		cp.add(tmp);*/
-
 	}
 
-
-
-	// starts a new level
+	/**Starts a new level
+	 * 
+	 */
 	public void startGame() {
 		if (currentLevel<level) {
 			//			dungeon[currentLevel].complete = false;
@@ -145,18 +147,11 @@ public class App {
 			startMainMenu();
 			GameLogic.timer.stop();
 		}
-
-		/*	JPanel tmp = new JPanel(); // test for clipping
-		tmp.setLayout(null);
-		tmp.setSize(150, 130);
-		camera.setSize(70, 70);
-		tmp.add(camera);
-
-		tmp.validate();
-		cp.add(tmp);*/
-
 	}
 
+	/**
+	 * @param gs the server as {@link GameServer}
+	 */
 	public void startServerGame(GameServer gs) {
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
@@ -186,6 +181,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * @param client as {@link Client}
+	 */
 	public void startClientGame(Client client) {
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
