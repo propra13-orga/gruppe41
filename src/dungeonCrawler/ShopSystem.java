@@ -181,6 +181,9 @@ public class ShopSystem {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				for(int i=0; i<number;i++){
+					times[i]=0;
+				}
 				setvermoegen(preBuyVermoegen);
 				dialog.dispose();
 				GameLogic.timer.start();

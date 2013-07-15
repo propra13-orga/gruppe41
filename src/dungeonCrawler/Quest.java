@@ -188,8 +188,8 @@ public class Quest{
 							"Sammle 2 Manaträne ein";
 			case 2: return 	welcome +
 							"Sammle 10 Geldeinheien ein\n\n" +
-							"Sammle 2 Manaträne ein\n\n" +
-							"Sammle 5 magische Schilde ein";
+							"Sammle 10 Manaträne ein\n\n" +
+							"Töte 10 Teufel";
 			default: return null;
 		}
 	}
@@ -201,11 +201,11 @@ public class Quest{
 				return true;
 			}
 		case 1:
-			if((getKilledEnemys(1)==10) && (getCollectedHealth(1)==2) && (getCollectedMana(1)==2)){
+			if((getKilledEnemys(1)>=10) && (getCollectedMagicShield(1)>=1)){
 				return true;
 			}
 		case 2:
-			if((getCollectedMoney(2)==10) && (getCollectedMana(2)==10) && (getCollectedMagicShield(2)==5)){
+			if((getCollectedMoney(2)>=10) && (getCollectedMana(2)>=10) && (getKilledEnemys(2)>=10)){
 				return true; 
 			}
 		default: return false;
