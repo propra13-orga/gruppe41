@@ -4,14 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import dungeonCrawler.App;
 
 
 /**
@@ -40,6 +45,8 @@ public class Client extends JPanel implements Runnable
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
 
+	private App app;
+
 
 	
 	/**
@@ -54,7 +61,8 @@ public class Client extends JPanel implements Runnable
 	 * @param userName The user selected name for the chat 
 	 */
 	
-	public Client( String host, int port, final String userName) {
+	public Client(App app, String host, int port, final String userName) {
+		this.app = app;
 
 
 		setLayout( new BorderLayout() );
@@ -126,6 +134,15 @@ public class Client extends JPanel implements Runnable
 					if(params.length()>0)
 						outputArea.append( params+"\n" );
 					break;
+				case "/start":
+					app.startClientGame();
+					break;
+				case "/delete":
+					deleteLvl(params);
+					break;
+				case "/line":
+					writeLine(params);
+					break;
 				default:
 					System.out.println("msg:" + msg);
 					break;
@@ -133,6 +150,46 @@ public class Client extends JPanel implements Runnable
 			}
 		} catch(IOException ie) { 
 			outputArea.append("Can't get the new input, sorry!!!");
+		}
+	}
+
+	private void deleteLvl(String params) {
+		// TODO Auto-generated method stub
+		String[] param = params.split(";");
+		String separator = File.separator;
+		String str;
+		try {
+			str = 0 +  param[0];
+			str = str.substring(str.length()-2);
+		} catch (Exception e) {
+			str =  "00";
+		}
+		File file = new File("Levels" + separator + "levelN" + str + ".lvl");
+		if(file.exists()){
+			file.delete();
+		}
+	}
+
+	private void writeLine(String params) {
+		String[] param = params.split(";");
+		String separator = File.separator;
+		String str;
+		try {
+			str = 0 +  param[0];
+			str = str.substring(str.length()-2);
+		} catch (Exception e) {
+			str =  "00";
+		}
+		File file = new File("Levels" + separator + "levelN" + str + ".lvl");
+		try {
+			if(!file.exists())
+				file.createNewFile();
+			BufferedWriter buffer = new BufferedWriter(new FileWriter(file, true));
+			buffer.write(param[1] + "\n");
+			buffer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

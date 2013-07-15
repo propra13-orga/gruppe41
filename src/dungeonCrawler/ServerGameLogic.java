@@ -25,11 +25,23 @@ public class ServerGameLogic extends GameLogic {
 	public ServerGameLogic(App app, GameServer gs) {
 		super(app);
 		this.gs= gs;
+		gs.broadcastMessage("/delete " + app.currentLevel);
+		for(GameElement e:level.getGameElements()){
+			if(!(e instanceof Player)){
+				gs.broadcastMessage("/line " + app.currentLevel + ";" + e.getString());
+			}
+		}
 		player = (Player) level.getPlayer();
 		for(Entry<Socket, State> entry: gs.getSockets().entrySet()){
-			
+			entry.getValue().setPlayerID(app.gameContent.getNextFreeID());
+			gs.send(entry.getKey(),"/line " + app.currentLevel + ";" + (new Player(player.position, player.size, entry.getValue().getPlayerID())).getString());
+			NetworkPlayer tmp = new NetworkPlayer(player.position, player.size, entry.getValue().getPlayerID());
+			gs.sendWithout(entry.getKey(), "/line " + app.currentLevel + ";" + tmp.getString());
+			this.level.addGameElement(tmp);
 		}
-		this.level.addGameElement(new NetworkPlayer(player.position, player.size, player.id));
+		
+		
+		gs.broadcastMessage("/start");
 	}
 
 }

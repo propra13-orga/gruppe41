@@ -34,6 +34,22 @@ public class GameServer extends JPanel {
 		if(message.length()>0)
 			server.broadcastMessage("/chat " + message);
 	}
+	
+	public void send(Socket socket, String message){
+		server.send(socket, message);
+	}
+	
+	public void sendWithout(Socket socket, String message){
+		for(Socket sock: sockets.keySet()){
+			if(!sock.equals(socket)){
+				server.send(sock, message);
+			}
+		}
+	}
+	
+	public void broadcastMessage(String message){
+		server.broadcastMessage(message);
+	}
 	private void start(){
 		boolean ready = true;
 		for(State s: sockets.values()){
@@ -47,7 +63,7 @@ public class GameServer extends JPanel {
 	}
 	
 	private void startGame() {
-		app.startServerGame();
+		app.startServerGame(this);
 		
 	}
 

@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFrame;
 
+import dungeonCrawler.Network.Lounge.GameServer;
+
 
 
 /**
@@ -22,6 +24,8 @@ public class App {
 	public int currentLevel = 0; // current level number
 //	Listener listener = new Listener(this); // listener that monitors the game
 	protected GameLogic gameLogic = new GameLogic(this);
+	protected ClientGameLogic clientGameLogic;
+	protected ServerGameLogic serverGameLogic;
 	public LevelLoader loader;
 	public GameContent gameContent;
 	private Editormenu editormenu;
@@ -51,6 +55,7 @@ public class App {
 		window.setTitle("Dungeon Crawler");
 		window.setFocusable(true);
 		window.addKeyListener(gameLogic);
+		window.addKeyListener(clientGameLogic);
 		window.setResizable(false);
 		currentLevel=0;
 	}
@@ -146,7 +151,7 @@ public class App {
 
 	}
 
-	public void startServerGame() {
+	public void startServerGame(GameServer gs) {
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
 //			dungeon[currentLevel].complete = false;
@@ -155,12 +160,46 @@ public class App {
 			if (loader.loaded) {
 				cp.removeAll();
 				Camera camera = new Camera(gameContent);
-				gameLogic.setLevel(gameContent);
+				
+				window.removeKeyListener(serverGameLogic);
+				serverGameLogic = new ServerGameLogic(this, gs);
+				window.addKeyListener(serverGameLogic);
+				
+				serverGameLogic.setLevel(gameContent);
 				this.camera = camera;
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
 				cp.validate();
-				gameLogic.timer.start();
+				serverGameLogic.timer.start();
+			}
+		}
+		else {
+			currentLevel = 0;
+			startMainMenu();
+			gameLogic.timer.stop();
+		}
+	}
+	
+	public void startClientGame() {
+		// TODO Auto-generated method stub
+		if (currentLevel<level) {
+//			dungeon[currentLevel].complete = false;
+			gameContent = loader.getClientLevel();
+			
+			if (loader.loaded) {
+				cp.removeAll();
+				Camera camera = new Camera(gameContent);
+				
+				window.removeKeyListener(clientGameLogic);
+				clientGameLogic = new ClientGameLogic(this);
+				window.addKeyListener(clientGameLogic);
+				
+				clientGameLogic.setLevel(gameContent);
+				this.camera = camera;
+				//perhaps instead of camera a JPanel containing menu bar and camera
+				cp.add(camera);
+				cp.validate();
+				clientGameLogic.timer.start();
 			}
 		}
 		else {

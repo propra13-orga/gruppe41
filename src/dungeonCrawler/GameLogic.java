@@ -38,7 +38,6 @@ public class GameLogic implements KeyListener, ActionListener {
 	//	private long time;
 	private Vector2d direction = new Vector2d(0,0);
 	private Vector2d lastDirection = new Vector2d(0,1);
-	private Vector2d checkPoint = new Vector2d(0,0);
 
 	private SettingSet settings = new SettingSet(); 
 	private int[] delay = new int[1000];
@@ -50,7 +49,6 @@ public class GameLogic implements KeyListener, ActionListener {
 	protected Player player;
 	public ShopSystem new_shop = null;
 //	public ShopItem new_item;
-	public int Money;
 	public LinkedList<GameObject> Inventar = new LinkedList<GameObject>();	
 	private Vector2d startpos= new Vector2d(0,0);
 	private Vector2d endpos= new Vector2d(0,0);
@@ -66,11 +64,11 @@ public class GameLogic implements KeyListener, ActionListener {
 		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
+		this.level = app.gameContent;
 		timer = new Timer(1, this);
 		timer.setActionCommand("Timer");
 		timer.stop();
 		this.app = app;
-		Money = 0;
 
 		for(int i=0;i<1000;i++){
 			max_delay[i] = 3; 

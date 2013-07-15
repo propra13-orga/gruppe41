@@ -362,14 +362,14 @@ public class Player extends Active {
 		else {
 			element = new Player(new Vector2d(), new Vector2d(), id);
 		}
-		modify(param);
+		element.modify(param);
 		return element;
 	}
 
 	/**Modifies parameters.
 	 * @param param as {@link String[]}
 	 */
-	private static void modify(String[] param) {
+	private void modify(String[] param) {
 		Vector2d position = new Vector2d();
 		Vector2d size = new Vector2d();
 		Vector2d checkPoint = new Vector2d();

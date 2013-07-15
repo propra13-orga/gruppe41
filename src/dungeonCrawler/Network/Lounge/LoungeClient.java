@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import dungeonCrawler.App;
 import dungeonCrawler.Network.Chat.Client;
 
 /**
@@ -34,7 +35,10 @@ public class LoungeClient implements ActionListener{
 	
 	private CardLayout clientLayout;
 
-	public LoungeClient(JPanel c){
+	private App app;
+
+	public LoungeClient(App app, JPanel c){
+		this.app = app;
 		init(c);
 		
 	}
@@ -92,7 +96,7 @@ public class LoungeClient implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if(arg0.getSource()==connectButton){
-			client = new Client(ipField.getText(), new Integer(portField.getText()),userName.getText());
+			client = new Client(app, ipField.getText(), new Integer(portField.getText()),userName.getText());
 			chatPanel.add(client,BorderLayout.CENTER);
 			clientLayout.show(clientPanel, chatString );
 		}

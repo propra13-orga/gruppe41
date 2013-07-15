@@ -39,7 +39,6 @@ public class GameServerThread extends Thread {
 		while (true) {
 			String message = input.readUTF();
 			System.out.println(message);
-			server.broadcastMessage(message);
 			gs.interpret(socket, message);
 			}
 		}

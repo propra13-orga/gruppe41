@@ -40,7 +40,7 @@ public class LoungeWindow{
 	    	
 	    	
 	    	JPanel clientPanel = new JPanel();
-	    	clientPanel.add(client, new LoungeClient(client));
+	    	clientPanel.add(client, new LoungeClient(app, client));
 	    	tabbedPane.addTab("Client", clientPanel);
 	    	
 	    	JPanel serverPanel = new JPanel();

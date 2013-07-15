@@ -32,6 +32,15 @@ public class Server{
 	public boolean isRunning() {
 		return running;
 	}
+	
+	public void send(Socket socket, String message){
+		DataOutputStream output = outputStreams.get(socket);
+		try {
+			output.writeUTF(message);
+		} catch( IOException ie ){ 
+			System.out.println( ie ); 
+		}
+	}
 
 
 	/**
