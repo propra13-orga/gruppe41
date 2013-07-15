@@ -10,6 +10,7 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -53,6 +54,8 @@ public class Bow extends GameElement {
 			System.out.println("Bogen aufgenommen");
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.addItem(new dungeonCrawler.GameObjects.Bow());
+			Quest.collectedBow(Quest.getLevel());
+			if(Quest.getCollectedBow(Quest.getLevel())) System.out.println("im level: " + Quest.getLevel()+ " Du hast eine Bogen");
 //			elementPlayer.setBow(true);
 			this.size.setX(0);this.size.setY(0);
 		}

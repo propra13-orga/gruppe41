@@ -25,6 +25,7 @@ public class App {
 	public LevelLoader loader;
 	public GameContent gameContent;
 	private Editormenu editormenu;
+	private Quest quest = new Quest();
 	public Boolean editmode = false;
 
 	// constructor
@@ -89,14 +90,14 @@ public class App {
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
 				cp.validate();
-				gameLogic.timer.start();
+				GameLogic.timer.start();
 				gameLogic.file=file;
 			}
 		}
 		else {
 			currentLevel = 0;
 			startMainMenu();
-			gameLogic.timer.stop();
+			GameLogic.timer.stop();
 		}
 
 		/*	JPanel tmp = new JPanel(); // test for clipping
@@ -126,13 +127,14 @@ public class App {
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
 				cp.validate();
-				gameLogic.timer.start();
+				GameLogic.timer.stop();
+				quest.startLevel(currentLevel);
 			}
 		}
 		else {
 			currentLevel = 0;
 			startMainMenu();
-			gameLogic.timer.stop();
+			GameLogic.timer.stop();
 		}
 
 		/*	JPanel tmp = new JPanel(); // test for clipping

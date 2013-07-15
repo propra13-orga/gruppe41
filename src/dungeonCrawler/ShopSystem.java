@@ -3,10 +3,18 @@ package dungeonCrawler;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.Locale;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -38,6 +46,7 @@ public class ShopSystem {
 	private Player player;
 	private Inventar inventar;
 	private int preBuyVermoegen;
+	
 
 	public ShopSystem(Player p) {
 		this.player = p;
@@ -104,6 +113,9 @@ public class ShopSystem {
 	public void fillShop(int money, ShopItem ...item){
 		dialog = new JDialog(dialog, "Shop");
 		dialog.setDefaultCloseOperation( JDialog.DISPOSE_ON_CLOSE );
+		dialog.setLocationRelativeTo(dialog);
+			
+
 		Container c = dialog.getContentPane();
 		setvermoegen(money);
 		
@@ -171,6 +183,7 @@ public class ShopSystem {
 			public void actionPerformed(ActionEvent arg0) {
 				setvermoegen(preBuyVermoegen);
 				dialog.dispose();
+				GameLogic.timer.start();
 				
 			}
 		});
@@ -186,12 +199,13 @@ public class ShopSystem {
 					player.setMoney(getvermoegen());
 					for(int i=1;i<=times[n]; i++)
 						switch (getName(n)){
-							case "Armor": player.increaseShield(100);System.out.println("Amor done"); break;
-							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("MAna done"); break;
+							//case "Armor": player.addItem(new );System.out.println("Amor done"); break;
+							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("Mana done"); break;
 							case "Health": player.addItem(new HealthPotion(50));System.out.println("Health done"); break;
 						}
 				}
 				dialog.dispose();
+				GameLogic.timer.start();
 			}
 		});
 		dialog.pack();

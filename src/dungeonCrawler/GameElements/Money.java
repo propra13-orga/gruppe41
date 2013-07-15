@@ -11,6 +11,7 @@ import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
+import dungeonCrawler.Quest;
 
 /**
  * @author Dominik
@@ -53,7 +54,8 @@ public class Money extends GameElement {
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.setMoney(elementPlayer.getMoney()+10);
 			System.out.println("Mach mich reich, ich habe jetzt " + elementPlayer.getMoney() + " geld + 10");
-
+			Quest.collectedMoney(Quest.getLevel());
+			System.out.println("im level: " + Quest.getLevel()+ " Eingesammeltes Geld: " + Quest.getCollectedMoney(Quest.getLevel()));
 			this.size.setX(0);this.size.setY(0);
 		}
 	}

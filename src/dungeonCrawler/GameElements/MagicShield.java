@@ -10,6 +10,7 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -53,6 +54,8 @@ public class MagicShield extends GameElement {
 			System.out.println("+500 magischer Schild");
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.increaseShield(500);
+			Quest.collectedMagicShield(Quest.getLevel());
+			System.out.println("in level " + Quest.getLevel() + "schild eingesammelt :" + Quest.getCollectedMagicShield(Quest.getLevel()));
 			this.size.setX(0);this.size.setY(0);
 		}
 	}

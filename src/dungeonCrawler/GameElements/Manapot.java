@@ -14,6 +14,7 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -69,6 +70,7 @@ public class Manapot extends GameElement {
 			System.out.println("Heil mich");
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.increaseMana(100);
+			Quest.collectedMana(Quest.getLevel());
 			this.size.setX(0);this.size.setY(0);
 		}
 	}

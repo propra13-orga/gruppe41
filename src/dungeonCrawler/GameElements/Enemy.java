@@ -16,7 +16,9 @@ import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
+
 
 /**
  * @author Dominik
@@ -78,6 +80,7 @@ public class Enemy extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
+		
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
@@ -100,7 +103,7 @@ public class Enemy extends GameElement {
 	public void reduceHealth(int Health, DamageType damage, GameLogic logic) {
 		if (this.Health-Health > 0){
 			this.Health = this.Health-Health;
-			System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
+			System.out.println(" Enemy lost " + Health + " and has now " + this.Health + " Health");
 		}
 		else {
 			lives--;
@@ -108,7 +111,8 @@ public class Enemy extends GameElement {
 				this.Health -= Health;
 				this.size = new Vector2d(0,0);
 				System.out.println("Enemy dead");
-			} else {
+				Quest.killedEnemys(Quest.getLevel());
+				} else {
 				this.Health -= Health;
 				System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
 				this.Health = 100;
@@ -167,5 +171,7 @@ public class Enemy extends GameElement {
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
 	}
+	
+	
 
 }

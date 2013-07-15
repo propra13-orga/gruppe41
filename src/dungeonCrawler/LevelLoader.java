@@ -149,8 +149,6 @@ public class LevelLoader {
 				element = Wall.createElement(param, idCounter); break;
 			case "WARPPOINT":
 				element = WarpPoint.createElement(param, idCounter); break;
-//			case "QUEST":
-//				element = Quest.createElement(param, idCounter); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

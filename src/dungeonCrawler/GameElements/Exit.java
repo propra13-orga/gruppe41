@@ -3,16 +3,18 @@ package dungeonCrawler.GameElements;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
-
 import dungeonCrawler.ElementType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameContent;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameLogic;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
-//import dungeonCrawler.App;
+
+
 
 /**
  * @author Tissen
@@ -21,6 +23,8 @@ import dungeonCrawler.Vector2d;
 public class Exit extends GameElement {
 	static Exit element;
 	GameElementImage gei = new GameElementImage();
+	Quest quest = null;
+
 
 	/**
 	 * @param position
@@ -29,7 +33,7 @@ public class Exit extends GameElement {
 	@Deprecated
 	public Exit(Vector2d position, Vector2d size) {
 		super(position, size, -1);
-		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
+		this.type = EnumSet.of(ElementType.IMMOVABLE);
 	}
 
 	/**
@@ -51,19 +55,37 @@ public class Exit extends GameElement {
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			e.gameLogic.app.currentLevel += 1;
-			e.gameLogic.app.cp.removeAll();
-			e.gameLogic.app.cp.validate();
-			e.gameLogic.app.gameContent = new GameContent(e.gameLogic);
-			e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
-//			e.gameLogic.app.startGame();
-			System.out.println("Ausgang");
-			System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
-//			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
-			// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
-			this.size.setX(0);this.size.setY(0);
-			e.gameLogic.app.startGame();
-			e.gameLogic.new_shop = null;
+			if(Quest.doneQuest(Quest.getLevel())){
+				quest.completMission(true);
+				e.gameLogic.app.currentLevel += 1;
+				e.gameLogic.app.cp.removeAll();
+				e.gameLogic.app.cp.validate();
+				e.gameLogic.app.gameContent = new GameContent(e.gameLogic);
+				e.gameLogic.app.loader = new LevelLoader(e.gameLogic.app.gameContent, e.gameLogic.app);
+	//			e.gameLogic.app.startGame();
+				System.out.println("Ausgang");
+				System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
+				Quest.setLevel(e.gameLogic.app.currentLevel);
+				System.out.println("Workaround: " + Quest.getLevel());
+	//			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
+				// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
+				this.size.setX(0);this.size.setY(0);
+				e.gameLogic.app.startGame();
+				e.gameLogic.new_shop = null;
+				
+			}
+			else if(!Quest.doneQuest(Quest.getLevel())){
+				if(quest == null){
+					quest = new Quest();
+					quest.setTimer(false);
+					quest.completMission(false);
+					setAddPostion(getPosition(), -10, 0);
+				}
+				else{
+					quest.setTimer(false);
+					quest.completMission(false);
+				}
+			}
 		}
 		// TODO Auto-generated method stub
 		

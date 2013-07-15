@@ -14,6 +14,7 @@ import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
 
 /**
@@ -69,6 +70,7 @@ public class Healthpot extends GameElement {
 			System.out.println("Heil mich");
 			Player elementPlayer = (Player) e.element;
 			elementPlayer.increaseHealth(100);
+			Quest.collectedHealth(Quest.getLevel());
 			this.size.setX(0);this.size.setY(0);
 		}
 	}

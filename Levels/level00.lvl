@@ -2,7 +2,6 @@
 ; Keine Leerzeilen erlaubt. Zum Strukturieren Kommentare benutzen!
 ;
 ; Raum 1:
-QUEST,100,100,50,50
 WALL,0,0,350,50
 WALL,0,50,50,200
 WALL,50,200,450,50

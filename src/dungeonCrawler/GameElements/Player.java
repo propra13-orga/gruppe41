@@ -77,7 +77,7 @@ public class Player extends Active {
 	public String getName(){
 		return "PLAYER";
 	}
-
+	
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub

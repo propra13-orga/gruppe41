@@ -144,6 +144,11 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.size = s;
 	}
 	
+	public static void setAddPostion(Vector2d pos, int x, int y){
+		pos.addX(x);
+		pos.addY(y);
+	}
+	
 	/* (non-Javadoc)
 	 * @see dungeonCrawler.Drawable#draw()
 	 */

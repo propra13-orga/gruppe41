@@ -45,7 +45,7 @@ public class GameLogic implements KeyListener, ActionListener {
 	private int[] max_delay = new int[1000];
 	private GameContent level;
 	private BitSet keys;
-	protected Timer timer;
+	protected static Timer timer;
 	public App app;
 	Player player;
 	public ShopSystem new_shop = null;
@@ -540,11 +540,13 @@ public class GameLogic implements KeyListener, ActionListener {
 					// initialize shop
 					new_shop = new ShopSystem((Player)level.getPlayer());
 					setmoney(Money+100);
-					new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
+					timer.stop();
+					new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("MagicShield",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 				}
 				else{
 				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
-				new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
+				timer.stop();
+				new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("MagicShield",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 				player.setMoney(new_shop.getvermoegen());
 				}
 			}
