@@ -25,6 +25,7 @@ public class Quest{
 	
 	private static int level = 0;
 	private static int[] kills = {0,0,0};
+	private static int kill_EB = 0;
 	private static int[] money = {0,0,0};
 	private static boolean[] bow = {false,false,false};
 	private static int[] mana = {0,0,0};
@@ -132,6 +133,14 @@ public class Quest{
 	
 	public static int getKilledEnemys(int level){
 		return kills[level];
+	}
+	
+	public static void killedEndBoss(){
+		kill_EB+= 1 ;
+	}
+	
+	public static int getKilledEndBoss(){
+		return kill_EB;
 	}
 	
 	public static void collectedMoney(int level){

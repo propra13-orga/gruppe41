@@ -202,6 +202,8 @@ public class LevelLoader {
 				element = WarpPoint.createElement(param, idCounter); break;
 			case "NETWORKPLAYER":
 				element = NetworkPlayer.createElement(param, idCounter); break;
+			case "ENDBOSS":
+				element = EndBoss.createElement(param, idCounter); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {
