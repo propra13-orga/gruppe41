@@ -99,17 +99,11 @@ public class Enemy extends GameElement {
 		this.health += health;
 	}
 	
-<<<<<<< HEAD
-	public void reduceHealth(int Health, DamageType damage, GameLogic logic) {
-		if (this.Health-Health > 0){
-			this.Health = this.Health-Health;
-			System.out.println(" Enemy lost " + Health + " and has now " + this.Health + " Health");
-=======
 	public void reduceHealth(int health, DamageType damage, GameLogic logic) {
 		if (this.health-health > 0){
 			this.health = this.health-health;
 			System.out.println("Enemy lost " + health + " and has now " + this.health + " Health");
->>>>>>> c2cb33155ae3c5a50674762808b9fc3477ec3ff6
+
 		}
 		else {
 			lives--;
@@ -117,18 +111,11 @@ public class Enemy extends GameElement {
 				this.health -= health;
 				this.size = new Vector2d(0,0);
 				System.out.println("Enemy dead");
-<<<<<<< HEAD
 				Quest.killedEnemys(Quest.getLevel());
 				} else {
-				this.Health -= Health;
-				System.out.println("Enemy lost " + Health + " and has now " + this.Health + " Health");
-				this.Health = 100;
-=======
-			} else {
 				this.health -= health;
 				System.out.println("Enemy lost " + health + " and has now " + this.health + " Health");
 				this.health = 100;
->>>>>>> c2cb33155ae3c5a50674762808b9fc3477ec3ff6
 			}
 		}
 	}

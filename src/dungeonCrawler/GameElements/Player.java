@@ -73,13 +73,11 @@ public class Player extends Active {
 		}
 	}
 
-<<<<<<< HEAD
+
 	public String getName(){
 		return "PLAYER";
 	}
-	
-=======
->>>>>>> c2cb33155ae3c5a50674762808b9fc3477ec3ff6
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
@@ -463,11 +461,6 @@ public class Player extends Active {
 				shield + sep + lives + sep +						//shield + lives
 				money + sep + movementDelay +						//money + movementDelay
 				inventory);											//inventory
-	}
-
-	@Override
-	public String getName(){
-		return "PLAYER";
 	}
 
 	@Override

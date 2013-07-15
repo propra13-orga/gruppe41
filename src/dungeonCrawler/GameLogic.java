@@ -534,24 +534,6 @@ public class GameLogic implements KeyListener, ActionListener {
 
 
 
-<<<<<<< HEAD
-		if (checkKey(83)) { // s
-			keys.clear();
-			//timer.stop();
-			if (level.getPlayer() != null) {
-				if (new_shop == null) {
-					// initialize shop
-					new_shop = new ShopSystem((Player)level.getPlayer());
-					setmoney(Money+100);
-					timer.stop();
-					new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("MagicShield",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
-				}
-				else{
-				System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
-				timer.stop();
-				new_shop.fillShop(new_shop.getvermoegen(), new ShopItem("MagicShield",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
-				player.setMoney(new_shop.getvermoegen());
-=======
 			if (checkKey(83)) { // s
 				keys.clear();
 				//timer.stop();
@@ -564,10 +546,10 @@ public class GameLogic implements KeyListener, ActionListener {
 					}
 					else{
 						System.out.println("Shop Visable you have " + player.getMoney() + " Geld");
+						timer.stop();
 						new_shop.fillShop(((Player)level.getPlayer()).getMoney(), new ShopItem("Armor",20), new ShopItem("Health", 10), new ShopItem("Mana", 5));
 						player.setMoney(new_shop.getvermoegen());
 					}
->>>>>>> c2cb33155ae3c5a50674762808b9fc3477ec3ff6
 				}
 			}
 
