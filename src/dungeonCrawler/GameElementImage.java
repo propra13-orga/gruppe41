@@ -5,12 +5,19 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+/**Image of element
+ * @author Tissen
+ */
 public class GameElementImage extends JPanel {
 	private BufferedImage image;
 	private Vector2d size;
 
 	private static final long serialVersionUID = 1L;
 	
+	/**Paints the image
+	 * @param g graphics object
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (int i=0;i<size.getX();i+=image.getWidth()) {

@@ -3,18 +3,17 @@ package dungeonCrawler;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
-/**instance of an error message
- * 
+/**Instance of an error message
  * @author Tissen
- *
  */
 public class Error extends JDialog {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	String message;
 	
+	/**Constructor
+	 * @param message to be shown as {@link String}
+	 */
 	public Error(String message) {
 		this.message = message;
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -27,6 +26,8 @@ public class Error extends JDialog {
 		this.add(label);
 	}
 	
+	/**Shows massage window
+	 */
 	public void showMe() {
 		this.setVisible(true);
 	}

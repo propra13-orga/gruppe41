@@ -10,11 +10,8 @@ import java.io.IOException;
 
 import dungeonCrawler.GameElements.*;
 
-/**loads a level from a file.
- * look for a *.lvl file to create your own level.
- * 
- * @author Tissen
- *
+/**Loads a level from a file.<br>
+* @author Tissen
  */
 public class LevelLoader {
 	GameContent level;
@@ -27,7 +24,7 @@ public class LevelLoader {
 
 	/**Constructor
 	 * @param level to be loaded as {@link GameContent}
-	 * @param a the application as {@link App}
+	 * @param a this application as {@link App}
 	 */
 	public LevelLoader(GameContent level, App a) {
 		this.level = level;
@@ -37,6 +34,10 @@ public class LevelLoader {
 		this.idCounter = 1000;
 	}
 	
+	/**Gets level data for client
+	 * @param name of the client
+	 * @return level as {@link GameContent}
+	 */
 	public GameContent getClientLevel(String name) {
 		String number = getLevelNumber(app.currentLevel);
 		String separator = File.separator;
@@ -148,8 +149,7 @@ public class LevelLoader {
 
 	/**Parses a line of the level file
 	 * @param input {@link String} to be parsed
-	 * @return {@code true} if a {@link GameElement} was created<br>
-	 * {@code false} else
+	 * @return {@code true} if a {@link GameElement} was created, {@code false} else
 	 */
 	private boolean parse(String input) {
 		try {
@@ -164,6 +164,8 @@ public class LevelLoader {
 				element = CheckPoint.createElement(param, idCounter); break;
 			case "CONVARMOR":
 				element = ConvArmor.createElement(param, idCounter); break;
+			case "ENDBOSS":
+				element = EndBoss.createElement(param, idCounter); break;
 			case "ENEMY":
 				element = Enemy.createElement(param, idCounter); break;
 			case "EXIT":
@@ -188,6 +190,8 @@ public class LevelLoader {
 				element = Manapot.createElement(param, idCounter); break;					
 			case "MONEY":
 				element = Money.createElement(param, idCounter); break;
+			case "NETWORKPLAYER":
+				element = NetworkPlayer.createElement(param, idCounter); break;
 			case "NPC":
 				element = NPC.createElement(param, idCounter); break;
 			case "PLAYER":
@@ -200,10 +204,6 @@ public class LevelLoader {
 				element = Wall.createElement(param, idCounter); break;
 			case "WARPPOINT":
 				element = WarpPoint.createElement(param, idCounter); break;
-			case "NETWORKPLAYER":
-				element = NetworkPlayer.createElement(param, idCounter); break;
-			case "ENDBOSS":
-				element = EndBoss.createElement(param, idCounter); break;
 			}
 			return true;
 		} catch (NumberFormatException e) {

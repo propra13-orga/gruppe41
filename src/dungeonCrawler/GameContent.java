@@ -1,6 +1,3 @@
-/**
- * 
- */
 package dungeonCrawler;
 
 import java.util.LinkedList;
@@ -11,11 +8,9 @@ import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.GameElements.StatusBar;
 import dungeonCrawler.GameElements.Exit;
-//import dungeonCrawler.ShopSystem;
 
-/**
+/**The entire contents of a game level
  * @author Mattes
- *
  */
 public class GameContent {
 
@@ -29,8 +24,8 @@ public class GameContent {
 	private GameLogic logic;
 	private int nextFreeID = 20000;
 	
-	/**
-	 * 
+	/**Constructor
+	 * @param gl the {@link GameLogic}
 	 */
 	public GameContent(GameLogic gl) {
 		this.logic = gl;
@@ -41,6 +36,10 @@ public class GameContent {
 		return nextFreeID++;
 	}
 	
+	/**Search for a {@link GameElement}
+	 * @param id as {@link int}
+	 * @return the {@link GameElement} that has this id or {@link null}
+	 */
 	public GameElement find(int id){
 		for(GameElement e: gameElements){
 			if(e.id == id)
@@ -49,6 +48,10 @@ public class GameContent {
 		return null;
 	}
 
+	/**Add a {@link GameElement} to the list
+	 * @param e element to be added
+	 * @return {@link true} if successfully added, else {@link false}
+	 */
 	public boolean addGameElement(GameElement e){
 		boolean ret = true;
 /*		GameElement collisionElement = collisionWith(e);

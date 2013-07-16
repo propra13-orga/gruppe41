@@ -2,6 +2,8 @@ package dungeonCrawler;
 
 import java.util.EnumSet;
 
+/**Element types
+ */
 public enum ElementType {
 	WALKABLE, 
 	MOVABLE, 

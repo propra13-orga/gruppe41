@@ -1,8 +1,11 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.EnumSet;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
@@ -10,7 +13,9 @@ import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameLogic;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 //import dungeonCrawler.GameLogic;
 import dungeonCrawler.Vector2d;
 
@@ -21,6 +26,8 @@ import dungeonCrawler.Vector2d;
 public class FireFox extends GameElement {
 	static FireFox element;
 	GameElementImage gei = new GameElementImage();
+	private int health=100;
+	private int lives=0;
 
 	/**
 	 * @param position
@@ -30,6 +37,13 @@ public class FireFox extends GameElement {
 	public FireFox(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE);
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "FireFox.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -39,13 +53,18 @@ public class FireFox extends GameElement {
 	public FireFox(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.MOVABLE);
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "FireFox.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, size.getX(), size.getY());
+		gei.paintComponent(g);
 	}
 
 	public void setPosition(Vector2d pos) {
@@ -54,15 +73,53 @@ public class FireFox extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.reduceHealth(5, DamageType.FIRE, e.gameLogic);
+			elementPlayer.reduceHealth(30, DamageType.FIRE, e.gameLogic);
 		}
 		if(e.type == EventType.TIMER){
 			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
 		}
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+
+	public void increaseHealth(int health) {
+		this.health += health;
+	}
+
+	public void reduceHealth(int health, DamageType damage, GameLogic logic) {
+		if (damage == DamageType.ICE) {
+			if (this.health-health > 0){
+				this.health = this.health-health;
+				System.out.println("FireFox lost " + health + " and has now " + this.health + " Health");
+
+			}
+			else {
+				lives--;
+				if(lives<0){
+					this.health -= health;
+					this.size = new Vector2d(0,0);
+					System.out.println("FireFox dead");
+					//Quest.killedEnemys(Quest.getLevel());
+				} else {
+					this.health -= health;
+					System.out.println("FireFox lost " + health + " and has now " + this.health + " Health");
+					this.health = 100;
+				}
+			}
+		}
+	}
+
+	public int getHealth() {
+		return this.health;
 	}
 
 	/**Creates new instance of this class.
@@ -95,6 +152,10 @@ public class FireFox extends GameElement {
 			size.setY(Integer.parseInt(param[i+4]));
 			element.setPosition(position);
 			element.setSize(size);
+			if (param.length > 6) {
+				element.setLives(Integer.parseInt(param[i+5]));
+				element.setHealth(Integer.parseInt(param[i+6]));
+			}
 			element.gei.setSize(size);
 		} catch (NumberFormatException e) {
 			System.out.println("Kann FIREFOX-Parameter nicht interpretieren.");

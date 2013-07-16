@@ -60,8 +60,10 @@ public class GameLogic implements KeyListener, ActionListener {
 	int editspeed=5;
 	boolean tpset=false;
 
+	/**Constructor
+	 * @param app this application
+	 */
 	public GameLogic(App app) {
-		// TODO Auto-generated constructor stub
 		keys = new BitSet();
 		keys.clear();
 		this.level = app.gameContent;
@@ -85,15 +87,25 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 	}
 
-	public boolean checkKey(int i){
-		if(delay[i]<=0 && keys.get(i)){
-			delay[i] = max_delay[i];
+	/**Checks for pressed key that has id
+	 * @param id id of a key
+	 * @return {@link true} if key is pressed
+	 */
+	public boolean checkKey(int id){
+		if(delay[id]<=0 && keys.get(id)){
+			delay[id] = max_delay[id];
 			return true;
 		}
 		return false;
 	}
 
-
+	/**Creates a new element
+	 * @param sx
+	 * @param sy
+	 * @param px
+	 * @param py
+	 * @param elementtype type of this element as {@link String}
+	 */
 	private void createElement(int sx,int sy,int px,int py,String elementtype){
 		if (!setze) { startpos=level.getPlayer().getPosition(); setze=true;System.out.println("startpos gesetzt");}
 		else {
@@ -117,10 +129,13 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 	}
 
+	/**Calculates the start and end of an element which is created
+	 * @param sx
+	 * @param sy
+	 * @param px
+	 * @param py
+	 */
 	private void calculatepositions(int sx,int sy,int px,int py){
-		/**
-		 * berechnet die start- und endposition für ein zu erzeugendes Element
-		 * */
 		if (px> sx && py>sy){
 			startpos=	new Vector2d(sx,sy);
 			endpos=	new Vector2d(px-sx,py-sy);
@@ -139,6 +154,9 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 	}
 
+	/**
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -175,6 +193,7 @@ public class GameLogic implements KeyListener, ActionListener {
 		if(e.getKeyCode() == settings.USE_MANAPOT)
 			delay[settings.USE_MANAPOT] = 0;
 	}
+	
 	private String convertLvltoStr(int currentLevel) {
 		String str;
 		try {
@@ -187,7 +206,6 @@ public class GameLogic implements KeyListener, ActionListener {
 		}
 		return str;
 	}
-
 
 	private void writeLvl(){
 		LinkedList<GameElement> currentelement;

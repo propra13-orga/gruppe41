@@ -1,6 +1,5 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,6 @@ import dungeonCrawler.GameLogic;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
-
 
 /**
  * @author Dominik
@@ -65,7 +63,6 @@ public class Enemy extends GameElement {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		gei.paintComponent(g);
 	}
 
@@ -75,8 +72,6 @@ public class Enemy extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-
-		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
@@ -175,8 +170,6 @@ public class Enemy extends GameElement {
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
 	}
-
-
 
 	@Override
 	public String getName(){

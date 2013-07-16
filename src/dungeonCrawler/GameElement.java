@@ -1,58 +1,51 @@
-/**
- * 
- */
 package dungeonCrawler;
 
 import java.util.EnumSet;
 
-/**
+/**Elements of a dungeon like wall, trap, player etc.
  * @author Mattes, Tissen
- *
  */
 public abstract class GameElement implements Drawable, GameListener {
-
 	public EnumSet<ElementType> type;
 	protected Vector2d position;
 	protected Vector2d size;
 	protected final int id;
 
+	/**Constructor
+	 * @param position as {@link Vector2d}
+	 * @param size as {@link Vector2d}
+	 */
 	public GameElement(Vector2d position, Vector2d size){
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
 		this.id = -1;
 	}
-	/**
-	 * 
+
+	/**Constructor
+	 * @param position as {@link Vector2d}
+	 * @param size as {@link Vector2d}
+	 * @param id as {@link int}
 	 */
 	public GameElement(Vector2d position, Vector2d size, int id) {
 		this.type = EnumSet.of(ElementType.IMMOVABLE);
 		this.position = position;
 		this.size = size;
 		this.id = id;
-//		this.name = "";
 	}
+	
 	@Deprecated
 	public GameElement(Vector2d position, Vector2d size, String name, EnumSet<ElementType> type) {
 		this.type = type;
 		this.position = position;
 		this.size = size;
 		this.id = 0;
-	//	this.name = name;
 	}
 
-	/*public GameElement() {
-		this.type = EnumSet.of(ElementType.IMMOVABLE);
-		this.position = new Vector2d();
-		this.size = new Vector2d();
-		this.name = "";
-	}*/
-
-	public static GameElement create(String data){
-		return null;
-	}
-	
-	public String getString(){
+	/**Gets a string with Element parameters
+	 * @return parameter as {@link String}
+	 */
+	public String getString() {
 		String sep = LevelLoader.getSplitChar();
 		return (this.getName() + sep + id + sep +
 				position.getX() + sep + position.getY() + sep +
@@ -95,6 +88,10 @@ public abstract class GameElement implements Drawable, GameListener {
 		return this.position.getY() + this.size.getY();
 	}
 	
+	/**Check whether this point is in the element.
+	 * @param point to be checked
+	 * @return {@link true} if this point is in the element, else {@link false}
+	 */
 	public boolean isInnerPoint(Vector2d point){
 		if(this.getLeft() < point.getX() && this.getRight() > point.getX() &&
 				this.getTop() < point.getY() && this.getBottom() > point.getY())
@@ -102,8 +99,12 @@ public abstract class GameElement implements Drawable, GameListener {
 		return false;
 	}
 
+	/**Ckeck for collision
+	 * @param element an another element
+	 * @return {@link true} if collides, else {@link false}
+	 */
 	public boolean collision(GameElement element) {
-		if(element != this){ //TODO kollidiert nicht richtig mit Wänden
+		if(element != this) {
 			int xl 	= 	this	.getTopLeft().getX();
 			int xr 	= 	this	.getTopRight().getX();
 			int yt 	= 	this	.getTopLeft().getY();
@@ -152,13 +153,4 @@ public abstract class GameElement implements Drawable, GameListener {
 		pos.addY(y);
 	}
 	
-	/* (non-Javadoc)
-	 * @see dungeonCrawler.Drawable#draw()
-	 */
-	/*@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-
-	}*/
-
 }

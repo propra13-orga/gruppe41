@@ -1,6 +1,3 @@
-/**
- * 
- */
 package dungeonCrawler;
 
 import java.awt.Graphics;
@@ -11,11 +8,8 @@ import javax.swing.JPanel;
 import dungeonCrawler.GameElements.ItemPanel;
 import dungeonCrawler.GameElements.StatusBar;
 
-/**
- * Shows level content
- * 
+/**Shows level content
  * @author Mattes, Tissen
- *
  */
 public class Camera extends JPanel {
 	GameContent level;
@@ -23,8 +17,7 @@ public class Camera extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor
+	/**Constructor
 	 * @param level Current level
 	 */
 	public Camera(GameContent level) {
@@ -44,7 +37,10 @@ public class Camera extends JPanel {
 		this.addKeyListener(gl);
 	}
 
-	// paints all components
+	/**Paint all of game elements
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 * @param g graphics object
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO activate clipping (default is OK)
@@ -52,16 +48,6 @@ public class Camera extends JPanel {
 		// TODO draw those components
 		super.paintComponent(g);
 		
-/*		Vector2d position = new Vector2d(0,0);
-		ListIterator<GameElement> it = lvl.getIterator();
-		GameElement tmp;
-		while(it.hasNext()){
-			tmp = it.next();
-			tmp.draw(g, position.add(tmp.getPosition()));
-		}
-		
-		
-*/	
 		if (level != null) {
 			ListIterator<GameElement> it = level.getIterator();
 			GameElement tmp;

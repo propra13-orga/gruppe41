@@ -8,14 +8,10 @@ import java.io.IOException;
 
 public class DungeonCrawler {
 
-	/**
-	 * Game launcher
-	 * 
+	/**Game launcher
 	 * @param args (has no function)
-	 * <p>
 	 * @author Tissen
-	 * @throws IOException 
-	 * 
+	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		

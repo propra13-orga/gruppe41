@@ -18,6 +18,7 @@ public class Spell extends GameElement {
 	GameElementImage gei = new GameElementImage();
 	private int life = 600;
 	private Vector2d direction = new Vector2d();
+	private int damage = 50;
 
 	public Spell(Vector2d position, Vector2d size) {
 		super(position, size, -1);
@@ -51,12 +52,22 @@ public class Spell extends GameElement {
 		if(e.type == EventType.COLLISION && !e.element.type.contains(ElementType.WALKABLE)){
 			if (e.element instanceof Player) {
 				Player element = (Player) e.element;
-				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
+				element.reduceHealth(damage, DamageType.CONVENTIONAL, e.gameLogic);
 				this.size = new Vector2d(0,0);
 			}
 			if(e.element instanceof Enemy){
 				Enemy element = (Enemy) e.element;
-				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
+				element.reduceHealth(damage, DamageType.CONVENTIONAL, e.gameLogic);
+				this.size = new Vector2d(0,0);
+			}
+			if(e.element instanceof FireFox){
+				FireFox element = (FireFox) e.element;
+				element.reduceHealth(damage, DamageType.CONVENTIONAL, e.gameLogic);
+				this.size = new Vector2d(0,0);
+			}
+			if(e.element instanceof IceWeasel){
+				IceWeasel element = (IceWeasel) e.element;
+				element.reduceHealth(damage, DamageType.CONVENTIONAL, e.gameLogic);
 				this.size = new Vector2d(0,0);
 			}
 			this.direction = this.direction.mul(-1);

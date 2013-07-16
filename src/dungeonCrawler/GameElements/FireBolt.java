@@ -60,6 +60,16 @@ public class FireBolt extends GameElement {
 				element.reduceHealth(damage, DamageType.FIRE, e.gameLogic);
 				this.size = new Vector2d(0,0);
 			}
+			if(e.element instanceof FireFox){
+				FireFox element = (FireFox) e.element;
+				element.reduceHealth(damage, DamageType.FIRE, e.gameLogic);
+				this.size = new Vector2d(0,0);
+			}
+			if(e.element instanceof IceWeasel){
+				IceWeasel element = (IceWeasel) e.element;
+				element.reduceHealth(damage, DamageType.FIRE, e.gameLogic);
+				this.size = new Vector2d(0,0);
+			}
 			this.direction = this.direction.mul(-1);
 		}
 
