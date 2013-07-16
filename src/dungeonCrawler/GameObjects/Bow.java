@@ -5,6 +5,10 @@ package dungeonCrawler.GameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameLogic;
@@ -19,11 +23,16 @@ import dungeonCrawler.GameElements.Player;
  */
 public class Bow extends GameObject {
 
-	/**
-	 * 
+	/**Constructor
 	 */
 	public Bow() {
-		// TODO Auto-generated constructor stub
+		gei.setSize(new Vector2d(10,10));
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "Bow.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -57,8 +66,7 @@ public class Bow extends GameObject {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.BLACK);
-		super.draw(g);
+		gei.paintComponent(g);
 	}
 
 }

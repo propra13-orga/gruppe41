@@ -1,7 +1,14 @@
 package dungeonCrawler.GameObjects;
 
+import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
+import dungeonCrawler.Vector2d;
 //import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
@@ -14,6 +21,13 @@ public class IceArmor extends GameObject {
 
 	public IceArmor(int a) {
 		this.armor = a;
+		gei.setSize(new Vector2d(10,10));
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "IceArmor.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -29,4 +43,9 @@ public class IceArmor extends GameObject {
 		return armor;
 	}
 	
+	@Override
+	public void draw(Graphics g) {
+		gei.paintComponent(g);
+	}
+
 }

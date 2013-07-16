@@ -197,10 +197,11 @@ public class ShopSystem {
 					player.setMoney(getvermoegen());
 					for(int i=1;i<=times[n]; i++)
 						switch (getName(n)){
-							//case "Armor": player.addItem(new );System.out.println("Amor done"); break;
+							case "Armor": player.increaseShield(500);System.out.println("Amor done"); break;
 							case "Mana"	: player.addItem(new ManaPotion(50));System.out.println("Mana done"); break;
-							case "Health": player.addItem(new HealthPotion(50));System.out.println("Health done"); break;
+							case "Health": player.addItem(new HealthPotion(100));System.out.println("Health done"); break;
 						}
+					times[n] = 0;
 				}
 				dialog.dispose();
 				GameLogic.timer.start();

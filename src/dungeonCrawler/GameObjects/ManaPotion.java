@@ -2,9 +2,14 @@ package dungeonCrawler.GameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
+import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameElements.Player;
 
 /**
@@ -16,6 +21,13 @@ public class ManaPotion extends GameObject {
 
 	public ManaPotion(int m) {
 		this.mana = m;
+		gei.setSize(new Vector2d(10,10));
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "Manapot.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -34,8 +46,7 @@ public class ManaPotion extends GameObject {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.BLUE);
-		super.draw(g);
+		gei.paintComponent(g);
 	}
 
 }

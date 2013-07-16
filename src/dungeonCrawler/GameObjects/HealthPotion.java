@@ -1,10 +1,14 @@
 package dungeonCrawler.GameObjects;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameObject;
+import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
@@ -17,6 +21,13 @@ public class HealthPotion extends GameObject {
 
 	public HealthPotion(int h) {
 		this.health = h;
+		gei.setSize(new Vector2d(10,10));
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "Healthpot.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -35,8 +46,7 @@ public class HealthPotion extends GameObject {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
-		super.draw(g);
+		gei.paintComponent(g);
 	}
 
 }

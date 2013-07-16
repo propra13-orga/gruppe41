@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 /**Game objects in the player's inventory
  */
 public abstract class GameObject implements Drawable {
+	protected GameElementImage gei = new GameElementImage();
 
 	/**Constructor
 	 */
@@ -14,7 +15,7 @@ public abstract class GameObject implements Drawable {
 	
 	public abstract void performOn(GameElement element);
 	
-	/**Performs on the element
+	/**Performs on the elements
 	 * @param element
 	 * @param logic
 	 */

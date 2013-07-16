@@ -1,6 +1,5 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -67,9 +66,9 @@ public class Healthpot extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
-			System.out.println("Heil mich");
+			System.out.println("+1 Healthpotion");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.increaseHealth(100);
+			elementPlayer.addItem(new dungeonCrawler.GameObjects.HealthPotion(100));
 			Quest.collectedHealth(Quest.getLevel());
 			this.size.setX(0);this.size.setY(0);
 		}
