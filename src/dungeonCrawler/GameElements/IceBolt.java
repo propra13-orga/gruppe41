@@ -40,6 +40,7 @@ public class IceBolt extends GameElement {
 
 	}
 
+
 	@Override
 	public void GameEventPerformed(GameEvent e) {
 		// TODO Auto-generated method stub
@@ -58,6 +59,11 @@ public class IceBolt extends GameElement {
 			if(e.element instanceof Enemy){
 				Enemy element = (Enemy) e.element;
 				element.reduceHealth(damage, DamageType.ICE, e.gameLogic);
+				this.size = new Vector2d(0,0);
+			}
+			if(e.element instanceof EndBoss){
+				EndBoss element = (EndBoss) e.element;
+				element.reduceHealth(50, DamageType.ICE, e.gameLogic);
 				this.size = new Vector2d(0,0);
 			}
 			if(e.element instanceof FireFox){

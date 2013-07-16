@@ -56,6 +56,10 @@ public class Bullet extends GameElement {
 				Enemy element = (Enemy) e.element;
 				element.reduceHealth(10, DamageType.CONVENTIONAL, e.gameLogic);
 			}
+			if(e.element instanceof EndBoss){
+				EndBoss element = (EndBoss) e.element;
+				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
+			}
 			if(!(e.element instanceof Bullet)){
 				this.size = new Vector2d(0,0);
 			}
