@@ -2,7 +2,11 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.EnumSet;
+
+import javax.imageio.ImageIO;
 
 import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
@@ -15,11 +19,16 @@ import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
 
+/**
+ * 
+ * @author Dominik, Hucke
+ *
+ */
 public class EndBoss extends GameElement {
 	static EndBoss element;
 	GameElementImage gei = new GameElementImage();
-	private int health=100;
-	private int lives=1;
+	private int health=1000;
+	private int lives=0;
 
 
 	/**
@@ -29,12 +38,20 @@ public class EndBoss extends GameElement {
 	public EndBoss(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.MOVABLE);
+		gei.setSize(getSize());
+		try {
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "enemy.png")));
+		} catch (IOException e) {
+			gei.setImage(null);
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
+		//gei.paintComponent(g);
 		g.setColor(Color.ORANGE);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
@@ -43,17 +60,17 @@ public class EndBoss extends GameElement {
 		this.position = pos;
 	}
 
-	@Override
+
 	public void GameEventPerformed(GameEvent e) {
 
 		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.reduceHealth(10, DamageType.CONVENTIONAL, e.gameLogic);
+			elementPlayer.reduceHealth(25, DamageType.CONVENTIONAL, e.gameLogic);
 		}
 		if(e.type == EventType.TIMER){
-			e.gameLogic.moveElement(this, new Vector2d((int)(lives*Math.random()*4-2),(int)(lives*Math.random()*4-2)));
+			e.gameLogic.moveElement(this, new Vector2d((int)(5*Math.random()*4-2),(int)(5*Math.random()*4-2)));
 		}
 	}	
 
@@ -76,8 +93,8 @@ public class EndBoss extends GameElement {
 
 		}
 		else {
-			lives++;
-			if(lives>4){
+			lives--;
+			if(lives<0){
 				this.health -= health;
 				this.size = new Vector2d(0,0);
 				System.out.println("EndBoss dead");
