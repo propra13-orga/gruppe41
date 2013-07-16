@@ -43,7 +43,7 @@ public class ServerGameLogic extends GameLogic {
 		}
 		
 		
-		gs.broadcastMessage("/start");
+		gs.broadcastMessage("/start " + app.currentLevel);
 	}
 	
 	public boolean moveElement(int id, Vector2d direction){
@@ -80,6 +80,12 @@ public class ServerGameLogic extends GameLogic {
 		super.addGameElement(element);
 		System.out.println("/add " + element);
 		gs.sendAll("/add " + element);
+	}
+
+	@Override
+	public void removeElement(GameElement element) {
+		super.removeElement(element);
+		gs.sendAll("/remove " + element.id);
 	}
 
 }

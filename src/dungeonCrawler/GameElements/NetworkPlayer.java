@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.EnumSet;
 
+import dungeonCrawler.DamageType;
 import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
+import dungeonCrawler.GameLogic;
 import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
 
@@ -83,6 +85,11 @@ public class NetworkPlayer extends GameElement {
 		if(!(element instanceof Player || element instanceof NetworkPlayer))
 			return super.collision(element);
 		return false;
+	}
+
+	public void reduceHealth(int i, DamageType conventional, GameLogic gameLogic) {
+		gameLogic.reduceHealth(i, conventional);
+		
 	}
 
 }

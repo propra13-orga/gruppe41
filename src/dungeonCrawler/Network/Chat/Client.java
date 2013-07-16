@@ -50,6 +50,8 @@ public class Client extends JPanel implements Runnable
 
 	private String userName;
 
+	private String lvl = "";
+
 
 	
 	/**
@@ -172,6 +174,7 @@ public class Client extends JPanel implements Runnable
 						outputArea.append( params+"\n" );
 					break;
 				case "/start":
+					app.currentLevel = Integer.parseInt(params);
 					app.startClientGame(this);
 					break;
 				case "/delete":
@@ -182,6 +185,12 @@ public class Client extends JPanel implements Runnable
 					break;
 				case "/add":
 					add(params);
+					break;
+				case "/setlvl":
+					this.lvl = params;
+					break;
+				case "/remove":
+					app.clientGameLogic.removeElement(Integer.parseInt(params));
 					break;
 				case "/set":
 					set(params);
@@ -210,7 +219,7 @@ public class Client extends JPanel implements Runnable
 		} catch (Exception e) {
 			str =  "00";
 		}
-		File file = new File("Levels" + separator + "levelN" + userName + str + ".lvl");
+		File file = new File("Levels" + separator + "levelN" + userName + lvl + str + ".lvl");
 		if(file.exists()){
 			file.delete();
 		}
@@ -226,7 +235,7 @@ public class Client extends JPanel implements Runnable
 		} catch (Exception e) {
 			str =  "00";
 		}
-		File file = new File("Levels" + separator + "levelN" + userName + str + ".lvl");
+		File file = new File("Levels" + separator + "levelN" + userName + lvl  + str + ".lvl");
 		try {
 			if(!file.exists())
 				file.createNewFile();

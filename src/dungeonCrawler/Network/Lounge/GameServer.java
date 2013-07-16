@@ -64,19 +64,25 @@ public class GameServer extends JPanel {
 	public void broadcastMessage(String message){
 		server.broadcastMessage(message);
 	}
-	private void start(){
+	private void start(String param){
 		boolean ready = true;
 		for(State s: sockets.values()){
 			ready &= s.isReady();
 		}
 		if(ready){
-			startGame();
+			int lvl;
+			if(param.length() == 0)
+				lvl = 0;
+			else
+				lvl = Integer.parseInt(param);
+			startGame(lvl);
 		} else {
 			chat("Not everyone ready");
 		}
 	}
 	
-	private void startGame() {
+	private void startGame(int lvl) {
+		app.currentLevel = lvl;
 		app.startServerGame(this);
 		
 	}
@@ -132,7 +138,7 @@ public class GameServer extends JPanel {
 			ready(socket, params);
 			break;
 		case "/start":
-			start();
+			start(params);
 			break;
 		case "/teleport":
 			teleport(params);

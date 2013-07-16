@@ -573,7 +573,6 @@ public class GameLogic implements KeyListener, ActionListener {
 
 
 			if (keys.get(KeyEvent.VK_Q)){// q (fire bolt)
-				System.out.println(delay[KeyEvent.VK_Q]);
 				if(delay[KeyEvent.VK_Q] <= 0 && player.reduceMana(20, this)){
 					delay[KeyEvent.VK_Q] = 250;
 
@@ -588,11 +587,10 @@ public class GameLogic implements KeyListener, ActionListener {
 						pos = pos.add(new Vector2d(0,-player.size.getX()+2));
 					FireBolt tmp = new FireBolt(pos, new Vector2d(10, 10));
 					tmp.setDirection(lastDirection.mul(1));
-					level.addGameElement(tmp);
+					addGameElement(tmp);
 				}
 			}
 			if (keys.get(KeyEvent.VK_W)){// w (ice bolt)
-				System.out.println(delay[KeyEvent.VK_W]);
 				if(delay[KeyEvent.VK_W] <= 0 && player.reduceMana(10, this)){
 					delay[KeyEvent.VK_W] = 250;
 
@@ -607,7 +605,7 @@ public class GameLogic implements KeyListener, ActionListener {
 						pos = pos.add(new Vector2d(0,-player.size.getX()+2));
 					IceBolt tmp = new IceBolt(pos, new Vector2d(10, 10));
 					tmp.setDirection(lastDirection.mul(1));
-					level.addGameElement(tmp);
+					addGameElement(tmp);
 				}
 
 			}
@@ -637,13 +635,22 @@ public class GameLogic implements KeyListener, ActionListener {
 				
 			}
 			if (tmpRem != null) {
-				level.removeElement(tmpRem);
+				removeElement(tmpRem);
 			}
 			app.camera.repaint();
 			//			System.out.println("Timediff " + (System.currentTimeMillis() - time));
 		}
 	}
 
+	public void removeElement(GameElement element) {
+		level.removeElement(element);
+	}
+
+	public void removeElement(int id) {
+		GameElement tmp = level.find(id);
+		if(tmp != null)
+			level.removeElement(tmp);
+	}
 	public void addGameElement(GameElement element){
 		level.addGameElement(element);
 	}
@@ -683,6 +690,10 @@ public class GameLogic implements KeyListener, ActionListener {
 		if(element != null)
 			element.modify(param.split(LevelLoader.getSplitChar()));
 		
+	}
+
+	public String reduceHealth(int health, DamageType conventional) {
+		return "" + health + DamageType.toString(conventional);
 	}
 
 }

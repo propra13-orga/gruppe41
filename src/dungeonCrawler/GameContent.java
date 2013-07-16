@@ -41,9 +41,13 @@ public class GameContent {
 	 * @return the {@link GameElement} that has this id or {@link null}
 	 */
 	public GameElement find(int id){
+		try{
 		for(GameElement e: gameElements){
 			if(e.id == id)
 				return e;
+		}}
+		catch(java.util.ConcurrentModificationException e){
+			
 		}
 		return null;
 	}

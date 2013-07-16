@@ -60,6 +60,10 @@ public class Bullet extends GameElement {
 				EndBoss element = (EndBoss) e.element;
 				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
 			}
+			if(e.element instanceof NetworkPlayer){
+				NetworkPlayer element = (NetworkPlayer) e.element;
+				element.reduceHealth(20, DamageType.CONVENTIONAL, e.gameLogic);
+			}
 			if(!(e.element instanceof Bullet)){
 				this.size = new Vector2d(0,0);
 			}
