@@ -183,6 +183,10 @@ public class Client extends JPanel implements Runnable
 				case "/teleport":
 					teleport(params);
 					break;
+				case "/damage":
+					System.out.println(params);
+					app.clientGameLogic.damage(params);
+					break;
 				case "/add":
 					add(params);
 					break;

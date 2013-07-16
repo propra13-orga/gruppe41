@@ -692,8 +692,16 @@ public class GameLogic implements KeyListener, ActionListener {
 		
 	}
 
-	public String reduceHealth(int health, DamageType conventional) {
-		return "" + health + DamageType.toString(conventional);
+	public String reduceHealth(int id, int health, DamageType conventional) {
+		return "/damage " + id + "," + health + "," + DamageType.toString(conventional);
+	}
+	
+	public void damage(String param){
+		String[] params = param.split(",");
+		GameElement element = level.find(Integer.parseInt(params[0]));
+		if(element != null)
+			if(element instanceof Player)
+				((Player)element).reduceHealth(Integer.parseInt(params[1]), DamageType.get(params[2]), this);
 	}
 
 }

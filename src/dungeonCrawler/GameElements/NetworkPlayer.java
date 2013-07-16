@@ -87,8 +87,8 @@ public class NetworkPlayer extends GameElement {
 		return false;
 	}
 
-	public void reduceHealth(int i, DamageType conventional, GameLogic gameLogic) {
-		gameLogic.reduceHealth(i, conventional);
+	public void reduceHealth(int health, DamageType conventional, GameLogic gameLogic) {
+		gameLogic.reduceHealth(id, health, conventional);
 		
 	}
 

@@ -88,4 +88,10 @@ public class ServerGameLogic extends GameLogic {
 		gs.sendAll("/remove " + element.id);
 	}
 
+	@Override
+	public String reduceHealth(int id, int health, DamageType conventional) {
+		gs.sendAll(super.reduceHealth(id, health, conventional));
+		return "";
+	}
+
 }

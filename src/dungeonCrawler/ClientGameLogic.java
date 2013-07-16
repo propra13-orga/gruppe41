@@ -63,4 +63,11 @@ public class ClientGameLogic extends GameLogic {
 		System.out.println("/add " + element);
 		client.send("/add " + element);
 	}
+
+	@Override
+	public String reduceHealth(int id, int health, DamageType conventional) {
+		client.send(super.reduceHealth(id, health, conventional));
+		return "";
+	}
+
 }
