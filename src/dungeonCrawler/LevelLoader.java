@@ -21,6 +21,7 @@ public class LevelLoader {
 	private GameElement element;
 	private static String splitChar;
 	int idCounter;
+	private int i=1;
 
 	/**Constructor
 	 * @param level to be loaded as {@link GameContent}
@@ -106,6 +107,11 @@ public class LevelLoader {
 				if (!input.startsWith(";")) {
 					elementCounter++;
 					System.out.println("Lade Element " + elementCounter + ": " + input);
+
+					if(input.startsWith("CHECKPOINT")&& i<2){
+						i++;
+						Quest.levelStart = input;
+					}
 					if(input.split(splitChar).length <= 5 && input.split(splitChar).length > 2){
 						int f = input.indexOf(splitChar);
 						input = input.substring(0, f) + splitChar + level.getNextFreeID() + input.substring(f);

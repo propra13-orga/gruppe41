@@ -75,7 +75,8 @@ public class Exit extends GameElement {
 			}
 			else if(!Quest.doneQuest(Quest.getLevel())){
 				quest.setTimer(false);
-				e.gameLogic.app.gameContent.getPlayer().setPosition(e.gameLogic.app.gameContent.getPlayer().getPosition().addX(10));
+				//e.gameLogic.app.gameContent.getPlayer().setPosition(e.gameLogic.app.gameContent.getPlayer().getPosition().addX(10));
+				e.gameLogic.app.gameContent.getPlayer().setPosition(Quest.startPos);
 				new Quest().completedMission(false);
 			}
 			

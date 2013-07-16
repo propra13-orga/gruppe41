@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -31,8 +34,22 @@ public class Quest{
 	private static int[] mana = {0,0,0};
 	private static int[] magicShield = {0,0,0};
 	private static int[] health = {0,0,0};
+	public static String levelStart;
+	public static Vector2d startPos;
+	
+	private Vector2d getStart(String s){
+		Vector2d startPos=new Vector2d();
+		String[] test =levelStart.split(",");
+		startPos.setX(Integer.parseInt(test[1]));
+		startPos.setY(Integer.parseInt(test[2]));
+		
+		return startPos;
+
+	}
 	
 	public void startLevel(int level){
+		startPos = getStart(levelStart);
+		getStart(levelStart);
 		dialogStart = new JDialog();
 		dialogStart.setSize(500,280);
 		dialogStart.setUndecorated(true);
@@ -92,7 +109,7 @@ public class Quest{
 				textArea.setText("Alle Aufgaben wurden erledigt");
 			}
 			else if(state == false){
-				textArea.setText("Es sind nach nicht alle aufgaben erfüllt");
+				textArea.setText("Es sind nach nicht alle aufgaben erfüllt\n\nDamit du alles erfüllen kannst starte noch mal am Anfang");
 			}
 				
 			
@@ -226,5 +243,4 @@ public class Quest{
 			GameLogic.timer.stop();
 		}
 	}
-	
 }
