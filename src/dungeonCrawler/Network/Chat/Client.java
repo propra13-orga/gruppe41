@@ -58,9 +58,10 @@ public class Client extends JPanel implements Runnable
 	 *  The try to connect to the Server. When a Connection is created also the Input/Output streams
 	 *  will be created. And a Thread starts which listen for incoming data.
 	 * 
-	 * @param host The Address of the Server
-	 * @param port The port on which the Server listen
-	 * @param userName The user selected name for the chat 
+	 * @param as {@link App}
+	 * @param host The Address of the Server {@link String}
+	 * @param port The port on which the Server listen {@link Integer}
+	 * @param userName The user selected name for the chat {@link String}
 	 */
 	
 	public Client(App app, String host, int port, final String userName) {
@@ -103,7 +104,7 @@ public class Client extends JPanel implements Runnable
 	 * This method get the user input and send it to the Server, 
 	 * after that it clear the inputField  
 	 * 
-	 * @param message the entered message
+	 * @param entered message as {@link String}
 	 */
 	private void getMessage(String message){
 			

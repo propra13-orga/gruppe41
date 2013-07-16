@@ -26,8 +26,8 @@ public class Exit extends GameElement {
 
 
 	/**
-	 * @param position
-	 * @param size
+	 * @param position as {@link Vector2d}
+	 * @param size as {@link Vector2d}
 	 */
 	@Deprecated
 	public Exit(Vector2d position, Vector2d size) {
@@ -36,8 +36,8 @@ public class Exit extends GameElement {
 	}
 
 	/**
-	 * @param position
-	 * @param size
+	 * @param position as {@link Vector2d}
+	 * @param size as {@link Vector2d}
 	 */
 	public Exit(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);

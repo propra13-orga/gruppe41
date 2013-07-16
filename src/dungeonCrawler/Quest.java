@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -37,6 +35,12 @@ public class Quest{
 	public static String levelStart;
 	public static Vector2d startPos;
 	
+	
+	/**
+	 * Get restart point after failing a quest
+	 * @param s as {@link String} 
+	 * @return The player start position 
+	 */
 	private Vector2d getStart(String s){
 		Vector2d startPos=new Vector2d();
 		String[] test =levelStart.split(",");
@@ -44,9 +48,12 @@ public class Quest{
 		startPos.setY(Integer.parseInt(test[2]));
 		
 		return startPos;
-
 	}
 	
+	/**
+	 * Start every level a dialog with new quests
+	 * @param level as {@link Integer} as {@link Integer}
+	 */
 	public void startLevel(int level){
 		startPos = getStart(levelStart);
 		getStart(levelStart);
@@ -88,6 +95,11 @@ public class Quest{
 		dialogStart.setVisible(true);
 	}
 	
+	/**
+	 * Check if a level completed
+	 *If a level completed a Dialog show that you can go on else you go to start of the level 
+	 * @param state
+	 */
 	public void completedMission(boolean state){
 			dialogComplete = new JDialog();
 			dialogComplete = new JDialog();
@@ -132,73 +144,132 @@ public class Quest{
 			dialogComplete.setVisible(true);
 	}
 
-	
+	/**
+	 * Level getter
+	 * @return level {@link Integer}
+	 */
 	public static int getLevel(){
 		return level;
 	}
-	
+	/**
+	 * Level setter
+	 * @param level as {@link Integer} as {@link Integer}
+	 */
 	public static void setLevel(int level){
 		Quest.level = level;
 		
 	}
-	
+	/**
+	 * killed enemy setter
+	 * @param level as {@link Integer}
+	 */
 	public static void killedEnemys(int level){
 		kills[level] += 1 ;
 	}
-	
+	/**
+	 * killed enemy getter
+	 * @param level as {@link Integer}
+	 * @return killed enemy as {@link Integer}
+	 */
 	public static int getKilledEnemys(int level){
 		return kills[level];
 	}
 	
+	/**
+	 * killed end boss setter
+	 */
 	public static void killedEndBoss(){
 		kill_EB+= 1 ;
 	}
-	
+	/**
+	 * killed end boss getter
+	 * @return killed end bosses {@link Integer}
+	 */
 	public static int getKilledEndBoss(){
 		return kill_EB;
 	}
-	
+	/**
+	 * collected money units setter
+	 * @param level as {@link Integer}
+	 */
 	public static void collectedMoney(int level){
 		money[level] +=1;
 	}
-	
+	/**
+	 * collected money units getter
+	 * @param level as {@link Integer}
+	 * @return number of collected money units {@link Integer}
+	 */
 	public static int getCollectedMoney(int level){
 		return money[level];
 	}
-	
+	/**
+	 * collected bow setter
+	 * @param level as {@link Integer}
+	 */
 	public static void collectedBow(int level){
 		bow[level] = true;
-		
 	}
+	/**
+	 * collected bow getter
+	 * @param level as {@link Integer}
+	 * @return true if you collected a bow {@link boolean}
+	 */
 	
 	public static boolean getCollectedBow(int level){
 		return bow[level];
 	}
 	
+	/**
+	 * colected mana setter
+	 * @param level as {@link Integer}
+	 */
 	public static void collectedMana(int level){
 		mana[level] +=1;
 	}
-	
+	/**
+	 * collected mana getter
+	 * @param level as {@link Integer}
+	 * @return number of collected mana units {@link Integer}
+	 */
 	public static int getCollectedMana(int level){
 		return mana[level];
 	}
-	
+	/**
+	 * collected magic shield setter
+	 * @param level as {@link Integer}
+	 */
 	public static void collectedMagicShield(int level){
 		magicShield[level] +=1;
 	}
-
+	/**
+	 * collected magic shield getter
+	 * @param level as {@link Integer}
+	 * @return number of collected magic shield units {@link Integer}
+	 */
 	public static int getCollectedMagicShield(int level){
 		return magicShield[level];
 	}
-	
+	/**
+	 * collected health units setter
+	 * @param level as {@link Integer}
+	 */
 	public static void collectedHealth(int level){
 		health[level] +=1;
 	}
-	
+	/**
+	 * collected health units getter
+	 * @param level as {@link Integer}
+	 * @return number of collected magic shield units {@link Integer}
+	 */
 	public static int getCollectedHealth(int level){
 		return health[level];
 	}
-	
+	/**
+	 * get quest for each of the first three level
+	 * @param level as {@link Integer}
+	 * @return the quest {@link String} 
+ 	 */
 	public static String getQuest(int level){
 		String welcome = "Hallo in Level: " + (level+1) + " hast du folgende Aufgaben:\n\n";
 		switch(level){
@@ -216,7 +287,11 @@ public class Quest{
 			default: return null;
 		}
 	}
-	
+	/**
+	 * check if a quest is done
+	 * @param level as {@link Integer}
+	 * @return if done true else false {@link boolean}
+	 */
 	public static boolean doneQuest(int level){
 		switch (level){
 		case 0:
@@ -234,7 +309,10 @@ public class Quest{
 		default: return false;
 		}
  	}
-	
+	/**
+	 * Enable user out of this package to start and stop the timer
+	 * @param setTo
+	 */
 	public void setTimer(boolean setTo){
 		if(setTo == true){
 			GameLogic.timer.start();

@@ -17,8 +17,8 @@ import dungeonCrawler.Network.Chat.Server;
 
 
 /**
- * Draw layout and components of the Lounge server card for the Lounge Window.
- * In this Card you can start the Server 
+ * Draw layout and components of the lounge server card for the {@see LoungeWindow}.
+ * In this Card you can start the {@link Server} 
  * 
  * @author Hucke
  *

@@ -6,11 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 
 import dungeonCrawler.App;
 
 /**
- * Construction of the Lounge with added content in tabbed pane
+ * Construction of the window with added content in {@link TabbedPaneLayout}
  *  
  * @author Hucke 
  *

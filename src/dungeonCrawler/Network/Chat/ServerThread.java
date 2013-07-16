@@ -5,6 +5,8 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 
+import javax.xml.crypto.Data;
+
 
 /**
  * Listen on incoming messages and broadcast all incoming to connected clients 
@@ -19,18 +21,18 @@ public class ServerThread extends Thread{
 
 	
 	/**
-	 * The constructor saves the variables in this class and start the Thread
+	 * The constructor saves the variables in this class and start the {@link Thread}
 	 * which is the actually method of this class.
 	 * 
-	 * The Thread first creates a DataInputStream which gets the input from the Client.
+	 * The Thread first creates a {@link DataInputStream} which gets the input from the {@link Client}.
 	 * Then the Thread goes in a infinity loop and process the incoming messages at the end
-	 * the method broadcastMessage from the Server class is called.
+	 * the {@see Server#broadcastMessage(String)} from the {@link Server} is called.
 	 *  
-	 * When the client is no more connected the Thread  call the method removeConnection from
+	 * When the {@link Client} is no more connected the {@link ServerThread} call the {@see Server#broadcastMessage(String)} from
 	 * the Server class.
 	 * 
-	 * @param server The server on which the thread should run
-	 * @param socket The port the server is listen on
+	 * @param server  as {@link Server}
+	 * @param socket  as {@link Socket}
 	 */
 	public ServerThread( Server server, Socket socket ) {
 		this.server = server;

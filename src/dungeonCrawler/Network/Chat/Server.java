@@ -20,8 +20,8 @@ public class Server{
 	private ServerSocket serverSocket;
 
 	/**
-	 * The Hashtable will be use for DataOutputStream it contain
-	 * the variable from the DataOutputStream and refer to the client.
+	 * The {@link Hashtable} will be use for {@link DataOutputStream} it contain
+	 * the variable from the {@link DataOutputStream} and refer to the client.
 	 */
 	private Hashtable<Socket,DataOutputStream> outputStreams = new Hashtable<Socket,DataOutputStream>();
 
@@ -46,8 +46,8 @@ public class Server{
 	/**
 	 * Constructor of the class gives the listen method the port of the Server
 	 * 
-	 * @param port the port the Server run on
-	 * @throws IOException 
+	 * @param port the port as {@link Integer} the Server run on
+	 * @throws IOException as {@link IOException}
 	 */
 	public Server(App app, int port) throws IOException {
 		this.app = app;
@@ -59,12 +59,12 @@ public class Server{
 	 * Create a server and listen to new clients
 	 * 
 	 * A server will be created and the infinite-loop waits for new clients.
-	 * When a new client connects it will create a new DataOutputStream and 
-	 * fill the Hashtable with the new client and the matching DataOutputStream
+	 * When a new client connects it will create a new {@link DataOutputStream} and 
+	 * fill the {@link Hashtable} with the new client and the matching {@link DataOutputStream}
 	 * variable 
 	 * 
-	 * @param port The port the server will start on
-	 * @throws IOException
+	 * @param port The port as {@link Integer} the server will start on
+	 * @throws IOException as {@link IOException}
 	 */
 	private void listen(int port) throws IOException {
 		
@@ -90,9 +90,9 @@ public class Server{
 
 	
 	/**
-	 * Return the Hashtable with info of the clients and matching out DataOuttputSream as Enumeration
+	 * Return the {@link Hashtable} with info of the clients {@link Socket} and matching {@link DataOutputStream}
 	 * 
-	 * @return
+	 * @return as {@link Enumeration}
 	 */
 	Enumeration<DataOutputStream> getOutputStreams() {
 		return outputStreams.elements();
@@ -103,14 +103,14 @@ public class Server{
 	 * Send the incoming messages to all connected clients
 	 * 
 	 * The title of the method describes all...
-	 * synchronized is use to make a dependency to the method removeConnection
+	 * synchronized is use to make a dependency to the method {@see Server#removeConnection(Socket)}
 	 *  
-	 * The use of synchronized here is that a Thread might closed by removeConnection, 
-	 * so the list isn't correct and we get exceptions. 
+	 * The use of synchronized here is that a {@link Thread} might closed by {@see Server#removeConnection(Socket)}, 
+	 * so the list isn't correct and we get {@link IOException}. 
 	 * 
-	 * The for-loop send a incoming message to all entries in the Hashtable
+	 * The for-loop send a incoming message to all entries in the {@link Hashtable}
 	 *  
-	 * @param message The message a client has send
+	 * @param message The message as {@link String} a {@link Client} has send
 	 */
 	public void broadcastMessage( String message ){
 
@@ -133,12 +133,12 @@ public class Server{
 
 	
 	/**
-	 * Remove a client connection
+	 * Remove a {@link Client} connection
 	 * 
-	 * This method keeps the connection list clean. It is synchronized to broadcastMessage,
+	 * This method keeps the connection list clean. It is synchronized to {@see Server#broadcastMessage(String)},
 	 * because we will keep a clean connection list, so we don't get exceptions because a client 
-	 * is removed but broadcastMessage will send a message to the disconnected client.
-	 * This method runs in the ServerThread class
+	 * is removed but {@see Server#broadcastMessage(String)} will send a message to the disconnected client.
+	 * This method runs in the {@link ServerThread}
 	 * 
 	 *  
 	 * @param s The Socket that will be close
@@ -163,7 +163,7 @@ public class Server{
 	/**
 	 * Start the constructor with a given port.
 	 * 
-	 * @param port The port on which the server should listen
+	 * @param port The port as {@link Integer} on which the server should listen
 	 */
 	public void startServer(int port){
 		

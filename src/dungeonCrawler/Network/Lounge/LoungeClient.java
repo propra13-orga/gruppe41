@@ -15,8 +15,8 @@ import dungeonCrawler.App;
 import dungeonCrawler.Network.Chat.Client;
 
 /**
- *Draw layout and components of the LoungeClient Card for the LoungeWindow.
- *The Client will start through this Card
+ *Draw layout and components of the LoungeClient Card for the {@see LoungeWindow}.
+ *The {@see Client} will start through this Card
  * 
  * @author Hucke
  *
@@ -43,6 +43,10 @@ public class LoungeClient implements ActionListener{
 		
 	}
 	
+	/**
+	 * Initialize the client card
+	 * @param c as {@link JPanel}
+	 */
 	private void init(JPanel c){
 		
 		//Client starten Karte

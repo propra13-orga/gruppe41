@@ -83,7 +83,20 @@ public class Settings{
 	public void setI(int i){
 		this.i=i;
 	}
-	
+
+	/**
+	 * Add components to the {@link GridBagLayout}. The method simplified adding components to the pane.
+	 *  	
+	 * @param cont The {@link Container} to which the components are added 
+	 * @param gbl The definition of the {@link GridBagLayout}
+	 * @param c The adding {@link Component} 
+	 * @param x The column of the grid as {@link Integer}
+	 * @param y The row of the grid {@link Integer}
+	 * @param width The columns  a component use in the grid as {@link Integer}
+	 * @param height The rows a component use in the grid as {@link Integer}
+	 * @param weightx The horizontal component weight as {@link Integer}
+	 * @param weighty The vertical component weight as {@link Integer}
+	 */
 	static void addComponent( Container cont,GridBagLayout gbl,Component c,int x, int y,int width, int height,double weightx, double weighty ){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5); 
@@ -101,6 +114,16 @@ public class Settings{
 		
 	}
 	
+	/**
+	 * Fill the items in the settings
+	 * @param gridx column value {@link Integer}
+	 * @param gridy row value as {@link Integer}
+	 * @param value the value of the default key as {@link Integer}
+	 * @param name name of the key as {@link String} 
+	 * @param layout the definition of the {@link GridBagLayout}
+	 * @param gbc the definition of the {@link GridBagConstraints}
+	 * @param dialog the {@link Component} to add this
+	 */
 	public void content(int gridx, int gridy,int value, String name, GridBagLayout layout, GridBagConstraints gbc, JDialog dialog){
 		setNumber(name);
 		valueField[getNumber()] = new JTextField();
@@ -176,7 +199,9 @@ public class Settings{
 		
 	}
 	
-	
+	/**
+	 * create the Settings dialog
+	 */
 	public void gui(){
 
 		

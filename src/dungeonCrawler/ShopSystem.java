@@ -3,17 +3,11 @@ package dungeonCrawler;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.Locale;
+
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -56,17 +50,18 @@ public class ShopSystem {
 		this.player = p;
 	}
 	/**
-	 * Add components to the GridBagLayout. The method simplified adding components to the pane.
+	 * Add components to the {@link GridBagLayout}
+	 * The method simplified adding components to the pane.
 	 *  	
-	 * @param cont The container to which the components are added 
-	 * @param gbl The definition of the GridBagLayout
-	 * @param c The adding component 
-	 * @param x The x coordinate of the grid
-	 * @param y The y coordinate of the grid
-	 * @param width The width of the component in the grid
-	 * @param height The height of the component in the grid
-	 * @param weightx The horizontal component weight 
-	 * @param weighty The vertical component weight
+	 * @param cont The {@link Container} to which the components are added 
+	 * @param gbl The definition of the {@link GridBagLayout}
+	 * @param c The adding {@link Component} 
+	 * @param x The column of the grid as {@link Integer}
+	 * @param y The row of the grid {@link Integer}
+	 * @param width The columns  a component use in the grid as {@link Integer}
+	 * @param height The rows a component use in the grid as {@link Integer}
+	 * @param weightx The horizontal component weight as {@link Integer}
+	 * @param weighty The vertical component weight as {@link Integer}
 	 */
 	static void addComponent( Container cont,GridBagLayout gbl,Component c,int x, int y,int width, int height,double weightx, double weighty ){
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -102,13 +97,13 @@ public class ShopSystem {
 	
 	
 	/**
-	 * Fill the shop with Items
+	 * Fill the shop with {@link ShopItem}
 	 * 
-	 * Create a Dialog and fill the shop with a indefinite number of item define in theShopItem class
+	 * Create a Dialog and fill the shop with a indefinite number of item define in the {@link ShopItem}
 	 * and draw them to the dialog.
 	 * 
-	 * @param money The money the Player have
-	 * @param item The items which are available in the shop
+	 * @param money The money the Player have as {@link Integer}
+	 * @param item The items which are available in the shop as {@link ShopItem}
 	 */
 	public void fillShop(int money, ShopItem ...item){
 		dialog = new JDialog(dialog, "Shop");
