@@ -13,6 +13,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;;
 
+/**Menu for map editor and creator
+ * @author Dominik
+ *
+ */
 public class Editormenu extends JPanel {
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +26,9 @@ public class Editormenu extends JPanel {
 	private String selectedFile;
 	
 	
+	/**Creator, creates the editormenu in former mainmenu window
+	 * @param app app from main App
+	 */
 	public Editormenu(App app){
 		this.app = app;
 		this.setLayout(new FlowLayout());
@@ -32,6 +39,9 @@ public class Editormenu extends JPanel {
 		this.initialize();
 	}
 	
+	/**fills the box with the editable levels
+	 * 
+	 */
 	private void fillBox(){
 		editMapNr = new JComboBox<String>();
 		editMapNr.addItem("Neue Datei erstellen");
@@ -62,6 +72,10 @@ public class Editormenu extends JPanel {
 		});
 	}
 	
+	/**Creates a new file for a new Level if needed
+	 * @param number the new levels number
+	 * @return returns the just created file
+	 */
 	private File createNewFile(int number){
 		File newFile;
 		if(number<10){
@@ -77,6 +91,9 @@ public class Editormenu extends JPanel {
 		return newFile;
 	}
 		
+	/**Actionlistener for combobox (selected levels)
+	 * 
+	 */
 	private void initialize(){
 		NewMap.addActionListener(new ActionListener() {
 			
