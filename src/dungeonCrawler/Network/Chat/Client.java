@@ -92,6 +92,7 @@ public class Client extends JPanel implements Runnable
 			streamOut = new DataOutputStream(socket.getOutputStream());
 
 			new Thread(this).start();
+			this.send("/setname " + userName);
 		} 
 		catch( IOException ie ) { System.out.println(ie); 
 			outputArea.append("Can't connect to the Server, please try again");
@@ -141,6 +142,16 @@ public class Client extends JPanel implements Runnable
 		String[] params = param.split(";");
 		this.app.clientGameLogic.teleportElement(Integer.parseInt(params[0]), new Vector2d(params[1]));
 	}
+	
+	private void add(String param){
+		this.app.clientGameLogic.addGameElement(param);
+	}
+	
+	private void set(String param){
+		String[] params = param.split(";");
+		this.app.clientGameLogic.setGameElement(Integer.parseInt(params[0]), params[1]);
+	}
+	
 	/**
 	 * The Thread in a infinity-loop it waits for incoming messages and
 	 * append it to the incoming area
@@ -168,6 +179,12 @@ public class Client extends JPanel implements Runnable
 					break;
 				case "/teleport":
 					teleport(params);
+					break;
+				case "/add":
+					add(params);
+					break;
+				case "/set":
+					set(params);
 					break;
 				case "/line":
 					writeLine(params);

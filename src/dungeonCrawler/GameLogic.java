@@ -625,12 +625,16 @@ public class GameLogic implements KeyListener, ActionListener {
 
 		if (e.getActionCommand() == "Timer"){
 			GameElement tmpRem = null;
+			try{
 			for(GameElement element : level.getGameElements()){
 				GameEvent event = new GameEvent(null, EventType.TIMER, this);
 				element.GameEventPerformed(event);
 				if(element.size.getX() == 0 || element.size.getY() == 0){
 					tmpRem = element;
 				}
+			}
+			} catch(java.util.ConcurrentModificationException ex){
+				
 			}
 			if (tmpRem != null) {
 				level.removeElement(tmpRem);
@@ -664,6 +668,21 @@ public class GameLogic implements KeyListener, ActionListener {
 		if((!newStatus) &&timer.isRunning()) timer.stop();
 
 
+	}
+
+	public void addGameElement(String param) {
+		GameElement element;
+		element = app.loader.createElement(param);
+		if(element!=null)
+			level.addGameElement(element);
+		
+	}
+
+	public void setGameElement(int id, String param) {
+		GameElement element = level.find(id);
+		if(element != null)
+			element.modify(param.split(LevelLoader.getSplitChar()));
+		
 	}
 
 }

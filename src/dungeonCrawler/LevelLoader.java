@@ -150,6 +150,12 @@ public class LevelLoader {
 		}
 		return str;
 	}
+	
+	public GameElement createElement(String input){
+		if(this.parse(input))
+			return element;
+		return null;
+	}
 
 	/**Parses a line of the level file
 	 * @param input {@link String} to be parsed

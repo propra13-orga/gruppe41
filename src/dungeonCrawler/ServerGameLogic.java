@@ -75,4 +75,11 @@ public class ServerGameLogic extends GameLogic {
 		return ret;
 	}
 
+	@Override
+	public void addGameElement(GameElement element) {
+		super.addGameElement(element);
+		System.out.println("/add " + element);
+		gs.sendAll("/add " + element);
+	}
+
 }

@@ -21,6 +21,10 @@ public abstract class GameElement implements Drawable, GameListener {
 		this.size = size;
 		this.id = -1;
 	}
+	
+	public void modify(String[] param){
+		
+	}
 
 	/**Constructor
 	 * @param position as {@link Vector2d}
@@ -50,6 +54,11 @@ public abstract class GameElement implements Drawable, GameListener {
 		return (this.getName() + sep + id + sep +
 				position.getX() + sep + position.getY() + sep +
 				size.getX() + sep + size.getY());
+	}
+	
+	@Override
+	public String toString(){
+		return this.getString();
 	}
 	
 	public Vector2d getPosition() {

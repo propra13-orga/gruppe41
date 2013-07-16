@@ -48,6 +48,15 @@ public class GameServer extends JPanel {
 		}
 	}
 	
+	private void setname(Socket socket, String name){
+
+		for(Socket sock: sockets.keySet()){
+			if(sock.equals(socket)){
+				sockets.get(sock).setName(name);
+			}
+		}
+	}
+	
 	public void sendAll(String message){
 		server.broadcastMessage(message);
 	}
@@ -91,6 +100,22 @@ public class GameServer extends JPanel {
 //		System.out.println("/move	 " + Integer.parseInt(params[0]) + "	" + new Vector2d(params[1]));
 		this.app.serverGameLogic.moveElement(Integer.parseInt(params[0]), new Vector2d(params[1]));
 	}
+	
+	private void add(String param){
+		this.app.serverGameLogic.addGameElement(param);
+	}
+	
+	private void set(String param){
+		String[] params = param.split(";");
+		this.app.serverGameLogic.setGameElement(Integer.parseInt(params[0]), params[1]);
+	}
+	private void sendList(){
+		String list = "";
+		for(State st: sockets.values()){
+			list += st.getName() + ", ";
+		}
+		sendAll("/chat " + list);
+	}
 
 	public void interpret(Socket socket, String message) {
 		// TODO Auto-generated method stub
@@ -113,9 +138,21 @@ public class GameServer extends JPanel {
 			teleport(params);
 //			System.out.println(msg);
 			break;
+		case "/setname":
+			setname(socket, params);
+			break;
+		case "/list":
+			sendList();
+			break;
 		case "/move":
 			move(params);
 //			System.out.println("!	" + msg);
+			break;
+		case "/add":
+			add(params);
+			break;
+		case "/set":
+			set(params);
 			break;
 		default:
 			chat(msg);

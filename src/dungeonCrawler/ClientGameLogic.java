@@ -42,8 +42,10 @@ public class ClientGameLogic extends GameLogic {
 
 	@Override
 	public boolean moveElement(GameElement e, Vector2d direction) {
-		boolean ret = super.moveElement(e, direction);
-		if(ret && (e instanceof Player || e instanceof Bullet || e instanceof dungeonCrawler.GameElements.Spell))
+		boolean ret = false;
+		if(e instanceof Player)
+			ret = super.moveElement(e, direction);
+		if(ret && (e instanceof Player /*|| e instanceof Bullet || e instanceof dungeonCrawler.GameElements.Spell*/))
 			this.client.send("/move " + e.id + ";" + direction);
 		return ret;
 	}
@@ -53,5 +55,12 @@ public class ClientGameLogic extends GameLogic {
 		boolean ret = super.teleportElement(e, position);
 		this.client.send("/teleport " + e.id + ";" + e.position);
 		return ret;
+	}
+
+	@Override
+	public void addGameElement(GameElement element) {
+		super.addGameElement(element);
+		System.out.println("/add " + element);
+		client.send("/add " + element);
 	}
 }

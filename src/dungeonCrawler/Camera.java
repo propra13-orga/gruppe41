@@ -54,12 +54,18 @@ public class Camera extends JPanel {
 			Graphics gr;
 			
 			position = level.getPlayer().position.add(new Vector2d(-this.getWidth()/2, -this.getHeight()/2));
-			while (it.hasNext()) {
-				tmp = it.next();
-				gr = g.create(tmp.position.getX()-position.getX(), tmp.position.getY()-position.getY(), tmp
+			boolean error = false;
+			while (it.hasNext()&&!error) {
+				try{
+					tmp = it.next();
+					gr = g.create(tmp.position.getX()-position.getX(), tmp.position.getY()-position.getY(), tmp
 						.getSize().getX(), tmp.getSize().getY());
-				tmp.draw(gr);
-				gr.dispose();
+					tmp.draw(gr);
+					gr.dispose();
+				} catch(java.util.ConcurrentModificationException e){
+					error = true;
+				}
+				
 			}
 			// show status bar
 			tmp = level.getStatusBar();
