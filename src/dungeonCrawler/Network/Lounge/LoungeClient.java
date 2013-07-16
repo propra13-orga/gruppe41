@@ -109,6 +109,7 @@ public class LoungeClient implements ActionListener{
 			//clientLayout.last(clientStart);
 			clientLayout.show(clientPanel, clientStartString);
 			chatPanel.remove(client);
+			client.close();
 			client = null;
 		}	
 	}

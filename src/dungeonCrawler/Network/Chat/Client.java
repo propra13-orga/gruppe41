@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import dungeonCrawler.App;
+import dungeonCrawler.Vector2d;
 
 
 /**
@@ -98,6 +99,15 @@ public class Client extends JPanel implements Runnable
 		
 	}
 	
+	public void close(){
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Send entered message
 	 * 
@@ -127,7 +137,10 @@ public class Client extends JPanel implements Runnable
 			e.printStackTrace();
 		}
 	}
-	
+	private void teleport(String param){
+		String[] params = param.split(";");
+		this.app.clientGameLogic.teleportElement(Integer.parseInt(params[0]), new Vector2d(params[1]));
+	}
 	/**
 	 * The Thread in a infinity-loop it waits for incoming messages and
 	 * append it to the incoming area
@@ -152,6 +165,9 @@ public class Client extends JPanel implements Runnable
 					break;
 				case "/delete":
 					deleteLvl(params);
+					break;
+				case "/teleport":
+					teleport(params);
 					break;
 				case "/line":
 					writeLine(params);

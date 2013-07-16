@@ -22,8 +22,8 @@ public class App {
 	public int currentLevel = 0; // current level number
 	//Listener listener = new Listener(this); // listener that monitors the game
 	protected GameLogic gameLogic = new GameLogic(this);
-	protected ClientGameLogic clientGameLogic;
-	protected ServerGameLogic serverGameLogic;
+	public ClientGameLogic clientGameLogic;
+	public ServerGameLogic serverGameLogic;
 	public LevelLoader loader;
 	public GameContent gameContent;
 	private Editormenu editormenu;

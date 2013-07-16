@@ -3,6 +3,8 @@
  */
 package dungeonCrawler;
 
+import dungeonCrawler.GameElements.Bullet;
+import dungeonCrawler.GameElements.NPC;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.Network.Chat.Client;
 
@@ -41,7 +43,7 @@ public class ClientGameLogic extends GameLogic {
 	@Override
 	public boolean moveElement(GameElement e, Vector2d direction) {
 		boolean ret = super.moveElement(e, direction);
-		if(ret)
+		if(ret && (e instanceof Player || e instanceof Bullet || e instanceof dungeonCrawler.GameElements.Spell))
 			this.client.send("/move " + e.id + ";" + direction);
 		return ret;
 	}

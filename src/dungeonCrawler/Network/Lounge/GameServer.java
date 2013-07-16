@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import dungeonCrawler.App;
+import dungeonCrawler.Vector2d;
 import dungeonCrawler.Network.Chat.Server;
 
 /**
@@ -78,6 +79,18 @@ public class GameServer extends JPanel {
 	private void ready(Socket socket, String params){
 		sockets.get(socket).setReady(true);
 	}
+	
+	private void teleport(String param){
+		String[] params = param.split(";");
+//		System.out.println("/teleport " + param);
+		this.app.serverGameLogic.teleportElement(Integer.parseInt(params[0]), new Vector2d(params[1]));
+	}
+	
+	private void move(String param){
+		String[] params = param.split(";");
+//		System.out.println("/move	 " + Integer.parseInt(params[0]) + "	" + new Vector2d(params[1]));
+		this.app.serverGameLogic.moveElement(Integer.parseInt(params[0]), new Vector2d(params[1]));
+	}
 
 	public void interpret(Socket socket, String message) {
 		// TODO Auto-generated method stub
@@ -97,10 +110,12 @@ public class GameServer extends JPanel {
 			start();
 			break;
 		case "/teleport":
-			System.out.println(msg);
+			teleport(params);
+//			System.out.println(msg);
 			break;
 		case "/move":
-			System.out.println("!	" + msg);
+			move(params);
+//			System.out.println("!	" + msg);
 			break;
 		default:
 			chat(msg);

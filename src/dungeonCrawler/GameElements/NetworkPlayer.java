@@ -2,7 +2,9 @@ package dungeonCrawler.GameElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.EnumSet;
 
+import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.LevelLoader;
@@ -14,11 +16,13 @@ public class NetworkPlayer extends GameElement {
 
 	public NetworkPlayer(Vector2d position, Vector2d size) {
 		super(position, size);
+		this.type = EnumSet.of(ElementType.MOVABLE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public NetworkPlayer(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
+		this.type = EnumSet.of(ElementType.MOVABLE);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -76,7 +80,7 @@ public class NetworkPlayer extends GameElement {
 
 	@Override
 	public boolean collision(GameElement element) {
-		if(!(element instanceof Player))
+		if(!(element instanceof Player || element instanceof NetworkPlayer))
 			return super.collision(element);
 		return false;
 	}
