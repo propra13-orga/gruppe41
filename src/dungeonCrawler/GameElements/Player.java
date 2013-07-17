@@ -13,7 +13,6 @@ import dungeonCrawler.DamageType;
 import dungeonCrawler.EventType;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameElement;
-import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
@@ -81,7 +80,6 @@ public class Player extends Active {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		gei.paintComponent(g);
 	}
 

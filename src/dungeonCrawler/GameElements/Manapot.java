@@ -64,7 +64,6 @@ public class Manapot extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("+1 Manapotion");
 			Player elementPlayer = (Player) e.element;
@@ -124,7 +123,6 @@ public class Manapot extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "MANAPOT";
 	}
 

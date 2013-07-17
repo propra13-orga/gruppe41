@@ -3,7 +3,6 @@
  */
 package dungeonCrawler.GameObjects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -44,9 +43,11 @@ public class Bow extends GameObject {
 
 	}
 
+	/**Shot.
+	 * @see dungeonCrawler.GameObject#performOn(dungeonCrawler.GameElement, dungeonCrawler.GameLogic)
+	 */
 	@Override
 	public void performOn(GameElement element, GameLogic logic) {
-		// TODO Auto-generated method stub
 		Player player = (Player)element;
 		Vector2d lastDirection = player.last_direction;
 		Vector2d position = player.getPosition();

@@ -1,6 +1,5 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +64,6 @@ public class Trap extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
@@ -123,7 +121,6 @@ public class Trap extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "TRAP";
 	}
 

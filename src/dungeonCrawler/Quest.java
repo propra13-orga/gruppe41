@@ -44,7 +44,7 @@ public class Quest{
 	 */
 	private static Vector2d getStart(String s){
 		Vector2d startPos=new Vector2d();
-		String[] test =levelStart.split(",");
+		String[] test =levelStart.split(LevelLoader.getSplitChar());
 		startPos.setX(Integer.parseInt(test[1]));
 		startPos.setY(Integer.parseInt(test[2]));
 		
@@ -125,16 +125,16 @@ public class Quest{
 			if(singlePlayerGame){
 				
 				if(state == true){
-					textArea.setText("Alle Aufgaben wurden erledigt");
+					textArea.setText("Alle Aufgaben wurden erledigt.");
 				}
 				else if(state == false){
-					textArea.setText("Es sind nach nicht alle aufgaben erfüllt\n\nDamit du alles erfüllen kannst starte noch mal am Anfang");
+					textArea.setText("Es sind noch nicht alle Aufgaben erfüllt.\n\nDamit du alles erfüllen kannst starte noch mal am Anfang.");
 				}
 				
 			}
 			
 				if(level==1 && !singlePlayerGame && numberOfPlayer==1){
-					textArea.setText("Glückwunsch du bist der letzte Überlebende");
+					textArea.setText("Glückwunsch, du bist der letzte Überlebende!");
 				}
 					
 				
@@ -294,7 +294,7 @@ public class Quest{
  	 */
 	public static String getQuest(int level){
 		if(singlePlayerGame){
-			String welcome = "Hallo in Level: " + (level+1) + " hast du folgende Aufgaben:\n\n";
+			String welcome = "Hallo, im Level " + (level+1) + " hast du folgende Aufgaben:\n\n";
 			switch(level){
 				case 0: return 	welcome +
 								"Sammle einen Bogen\n\n" +
@@ -305,14 +305,14 @@ public class Quest{
 								"Sammle 1 magisches Schild ein\n\n";
 				case 2: return 	welcome +
 								"Sammle 5 Geldeinheien ein\n\n" +
-								"Sammle 5 Manaträne ein\n\n" +
+								"Sammle 5 Manatränke ein\n\n" +
 								"Töte 10 Teufel" +
 								"Töte den End Boss";
 				default: return null;
 			}
 		}
 		else if(!singlePlayerGame && level==1){
-			return "Du sollst der letzte Überlebene sein töte alle Gegner für die Krone des Dungeon"; 
+			return "Du sollst der letzte Überlebende sein. Töte alle Gegner für die Krone des Dungeons"; 
 		}
 		{
 			return null;

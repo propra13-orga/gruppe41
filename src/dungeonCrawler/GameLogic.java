@@ -159,7 +159,6 @@ public class GameLogic implements KeyListener, ActionListener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		keys.set(e.getKeyCode());
 		if (app.editmode==true){
 
@@ -341,7 +340,7 @@ public class GameLogic implements KeyListener, ActionListener {
 					}
 				}
 			}
-			if (e.getKeyChar() == 'p') {// print string
+			if (e.getKeyChar() == 'p') {// print player parameter string
 				System.out.println(player.getString());
 			}
 		}

@@ -32,7 +32,6 @@ public class WarpPoint extends GameElement {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, size.getX(), size.getY());
 
@@ -40,7 +39,6 @@ public class WarpPoint extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			e.gameLogic.teleportElement(e.element, target);
 		}
@@ -109,7 +107,6 @@ public class WarpPoint extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "WARPPOINT";
 	}
 

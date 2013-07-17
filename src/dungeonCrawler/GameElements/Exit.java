@@ -46,7 +46,6 @@ public class Exit extends GameElement {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
@@ -67,8 +66,6 @@ public class Exit extends GameElement {
 				System.out.println("currentlevel = " + e.gameLogic.app.currentLevel);
 				Quest.setLevel(e.gameLogic.app.currentLevel);
 				System.out.println("Workaround: " + Quest.getLevel());
-				//			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
-				// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
 				this.size.setX(0);this.size.setY(0);
 				System.out.println(!Quest.getGameMode());
 				if(!Quest.getGameMode())
@@ -87,7 +84,6 @@ public class Exit extends GameElement {
 			}
 			
 		}
-		// TODO Auto-generated method stub
 
 	}
 

@@ -12,7 +12,7 @@ import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
-/**
+/**Adds some health
  * @author Tissen
  *
  */
@@ -30,9 +30,11 @@ public class HealthPotion extends GameObject {
 		}
 	}
 	
+	/**Drink it
+	 * @see dungeonCrawler.GameObject#performOn(dungeonCrawler.GameElement)
+	 */
 	@Override
 	public void performOn(GameElement element) {
-		// TODO Auto-generated method stub
 		String name = element.getName();
 		switch (name) {
 		case "PLAYER": ((Player)element).increaseHealth(health); break;

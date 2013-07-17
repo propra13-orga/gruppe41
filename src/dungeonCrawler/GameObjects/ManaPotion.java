@@ -1,6 +1,5 @@
 package dungeonCrawler.GameObjects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +11,8 @@ import dungeonCrawler.GameObject;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameElements.Player;
 
-/**
- * 
+/**Adds some mana
+ * @author Tissen
  *
  */
 public class ManaPotion extends GameObject {
@@ -30,9 +29,11 @@ public class ManaPotion extends GameObject {
 		}
 	}
 
+	/**Drink it
+	 * @see dungeonCrawler.GameObject#performOn(dungeonCrawler.GameElement)
+	 */
 	@Override
 	public void performOn(GameElement element) {
-		// TODO Auto-generated method stub
 		String name = element.getName();
 		switch (name) {
 		case "PLAYER": ((Player)element).increaseMana(mana); break;

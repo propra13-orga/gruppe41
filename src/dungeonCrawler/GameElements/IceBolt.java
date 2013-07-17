@@ -23,18 +23,15 @@ public class IceBolt extends GameElement {
 	public IceBolt(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	public IceBolt(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.MOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, size.getX(), size.getY());
 
@@ -43,7 +40,6 @@ public class IceBolt extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if(e.type == EventType.TIMER){
 			life--;
 			e.gameLogic.moveElement(this, direction);
@@ -144,7 +140,6 @@ public class IceBolt extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "ICEBOLT";
 	}
 

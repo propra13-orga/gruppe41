@@ -12,7 +12,7 @@ import dungeonCrawler.Vector2d;
 //import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
-/**
+/**Ice resist armor
  * @author Tissen
  *
  */
@@ -30,6 +30,9 @@ public class IceArmor extends GameObject {
 		}
 	}
 
+	/**Change current armor.
+	 * @see dungeonCrawler.GameObject#performOn(dungeonCrawler.GameElement)
+	 */
 	@Override
 	public void performOn(GameElement element) {
 		String name = element.getName();

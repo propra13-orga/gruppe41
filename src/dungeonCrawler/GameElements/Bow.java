@@ -64,7 +64,6 @@ public class Bow extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("Bogen aufgenommen");
 			Player elementPlayer = (Player) e.element;

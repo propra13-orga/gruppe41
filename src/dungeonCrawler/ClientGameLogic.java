@@ -3,8 +3,6 @@
  */
 package dungeonCrawler;
 
-import dungeonCrawler.GameElements.Bullet;
-import dungeonCrawler.GameElements.NPC;
 import dungeonCrawler.GameElements.Player;
 import dungeonCrawler.Network.Chat.Client;
 

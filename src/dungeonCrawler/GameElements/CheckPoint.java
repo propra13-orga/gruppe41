@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.util.EnumSet;
 
 import dungeonCrawler.ElementType;
-import dungeonCrawler.EventType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameElementImage;
 import dungeonCrawler.GameEvent;
@@ -20,26 +19,21 @@ public class CheckPoint extends GameElement {
 	public CheckPoint(Vector2d position, Vector2d size) {
 		super(position, size, -1);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	public CheckPoint(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.IMMOVABLE, ElementType.WALKABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, size.getX(), size.getY());
 	}
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	/**Creates new instance of this class.

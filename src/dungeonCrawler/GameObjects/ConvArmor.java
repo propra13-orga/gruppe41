@@ -12,7 +12,7 @@ import dungeonCrawler.Vector2d;
 //import dungeonCrawler.GameElements.Enemy;
 import dungeonCrawler.GameElements.Player;
 
-/**
+/**Conventional armor
  * @author Tissen
  *
  */
@@ -30,6 +30,9 @@ public class ConvArmor extends GameObject {
 		}
 	}
 
+	/**Change current armor.
+	 * @see dungeonCrawler.GameObject#performOn(dungeonCrawler.GameElement)
+	 */
 	@Override
 	public void performOn(GameElement element) {
 		String name = element.getName();

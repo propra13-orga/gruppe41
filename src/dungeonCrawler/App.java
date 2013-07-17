@@ -27,7 +27,7 @@ public class App {
 	public LevelLoader loader;
 	public GameContent gameContent;
 	private Editormenu editormenu;
-	private Quest quest = new Quest();
+	//private Quest quest = new Quest();
 	public Boolean editmode = false;
 
 	/**Constructor
@@ -153,7 +153,6 @@ public class App {
 	 * @param gs the server as {@link GameServer}
 	 */
 	public void startServerGame(GameServer gs) {
-		// TODO Auto-generated method stub
 		Quest.setGameMode(false);
 		if (currentLevel<level) {
 			//			dungeon[currentLevel].complete = false;
@@ -188,7 +187,6 @@ public class App {
 	 */
 	public void startClientGame(Client client) {
 		Quest.setGameMode(false);
-		// TODO Auto-generated method stub
 		if (currentLevel<level) {
 			//			dungeon[currentLevel].complete = false;
 			gameContent = loader.getClientLevel(client.getUserName());

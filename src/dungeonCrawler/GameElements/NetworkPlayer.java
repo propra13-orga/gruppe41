@@ -9,7 +9,6 @@ import dungeonCrawler.ElementType;
 import dungeonCrawler.GameElement;
 import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
-import dungeonCrawler.LevelLoader;
 import dungeonCrawler.Vector2d;
 
 public class NetworkPlayer extends GameElement {
@@ -19,13 +18,11 @@ public class NetworkPlayer extends GameElement {
 	public NetworkPlayer(Vector2d position, Vector2d size) {
 		super(position, size);
 		this.type = EnumSet.of(ElementType.MOVABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	public NetworkPlayer(Vector2d position, Vector2d size, int id) {
 		super(position, size, id);
 		this.type = EnumSet.of(ElementType.MOVABLE);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

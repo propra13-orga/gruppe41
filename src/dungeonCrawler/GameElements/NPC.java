@@ -1,6 +1,5 @@
 package dungeonCrawler.GameElements;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +63,6 @@ public class NPC extends GameElement {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
 		if (e.type == EventType.TIMER) {
 			Vector2d target = e.gameLogic.getLevel().getPlayer().getPosition();
 			if (Math.abs(target.getX() - this.position.getX()) <= 150 && Math.abs(target.getY() - this.position.getY()) <= 150) {
@@ -146,7 +144,6 @@ public class NPC extends GameElement {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "NPC";
 	}
 
