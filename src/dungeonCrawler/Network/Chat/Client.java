@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import dungeonCrawler.App;
+import dungeonCrawler.Quest;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.Network.Lounge.LoungeClient;
 
@@ -195,6 +196,8 @@ public class Client extends JPanel implements Runnable
 				case "/add":
 					add(params);
 					break;
+				case "/count":
+					Quest.numberOfPlayer = Integer.parseInt(params);
 				case "/setlvl":
 					this.lvl = params;
 					break;
