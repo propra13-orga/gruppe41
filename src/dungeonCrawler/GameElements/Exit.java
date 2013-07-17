@@ -70,7 +70,11 @@ public class Exit extends GameElement {
 				//			this.position.setX(10000); // gamelogic muss noch gefixt werden, denn bei 2fachem Auslösen ist man in einer Endlosschleife
 				// TODO: gamelogic wurde gefixt => ist der Kommentar noch von richtig?
 				this.size.setX(0);this.size.setY(0);
-				e.gameLogic.app.startGame();
+				System.out.println(!Quest.getGameMode());
+				if(!Quest.getGameMode())
+					e.gameLogic.lost((Player) e.element);
+				else
+					e.gameLogic.app.startGame();
 				e.gameLogic.new_shop = null;
 
 			}

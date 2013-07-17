@@ -658,6 +658,7 @@ public class GameLogic implements KeyListener, ActionListener {
 
 
 	public void startMainMenu(){
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		app.cp.removeAll();
 		app.cp.validate();
 		app.gameContent = new GameContent(this);
