@@ -70,7 +70,7 @@ public class EndBoss extends GameElement {
 			elementPlayer.reduceHealth(25, DamageType.CONVENTIONAL, e.gameLogic);
 		}
 		if(e.type == EventType.TIMER){
-			e.gameLogic.moveElement(this, new Vector2d((int)(5*Math.random()*4-2),(int)(5*Math.random()*4-2)));
+			e.gameLogic.moveElement(this,(new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2))).mul(2));
 		}
 	}	
 
