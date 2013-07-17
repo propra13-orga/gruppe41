@@ -70,4 +70,10 @@ public class ClientGameLogic extends GameLogic {
 		return "";
 	}
 
+	@Override
+	public void lost(Player player) {
+		super.lost(player);
+		client.close();
+	}
+
 }

@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import dungeonCrawler.App;
 import dungeonCrawler.Vector2d;
+import dungeonCrawler.Network.Lounge.LoungeClient;
 
 
 /**
@@ -52,6 +53,8 @@ public class Client extends JPanel implements Runnable
 
 	private String lvl = "";
 
+	private LoungeClient loungeClient;
+
 
 	
 	/**
@@ -67,9 +70,10 @@ public class Client extends JPanel implements Runnable
 	 * @param userName The user selected name for the chat {@link String}
 	 */
 	
-	public Client(App app, String host, int port, final String userName) {
+	public Client(App app, LoungeClient lounge, String host, int port, final String userName) {
 		this.app = app;
 		this.userName = userName;
+		this.loungeClient = lounge;
 
 
 		setLayout( new BorderLayout() );
@@ -104,6 +108,7 @@ public class Client extends JPanel implements Runnable
 	
 	public void close(){
 		try {
+			loungeClient.close();
 			socket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

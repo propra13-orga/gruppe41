@@ -100,7 +100,7 @@ public class LoungeClient implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if(arg0.getSource()==connectButton){
-			client = new Client(app, ipField.getText(), new Integer(portField.getText()),userName.getText());
+			client = new Client(app, this, ipField.getText(), new Integer(portField.getText()),userName.getText());
 			chatPanel.add(client,BorderLayout.CENTER);
 			clientLayout.show(clientPanel, chatString );
 		}
@@ -112,5 +112,10 @@ public class LoungeClient implements ActionListener{
 			client.close();
 			client = null;
 		}	
+	}
+	public void close(){
+		clientLayout.show(clientPanel, clientStartString);
+		chatPanel.remove(client);
+		client = null;
 	}
 }
