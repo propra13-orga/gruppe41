@@ -40,7 +40,7 @@ public class EndBoss extends GameElement {
 		this.type = EnumSet.of(ElementType.MOVABLE);
 		gei.setSize(getSize());
 		try {
-			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "enemy.png")));
+			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "EndBoss.png")));
 		} catch (IOException e) {
 			gei.setImage(null);
 			e.printStackTrace();
@@ -51,9 +51,8 @@ public class EndBoss extends GameElement {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		//gei.paintComponent(g);
-		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, size.getX(), size.getY());
+		gei.paintComponent(g);
+
 	}
 
 	public void setPosition(Vector2d pos) {
