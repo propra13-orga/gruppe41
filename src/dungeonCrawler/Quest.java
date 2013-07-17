@@ -12,9 +12,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-
 /**
  * Add quests to the Dungeon Crawler in single player mode
  * @author Hucke
@@ -37,7 +34,7 @@ public class Quest{
 	public static String levelStart;
 	public static Vector2d startPos;
 	private static boolean singlePlayerGame;
-	public static int numberOfPlayer;
+	public static int numberOfPlayer = 1;
 	
 	
 	/**
@@ -59,7 +56,7 @@ public class Quest{
 	 * @param level as {@link Integer} as {@link Integer}
 	 */
 	public static void startLevel(int level){
-		if(singlePlayerGame){
+		if(singlePlayerGame||(level==1 && !singlePlayerGame )){
 			startPos = getStart(levelStart);
 			getStart(levelStart);
 			dialogStart = new JDialog();
@@ -110,27 +107,34 @@ public class Quest{
 		 * @param state
 		 */
 		public static void completedMission(boolean state){
-			if(singlePlayerGame){	
-				dialogComplete = new JDialog();
-				dialogComplete = new JDialog();
-				dialogComplete.setLocationRelativeTo(null);
-				dialogComplete.setSize(500,280);
-				JPanel dialogPanel = new JPanel();
-				dialogPanel.setLayout(new BorderLayout());
-				
-				
-				JPanel questPanel = new JPanel();
-				questPanel.setLayout(new BorderLayout());
-				JTextArea textArea = new JTextArea();
-				textArea.setEditable(false);
-				textArea.setPreferredSize(new Dimension(200,200));
-				questPanel.add(textArea, BorderLayout.CENTER);
+			dialogComplete = new JDialog();
+			dialogComplete = new JDialog();
+			dialogComplete.setLocationRelativeTo(null);
+			dialogComplete.setSize(500,280);
+			JPanel dialogPanel = new JPanel();
+			dialogPanel.setLayout(new BorderLayout());
+			
+			
+			JPanel questPanel = new JPanel();
+			questPanel.setLayout(new BorderLayout());
+			JTextArea textArea = new JTextArea();
+			textArea.setEditable(false);
+			textArea.setPreferredSize(new Dimension(200,200));
+			questPanel.add(textArea, BorderLayout.CENTER);
+			
+			if(singlePlayerGame){
 				
 				if(state == true){
 					textArea.setText("Alle Aufgaben wurden erledigt");
 				}
 				else if(state == false){
 					textArea.setText("Es sind nach nicht alle aufgaben erfüllt\n\nDamit du alles erfüllen kannst starte noch mal am Anfang");
+				}
+				
+			}
+			
+				if(level==1 && !singlePlayerGame && numberOfPlayer==1){
+					textArea.setText("Glückwunsch du bist der letzte Überlebende");
 				}
 					
 				
@@ -151,12 +155,13 @@ public class Quest{
 				dialogComplete.add(dialogPanel);
 				//GameLogic.timer.stop();
 				dialogComplete.setVisible(true);
-			}
+			
 			
 		}
 		
-		public void shootOut(int level){
-			if(level==1 && !singlePlayerGame){
+		public static void shootOut(int level){
+			if(level==1 && !singlePlayerGame && numberOfPlayer==1){
+				
 				
 			}
 		}
@@ -306,7 +311,10 @@ public class Quest{
 				default: return null;
 			}
 		}
-		else{
+		else if(!singlePlayerGame && level==1){
+			return "Du sollst der letzte Überlebene sein töte alle Gegner für die Krone des Dungeon"; 
+		}
+		{
 			return null;
 		}
 	}
@@ -360,6 +368,10 @@ public class Quest{
 		singlePlayerGame = state;
 	}
 	
+	/**
+	 * Get state of quest 
+	 * @return as {@link Boolean}
+	 */
 	public static boolean getGameMode(){
 		return singlePlayerGame;
 	}

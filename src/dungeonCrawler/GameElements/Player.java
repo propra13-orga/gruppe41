@@ -18,6 +18,7 @@ import dungeonCrawler.GameEvent;
 import dungeonCrawler.GameLogic;
 import dungeonCrawler.GameObject;
 import dungeonCrawler.LevelLoader;
+import dungeonCrawler.Quest;
 import dungeonCrawler.SettingSet;
 import dungeonCrawler.Vector2d;
 import dungeonCrawler.GameObjects.FireArmor;
@@ -146,7 +147,15 @@ public class Player extends Active {
 			}
 			else {
 				System.out.println("!TOT! (x.x) Leben: " + lives);
-				die(logic);/*
+				if(Quest.getGameMode()){
+					die(logic);
+				}
+				else if(!Quest.getGameMode()){
+					
+				}
+				
+				
+				/*
 				lives--;
 				if(lives < 0){
 					logic.app.currentLevel = 0;
@@ -240,6 +249,9 @@ public class Player extends Active {
 	@Override
 	public void interaction(GameLogic logic, SettingSet settings, BitSet keys) {
 
+		if(Quest.numberOfPlayer==1 && Quest.getLevel()==1){
+			Quest.doneQuest(Quest.getLevel());
+		}		
 		if (movementDelay >= 0) movementDelay -=1;
 		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(settings.MOVE_LEFT)) {// left arrow

@@ -139,7 +139,7 @@ public class App {
 				cp.add(camera);
 				cp.validate();
 				GameLogic.timer.stop();
-				quest.startLevel(currentLevel);
+				Quest.startLevel(currentLevel);
 			}
 		}
 		else {
@@ -172,13 +172,14 @@ public class App {
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
 				cp.validate();
-				serverGameLogic.timer.start();
+				GameLogic.timer.start();
+				Quest.startLevel(currentLevel);
 			}
 		}
 		else {
 			currentLevel = 0;
 			startMainMenu();
-			gameLogic.timer.stop();
+			GameLogic.timer.stop();
 		}
 	}
 
@@ -205,13 +206,13 @@ public class App {
 				//perhaps instead of camera a JPanel containing menu bar and camera
 				cp.add(camera);
 				cp.validate();
-				clientGameLogic.timer.start();
+				GameLogic.timer.start();
 			}
 		}
 		else {
 			currentLevel = 0;
 			startMainMenu();
-			gameLogic.timer.stop();
+			GameLogic.timer.stop();
 		}
 	}
 
