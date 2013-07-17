@@ -140,6 +140,9 @@ public class GameServer extends JPanel {
 		case "/start":
 			start(params);
 			break;
+		case "/count":
+			send(socket, "/count " + sockets.size());
+			break;
 		case "/teleport":
 			teleport(params);
 //			System.out.println(msg);
@@ -165,6 +168,7 @@ public class GameServer extends JPanel {
 			break;
 		}
 	}
+
 	public void addSocket(Socket socket){
 		sockets.put(socket, new State());
 	}
