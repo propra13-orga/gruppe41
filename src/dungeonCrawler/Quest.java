@@ -350,5 +350,9 @@ public class Quest{
 		singlePlayerGame = state;
 	}
 	
+	public static boolean getGameMode(){
+		return singlePlayerGame;
+	}
+	
 
 }
