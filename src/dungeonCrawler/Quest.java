@@ -12,6 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 
 /**
  * Add quests to the Dungeon Crawler in single player mode
@@ -35,6 +37,7 @@ public class Quest{
 	public static String levelStart;
 	public static Vector2d startPos;
 	private static boolean singlePlayerGame;
+	public static int numberOFPlayer;
 	
 	
 	/**
@@ -64,6 +67,7 @@ public class Quest{
 			dialogStart.setLocationRelativeTo(null);
 			JPanel dialogPanel = new JPanel();
 			dialogPanel.setLayout(new BorderLayout());
+			
 			
 			
 			JPanel questPanel = new JPanel();
@@ -149,6 +153,12 @@ public class Quest{
 				dialogComplete.setVisible(true);
 			}
 			
+		}
+		
+		public void shootOut(int level){
+			if(level==1 && !singlePlayerGame){
+				
+			}
 		}
 
 	/**
