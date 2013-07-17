@@ -154,6 +154,7 @@ public class App {
 	 */
 	public void startServerGame(GameServer gs) {
 		// TODO Auto-generated method stub
+		Quest.setGameMode(false);
 		if (currentLevel<level) {
 			//			dungeon[currentLevel].complete = false;
 			gameContent = loader.getLevel();
@@ -185,6 +186,7 @@ public class App {
 	 * @param client as {@link Client}
 	 */
 	public void startClientGame(Client client) {
+		Quest.setGameMode(false);
 		// TODO Auto-generated method stub
 		if (currentLevel<level) {
 			//			dungeon[currentLevel].complete = false;

@@ -55,7 +55,8 @@ public class Exit extends GameElement {
 	public void GameEventPerformed(GameEvent e) {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			if(Quest.doneQuest(Quest.getLevel())){
-				new Quest().completedMission(true);
+				
+				Quest.completedMission(true);
 				e.gameLogic.app.currentLevel += 1;
 				e.gameLogic.app.cp.removeAll();
 				e.gameLogic.app.cp.validate();
@@ -77,7 +78,8 @@ public class Exit extends GameElement {
 				quest.setTimer(false);
 				//e.gameLogic.app.gameContent.getPlayer().setPosition(e.gameLogic.app.gameContent.getPlayer().getPosition().addX(10));
 				e.gameLogic.app.gameContent.getPlayer().setPosition(Quest.startPos);
-				new Quest().completedMission(false);
+				new Quest();
+				Quest.completedMission(false);
 			}
 			
 		}
