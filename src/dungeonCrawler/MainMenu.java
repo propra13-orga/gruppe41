@@ -54,6 +54,7 @@ public class MainMenu extends JPanel {
 		start.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Quest.setGameMode(true);
 				app.startGame();
 			}
 		});

@@ -283,7 +283,7 @@ public class Quest{
 			switch(level){
 				case 0: return 	welcome +
 								"Sammle einen Bogen\n\n" +
-								"Töte alle Teufel\n\n" +
+								"Töte mindestens 5 Teufel\n\n" +
 								"Sammle alle Geldeinheiten";
 				case 1: return 	welcome +
 								"Töte 10 Teufel\n\n" +
@@ -312,7 +312,7 @@ public class Quest{
 		else if (singlePlayerGame){
 			switch (level){
 			case 0:
-				if((getCollectedBow(0)==true) && (getCollectedMoney(0)==2) && (getKilledEnemys(0)==8)){
+				if((getCollectedBow(0)==true) && (getCollectedMoney(0)==2) && (getKilledEnemys(0)>=5)){
 					return true;
 				}
 			case 1:
