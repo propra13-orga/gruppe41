@@ -37,7 +37,7 @@ public class Quest{
 	public static String levelStart;
 	public static Vector2d startPos;
 	private static boolean singlePlayerGame;
-	public static int numberOFPlayer;
+	public static int numberOfPlayer;
 	
 	
 	/**
