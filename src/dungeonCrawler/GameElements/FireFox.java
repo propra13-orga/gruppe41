@@ -76,7 +76,7 @@ public class FireFox extends GameElement {
 		if(e.element instanceof Player && e.type == EventType.COLLISION){
 			System.out.println("autsch!");
 			Player elementPlayer = (Player) e.element;
-			elementPlayer.reduceHealth(30, DamageType.FIRE, e.gameLogic);
+			elementPlayer.reduceHealth(50, DamageType.FIRE, e.gameLogic);
 		}
 		if(e.type == EventType.TIMER){
 			e.gameLogic.moveElement(this, new Vector2d((int)(Math.random()*4-2),(int)(Math.random()*4-2)));
@@ -96,7 +96,13 @@ public class FireFox extends GameElement {
 	}
 
 	public void reduceHealth(int health, DamageType damage, GameLogic logic) {
-		if (damage == DamageType.ICE) {
+		if (damage == DamageType.CONVENTIONAL) {
+			health /= 5;
+		}
+		else if (damage == DamageType.FIRE) {
+			health = 0;
+		}
+		if (health > 0) {
 			if (this.health-health > 0){
 				this.health = this.health-health;
 				System.out.println("FireFox lost " + health + " and has now " + this.health + " Health");

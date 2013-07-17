@@ -96,7 +96,13 @@ public class IceWeasel extends GameElement {
 	}
 
 	public void reduceHealth(int health, DamageType damage, GameLogic logic) {
-		if (damage == DamageType.FIRE) {
+		if (damage == DamageType.CONVENTIONAL) {
+			health /= 5;
+		}
+		else if (damage == DamageType.ICE) {
+			health = 0;
+		}
+		if (health > 0) {
 			if (this.health-health > 0){
 				this.health = this.health-health;
 				System.out.println("IceWeasel lost " + health + " and has now " + this.health + " Health");
