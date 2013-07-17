@@ -302,10 +302,10 @@ public class Quest{
 								"Sammle alle Geldeinheiten";
 				case 1: return 	welcome +
 								"Töte 10 Teufel\n\n" +
-								"Sammle 2 magisches Schild ein\n\n";
+								"Sammle 1 magisches Schild ein\n\n";
 				case 2: return 	welcome +
-								"Sammle 10 Geldeinheien ein\n\n" +
-								"Sammle 10 Manaträne ein\n\n" +
+								"Sammle 5 Geldeinheien ein\n\n" +
+								"Sammle 5 Manaträne ein\n\n" +
 								"Töte 10 Teufel" +
 								"Töte den End Boss";
 				default: return null;
@@ -338,7 +338,7 @@ public class Quest{
 					return true;
 				}
 			case 2:
-				if((getCollectedMoney(2)>=10) && (getCollectedMana(2)>=10) && (getKilledEnemys(2)>=10) && (getKilledEndBoss()>=1)){
+				if((getCollectedMoney(2)>=5) && (getCollectedMana(2)>=5) && (getKilledEnemys(2)>=10) && (getKilledEndBoss()>=1)){
 					return true; 
 				}
 			default: return false;

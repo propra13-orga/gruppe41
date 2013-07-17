@@ -91,7 +91,9 @@ public class Player extends Active {
 
 	@Override
 	public void GameEventPerformed(GameEvent e) {
-		// TODO Auto-generated method stub
+		if(Quest.numberOfPlayer==1 && Quest.getLevel()==1){
+			Quest.doneQuest(Quest.getLevel());
+		}	
 		if(e.type == EventType.COLLISION){
 			if(e.element instanceof CheckPoint){
 				this.checkPoint = this.position;
@@ -249,9 +251,6 @@ public class Player extends Active {
 	@Override
 	public void interaction(GameLogic logic, SettingSet settings, BitSet keys) {
 
-		if(Quest.numberOfPlayer==1 && Quest.getLevel()==1){
-			Quest.doneQuest(Quest.getLevel());
-		}		
 		if (movementDelay >= 0) movementDelay -=1;
 		Vector2d direction = new Vector2d(0,0);
 		if (keys.get(settings.MOVE_LEFT)) {// left arrow

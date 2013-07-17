@@ -40,6 +40,7 @@ public class EndBoss extends GameElement {
 		this.type = EnumSet.of(ElementType.MOVABLE);
 		gei.setSize(getSize());
 		try {
+			//Image from http://zer0.org/daemons/wc/standing_daemon.jpg
 			gei.setImage(ImageIO.read(new File("Graphics" + File.separator + "EndBoss.png")));
 		} catch (IOException e) {
 			gei.setImage(null);
